@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KI-Bewertungsraster-Builder – Joscha Falck</title>
+  <meta name="description" content="11 fertige KI-Bewertungsraster für Lehrkräfte – kostenlos herunterladen oder im Builder anpassen. Alle Raster als DOCX, zwei Versionen: Lehrkraft & Schüler:in.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<header class="site-header" role="banner">
+  <nav class="nav-inner" aria-label="Hauptnavigation">
+    <a href="index.html" class="nav-brand" aria-label="KI-Bewertungsraster-Builder Startseite">
+      KI-Bewertungsraster-Builder
+      <small>Joscha Falck</small>
+    </a>
+    <button class="nav-burger" id="nav-burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
+    <ul class="nav-links" id="nav-links" role="list">
+      <li><a href="index.html" class="active" aria-current="page">Fertige Raster</a></li>
+      <li><a href="builder.html">Raster erstellen</a></li>
+      <li><a href="impressum.html">Impressum</a></li>
+      <li><a href="datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Page Intro -->
+<div class="page-intro">
+  <div class="container">
+    <div class="page-intro-text">
+      <h1>KI-Bewertungsraster</h1>
+      <p>
+        11 fertige Bewertungsraster für den KI-Einsatz im Unterricht – je in einer Lehrkraft- und einer Schüler:in-Version.
+        Jetzt herunterladen oder im Builder individuell anpassen.
+      </p>
+    </div>
+    <div class="page-intro-action">
+      <a href="builder.html" class="btn btn-primary btn-lg">
+        ✏️ Eigenes Raster erstellen →
+      </a>
+    </div>
+  </div>
+</div>
+
+<main id="main-content">
+  <div class="container">
+
+    <!-- Filter -->
+    <div class="filter-bar" role="group" aria-label="Raster nach Schulstufe filtern">
+      <button class="filter-chip active" data-filter="alle" onclick="filterRaster(this, 'alle')">Alle (11)</button>
+      <button class="filter-chip" data-filter="gs" onclick="filterRaster(this, 'gs')">Grundschule (Kl. 3–4)</button>
+      <button class="filter-chip" data-filter="sek1" onclick="filterRaster(this, 'sek1')">Sek. I (Kl. 5–10)</button>
+      <button class="filter-chip" data-filter="sek2" onclick="filterRaster(this, 'sek2')">Sek. II (Kl. 11–13)</button>
+    </div>
+
+    <!-- Loading state -->
+    <div id="loading-state" style="text-align:center; padding: 3rem; color: var(--color-text-muted);">
+      <p>Raster werden geladen …</p>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="cards-grid" id="cards-grid" aria-live="polite" style="display:none;"></div>
+
+    <!-- GS Filter Notice -->
+    <div id="gs-notice" class="notice notice-info" style="display:none; margin-top: 1rem;">
+      <span class="notice-icon">ℹ️</span>
+      <span>Für die Grundschule empfohlen: Raster 01, 02, 04, 07, 09, 10. Die anderen Raster sind konzeptuell für die Sekundarstufe ausgelegt.</span>
+    </div>
+
+  </div>
+</main>
+
+<!-- Preview Modal -->
+<div class="modal-backdrop" id="preview-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modal-title">Raster-Vorschau</h2>
+      <button class="modal-close" onclick="closeModal()" aria-label="Vorschau schließen">✕</button>
+    </div>
+
+    <div class="modal-tabs" role="tablist" aria-label="Version wählen">
+      <button class="modal-tab active" id="tab-lk" role="tab" aria-selected="true" aria-controls="panel-lk" onclick="switchTab('lk')">Lehrkraft-Version</button>
+      <button class="modal-tab su" id="tab-su" role="tab" aria-selected="false" aria-controls="panel-su" onclick="switchTab('su')">Schüler:in-Version</button>
+    </div>
+
+    <div class="modal-body">
+      <div id="panel-lk" role="tabpanel" aria-labelledby="tab-lk">
+        <div id="preview-lk"></div>
+      </div>
+      <div id="panel-su" role="tabpanel" aria-labelledby="tab-su" hidden>
+        <div id="preview-su"></div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <a href="builder.html" id="modal-builder-link" class="btn btn-ghost btn-sm">
+        ✏️ Im Builder anpassen →
+      </a>
+      <div class="d-flex gap-1 flex-wrap">
+        <button class="btn btn-secondary btn-sm" id="dl-lk-btn" onclick="downloadFromModal('lk')">
+          ⬇ LK-Version (DOCX)
+        </button>
+        <button class="btn btn-outline-su btn-sm" id="dl-su-btn" onclick="downloadFromModal('su')">
+          ⬇ SuS-Version (DOCX)
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <span class="cc-badge">
+      <span aria-label="Creative Commons BY">CC BY 4.0</span>
+      Joscha Falck –
+      <a href="https://www.joschafalck.de" target="_blank" rel="noopener">joschafalck.de</a>
+    </span>
+    <nav class="footer-links" aria-label="Footer-Navigation">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <a href="builder.html">Raster erstellen</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- CDN: DOCX Export -->
+<script src="https://cdn.jsdelivr.net/npm/docx@8/build/index.min.js"></script>
+
+<!-- App Scripts -->
+<script src="export-docx.js"></script>
+<script src="app.js"></script>
+
+<script>
+  // Burger Menu
+  document.getElementById('nav-burger').addEventListener('click', function() {
+    const links = document.getElementById('nav-links');
+    const isOpen = links.classList.toggle('open');
+    this.setAttribute('aria-expanded', isOpen);
+  });
+
+  // Close modal on backdrop click
+  document.getElementById('preview-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  // Close modal on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1987 @@
+{
+  "meta": {
+    "version": "1.0",
+    "erstellt": "April 2026",
+    "autor": "Joscha Falck",
+    "lizenz": "CC BY 4.0",
+    "beschreibung": "Wissensbasis für den interaktiven KI-Bewertungsraster-Builder auf joschafalck.de. Enthält 11 fertige Raster sowie einen Formulierungs-Pool für die individuelle Raster-Erstellung.",
+    "raster_fertig_count": 11,
+    "pool_fachunabhaengig_count": 8,
+    "pool_fachspezifisch_count": 10,
+    "pool_gesamt_formulierungen": 576,
+    "stufen_system": {
+      "s1": {
+        "label_lk": "Nicht erfüllt",
+        "punkte": "0",
+        "label_su": "Das kann ich noch nicht sicher"
+      },
+      "s2": {
+        "label_lk": "Teilweise erfüllt",
+        "punkte": "1–2",
+        "label_su": "Das kann ich teilweise"
+      },
+      "s3": {
+        "label_lk": "Weitgehend erfüllt",
+        "punkte": "3–4",
+        "label_su": "Das kann ich schon gut"
+      },
+      "s4": {
+        "label_lk": "Vollständig erfüllt",
+        "punkte": "5",
+        "label_su": "Das kann ich sehr sicher"
+      }
+    },
+    "max_punkte_pro_raster": 20,
+    "jahrgangsstufen": [
+      "klasse-3-4",
+      "klasse-5-7",
+      "klasse-8-10",
+      "klasse-11-13"
+    ],
+    "gs_hinweis": "Grundschul-Varianten (klasse-3-4) ab Klasse 3. Sprachlich vereinfacht, beobachtungsorientiert, ohne Fachjargon. Nicht alle 11 Raster sind für die Grundschule gleich gut geeignet — empfohlen für GS: R01, R02, R04, R07, R09, R10."
+  },
+  "raster_fertig": [
+    {
+      "id": "01",
+      "slug": "prompt-qualitaet",
+      "titel": "Prompt-Qualität",
+      "kompetenzbereich": "Instrumental",
+      "kriterien": [
+        {
+          "name": "Klarheit & Präzision",
+          "lk": {
+            "s1": "Der Prompt ist unklar, unvollständig oder nicht aufgabenbezogen.",
+            "s2": "Der Prompt ist verständlich, aber vage oder zu allgemein. Die Antwort der KI bleibt deshalb unspezifisch.",
+            "s3": "Der Prompt ist klar und verständlich formuliert. Kleinere Unschärfen beeinträchtigen das Ergebnis kaum.",
+            "s4": "Der Prompt ist exakt, präzise und unmissverständlich auf die Aufgabe zugeschnitten. Der Interpretationsspielraum für die KI ist stark reduziert."
+          },
+          "su": {
+            "s1": "Ich habe Schwierigkeiten, meinen Prompt klar zu formulieren.",
+            "s2": "Ich kann einen einfachen Prompt formulieren, auch wenn er manchmal zu allgemein bleibt.",
+            "s3": "Ich kann einen klaren Prompt formulieren, der der KI zeigt, was ich brauche.",
+            "s4": "Ich kann meinen Prompt so präzise formulieren, dass die Antwort der KI sehr gut zu meinem Ziel passt."
+          }
+        },
+        {
+          "name": "Kontext & Zielorientierung",
+          "lk": {
+            "s1": "Kontext und Ziel fehlen vollständig. Die Anfrage ist generisch.",
+            "s2": "Kontext wird angedeutet, aber nicht ausreichend spezifiziert. Das Ziel bleibt teilweise unklar.",
+            "s3": "Kontext und Ziel sind erkennbar. Mindestens ein strukturierendes Element (Rolle, Format o.ä.) ist vorhanden.",
+            "s4": "Präziser Kontext, klar definiertes Ziel und strukturierende Elemente werden gezielt und wirkungsvoll eingesetzt."
+          },
+          "su": {
+            "s1": "Ich habe meinem Prompt noch keinen Kontext gegeben.",
+            "s2": "Ich weiß, dass Kontext wichtig ist, setze ihn aber noch nicht konsequent ein.",
+            "s3": "Ich kann meinem Prompt Kontext und ein klares Ziel geben.",
+            "s4": "Ich kann Kontext, Ziel und Rolle gezielt einsetzen, um die Antwort der KI deutlich zu verbessern."
+          }
+        },
+        {
+          "name": "Iterative Optimierung",
+          "lk": {
+            "s1": "Kein iterativer Prozess erkennbar. Der erste Prompt wurde unverändert übernommen.",
+            "s2": "Nur vereinzelte Versuche ohne erkennbare Strategie. Änderungen sind kaum nachvollziehbar.",
+            "s3": "Mehrere Versuche sind erkennbar. Anpassungen werden vorgenommen und ansatzweise begründet.",
+            "s4": "Der Verfeinerungsprozess ist dokumentiert und zeigt eine klare Strategie sowie Verständnis dafür, wie Formulierungen die Antwort der KI beeinflussen."
+          },
+          "su": {
+            "s1": "Ich habe meinen ersten Prompt noch nicht überarbeitet.",
+            "s2": "Ich habe meinen Prompt mehrfach ausprobiert, aber noch keine klare Strategie entwickelt.",
+            "s3": "Ich kann meinen Prompt auf Basis der Antwort der KI verbessern und Anpassungen ansatzweise begründen.",
+            "s4": "Ich kann meinen Prompt strategisch überarbeiten und den Verbesserungsprozess nachvollziehbar dokumentieren."
+          }
+        },
+        {
+          "name": "Reflexion & Begründung",
+          "lk": {
+            "s1": "Keine Reflexion oder Begründung der Prompt-Entscheidungen vorhanden.",
+            "s2": "Begründungen sind oberflächlich. Die Reflexion beschränkt sich auf Beschreibungen des Vorgehens.",
+            "s3": "Prompt-Entscheidungen werden begründet. Der Zusammenhang zwischen Formulierung und Ergebnis ist erkennbar.",
+            "s4": "Prompt-Entscheidungen werden differenziert begründet und zeigen tiefes Verständnis der Wirkung von Formulierungen."
+          },
+          "su": {
+            "s1": "Ich habe meine Prompt-Entscheidungen noch nicht begründet.",
+            "s2": "Ich kann beschreiben, wie ich vorgegangen bin, finde die Begründung aber noch schwierig.",
+            "s3": "Ich kann erklären, warum ich bestimmte Formulierungen gewählt habe.",
+            "s4": "Ich kann differenziert erklären, wie sich meine Formulierungen auf die Antwort der KI ausgewirkt haben."
+          }
+        }
+      ],
+      "hinweis_lk": "Dieses Raster bewertet die Qualität des Promptens im Rahmen einer KI-gestützten Aufgabe. Es ergänzt fachinhaltliche Bewertungskriterien, ersetzt diese aber nicht.",
+      "hinweis_su": "Dieses Raster bewertet die Qualität des Promptens im Rahmen einer KI-gestützten Aufgabe. Es ergänzt fachinhaltliche Bewertungskriterien, ersetzt diese aber nicht."
+    },
+    {
+      "id": "02",
+      "slug": "ki-prozess-dokumentieren",
+      "titel": "KI-Prozess dokumentieren",
+      "kompetenzbereich": "Instrumental",
+      "kriterien": [
+        {
+          "name": "Vollständigkeit der Dokumentation",
+          "lk": {
+            "s1": "Dokumentation fehlt oder beschränkt sich auf das Endergebnis.",
+            "s2": "Einzelne Prozessschritte sind festgehalten, wesentliche Teile fehlen jedoch.",
+            "s3": "Wesentliche Schritte des KI-gestützten Arbeitsprozesses sind dokumentiert. Kleinere Lücken beeinträchtigen die Nachvollziehbarkeit kaum.",
+            "s4": "Alle Phasen des KI-gestützten Arbeitsprozesses sind lückenlos und nachvollziehbar dokumentiert."
+          },
+          "su": {
+            "s1": "Ich habe meinen Arbeitsprozess noch nicht dokumentiert.",
+            "s2": "Ich kann einzelne Schritte meines Arbeitsprozesses festhalten.",
+            "s3": "Ich kann die wichtigsten Schritte meines KI-gestützten Arbeitsprozesses dokumentieren.",
+            "s4": "Ich kann meinen gesamten KI-gestützten Arbeitsprozess vollständig und lückenlos dokumentieren."
+          }
+        },
+        {
+          "name": "Struktur & Nachvollziehbarkeit",
+          "lk": {
+            "s1": "Kein erkennbarer Aufbau. Die Dokumentation ist nicht nachvollziehbar.",
+            "s2": "Struktur ist ansatzweise erkennbar, aber uneinheitlich oder schwer zu folgen.",
+            "s3": "Dokumentation ist geordnet und im Wesentlichen nachvollziehbar.",
+            "s4": "Die Dokumentation ist klar strukturiert, logisch aufgebaut und für Dritte vollständig nachvollziehbar."
+          },
+          "su": {
+            "s1": "Meine Dokumentation ist noch ungeordnet und schwer nachzuvollziehen.",
+            "s2": "Ich kann meine Schritte aufschreiben, aber die Reihenfolge ist noch nicht immer klar.",
+            "s3": "Ich kann meinen Prozess so dokumentieren, dass andere ihn im Wesentlichen nachvollziehen können.",
+            "s4": "Ich kann meinen Prozess so klar und strukturiert dokumentieren, dass andere ihn vollständig nachvollziehen können."
+          }
+        },
+        {
+          "name": "Prompt- Dokumentation",
+          "lk": {
+            "s1": "Verwendete Prompts wurden nicht dokumentiert.",
+            "s2": "Einzelne Prompts sind aufgeführt, ohne Erläuterung oder Einordnung.",
+            "s3": "Verwendete Prompts sind dokumentiert und ansatzweise erläutert.",
+            "s4": "Prompts sind vollständig dokumentiert, begründet und in den Arbeitsprozess eingebettet."
+          },
+          "su": {
+            "s1": "Ich habe meine Prompts nicht aufgeschrieben.",
+            "s2": "Ich kann einzelne Prompts notieren, erkläre aber noch nicht, warum ich sie so formuliert habe.",
+            "s3": "Ich kann meine Prompts dokumentieren und ansatzweise erklären, warum ich sie so formuliert habe.",
+            "s4": "Ich kann alle verwendeten Prompts vollständig dokumentieren und begründen, warum ich sie so formuliert habe."
+          }
+        },
+        {
+          "name": "Reflexion des Prozesses",
+          "lk": {
+            "s1": "Keine Reflexion des Prozesses erkennbar.",
+            "s2": "Beschreibung des Vorgehens ohne tiefergehende Reflexion.",
+            "s3": "Die eigene Vorgehensweise wird reflektiert; Entscheidungen werden ansatzweise begründet.",
+            "s4": "Der Prozess wird tiefgehend und kritisch reflektiert. Begründungen sind differenziert und zeigen Bewusstsein für Qualität und Grenzen des KI-Einsatzes."
+          },
+          "su": {
+            "s1": "Ich habe noch nicht darüber nachgedacht, wie gut mein Vorgehen war.",
+            "s2": "Ich kann beschreiben, was ich gemacht habe, finde die Bewertung meines Vorgehens aber noch schwierig.",
+            "s3": "Ich kann meinen KI-gestützten Arbeitsprozess beschreiben und einige meiner Entscheidungen begründen.",
+            "s4": "Ich kann meinen Arbeitsprozess tiefgehend reflektieren und differenziert begründen, was gut war und was ich beim nächsten Mal anders machen würde."
+          }
+        }
+      ],
+      "hinweis_lk": "Dieses Raster bewertet die Qualität der Dokumentation eines KI-gestützten Arbeitsprozesses. Es ergänzt fachinhaltliche Bewertungskriterien, ersetzt diese aber nicht.",
+      "hinweis_su": "Dieses Raster bewertet die Qualität der Dokumentation eines KI-gestützten Arbeitsprozesses. Es ergänzt fachinhaltliche Bewertungskriterien, ersetzt diese aber nicht."
+    },
+    {
+      "id": "03",
+      "slug": "ki-ergebnis-analysieren",
+      "titel": "KI-Ergebnis analysieren",
+      "kompetenzbereich": "Analytisch-kritisch",
+      "kriterien": [
+        {
+          "name": "Fehler- identifikation",
+          "lk": {
+            "s1": "Fehler oder Schwächen in der KI-Antwort werden nicht erkannt.",
+            "s2": "Offensichtliche Fehler werden benannt, ohne sie einzuordnen oder zu begründen.",
+            "s3": "Fehler werden identifiziert und in ihrer Bedeutung für das Arbeitsergebnis eingeschätzt.",
+            "s4": "Fehler werden systematisch identifiziert, präzise beschrieben und in ihrer Auswirkung auf das Ergebnis differenziert bewertet."
+          },
+          "su": {
+            "s1": "Ich kann noch keine Fehler in der Antwort der KI erkennen.",
+            "s2": "Ich kann offensichtliche Fehler benennen, finde es aber schwierig zu erklären, warum sie ein Problem sind.",
+            "s3": "Ich kann Fehler in der Antwort der KI erkennen und erklären, welche Auswirkungen sie auf meine Arbeit haben.",
+            "s4": "Ich kann Fehler gezielt suchen, sie genau beschreiben und einschätzen, wie stark sie das Ergebnis beeinflussen."
+          }
+        },
+        {
+          "name": "Einschätzung der Qualität",
+          "lk": {
+            "s1": "Die Qualität der KI-Antwort wird nicht eingeschätzt.",
+            "s2": "Die Antwort der KI wird pauschal als gut oder schlecht bewertet, ohne Begründung.",
+            "s3": "Die Qualität der KI-Antwort wird anhand einzelner Kriterien eingeschätzt und begründet.",
+            "s4": "Die Qualität der KI-Antwort wird kriteriengestützt, differenziert und nachvollziehbar bewertet."
+          },
+          "su": {
+            "s1": "Ich kann die Qualität der KI-Antwort noch nicht einschätzen.",
+            "s2": "Ich kann sagen, ob mir die Antwort der KI gut gefällt, kann das aber noch nicht gut begründen.",
+            "s3": "Ich kann die Qualität der KI-Antwort anhand von Kriterien einschätzen und meine Einschätzung begründen.",
+            "s4": "Ich kann die Qualität der KI-Antwort differenziert und kriteriengestützt bewerten und meine Einschätzung nachvollziehbar erklären."
+          }
+        },
+        {
+          "name": "Erkennen von KI-Grenzen",
+          "lk": {
+            "s1": "Grenzen oder Schwächen der KI werden nicht erkannt oder thematisiert.",
+            "s2": "Es wird ansatzweise erkannt, dass die KI Grenzen hat, ohne dies zu konkretisieren.",
+            "s3": "Grenzen der KI werden im Bezug auf die Aufgabe benannt und erklärt.",
+            "s4": "Grenzen der KI werden differenziert erkannt, aufgabenbezogen beschrieben und in ihrer Relevanz für das eigene Ergebnis eingeschätzt."
+          },
+          "su": {
+            "s1": "Ich habe noch keine Grenzen der KI bei dieser Aufgabe erkannt.",
+            "s2": "Ich weiß, dass die KI nicht immer alles richtig macht, kann aber noch nicht gut sagen, wo die Grenzen liegen.",
+            "s3": "Ich kann erkennen, wo die KI bei dieser Aufgabe an ihre Grenzen stößt, und das erklären.",
+            "s4": "Ich kann die Grenzen der KI bei dieser Aufgabe genau benennen und einschätzen, wie das mein Ergebnis beeinflusst."
+          }
+        },
+        {
+          "name": "Begründung der Analyse",
+          "lk": {
+            "s1": "Keine Begründung der Analyseergebnisse vorhanden.",
+            "s2": "Begründungen sind knapp oder pauschal. Argumentation ist kaum nachvollziehbar.",
+            "s3": "Analyseergebnisse werden begründet. Die Argumentation ist im Wesentlichen nachvollziehbar.",
+            "s4": "Analyseergebnisse werden differenziert und präzise begründet. Die Argumentation ist kohärent und sachlich überzeugend."
+          },
+          "su": {
+            "s1": "Ich habe meine Analyseergebnisse noch nicht begründet.",
+            "s2": "Ich kann meine Einschätzung kurz begründen, finde ausführliche Begründungen aber noch schwierig.",
+            "s3": "Ich kann erklären, warum ich zu meiner Einschätzung gekommen bin.",
+            "s4": "Ich kann meine Analyseergebnisse ausführlich und nachvollziehbar begründen."
+          }
+        }
+      ],
+      "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, Ergebnisse der KI kritisch zu analysieren, Fehler zu erkennen und Grenzen einzuschätzen.",
+      "hinweis_su": "Dieses Raster bewertet die Fähigkeit, Ergebnisse der KI kritisch zu analysieren, Fehler zu erkennen und Grenzen einzuschätzen."
+    },
+    {
+      "id": "04",
+      "slug": "ki-ergebnis-bewerten",
+      "titel": "KI-Ergebnis bewerten & auswählen",
+      "kompetenzbereich": "Analytisch-kritisch",
+      "kriterien": [
+        {
+          "name": "Kriteriengeleitetes Bewerten",
+          "lk": {
+            "s1": "Es werden keine Kriterien für die Bewertung der KI-Ergebnisse herangezogen.",
+            "s2": "Einzelne Kriterien werden erwähnt, aber nicht konsequent angewendet.",
+            "s3": "Die Bewertung der KI-Ergebnisse erfolgt kriteriengestützt und ist im Wesentlichen nachvollziehbar.",
+            "s4": "Die KI-Ergebnisse werden systematisch anhand klar benannter Kriterien bewertet. Stärken und Schwächen werden differenziert herausgearbeitet."
+          },
+          "su": {
+            "s1": "Ich weiß noch nicht, nach welchen Kriterien ich die Antworten der KI bewerten soll.",
+            "s2": "Ich kann einzelne Kriterien benennen, wende sie aber noch nicht konsequent an.",
+            "s3": "Ich kann die Antworten der KI nach Kriterien bewerten und meine Einschätzung begründen.",
+            "s4": "Ich kann die Antworten der KI systematisch nach Kriterien bewerten und Stärken sowie Schwächen klar benennen."
+          }
+        },
+        {
+          "name": "Auswahlkompetenz",
+          "lk": {
+            "s1": "Es wird keine bewusste Auswahl zwischen verschiedenen KI-Ergebnissen getroffen.",
+            "s2": "Eine Auswahl wird getroffen, aber ohne erkennbare Begründung.",
+            "s3": "Die Auswahl zwischen KI-Ergebnissen erfolgt begründet. Der Bezug zur Aufgabenstellung ist erkennbar.",
+            "s4": "Die Auswahl ist differenziert begründet, aufgabenbezogen und zeigt ein klares Urteilsvermögen gegenüber verschiedenen KI-Ergebnissen."
+          },
+          "su": {
+            "s1": "Ich übernehme die erste Antwort der KI, ohne bewusst eine Auswahl zu treffen.",
+            "s2": "Ich kann zwischen verschiedenen Antworten der KI wählen, finde die Begründung aber noch schwierig.",
+            "s3": "Ich kann begründet auswählen, welche Antwort der KI für meine Aufgabe am besten geeignet ist.",
+            "s4": "Ich kann verschiedene Antworten der KI gezielt vergleichen und differenziert begründen, welche ich warum auswähle."
+          }
+        },
+        {
+          "name": "Begründung der Entscheidung",
+          "lk": {
+            "s1": "Keine Begründung für übernommene oder verworfene KI-Ergebnisse vorhanden.",
+            "s2": "Entscheidungen werden knapp begründet. Die Argumentation bleibt an der Oberfläche.",
+            "s3": "Entscheidungen werden nachvollziehbar begründet. Der Zusammenhang zur Aufgabenstellung ist erkennbar.",
+            "s4": "Entscheidungen werden differenziert und präzise begründet. Begründungen zeigen kritisches Urteilsvermögen."
+          },
+          "su": {
+            "s1": "Ich begründe noch nicht, warum ich bestimmte Antworten der KI übernommen oder verworfen habe.",
+            "s2": "Ich kann kurz erklären, warum ich eine Antwort übernommen habe, ausführliche Begründungen fallen mir noch schwer.",
+            "s3": "Ich kann erklären, warum ich bestimmte Antworten der KI übernommen und andere verworfen habe.",
+            "s4": "Ich kann differenziert begründen, welche Antworten der KI ich warum übernommen oder verworfen habe."
+          }
+        },
+        {
+          "name": "Eigenständigkeit der Auswahl",
+          "lk": {
+            "s1": "Die KI-Ergebnisse werden unkritisch und vollständig übernommen.",
+            "s2": "Einzelne Korrekturen oder Anpassungen sind erkennbar, erfolgen aber ohne klare Strategie.",
+            "s3": "Die Schüler:in trifft eigenständige Entscheidungen und übernimmt KI-Ergebnisse nicht unkritisch.",
+            "s4": "Die Schüler:in zeigt eine deutliche und begründete Eigenständigkeit. KI-Ergebnisse werden gezielt eingesetzt, kritisch gefiltert und durch eigene Überlegungen ergänzt."
+          },
+          "su": {
+            "s1": "Ich übernehme die Antworten der KI meistens so, wie sie kommen.",
+            "s2": "Ich passe die Antworten der KI manchmal an, habe aber noch keine klare Strategie dafür.",
+            "s3": "Ich übernehme die Antworten der KI nicht einfach, sondern entscheide eigenständig, was ich verwende.",
+            "s4": "Ich gehe sehr eigenständig mit den Antworten der KI um: Ich filtere sie kritisch und ergänze sie durch eigene Überlegungen."
+          }
+        }
+      ],
+      "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, Ergebnisse der KI kriteriengestützt zu bewerten und begründete Auswahlentscheidungen zu treffen.",
+      "hinweis_su": "Dieses Raster bewertet die Fähigkeit, Ergebnisse der KI kriteriengestützt zu bewerten und begründete Auswahlentscheidungen zu treffen."
+    },
+    {
+      "id": "05",
+      "slug": "ki-ergebnis-ueberarbeiten",
+      "titel": "KI-Ergebnis überarbeiten",
+      "kompetenzbereich": "Analytisch-kritisch",
+      "kriterien": [
+        {
+          "name": "Tiefe & Wirksamkeit der Überarbeitung",
+          "lk": {
+            "s1": "Das Ergebnis der KI wird unverändert übernommen. Keine Überarbeitung erkennbar.",
+            "s2": "Oberflächliche Korrekturen (z.B. Rechtschreibung) sind vorhanden. Eine inhaltliche Überarbeitung, die die Qualität des Ergebnisses verbessert, fehlt.",
+            "s3": "Die Antwort der KI wird inhaltlich überarbeitet. Die Überarbeitung verbessert die Qualität des Ergebnisses erkennbar und ist auf die Aufgabenstellung bezogen.",
+            "s4": "Die Antwort der KI wird tiefgehend und zielgerichtet überarbeitet. Die Überarbeitung verbessert Inhalt, Struktur und Qualität des Ergebnisses deutlich. Das überarbeitete Ergebnis erfüllt die Aufgabenanforderungen sehr gut."
+          },
+          "su": {
+            "s1": "Ich habe die Antwort der KI so übernommen, wie sie war.",
+            "s2": "Ich habe kleinere Änderungen vorgenommen (z.B. Rechtschreibung), aber noch keine inhaltliche Überarbeitung, die das Ergebnis wirklich besser gemacht hat.",
+            "s3": "Ich habe die Antwort der KI inhaltlich überarbeitet und dadurch das Ergebnis erkennbar verbessert.",
+            "s4": "Ich habe die Antwort der KI tiefgehend überarbeitet und das Ergebnis deutlich verbessert. Es passt jetzt sehr gut zur Aufgabe."
+          }
+        },
+        {
+          "name": "Eigenleistungs- anteil",
+          "lk": {
+            "s1": "Ein Eigenleistungsanteil ist nicht erkennbar.",
+            "s2": "Einzelne eigene Gedanken oder Formulierungen sind vorhanden, prägen das Ergebnis aber kaum.",
+            "s3": "Eigene Überlegungen und Formulierungen sind erkennbar und tragen zum Ergebnis bei.",
+            "s4": "Der Eigenleistungsanteil ist deutlich erkennbar. Eigene Ideen, Argumentation oder Formulierungen prägen das Ergebnis maßgeblich."
+          },
+          "su": {
+            "s1": "Ich habe noch keine eigenen Ideen oder Formulierungen eingebracht.",
+            "s2": "Ich habe einzelne eigene Gedanken eingebracht, aber die Antwort der KI dominiert noch.",
+            "s3": "Meine eigenen Überlegungen sind im Ergebnis erkennbar und tragen dazu bei.",
+            "s4": "Meine eigenen Ideen und Formulierungen prägen das Ergebnis deutlich."
+          }
+        },
+        {
+          "name": "Überarbeitungs- strategie",
+          "lk": {
+            "s1": "Keine erkennbare Strategie bei der Überarbeitung. Änderungen wirken zufällig oder unsystematisch.",
+            "s2": "Überarbeitungen zielen ansatzweise auf bestimmte Aspekte, aber ohne erkennbare Priorisierung oder Systematik.",
+            "s3": "Zu überarbeitende Stellen werden identifiziert und gezielt verändert. Eine erkennbare Strategie liegt vor.",
+            "s4": "Die Überarbeitung folgt einer klaren und nachvollziehbaren Strategie. Die Entscheidung, was überarbeitet wird und warum, ist begründbar und zeigt ein klares Qualitätsbewusstsein."
+          },
+          "su": {
+            "s1": "Ich habe einfach drauf losgearbeitet, ohne vorher zu überlegen, was ich ändern will.",
+            "s2": "Ich habe einige Stellen gezielt verändert, bin dabei aber noch nicht sehr systematisch vorgegangen.",
+            "s3": "Ich habe zuerst überlegt, was an der Antwort der KI geändert werden muss, und dann gezielt überarbeitet.",
+            "s4": "Ich bin bei der Überarbeitung klar und strategisch vorgegangen: Ich habe Prioritäten gesetzt und kann erklären, warum ich was in welcher Reihenfolge geändert habe."
+          }
+        },
+        {
+          "name": "Begründung der Überarbeitung",
+          "lk": {
+            "s1": "Keine Begründung der vorgenommenen Änderungen vorhanden.",
+            "s2": "Änderungen werden knapp erwähnt, aber kaum begründet.",
+            "s3": "Vorgenommene Änderungen werden begründet. Der Zusammenhang zur Aufgabe ist erkennbar.",
+            "s4": "Alle wesentlichen Änderungen werden differenziert begründet und zeigen ein klares Qualitätsbewusstsein."
+          },
+          "su": {
+            "s1": "Ich habe noch nicht erklärt, warum ich was geändert habe.",
+            "s2": "Ich kann kurz sagen, was ich geändert habe, finde ausführliche Begründungen aber noch schwierig.",
+            "s3": "Ich kann erklären, warum ich bestimmte Stellen überarbeitet habe.",
+            "s4": "Ich kann alle wichtigen Änderungen differenziert begründen und zeigen, was dadurch besser geworden ist."
+          }
+        }
+      ],
+      "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, Ergebnisse der KI gezielt und qualitätsorientiert zu überarbeiten und den Eigenanteil dabei sichtbar zu machen.",
+      "hinweis_su": "Dieses Raster bewertet die Fähigkeit, Ergebnisse der KI gezielt und qualitätsorientiert zu überarbeiten und den Eigenanteil dabei sichtbar zu machen."
+    },
+    {
+      "id": "06",
+      "slug": "mit-ohne-ki-vergleich",
+      "titel": "Mit-/Ohne-KI-Vergleich",
+      "kompetenzbereich": "Analytisch-kritisch",
+      "kriterien": [
+        {
+          "name": "Qualität des Vergleichs",
+          "lk": {
+            "s1": "Kein Vergleich zwischen KI-gestütztem und eigenständigem Vorgehen erkennbar.",
+            "s2": "Ein Vergleich ist ansatzweise vorhanden, bleibt aber oberflächlich oder einseitig.",
+            "s3": "Beide Vorgehensweisen werden nachvollziehbar beschrieben und gegenübergestellt.",
+            "s4": "Der Vergleich ist präzise, differenziert und bezieht konkrete Aspekte beider Vorgehensweisen systematisch aufeinander."
+          },
+          "su": {
+            "s1": "Ich habe noch nicht verglichen, wie ich mit und ohne KI vorgegangen bin.",
+            "s2": "Ich kann grob beschreiben, was anders war, finde einen genauen Vergleich aber noch schwierig.",
+            "s3": "Ich kann beschreiben, wie ich mit und ohne KI vorgegangen bin, und die Unterschiede benennen.",
+            "s4": "Ich kann beide Vorgehensweisen präzise vergleichen und genau beschreiben, was sich unterscheidet."
+          }
+        },
+        {
+          "name": "Reflexion der Unterschiede",
+          "lk": {
+            "s1": "Unterschiede zwischen den Vorgehensweisen werden nicht reflektiert.",
+            "s2": "Unterschiede werden benannt, aber nicht weiter eingeordnet oder erklärt.",
+            "s3": "Unterschiede werden reflektiert und in ihrer Bedeutung für den Lernprozess eingeschätzt.",
+            "s4": "Unterschiede werden differenziert reflektiert. Auswirkungen auf Denken, Arbeitsweise und Lernprozess werden klar herausgearbeitet."
+          },
+          "su": {
+            "s1": "Ich habe noch nicht darüber nachgedacht, was der Unterschied zwischen beiden Vorgehensweisen bedeutet.",
+            "s2": "Ich kann Unterschiede benennen, finde es aber noch schwierig zu erklären, was sie bedeuten.",
+            "s3": "Ich kann die Unterschiede erklären und einschätzen, was sie für meinen Lernprozess bedeuten.",
+            "s4": "Ich kann die Unterschiede zwischen KI-gestütztem und eigenständigem Arbeiten tiefgehend reflektieren und ihre Bedeutung für mein Lernen erklären."
+          }
+        },
+        {
+          "name": "Bewertung des KI-Mehrwerts",
+          "lk": {
+            "s1": "Kein Urteil über den Mehrwert der KI-Nutzung für diese Aufgabe erkennbar.",
+            "s2": "Der Mehrwert wird pauschal bejaht oder verneint, ohne Begründung.",
+            "s3": "Der Mehrwert der KI wird aufgabenbezogen eingeschätzt und ansatzweise begründet.",
+            "s4": "Der Mehrwert der KI wird differenziert und aufgabenbezogen bewertet. Sowohl Vorteile als auch Nachteile werden klar benannt und abgewogen."
+          },
+          "su": {
+            "s1": "Ich habe noch nicht eingeschätzt, ob die KI bei dieser Aufgabe wirklich geholfen hat.",
+            "s2": "Ich kann sagen, ob die KI hilfreich war, finde die Begründung aber noch schwierig.",
+            "s3": "Ich kann einschätzen, ob und wie die KI bei dieser Aufgabe einen Mehrwert hatte, und das begründen.",
+            "s4": "Ich kann den Mehrwert der KI differenziert bewerten, Vor- und Nachteile abwägen und das überzeugend begründen."
+          }
+        },
+        {
+          "name": "Schlussfolgerung",
+          "lk": {
+            "s1": "Keine Schlussfolgerung aus dem Vergleich erkennbar.",
+            "s2": "Eine Schlussfolgerung ist ansatzweise vorhanden, bleibt aber vage.",
+            "s3": "Eine nachvollziehbare Schlussfolgerung wird gezogen. Bezug zum eigenen Lernprozess ist erkennbar.",
+            "s4": "Die Schlussfolgerung ist differenziert, aufgabenbezogen und zeigt eine klare Einschätzung, für welche Situationen KI sinnvoll eingesetzt werden kann."
+          },
+          "su": {
+            "s1": "Ich habe noch keine Schlussfolgerung aus meinem Vergleich gezogen.",
+            "s2": "Ich kann eine einfache Schlussfolgerung formulieren, finde differenzierte Aussagen aber noch schwierig.",
+            "s3": "Ich kann aus meinem Vergleich eine Schlussfolgerung ziehen und erklären, was ich für meinen Lernprozess gelernt habe.",
+            "s4": "Ich kann aus meinem Vergleich eine differenzierte Schlussfolgerung ziehen und beschreiben, wann und warum KI für mich sinnvoll ist."
+          }
+        }
+      ],
+      "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, KI-gestützte und eigenständige Arbeitsprozesse gezielt zu vergleichen und daraus Schlüsse zu ziehen.",
+      "hinweis_su": "Dieses Raster bewertet die Fähigkeit, KI-gestützte und eigenständige Arbeitsprozesse gezielt zu vergleichen und daraus Schlüsse zu ziehen."
+    },
+    {
+      "id": "07",
+      "slug": "metakognitive-reflexion",
+      "titel": "Metakognitive Reflexion",
+      "kompetenzbereich": "Personell",
+      "kriterien": [
+        {
+          "name": "Selbst- wahrnehmung",
+          "lk": {
+            "s1": "Keine Wahrnehmung des eigenen Lernverhaltens beim KI-Einsatz erkennbar.",
+            "s2": "Das eigene Vorgehen wird beschrieben, aber nicht in Bezug auf das eigene Lernen eingeordnet.",
+            "s3": "Das eigene Lernverhalten beim KI-Einsatz wird wahrgenommen und beschrieben.",
+            "s4": "Das eigene Lernverhalten wird differenziert wahrgenommen. Stärken und Schwächen im Umgang mit KI werden präzise benannt."
+          },
+          "su": {
+            "s1": "Ich habe noch nicht darüber nachgedacht, wie ich beim KI-Einsatz lerne.",
+            "s2": "Ich kann beschreiben, was ich gemacht habe, denke aber noch wenig darüber nach, was das für mein Lernen bedeutet.",
+            "s3": "Ich kann beobachten, wie ich beim KI-Einsatz vorgehe und was das für mein Lernen bedeutet.",
+            "s4": "Ich kann genau beschreiben, wie ich beim KI-Einsatz lerne, was mir gut gelingt und wo ich noch Schwierigkeiten habe."
+          }
+        },
+        {
+          "name": "Prozess- reflexion",
+          "lk": {
+            "s1": "Keine Reflexion des eigenen Lernprozesses erkennbar.",
+            "s2": "Der Lernprozess wird beschrieben, ohne ihn zu bewerten oder zu hinterfragen.",
+            "s3": "Der eigene Lernprozess wird reflektiert. Entscheidungen werden begründet und eingeordnet.",
+            "s4": "Der Lernprozess wird tiefgehend und kritisch reflektiert. Einzelne Entscheidungen werden differenziert begründet und in ihren Auswirkungen eingeschätzt."
+          },
+          "su": {
+            "s1": "Ich habe meinen Lernprozess noch nicht reflektiert.",
+            "s2": "Ich kann beschreiben, wie ich vorgegangen bin, finde es aber noch schwierig, meinen Prozess zu bewerten.",
+            "s3": "Ich kann meinen KI-gestützten Lernprozess reflektieren und einzelne Entscheidungen begründen.",
+            "s4": "Ich kann meinen Lernprozess tiefgehend reflektieren und differenziert einschätzen, was gut gelaufen ist und was ich verbessern könnte."
+          }
+        },
+        {
+          "name": "Lernzuwachs",
+          "lk": {
+            "s1": "Kein Bewusstsein für eigenen Lernzuwachs erkennbar.",
+            "s2": "Ein Lernzuwachs wird benannt, aber kaum konkretisiert.",
+            "s3": "Eigener Lernzuwachs durch den KI-Einsatz wird konkret beschrieben und nachvollziehbar eingeschätzt.",
+            "s4": "Lernzuwachs wird differenziert, konkret und mit Bezug auf spezifische Aspekte des KI-Einsatzes beschrieben."
+          },
+          "su": {
+            "s1": "Ich habe noch nicht eingeschätzt, was ich durch den KI-Einsatz gelernt habe.",
+            "s2": "Ich kann grob sagen, dass ich etwas gelernt habe, finde es aber noch schwierig, das genau zu beschreiben.",
+            "s3": "Ich kann konkret beschreiben, was ich durch den Einsatz der KI gelernt habe.",
+            "s4": "Ich kann meinen Lernzuwachs durch den KI-Einsatz differenziert und konkret beschreiben und erklären, was sich dadurch verändert hat."
+          }
+        },
+        {
+          "name": "Transferfähigkeit",
+          "lk": {
+            "s1": "Keine Übertragung auf zukünftige Lern- oder Arbeitssituationen erkennbar.",
+            "s2": "Ansätze zur Übertragung sind vorhanden, bleiben aber vage.",
+            "s3": "Erkenntnisse werden auf ähnliche Situationen übertragen. Zukünftiger KI-Einsatz wird ansatzweise geplant.",
+            "s4": "Erkenntnisse werden differenziert auf andere Situationen übertragen. Zukünftiger KI-Einsatz wird konkret und reflektiert geplant."
+          },
+          "su": {
+            "s1": "Ich habe noch nicht darüber nachgedacht, was ich für das nächste Mal mitnehme.",
+            "s2": "Ich kann grob sagen, was ich beim nächsten KI-Einsatz anders machen würde.",
+            "s3": "Ich kann Erkenntnisse aus diesem Prozess auf ähnliche Aufgaben übertragen und meinen nächsten KI-Einsatz planen.",
+            "s4": "Ich kann meine Erkenntnisse auf verschiedene Situationen übertragen und konkret beschreiben, wie ich in Zukunft mit KI arbeiten möchte."
+          }
+        }
+      ],
+      "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, den eigenen KI-gestützten Lernprozess zu beobachten, zu reflektieren und daraus Konsequenzen zu ziehen.",
+      "hinweis_su": "Dieses Raster bewertet die Fähigkeit, den eigenen KI-gestützten Lernprozess zu beobachten, zu reflektieren und daraus Konsequenzen zu ziehen."
+    },
+    {
+      "id": "08",
+      "slug": "urteilsvermoegen-ki-sinnhaftigkeit",
+      "titel": "Urteilsvermögen über KI-Sinnhaftigkeit",
+      "kompetenzbereich": "Personell",
+      "kriterien": [
+        {
+          "name": "Situations- einschätzung",
+          "lk": {
+            "s1": "Keine Einschätzung, ob KI für die jeweilige Aufgabe sinnvoll ist, erkennbar.",
+            "s2": "KI-Einsatz wird pauschal bejaht oder abgelehnt, ohne situationsbezogene Begründung.",
+            "s3": "Der KI-Einsatz wird situationsbezogen eingeschätzt. Aufgabenmerkmale werden berücksichtigt.",
+            "s4": "Der KI-Einsatz wird differenziert und kriteriengestützt situationsbezogen eingeschätzt. Aufgabenmerkmale, Lernziele und Rahmenbedingungen fließen in die Einschätzung ein."
+          },
+          "su": {
+            "s1": "Ich setze KI ein, ohne darüber nachzudenken, ob das bei dieser Aufgabe sinnvoll ist.",
+            "s2": "Ich denke manchmal darüber nach, ob KI sinnvoll ist, kann das aber noch nicht gut begründen.",
+            "s3": "Ich kann einschätzen, ob KI bei einer bestimmten Aufgabe sinnvoll ist, und das begründen.",
+            "s4": "Ich kann situationsbezogen und mit klaren Kriterien einschätzen, ob und wie KI bei einer Aufgabe sinnvoll eingesetzt werden kann."
+          }
+        },
+        {
+          "name": "Erkennen von Stärken & Grenzen",
+          "lk": {
+            "s1": "Stärken und Grenzen der KI für die jeweilige Aufgabe werden nicht erkannt.",
+            "s2": "Stärken oder Grenzen der KI werden pauschal benannt, ohne Aufgabenbezug.",
+            "s3": "Stärken und Grenzen der KI werden aufgabenbezogen benannt und erklärt.",
+            "s4": "Stärken und Grenzen der KI werden differenziert und präzise aufgabenbezogen beschrieben. Aussagen sind begründet und zeigen ein reifes Verständnis von KI-Möglichkeiten."
+          },
+          "su": {
+            "s1": "Ich erkenne noch nicht, wo die KI bei dieser Aufgabe stark ist und wo sie Grenzen hat.",
+            "s2": "Ich weiß, dass KI Stärken und Grenzen hat, kann das aber noch nicht gut auf konkrete Aufgaben beziehen.",
+            "s3": "Ich kann beschreiben, wo die KI bei dieser Aufgabe hilfreich ist und wo sie an Grenzen stößt.",
+            "s4": "Ich kann die Stärken und Grenzen der KI für konkrete Aufgaben differenziert beschreiben und begründen."
+          }
+        },
+        {
+          "name": "Begründung des Einsatzes",
+          "lk": {
+            "s1": "Keine Begründung für die Entscheidung, KI einzusetzen oder nicht, vorhanden.",
+            "s2": "Die Entscheidung wird knapp begründet. Argumentation ist kaum nachvollziehbar.",
+            "s3": "Die Entscheidung für oder gegen KI-Einsatz wird aufgabenbezogen begründet.",
+            "s4": "Die Entscheidung wird differenziert, präzise und aufgabenbezogen begründet. Begründungen sind kohärent und überzeugend."
+          },
+          "su": {
+            "s1": "Ich begründe noch nicht, warum ich KI einsetze oder nicht einsetze.",
+            "s2": "Ich kann kurz begründen, warum ich KI eingesetzt oder nicht eingesetzt habe.",
+            "s3": "Ich kann aufgabenbezogen begründen, warum der Einsatz von KI sinnvoll oder nicht sinnvoll war.",
+            "s4": "Ich kann differenziert und überzeugend begründen, warum ich KI bei dieser Aufgabe eingesetzt oder bewusst nicht eingesetzt habe."
+          }
+        },
+        {
+          "name": "Urteilsqualität",
+          "lk": {
+            "s1": "Kein eigenständiges Urteil über den KI-Einsatz erkennbar.",
+            "s2": "Ein Urteil ist ansatzweise vorhanden, bleibt aber pauschal oder unreflektiert.",
+            "s3": "Ein begründetes Urteil über den sinnvollen KI-Einsatz wird formuliert.",
+            "s4": "Das Urteil ist differenziert, sachlich fundiert und zeigt ein reifes Verständnis dafür, wann und warum KI lernförderlich oder lernhinderlich sein kann."
+          },
+          "su": {
+            "s1": "Ich habe noch kein eigenes Urteil darüber, wann KI sinnvoll ist.",
+            "s2": "Ich kann ein einfaches Urteil formulieren, finde differenzierte Urteile aber noch schwierig.",
+            "s3": "Ich kann ein begründetes Urteil darüber formulieren, wann der Einsatz von KI sinnvoll ist.",
+            "s4": "Ich kann ein differenziertes und sachlich fundiertes Urteil darüber formulieren, wann und warum KI beim Lernen hilft oder nicht hilft."
+          }
+        }
+      ],
+      "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, situations- und aufgabenbezogen zu beurteilen, ob und wie der Einsatz von KI sinnvoll ist.",
+      "hinweis_su": "Dieses Raster bewertet die Fähigkeit, situations- und aufgabenbezogen zu beurteilen, ob und wie der Einsatz von KI sinnvoll ist."
+    },
+    {
+      "id": "09",
+      "slug": "ethische-ki-nutzung",
+      "titel": "Ethische KI-Nutzung",
+      "kompetenzbereich": "Personell",
+      "kriterien": [
+        {
+          "name": "Transparenz & Kennzeichnung",
+          "lk": {
+            "s1": "Der KI-Einsatz wird nicht transparent gemacht oder gekennzeichnet.",
+            "s2": "Der KI-Einsatz wird erwähnt, aber nicht nachvollziehbar dargestellt.",
+            "s3": "Der KI-Einsatz wird transparent gemacht und nachvollziehbar gekennzeichnet.",
+            "s4": "Der KI-Einsatz wird vollständig transparent gemacht, präzise beschrieben und nachvollziehbar in das Ergebnis eingebettet."
+          },
+          "su": {
+            "s1": "Ich habe noch nicht kenntlich gemacht, dass ich KI verwendet habe.",
+            "s2": "Ich weiß, dass ich KI-Nutzung kennzeichnen soll, tue das aber noch nicht immer.",
+            "s3": "Ich kennzeichne meinen KI-Einsatz transparent und mache deutlich, welche Teile meiner Arbeit mit KI entstanden sind.",
+            "s4": "Ich mache meinen KI-Einsatz vollständig transparent und kann genau beschreiben, welche Rolle die KI bei meiner Arbeit gespielt hat."
+          }
+        },
+        {
+          "name": "Datenschutz & Verantwortung",
+          "lk": {
+            "s1": "Kein Bewusstsein für Datenschutz oder Verantwortung im Umgang mit KI erkennbar.",
+            "s2": "Datenschutz wird ansatzweise thematisiert, ohne konkrete Konsequenzen zu ziehen.",
+            "s3": "Datenschutzaspekte werden berücksichtigt. Es werden keine personenbezogenen Daten unbedacht eingegeben.",
+            "s4": "Verantwortungsvoller Umgang mit KI bezüglich Datenschutz wird nachvollziehbar beschrieben und differenziert reflektiert."
+          },
+          "su": {
+            "s1": "Ich habe noch nicht darüber nachgedacht, welche Daten ich der KI gebe.",
+            "s2": "Ich weiß, dass ich bei der KI aufpassen soll, welche Daten ich eingebe, tue das aber noch nicht konsequent.",
+            "s3": "Ich achte darauf, keine persönlichen Daten in die KI einzugeben, und begründe das.",
+            "s4": "Ich gehe verantwortungsvoll mit Datenschutz beim KI-Einsatz um und kann erklären, warum das wichtig ist."
+          }
+        },
+        {
+          "name": "Urheberrecht & Quellen",
+          "lk": {
+            "s1": "Kein Bewusstsein für Urheberrechtsfragen beim Einsatz von KI erkennbar.",
+            "s2": "Urheberrechtliche Aspekte werden ansatzweise erwähnt, ohne sie zu vertiefen.",
+            "s3": "Urheberrechtliche Aspekte werden berücksichtigt. KI-generierte Inhalte werden als solche kenntlich gemacht.",
+            "s4": "Urheberrechtliche Aspekte werden differenziert reflektiert. Der Umgang mit KI-generierten Inhalten ist verantwortungsvoll und nachvollziehbar begründet."
+          },
+          "su": {
+            "s1": "Ich habe noch nicht darüber nachgedacht, wer die Rechte an KI-generierten Texten hat.",
+            "s2": "Ich weiß, dass es beim Urheberrecht Fragen zum KI-Einsatz gibt, kenne mich damit aber noch nicht gut aus.",
+            "s3": "Ich berücksichtige Urheberrechtsfragen beim KI-Einsatz und mache KI-generierte Inhalte als solche kenntlich.",
+            "s4": "Ich reflektiere Urheberrechtsfragen beim KI-Einsatz differenziert und gehe verantwortungsvoll mit KI-generierten Inhalten um."
+          }
+        },
+        {
+          "name": "Ethische Reflexion",
+          "lk": {
+            "s1": "Keine ethischen oder sozialen Überlegungen zum KI-Einsatz erkennbar.",
+            "s2": "Ethische Fragen werden oberflächlich erwähnt, ohne sie zu vertiefen.",
+            "s3": "Ethische und soziale Dimensionen des KI-Einsatzes werden reflektiert und ansatzweise begründet.",
+            "s4": "Ethische und soziale Dimensionen werden differenziert reflektiert. Eigene Entscheidungen werden im Hinblick auf ihre gesellschaftliche Bedeutung eingeschätzt."
+          },
+          "su": {
+            "s1": "Ich habe noch nicht über ethische Fragen beim KI-Einsatz nachgedacht.",
+            "s2": "Ich weiß, dass es ethische Fragen zum KI-Einsatz gibt, habe mich damit aber noch wenig beschäftigt.",
+            "s3": "Ich kann ethische und soziale Fragen des KI-Einsatzes benennen und meinen eigenen Umgang daran ausrichten.",
+            "s4": "Ich kann ethische und soziale Dimensionen des KI-Einsatzes differenziert reflektieren und eigene Entscheidungen begründet daran ausrichten."
+          }
+        }
+      ],
+      "hinweis_lk": "Dieses Raster bewertet den verantwortungsvollen Umgang mit KI im Hinblick auf Transparenz, Datenschutz, Urheberrecht und ethische Reflexion.",
+      "hinweis_su": "Dieses Raster bewertet den verantwortungsvollen Umgang mit KI im Hinblick auf Transparenz, Datenschutz, Urheberrecht und ethische Reflexion."
+    },
+    {
+      "id": "10",
+      "slug": "ki-im-lernprozess-portfolio",
+      "titel": "KI im Lernprozess (Portfolio)",
+      "kompetenzbereich": "Integrativ",
+      "kriterien": [
+        {
+          "name": "Kontinuität & Vielfalt",
+          "lk": {
+            "s1": "KI-Einsatz ist nur punktuell oder nicht dokumentiert.",
+            "s2": "KI wird in einzelnen Situationen eingesetzt, ohne erkennbare Entwicklung oder Vielfalt.",
+            "s3": "KI wird über den Lernprozess hinweg in verschiedenen Situationen eingesetzt und dokumentiert.",
+            "s4": "KI wird kontinuierlich, vielfältig und aufgabenbezogen eingesetzt. Die Dokumentation zeigt eine reflektierte Auseinandersetzung über den gesamten Lernprozess."
+          },
+          "su": {
+            "s1": "Ich habe KI nur einmal oder gar nicht eingesetzt.",
+            "s2": "Ich habe KI in einigen Situationen eingesetzt, habe das aber noch nicht systematisch dokumentiert.",
+            "s3": "Ich habe KI in verschiedenen Situationen eingesetzt und dokumentiert.",
+            "s4": "Ich habe KI kontinuierlich und in verschiedenen Situationen eingesetzt und meinen Einsatz durchgehend dokumentiert."
+          }
+        },
+        {
+          "name": "Entwicklung der Kompetenz",
+          "lk": {
+            "s1": "Keine Entwicklung im Umgang mit KI über den Zeitraum erkennbar.",
+            "s2": "Ansätze einer Entwicklung sind erkennbar, werden aber nicht reflektiert.",
+            "s3": "Eine Entwicklung im KI-Einsatz ist erkennbar und wird nachvollziehbar beschrieben.",
+            "s4": "Eine deutliche Kompetenzentwicklung im KI-Einsatz wird differenziert beschrieben und an konkreten Beispielen belegt."
+          },
+          "su": {
+            "s1": "Ich habe noch nicht darüber nachgedacht, ob ich mich im Umgang mit KI weiterentwickelt habe.",
+            "s2": "Ich glaube, ich bin besser geworden im Umgang mit KI, kann das aber noch nicht gut beschreiben.",
+            "s3": "Ich kann beschreiben, wie sich mein Umgang mit KI über den Lernprozess verändert hat.",
+            "s4": "Ich kann meine Kompetenzentwicklung im Umgang mit KI differenziert beschreiben und an konkreten Beispielen zeigen."
+          }
+        },
+        {
+          "name": "Reflexionstiefe im Portfolio",
+          "lk": {
+            "s1": "Keine oder nur oberflächliche Reflexion des KI-Einsatzes im Portfolio erkennbar.",
+            "s2": "KI-Einsatz wird beschrieben, ohne ihn zu hinterfragen oder einzuordnen.",
+            "s3": "KI-Einsatz wird im Portfolio reflektiert. Entscheidungen werden begründet und in den Lernprozess eingeordnet.",
+            "s4": "Der KI-Einsatz wird tiefgehend und kritisch im Portfolio reflektiert. Einzelne Erfahrungen werden differenziert bewertet und mit dem eigenen Lernen verknüpft."
+          },
+          "su": {
+            "s1": "Ich habe meinen KI-Einsatz im Portfolio noch nicht reflektiert.",
+            "s2": "Ich habe aufgeschrieben, was ich mit KI gemacht habe, aber noch wenig darüber nachgedacht.",
+            "s3": "Ich kann meinen KI-Einsatz im Portfolio reflektieren und erklären, was ich dadurch gelernt habe.",
+            "s4": "Ich kann meinen KI-Einsatz im Portfolio tiefgehend reflektieren und differenziert einschätzen, welchen Einfluss KI auf meinen Lernprozess hatte."
+          }
+        },
+        {
+          "name": "Eigenverantwortung & Planung",
+          "lk": {
+            "s1": "Keine eigenverantwortliche Planung des KI-Einsatzes erkennbar.",
+            "s2": "KI wird eingesetzt, ohne erkennbare eigene Planung oder Zielsetzung.",
+            "s3": "KI-Einsatz wird eigenverantwortlich geplant und auf Lernziele bezogen.",
+            "s4": "KI-Einsatz wird selbstständig, zielgerichtet und eigenverantwortlich geplant. Planung und Reflexion sind eng miteinander verknüpft."
+          },
+          "su": {
+            "s1": "Ich setze KI ein, ohne vorher zu planen, wann und wie ich sie nutzen will.",
+            "s2": "Ich plane meinen KI-Einsatz manchmal, aber noch nicht systematisch.",
+            "s3": "Ich plane meinen KI-Einsatz eigenverantwortlich und beziehe ihn auf meine Lernziele.",
+            "s4": "Ich plane meinen KI-Einsatz selbstständig und zielgerichtet und verknüpfe Planung und Reflexion bewusst miteinander."
+          }
+        }
+      ],
+      "hinweis_lk": "Dieses Raster bewertet den reflektierten KI-Einsatz über einen längeren Zeitraum im Rahmen eines Portfolios oder Lernprozesses.",
+      "hinweis_su": "Dieses Raster bewertet den reflektierten KI-Einsatz über einen längeren Zeitraum im Rahmen eines Portfolios oder Lernprozesses."
+    },
+    {
+      "id": "11",
+      "slug": "ki-einsatz-planen",
+      "titel": "KI-Einsatz planen",
+      "kompetenzbereich": "Personell / SRL",
+      "kriterien": [
+        {
+          "name": "Aufgaben- analyse",
+          "lk": {
+            "s1": "Keine Analyse der Aufgabe vor dem KI-Einsatz erkennbar. KI wird ohne Vorüberlegung eingesetzt.",
+            "s2": "Einzelne Aspekte der Aufgabe werden berücksichtigt, aber nicht systematisch daraufhin analysiert, ob und wie KI sinnvoll eingesetzt werden kann.",
+            "s3": "Die Aufgabe wird analysiert. Es wird erkennbar unterschieden, welche Teile mit KI-Unterstützung und welche eigenständig bearbeitet werden sollen.",
+            "s4": "Die Aufgabe wird differenziert analysiert. Möglichkeiten und Grenzen eines KI-Einsatzes werden aufgabenbezogen und begründet abgewogen. Die Analyse ist nachvollziehbar dokumentiert."
+          },
+          "su": {
+            "s1": "Ich habe einfach angefangen, die KI zu nutzen, ohne vorher über die Aufgabe nachzudenken.",
+            "s2": "Ich habe kurz überlegt, was die Aufgabe verlangt, aber noch nicht genau durchdacht, wo KI helfen kann.",
+            "s3": "Ich habe die Aufgabe analysiert und überlegt, welche Teile ich mit KI bearbeiten will und welche ich selbst erledige.",
+            "s4": "Ich habe die Aufgabe sorgfältig analysiert und kann genau begründen, wo KI sinnvoll ist und wo nicht."
+          }
+        },
+        {
+          "name": "Ziel- setzung",
+          "lk": {
+            "s1": "Kein erkennbares Ziel für den KI-Einsatz formuliert. Die Nutzung erfolgt ohne definierten Zweck.",
+            "s2": "Ein Ziel ist ansatzweise erkennbar, aber vage oder nicht explizit formuliert.",
+            "s3": "Ein konkretes Ziel für den KI-Einsatz ist erkennbar formuliert. Es wird deutlich, was die KI leisten soll.",
+            "s4": "Das Ziel für den KI-Einsatz ist präzise und aufgabenbezogen formuliert. Es ist klar, was die KI leisten soll, was die Schüler:in selbst einbringt und woran das Ergebnis gemessen wird."
+          },
+          "su": {
+            "s1": "Ich hatte noch kein klares Ziel dafür, was die KI für mich tun soll.",
+            "s2": "Ich hatte grob im Kopf, was ich von der KI will, aber es war noch nicht genau formuliert.",
+            "s3": "Ich habe vor dem KI-Einsatz ein konkretes Ziel formuliert: Was soll die KI leisten?",
+            "s4": "Ich habe genau geplant, was die KI tun soll, was ich selbst beitrage und woran ich erkenne, ob das Ergebnis gut ist."
+          }
+        },
+        {
+          "name": "Prompt- Planung",
+          "lk": {
+            "s1": "Keine Planung des Vorgehens erkennbar. Der erste Prompt entsteht ohne Vorbereitung.",
+            "s2": "Ansatzweise Überlegungen zur Vorgehensweise erkennbar, aber kein konkreter Plan für die Gestaltung des Prompts oder die Nutzungsstrategie.",
+            "s3": "Das Vorgehen beim KI-Einsatz wird geplant. Grundlegende Überlegungen zur Prompt-Gestaltung oder zur Nutzungsstrategie sind erkennbar.",
+            "s4": "Der KI-Einsatz wird strukturiert geplant. Überlegungen zu Prompt-Gestaltung, Vorgehensweise und möglichen Iterationsschritten sind nachvollziehbar dokumentiert."
+          },
+          "su": {
+            "s1": "Ich habe mir vorher nicht überlegt, wie ich die KI ansprechen will.",
+            "s2": "Ich hatte grob im Kopf, was ich schreiben will, aber keinen konkreten Plan.",
+            "s3": "Ich habe überlegt, wie ich meinen Prompt gestalten will und wie ich vorgehen möchte.",
+            "s4": "Ich habe meinen KI-Einsatz strukturiert geplant: Prompt-Gestaltung, Vorgehen und mögliche nächste Schritte habe ich vorher durchdacht."
+          }
+        },
+        {
+          "name": "Antizipation von Grenzen",
+          "lk": {
+            "s1": "Keine Auseinandersetzung mit möglichen Grenzen der KI oder dem eigenen Beitrag erkennbar.",
+            "s2": "Ansatzweise Bewusstsein für die Grenzen der KI oder die notwendige Eigenleistung vorhanden, ohne konkrete Konsequenzen für die Planung.",
+            "s3": "Grenzen des KI-Einsatzes und der erwartete Eigenleistungsanteil werden vor Beginn der Arbeit eingeschätzt und in der Planung berücksichtigt.",
+            "s4": "Eine differenzierte Antizipation möglicher Schwächen des KI-Einsatzes und des eigenen Beitrags ist erkennbar. Die Planung berücksichtigt, wie mit Lücken oder Fehlern der KI umgegangen wird."
+          },
+          "su": {
+            "s1": "Ich habe vorher nicht darüber nachgedacht, was die KI möglicherweise nicht leisten kann.",
+            "s2": "Ich weiß, dass KI Grenzen hat, habe das beim Planen aber noch nicht wirklich berücksichtigt.",
+            "s3": "Ich habe überlegt, wo die KI an Grenzen stoßen könnte, und geplant, was ich dann selbst machen muss.",
+            "s4": "Ich habe genau durchdacht, was die KI gut kann und was nicht, und meinen Plan daran angepasst – auch für den Fall, dass die KI-Antwort nicht passt."
+          }
+        }
+      ],
+      "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, den Einsatz von KI für eine Aufgabe gezielt zu planen, bevor mit der Arbeit begonnen wird.",
+      "hinweis_su": "Dieses Raster unterstützt die Planung des eigenen KI-Einsatzes vor Beginn einer Aufgabe."
+    }
+  ],
+  "kriterien_pool": {
+    "fachunabhaengig": [
+      {
+        "id": "ki-ideenfindung",
+        "name": "KI zur Ideenfindung nutzen",
+        "kompetenzbereich": "Instrumental",
+        "bloom": "Anwenden",
+        "varianten": {
+          "klasse-3-4": {
+            "lk": {
+              "s1": "KI wird nicht zur Ideenfindung genutzt oder alle Ideen werden direkt übernommen, ohne eigene Auswahl.",
+              "s2": "Schüler:in nutzt KI-Ideen, prüft aber nicht, ob sie zur Aufgabe passen.",
+              "s3": "Schüler:in schaut sich KI-Ideen an und wählt aus, was zur Aufgabe passt.",
+              "s4": "Schüler:in holt gezielt Ideen von der KI, sucht die besten heraus und fügt eigene Ideen hinzu."
+            },
+            "su": {
+              "s1": "Ich habe einfach genommen, was die KI vorgeschlagen hat, und keine eigenen Ideen entwickelt.",
+              "s2": "Ich habe Ideen von der KI genommen, aber nicht nachgedacht, ob sie zu meiner Aufgabe passen.",
+              "s3": "Ich habe die Ideen der KI angeschaut und die ausgesucht, die am besten passen.",
+              "s4": "Ich habe mir von der KI Ideen geben lassen, die besten ausgewählt und noch eigene Ideen dazugeschrieben."
+            }
+          },
+          "klasse-5-7": {
+            "lk": {
+              "s1": "KI wird nicht zur Ideenfindung genutzt oder Ideen werden ungeprüft übernommen.",
+              "s2": "KI wird als Ideenquelle genutzt, aber die generierten Ideen werden nicht bewertet oder angepasst.",
+              "s3": "KI-Ideen werden genutzt und auf die eigene Aufgabe bezogen. Eigene Auswahl ist erkennbar.",
+              "s4": "KI-Ideen werden gezielt eingeholt, kritisch gesichtet und durch eigene Ideen ergänzt. Der eigene Beitrag ist klar erkennbar."
+            },
+            "su": {
+              "s1": "Ich habe keine eigenen Ideen entwickelt oder einfach übernommen, was die KI vorgeschlagen hat.",
+              "s2": "Ich habe Ideen von der KI genommen, aber nicht geschaut, ob sie wirklich zu meiner Aufgabe passen.",
+              "s3": "Ich habe Ideen der KI als Ausgangspunkt genutzt und eigene Ideen ausgewählt, die zur Aufgabe passen.",
+              "s4": "Ich habe gezielt Ideen von der KI gesammelt, die besten ausgewählt und mit eigenen Ideen ergänzt."
+            }
+          },
+          "klasse-8-10": {
+            "lk": {
+              "s1": "KI wird nicht als Kreativwerkzeug eingesetzt oder Ideen werden unreflektiert übernommen.",
+              "s2": "KI-Ideen werden gesammelt, aber nicht systematisch ausgewertet oder mit eigenen Ideen verknüpft.",
+              "s3": "KI wird gezielt zur Ideengenerierung eingesetzt. Ideen werden gesichtet und aufgabenbezogen ausgewählt.",
+              "s4": "KI-Ideen werden strategisch eingeholt und kritisch evaluiert. Eigene kreative Beiträge sind deutlich erkennbar und begründet."
+            },
+            "su": {
+              "s1": "Ich habe KI nicht zur Ideenfindung genutzt oder alles ungeprüft übernommen.",
+              "s2": "Ich habe Ideen von der KI gesammelt, aber kaum bewertet, welche davon wirklich gut sind.",
+              "s3": "Ich habe KI gezielt für Ideen genutzt, die besten ausgewählt und begründet, warum sie zur Aufgabe passen.",
+              "s4": "Ich habe KI strategisch als Ideenquelle eingesetzt, die Ideen kritisch bewertet und durch eigene, begründete Ideen ergänzt."
+            }
+          },
+          "klasse-11-13": {
+            "lk": {
+              "s1": "KI wird nicht als Kreativitätswerkzeug genutzt oder generierte Konzepte werden unreflektiert adaptiert.",
+              "s2": "KI-generierte Ideen werden gesammelt, ohne systematische Evaluation oder kritische Distanz.",
+              "s3": "KI wird als Impulsgeber genutzt. Ideen werden nach aufgabenbezogenen Kriterien ausgewählt und begründet.",
+              "s4": "KI-Ideen werden metodisch eingeholt und anhand expliziter Kriterien evaluiert. Eigenständige konzeptionelle Erweiterungen sind nachvollziehbar dokumentiert."
+            },
+            "su": {
+              "s1": "Ich setze KI nicht kreativ ein oder übernehme Konzepte ohne kritische Auseinandersetzung.",
+              "s2": "Ich nutze KI für Ideen, entwickle aber noch keine systematische Auswahlstrategie.",
+              "s3": "Ich nutze KI gezielt als Impulsgeber, evaluiere Ideen kriterienbasiert und begründe meine Auswahl.",
+              "s4": "Ich setze KI methodisch für Ideengenerierung ein, evaluiere nach expliziten Kriterien und dokumentiere meine konzeptionellen Eigenleistungen nachvollziehbar."
+            }
+          }
+        }
+      },
+      {
+        "id": "ki-als-erklaerer",
+        "name": "KI als Lernbegleitung nutzen",
+        "kompetenzbereich": "Instrumental",
+        "bloom": "Verstehen",
+        "varianten": {
+          "klasse-3-4": {
+            "lk": {
+              "s1": "KI-Erklärungen werden nicht genutzt oder vollständig übernommen, ohne zu prüfen, ob sie verstanden wurden.",
+              "s2": "Schüler:in liest KI-Erklärungen, prüft aber nicht, ob sie stimmen oder verständlich sind.",
+              "s3": "Schüler:in nutzt KI zum Erklären und fragt nach, wenn etwas unklar bleibt.",
+              "s4": "Schüler:in nutzt KI aktiv zum Lernen, stellt Folgefragen und prüft, ob die Erklärung wirklich stimmt."
+            },
+            "su": {
+              "s1": "Ich habe KI nicht zum Erklären genutzt oder habe die Erklärung einfach abgeschrieben, ohne sie zu verstehen.",
+              "s2": "Ich habe die KI-Erklärung gelesen, aber nicht nachgefragt, wenn ich etwas nicht verstanden habe.",
+              "s3": "Ich habe die KI um eine Erklärung gebeten und nachgefragt, wenn etwas unklar war.",
+              "s4": "Ich habe die KI zum Lernen genutzt, Fragen gestellt und am Ende geschaut, ob ich es wirklich verstanden habe."
+            }
+          },
+          "klasse-5-7": {
+            "lk": {
+              "s1": "KI wird nicht als Erklärhilfe genutzt oder Erklärungen werden nicht verstanden und trotzdem übernommen.",
+              "s2": "KI-Erklärungen werden gelesen, aber nicht auf Verständlichkeit oder Richtigkeit geprüft.",
+              "s3": "KI wird gezielt für Erklärungen genutzt. Es wird überprüft, ob die Erklärung verständlich und hilfreich ist.",
+              "s4": "KI-Erklärungen werden aktiv genutzt, auf Verständlichkeit bewertet und bei Bedarf durch Nachfragen verbessert."
+            },
+            "su": {
+              "s1": "Ich habe KI nicht zum Erklären genutzt oder verstehe die Erklärungen nicht wirklich.",
+              "s2": "Ich habe KI-Erklärungen gelesen, aber nicht nachgefragt, wenn ich etwas nicht verstanden habe.",
+              "s3": "Ich nutze KI, um mir Dinge erklären zu lassen, und frage nach, wenn eine Erklärung nicht klar ist.",
+              "s4": "Ich nutze KI aktiv zum Lernen: Ich lasse mir Dinge erklären, prüfe, ob ich es wirklich verstehe, und stelle Folgefragen."
+            }
+          },
+          "klasse-8-10": {
+            "lk": {
+              "s1": "KI wird nicht als Lernwerkzeug genutzt oder Erklärungen werden unkritisch als korrekt akzeptiert.",
+              "s2": "KI-Erklärungen werden rezipiert, aber nicht auf inhaltliche Qualität oder Passung geprüft.",
+              "s3": "KI wird gezielt für Lernfragen eingesetzt. Erklärungen werden auf Verständlichkeit und Korrektheit eingeschätzt.",
+              "s4": "KI wird strategisch als Lernpartner genutzt. Erklärungen werden kritisch bewertet, Unklarheiten durch gezielte Nachfragen aufgelöst."
+            },
+            "su": {
+              "s1": "Ich nutze KI nicht zum Lernen oder nehme Erklärungen an, ohne zu prüfen, ob sie stimmen.",
+              "s2": "Ich lasse mir von KI Dinge erklären, prüfe aber nicht wirklich, ob die Erklärung gut ist.",
+              "s3": "Ich nutze KI gezielt zum Lernen und bewerte, ob Erklärungen verständlich und inhaltlich korrekt sind.",
+              "s4": "Ich setze KI strategisch als Lernbegleitung ein, bewerte Erklärungsqualität und entwickle Verständnis durch gezielte Nachfragen."
+            }
+          },
+          "klasse-11-13": {
+            "lk": {
+              "s1": "KI wird nicht als epistemisches Werkzeug genutzt oder Erklärungen werden unreflektiert internalisiert.",
+              "s2": "KI-Erklärungen werden rezipiert, ohne kritische Evaluation der fachlichen Tiefe oder Korrektheit.",
+              "s3": "KI wird als Lernwerkzeug eingesetzt. Erklärungen werden auf fachliche Qualität und konzeptionelle Richtigkeit eingeschätzt.",
+              "s4": "KI wird als Denkpartner genutzt. Erklärungen werden fachlich evaluiert, Widersprüche identifiziert und eigenes konzeptuelles Verständnis durch Dialog entwickelt."
+            },
+            "su": {
+              "s1": "Ich nutze KI nicht als Lernwerkzeug oder akzeptiere Erklärungen ohne kritische Reflexion.",
+              "s2": "Ich nutze KI-Erklärungen, bewerte aber kaum ihre fachliche Qualität.",
+              "s3": "Ich nutze KI gezielt für fachliche Erklärungen und bewerte, ob sie inhaltlich korrekt und konzeptuell präzise sind.",
+              "s4": "Ich setze KI als epistemischen Gesprächspartner ein, evaluiere Erklärungen fachlich, identifiziere Lücken und entwickle mein Verständnis durch systematisches Nachfragen."
+            }
+          }
+        }
+      },
+      {
+        "id": "ki-ergebnis-verifizieren",
+        "name": "KI-Ergebnis verifizieren (Fact-Checking)",
+        "kompetenzbereich": "Analytisch-kritisch",
+        "bloom": "Analysieren",
+        "varianten": {
+          "klasse-3-4": {
+            "lk": {
+              "s1": "KI-Antworten werden nicht auf Richtigkeit geprüft und direkt übernommen.",
+              "s2": "Schüler:in zweifelt an der KI-Antwort, schaut sie aber nicht nach.",
+              "s3": "Schüler:in überprüft wichtige KI-Informationen mit einer anderen Quelle (z. B. Schulbuch).",
+              "s4": "Schüler:in prüft KI-Antworten gezielt und kann benennen, ob und warum sie stimmen oder nicht stimmen."
+            },
+            "su": {
+              "s1": "Ich habe einfach geglaubt, was die KI gesagt hat, ohne es nachzuschauen.",
+              "s2": "Ich dachte, die KI könnte falsch liegen, habe es aber nicht nachgeschaut.",
+              "s3": "Ich habe im Schulbuch oder woanders nachgeschaut, ob die KI-Antwort stimmt.",
+              "s4": "Ich habe nachgeschaut, ob die KI stimmt, und kann erklären, was richtig und was falsch war."
+            }
+          },
+          "klasse-5-7": {
+            "lk": {
+              "s1": "KI-Ergebnisse werden nicht auf Richtigkeit geprüft.",
+              "s2": "Einzelne Angaben werden überprüft, aber ohne systematisches Vorgehen.",
+              "s3": "Wichtige Fakten aus dem KI-Ergebnis werden mit anderen Quellen verglichen und eingeschätzt.",
+              "s4": "Fakten und Aussagen werden systematisch geprüft, Abweichungen benannt und bei der Weiterarbeit berücksichtigt."
+            },
+            "su": {
+              "s1": "Ich habe nicht überprüft, ob das, was die KI geschrieben hat, stimmt.",
+              "s2": "Ich habe einzelne Dinge nachgeschaut, aber nicht systematisch geprüft.",
+              "s3": "Ich habe wichtige Aussagen der KI mit anderen Quellen verglichen und eingeschätzt, ob sie stimmen.",
+              "s4": "Ich habe die Aussagen der KI systematisch überprüft, Fehler gefunden und erklärt, was ich deshalb geändert habe."
+            }
+          },
+          "klasse-8-10": {
+            "lk": {
+              "s1": "KI-Aussagen werden nicht auf Faktizität geprüft.",
+              "s2": "Einzelne Angaben werden überprüft, aber ohne nachvollziehbare Methodik.",
+              "s3": "Zentrale Fakten und Aussagen werden mit verlässlichen Quellen abgeglichen. Abweichungen werden benannt.",
+              "s4": "KI-Ergebnisse werden systematisch auf Faktizität, Aktualität und Vollständigkeit geprüft. Fehler werden dokumentiert und in der Argumentation berücksichtigt."
+            },
+            "su": {
+              "s1": "Ich habe nicht überprüft, ob die Angaben der KI korrekt sind.",
+              "s2": "Ich habe vereinzelt Dinge nachgeprüft, aber nicht systematisch.",
+              "s3": "Ich habe die wichtigsten Fakten der KI mit verlässlichen Quellen verglichen und Unstimmigkeiten benannt.",
+              "s4": "Ich habe KI-Angaben systematisch auf Korrektheit, Aktualität und Vollständigkeit geprüft und Fehler dokumentiert."
+            }
+          },
+          "klasse-11-13": {
+            "lk": {
+              "s1": "KI-generierte Informationen werden nicht auf epistemische Verlässlichkeit geprüft.",
+              "s2": "Einzelne Behauptungen werden überprüft, ohne systematischen Quellenabgleich.",
+              "s3": "Zentrale Aussagen werden mit wissenschaftlich verlässlichen Quellen abgeglichen. Abweichungen und Limitierungen werden transparent gemacht.",
+              "s4": "KI-Outputs werden methodisch auf Faktizität, Quellenqualität und argumentative Kohärenz geprüft. Erkenntnisse aus dem Verifikationsprozess werden kritisch eingearbeitet."
+            },
+            "su": {
+              "s1": "Ich prüfe KI-Informationen nicht auf ihre epistemische Verlässlichkeit.",
+              "s2": "Ich überprüfe vereinzelt Behauptungen, entwickle aber keine systematische Verifikationsstrategie.",
+              "s3": "Ich gleiche zentrale Aussagen mit wissenschaftlich verlässlichen Quellen ab und mache Abweichungen transparent.",
+              "s4": "Ich prüfe KI-Outputs methodisch auf Faktizität und argumentative Kohärenz und arbeite Erkenntnisse aus dem Verifikationsprozess kritisch ein."
+            }
+          }
+        }
+      },
+      {
+        "id": "ki-dialogfuehrung",
+        "name": "KI-Dialog führen (Multiturner Prompt)",
+        "kompetenzbereich": "Instrumental",
+        "bloom": "Anwenden",
+        "varianten": {
+          "klasse-3-4": {
+            "lk": {
+              "s1": "Schüler:in stellt der KI keine oder unklare Fragen und kann mit der Antwort nichts anfangen.",
+              "s2": "Einfache Fragen werden gestellt, aber bei unklaren Antworten wird nicht nachgehakt.",
+              "s3": "Schüler:in stellt verständliche Fragen und fragt nach, wenn die Antwort nicht passt.",
+              "s4": "Schüler:in fragt die KI klar und präzise, hakt bei unklaren Antworten nach und verbessert die Frage gezielt."
+            },
+            "su": {
+              "s1": "Ich wusste nicht, wie ich die KI fragen soll, und habe die Antwort nicht verstanden.",
+              "s2": "Ich habe einfache Fragen gestellt, aber nicht nochmal gefragt, wenn die Antwort unklar war.",
+              "s3": "Ich habe eine klare Frage gestellt und noch einmal nachgefragt, wenn die Antwort nicht gepasst hat.",
+              "s4": "Ich habe genau erklärt, was ich wissen will, und die Frage nochmal anders gestellt, wenn die Antwort nicht gut war."
+            }
+          },
+          "klasse-5-7": {
+            "lk": {
+              "s1": "Es wird nur ein einzelner Prompt gestellt. Kein Gesprächsaufbau erkennbar.",
+              "s2": "Es gibt mehrere Nachrichten, aber ohne erkennbare Strategie oder Aufbau.",
+              "s3": "Der Dialog mit der KI ist erkennbar aufgebaut: Fragen und Antworten bauen aufeinander auf.",
+              "s4": "Der KI-Dialog ist strategisch geführt: Ausgangsfrage, Vertiefung, Präzisierung und Abschluss sind erkennbar und zielführend."
+            },
+            "su": {
+              "s1": "Ich habe nur eine Frage gestellt und die Antwort übernommen.",
+              "s2": "Ich habe mehrfach geschrieben, aber ohne zu planen, wie das Gespräch aufgebaut ist.",
+              "s3": "Ich habe ein Gespräch mit der KI geführt, bei dem ich nachgefragt und die Antworten weiterentwickelt habe.",
+              "s4": "Ich habe das KI-Gespräch geplant und strukturiert geführt: Ich habe mit einer Grundfrage begonnen, vertieft und am Ende eine gute Antwort erarbeitet."
+            }
+          },
+          "klasse-8-10": {
+            "lk": {
+              "s1": "Kein dialogischer KI-Einsatz erkennbar. Einzelne Prompts ohne Gesprächsstruktur.",
+              "s2": "Mehrere Nachrichten vorhanden, aber ohne erkennbare Dialogstrategie.",
+              "s3": "KI-Dialog ist strukturiert aufgebaut. Folgefragen beziehen sich auf vorherige Antworten und vertiefen das Ergebnis.",
+              "s4": "KI-Dialog ist strategisch und zielgerichtet geführt. Ausgangsfrage, iterative Verfeinerung und kritische Nachfragen führen zu einem qualitativ hochwertigen Ergebnis."
+            },
+            "su": {
+              "s1": "Ich habe keine echte Konversation mit der KI geführt, sondern nur einzelne Prompts eingegeben.",
+              "s2": "Ich habe mehrfach geschrieben, aber das Gespräch hat keine erkennbare Richtung.",
+              "s3": "Ich habe den Dialog mit der KI strukturiert geführt und durch Folgefragen das Ergebnis verbessert.",
+              "s4": "Ich habe einen strategischen Dialog mit der KI geführt: mit gezielten Ausgangsfragen, kritischen Nachfragen und iterativer Verfeinerung."
+            }
+          },
+          "klasse-11-13": {
+            "lk": {
+              "s1": "Kein dialogischer KI-Einsatz. Prompts werden ohne Gesprächsstrategie formuliert.",
+              "s2": "Dialogversuche erkennbar, aber ohne argumentativen Aufbau oder systematische Vertiefung.",
+              "s3": "KI-Dialog wird als Erkenntnisprozess genutzt: Ausgangshypothesen werden durch gezielte Folgeprompts differenziert.",
+              "s4": "KI-Dialog wird methodisch als dialektisches Werkzeug eingesetzt: These, Exploration, kritische Gegenposition und Synthese sind in der Gesprächsführung erkennbar."
+            },
+            "su": {
+              "s1": "Ich nutze KI nicht dialogisch oder formuliere Prompts ohne Gesprächsstrategie.",
+              "s2": "Ich führe Dialoge mit KI, ohne eine systematische Erkenntnisstruktur aufzubauen.",
+              "s3": "Ich nutze KI-Dialoge als Erkenntnisprozess und vertiefe Ausgangsfragen durch strategische Folgeprompts.",
+              "s4": "Ich führe methodische KI-Dialoge mit erkennbarer dialektischer Struktur: Ausgangshypothese, kritische Exploration und reflektierte Synthese."
+            }
+          }
+        }
+      },
+      {
+        "id": "ki-kooperativer-einsatz",
+        "name": "KI in der Gruppenarbeit einsetzen",
+        "kompetenzbereich": "Personell",
+        "bloom": "Anwenden",
+        "varianten": {
+          "klasse-3-4": {
+            "lk": {
+              "s1": "KI wird in der Gruppe nicht oder chaotisch genutzt; kein gemeinsames Vorgehen erkennbar.",
+              "s2": "KI wird in der Gruppe genutzt, aber ohne Absprache. Einzelne arbeiten parallel ohne Zusammenführung.",
+              "s3": "Die Gruppe bespricht, wofür die KI genutzt wird, und teilt die Ergebnisse miteinander.",
+              "s4": "Die Gruppe plant den KI-Einsatz gemeinsam, verteilt Aufgaben und bewertet KI-Ergebnisse zusammen."
+            },
+            "su": {
+              "s1": "Wir haben die KI in der Gruppe benutzt, aber jeder hat einfach gemacht, was er wollte.",
+              "s2": "Wir haben die KI benutzt, aber nicht miteinander geredet, wofür genau.",
+              "s3": "Wir haben besprochen, wofür wir die KI nutzen, und die Ergebnisse zusammen angeschaut.",
+              "s4": "Wir haben gemeinsam überlegt, wie wir die KI einsetzen, uns aufgeteilt und die Ergebnisse zusammen bewertet."
+            }
+          },
+          "klasse-5-7": {
+            "lk": {
+              "s1": "KI wird in der Gruppe nicht gemeinsam genutzt oder einzelne übernehmen Ergebnisse ohne Absprache.",
+              "s2": "KI wird genutzt, aber die Ergebnisse werden nicht gemeinsam besprochen oder bewertet.",
+              "s3": "KI-Ergebnisse werden in der Gruppe geteilt und gemeinsam eingeschätzt.",
+              "s4": "KI wird koordiniert in der Gruppe eingesetzt. Aufgaben werden verteilt, Ergebnisse zusammengeführt und gemeinsam bewertet."
+            },
+            "su": {
+              "s1": "Wir haben KI in der Gruppe nicht gemeinsam genutzt.",
+              "s2": "Wir haben KI genutzt, aber die Ergebnisse nicht zusammen besprochen.",
+              "s3": "Wir haben KI-Ergebnisse in der Gruppe geteilt und gemeinsam geschaut, was davon passt.",
+              "s4": "Wir haben KI in der Gruppe koordiniert eingesetzt: Aufgaben verteilt, Ergebnisse zusammengeführt und gemeinsam bewertet."
+            }
+          },
+          "klasse-8-10": {
+            "lk": {
+              "s1": "KI-Einsatz ist nicht koordiniert. Einzelne nutzen KI ohne Absprache und ohne Einbindung ins Gruppenprodukt.",
+              "s2": "KI wird genutzt, Ergebnisse aber nicht gemeinsam reflektiert oder auf Passung geprüft.",
+              "s3": "KI-Einsatz ist koordiniert. Ergebnisse werden gemeinsam bewertet und sinnvoll ins Gruppenprodukt integriert.",
+              "s4": "KI-Einsatz ist strategisch aufgeteilt und koordiniert. Verschiedene KI-Ergebnisse werden verglichen, bewertet und begründet integriert."
+            },
+            "su": {
+              "s1": "Wir haben KI ohne Absprache genutzt und die Ergebnisse nicht zusammengebracht.",
+              "s2": "Wir haben KI genutzt, aber nicht systematisch bewertet, was davon für unser Gruppenprodukt passt.",
+              "s3": "Wir haben KI koordiniert eingesetzt und Ergebnisse gemeinsam bewertet und integriert.",
+              "s4": "Wir haben KI strategisch aufgeteilt, verschiedene Ergebnisse verglichen und begründet ausgewählt, was ins Gruppenprodukt kommt."
+            }
+          },
+          "klasse-11-13": {
+            "lk": {
+              "s1": "KI-Nutzung ist nicht koordiniert und nicht reflektiert in den Gruppenprozess eingebettet.",
+              "s2": "KI wird genutzt, aber Ergebnisse werden nicht kollaborativ evaluiert oder integriert.",
+              "s3": "KI-Einsatz ist koordiniert und reflektiert. Ergebnisse werden kollaborativ evaluiert und begründet integriert.",
+              "s4": "KI-Einsatz ist methodisch aufgeteilt und koordiniert. Verschiedene Perspektiven und KI-Outputs werden systematisch verglichen, evaluiert und in einem begründeten Syntheseprozess integriert."
+            },
+            "su": {
+              "s1": "Wir koordinieren KI-Nutzung nicht und reflektieren sie nicht im Gruppenprozess.",
+              "s2": "Wir nutzen KI, evaluieren Ergebnisse aber nicht kollaborativ.",
+              "s3": "Wir koordinieren KI-Einsatz und evaluieren Ergebnisse kollaborativ für begründete Integration.",
+              "s4": "Wir teilen KI-Einsatz methodisch auf, vergleichen verschiedene Outputs systematisch und entwickeln im Syntheseprozess begründete Entscheidungen."
+            }
+          }
+        }
+      },
+      {
+        "id": "ki-medien-bewerten",
+        "name": "KI-generierte Medien (Bilder/Grafiken) bewerten",
+        "kompetenzbereich": "Analytisch-kritisch",
+        "bloom": "Bewerten",
+        "varianten": {
+          "klasse-3-4": {
+            "lk": {
+              "s1": "KI-generierte Bilder oder Grafiken werden unkritisch übernommen oder gar nicht verwendet.",
+              "s2": "Schüler:in nutzt KI-Bilder, ohne zu prüfen, ob sie zur Aufgabe passen oder korrekt sind.",
+              "s3": "Schüler:in schaut sich KI-generierte Bilder genau an und prüft, ob sie passen und richtig aussehen.",
+              "s4": "Schüler:in bewertet KI-generierte Bilder gezielt: Passt das Bild? Stimmt es? Was könnte falsch sein?"
+            },
+            "su": {
+              "s1": "Ich habe das KI-Bild einfach genommen, ohne nachzudenken, ob es stimmt oder passt.",
+              "s2": "Ich habe das KI-Bild benutzt, ohne genau hinzuschauen, ob es wirklich richtig ist.",
+              "s3": "Ich habe das KI-Bild angeschaut und überlegt, ob es zur Aufgabe passt und ob es stimmt.",
+              "s4": "Ich habe das KI-Bild genau geprüft: Passt es? Stimmt es? Ich kann erklären, was ich mir dabei gedacht habe."
+            }
+          },
+          "klasse-5-7": {
+            "lk": {
+              "s1": "KI-generierte Bilder oder Grafiken werden nicht auf Inhalt oder Qualität geprüft.",
+              "s2": "KI-Medien werden betrachtet, aber nicht gezielt auf Passigkeit oder Richtigkeit eingeschätzt.",
+              "s3": "KI-generierte Bilder werden auf Passung zur Aufgabe und auf mögliche Fehler geprüft.",
+              "s4": "KI-Medien werden differenziert bewertet: Passigkeit zur Aufgabe, inhaltliche Korrektheit und mögliche Verzerrungen werden benannt."
+            },
+            "su": {
+              "s1": "Ich habe das KI-Bild genommen, ohne es genauer anzuschauen.",
+              "s2": "Ich habe das KI-Bild betrachtet, aber nicht geprüft, ob es wirklich passt.",
+              "s3": "Ich habe geprüft, ob das KI-Bild zur Aufgabe passt und ob es Fehler enthält.",
+              "s4": "Ich habe das KI-Bild genau bewertet: ob es passt, ob es inhaltlich stimmt und ob es vielleicht etwas falsch zeigt."
+            }
+          },
+          "klasse-8-10": {
+            "lk": {
+              "s1": "KI-generierte visuelle Inhalte werden ungeprüft verwendet.",
+              "s2": "KI-Medien werden betrachtet, aber nicht auf inhaltliche Korrektheit oder Verzerrungen geprüft.",
+              "s3": "KI-generierte Bilder/Grafiken werden auf Passigkeit, inhaltliche Korrektheit und potenzielle Verzerrungen eingeschätzt.",
+              "s4": "KI-Medien werden differenziert analysiert: Darstellungsweise, inhaltliche Korrektheit, mögliche Bias und Urheberrechtsfragen werden reflektiert."
+            },
+            "su": {
+              "s1": "Ich übernehme KI-generierte Bilder, ohne sie zu prüfen.",
+              "s2": "Ich schaue mir KI-Bilder an, prüfe sie aber nicht auf Korrektheit oder mögliche Verzerrungen.",
+              "s3": "Ich bewerte KI-Bilder auf Passigkeit, inhaltliche Richtigkeit und mögliche Darstellungsprobleme.",
+              "s4": "Ich analysiere KI-Medien differenziert: Darstellungsweise, inhaltliche Korrektheit, mögliche Bias und Urheberrechtsfragen reflektiere ich bewusst."
+            }
+          },
+          "klasse-11-13": {
+            "lk": {
+              "s1": "KI-generierte visuelle Inhalte werden unreflektiert verwendet.",
+              "s2": "KI-Medien werden oberflächlich geprüft, ohne kritische Auseinandersetzung mit Darstellungsmuster oder Bias.",
+              "s3": "KI-generierte Medien werden kritisch analysiert: Darstellungslogik, inhaltliche Korrektheit und Bias werden benannt.",
+              "s4": "KI-Medien werden methodisch analysiert: Darstellungslogik, inhaltliche Korrektheit, gesellschaftliche Implikationen von Bias und Urheberrechtsfragen werden differenziert reflektiert."
+            },
+            "su": {
+              "s1": "Ich reflektiere KI-generierte visuelle Inhalte nicht kritisch.",
+              "s2": "Ich schaue KI-Medien an, ohne Darstellungsmuster oder gesellschaftliche Implikationen zu analysieren.",
+              "s3": "Ich analysiere KI-Medien kritisch auf Darstellungslogik, inhaltliche Korrektheit und erkennbare Bias.",
+              "s4": "Ich analysiere KI-Medien methodisch: Darstellungslogik, inhaltliche Korrektheit, Bias-Implikationen und Urheberrechtsfragen werden von mir differenziert reflektiert."
+            }
+          }
+        }
+      },
+      {
+        "id": "eigenes-urteil-behaupten",
+        "name": "Eigenes Urteil gegenüber KI-Empfehlung vertreten",
+        "kompetenzbereich": "Personell",
+        "bloom": "Bewerten",
+        "varianten": {
+          "klasse-3-4": {
+            "lk": {
+              "s1": "Schüler:in übernimmt die KI-Einschätzung ohne eigene Meinungsbildung.",
+              "s2": "Schüler:in hat eine eigene Meinung, passt sie aber sofort an, wenn die KI etwas anderes sagt.",
+              "s3": "Schüler:in hält an der eigenen Meinung fest, auch wenn die KI widerspricht, und erklärt warum.",
+              "s4": "Schüler:in vergleicht die eigene Meinung mit der KI-Aussage und begründet klar, warum die eigene Sicht richtig ist."
+            },
+            "su": {
+              "s1": "Ich habe einfach die Meinung der KI übernommen, ohne selbst nachzudenken.",
+              "s2": "Ich hatte eine eigene Meinung, aber als die KI etwas anderes gesagt hat, habe ich meine schnell geändert.",
+              "s3": "Ich bin bei meiner eigenen Meinung geblieben, auch wenn die KI das anders sieht, und habe erklärt warum.",
+              "s4": "Ich habe verglichen, was die KI sagt und was ich denke, und klar erklärt, warum ich meiner eigenen Meinung treu bleibe."
+            }
+          },
+          "klasse-5-7": {
+            "lk": {
+              "s1": "Das KI-Ergebnis wird ohne Bewertung übernommen. Kein eigenes Urteil erkennbar.",
+              "s2": "Ein eigenes Urteil ist ansatzweise erkennbar, wird aber bei Widerspruch zur KI aufgegeben.",
+              "s3": "Ein eigenes Urteil wird formuliert und auch dann aufrechterhalten, wenn es vom KI-Ergebnis abweicht.",
+              "s4": "Ein eigenes, begründetes Urteil wird klar formuliert und bei Abweichung von der KI mit Argumenten verteidigt."
+            },
+            "su": {
+              "s1": "Ich habe das Ergebnis der KI übernommen, auch wenn ich selbst anderer Meinung war.",
+              "s2": "Ich habe manchmal eine eigene Meinung, bin aber unsicher, wenn die KI etwas anderes sagt.",
+              "s3": "Ich behalte mein eigenes Urteil auch dann, wenn die KI etwas anderes vorschlägt.",
+              "s4": "Ich formuliere mein eigenes Urteil und kann es begründen – auch wenn die KI anderer Meinung ist."
+            }
+          },
+          "klasse-8-10": {
+            "lk": {
+              "s1": "KI-Empfehlungen werden unkritisch übernommen. Kein eigenständiges Urteil erkennbar.",
+              "s2": "Ein eigenes Urteil wird ansatzweise formuliert, aber bei Konfrontation mit der KI-Position nicht aufrechterhalten.",
+              "s3": "Ein eigenständiges Urteil wird entwickelt und argumentativ vertreten, auch wenn es der KI widerspricht.",
+              "s4": "Ein differenziertes, begründetes Urteil wird formuliert und auch bei abweichender KI-Empfehlung argumentativ verteidigt. Die eigene Position wird durch Auseinandersetzung mit der KI-Position geschärft."
+            },
+            "su": {
+              "s1": "Ich übernehme KI-Empfehlungen ohne eigene kritische Prüfung.",
+              "s2": "Ich habe manchmal eine eigene Meinung, ändere sie aber schnell, wenn die KI anderer Ansicht ist.",
+              "s3": "Ich entwickle eigenständige Urteile und verteidige sie argumentativ, auch wenn die KI widerspricht.",
+              "s4": "Ich formuliere differenzierte Urteile, verteidige sie begründet und schärfe meine Position durch die Auseinandersetzung mit der KI."
+            }
+          },
+          "klasse-11-13": {
+            "lk": {
+              "s1": "KI-Outputs werden unreflektiert adaptiert. Keine eigenständige Urteilsbildung erkennbar.",
+              "s2": "Eigene Positionen werden formuliert, aber nicht konsistent gegenüber KI-Empfehlungen behauptet.",
+              "s3": "Eigenständige, argumentativ fundierte Urteile werden formuliert und bei Diskrepanz zur KI souverän vertreten.",
+              "s4": "Eigenständige Positionen werden argumentativ entwickelt, gegenüber KI-Empfehlungen souverän behauptet und durch dialektische Auseinandersetzung mit der KI-Position weiterentwickelt."
+            },
+            "su": {
+              "s1": "Ich adaptiere KI-Outputs unreflektiert, ohne eigenständige Urteilsbildung.",
+              "s2": "Ich formuliere eigene Positionen, behaupte sie aber nicht konsistent gegenüber KI-Empfehlungen.",
+              "s3": "Ich entwickle argumentativ fundierte Urteile und verteidige sie souverän gegenüber KI-Empfehlungen.",
+              "s4": "Ich entwickle eigenständige Positionen argumentativ, behaupte sie souverän und schärfe sie durch dialektische Auseinandersetzung mit der KI."
+            }
+          }
+        }
+      },
+      {
+        "id": "ki-ergebnis-praesentieren",
+        "name": "KI-gestützte Ergebnisse präsentieren",
+        "kompetenzbereich": "Instrumental",
+        "bloom": "Erschaffen",
+        "varianten": {
+          "klasse-3-4": {
+            "lk": {
+              "s1": "KI-Ergebnisse werden unreflektiert vorgelesen oder gar nicht in die Präsentation eingebunden.",
+              "s2": "Schüler:in präsentiert KI-Ergebnisse, ohne sie zu erklären oder einzuordnen.",
+              "s3": "Schüler:in präsentiert KI-Ergebnisse und erklärt, was davon stimmt und wie es genutzt wurde.",
+              "s4": "Schüler:in präsentiert KI-Ergebnisse verständlich, erklärt die eigene Auswahl und macht deutlich, was die KI beigetragen hat."
+            },
+            "su": {
+              "s1": "Ich habe einfach vorgelesen, was die KI geschrieben hat, ohne es selbst zu erklären.",
+              "s2": "Ich habe die KI-Ergebnisse gezeigt, aber nicht erklärt, was sie bedeuten.",
+              "s3": "Ich habe erklärt, was die KI herausgefunden hat, und gesagt, was davon stimmt.",
+              "s4": "Ich habe die KI-Ergebnisse vorgestellt, erklärt warum ich sie ausgewählt habe, und gezeigt, was ich selbst dazu beigetragen habe."
+            }
+          },
+          "klasse-5-7": {
+            "lk": {
+              "s1": "KI-Ergebnisse werden präsentiert, ohne dass der KI-Einsatz erklärt oder eingeordnet wird.",
+              "s2": "KI-Einsatz wird erwähnt, aber nicht in die Präsentation eingeordnet.",
+              "s3": "KI-Beiträge werden in der Präsentation transparent benannt und erklärt.",
+              "s4": "KI-Einsatz wird transparent und verständlich in die Präsentation eingebettet. Eigene Leistungen sind klar von KI-Beiträgen unterschieden."
+            },
+            "su": {
+              "s1": "Ich habe nicht erklärt, was ich selbst gemacht habe und was die KI beigetragen hat.",
+              "s2": "Ich habe erwähnt, dass ich KI genutzt habe, aber nicht genau erklärt, wie.",
+              "s3": "Ich habe in meiner Präsentation erklärt, welche Teile mit KI-Hilfe entstanden sind.",
+              "s4": "Ich habe klar gezeigt, was ich selbst erarbeitet habe und was die KI beigetragen hat – und warum ich KI eingesetzt habe."
+            }
+          },
+          "klasse-8-10": {
+            "lk": {
+              "s1": "KI-Beiträge werden in der Präsentation nicht transparent gemacht.",
+              "s2": "KI-Einsatz wird erwähnt, aber nicht eingeordnet oder kritisch reflektiert.",
+              "s3": "KI-Beiträge werden transparent benannt und in der Präsentation kontextualisiert.",
+              "s4": "KI-Einsatz wird vollständig transparent gemacht. Eigenleistung und KI-Beiträge sind klar unterschieden und die Entscheidungen für den KI-Einsatz werden begründet."
+            },
+            "su": {
+              "s1": "Ich mache in meiner Präsentation nicht deutlich, welche Teile mit KI entstanden sind.",
+              "s2": "Ich erwähne KI-Nutzung, ordne sie aber nicht in meine Präsentation ein.",
+              "s3": "Ich mache KI-Beiträge transparent und erkläre, welche Rolle KI in meiner Arbeit gespielt hat.",
+              "s4": "Ich mache Eigenleistung und KI-Beiträge klar sichtbar und begründe, warum und wie ich KI eingesetzt habe."
+            }
+          },
+          "klasse-11-13": {
+            "lk": {
+              "s1": "KI-Beiträge werden in der Präsentation nicht transparent gemacht.",
+              "s2": "KI-Nutzung wird erwähnt, aber nicht methodisch reflektiert oder in den Erkenntnisprozess eingeordnet.",
+              "s3": "KI-Beiträge werden transparent ausgewiesen und methodisch in den Erkenntnisprozess eingeordnet.",
+              "s4": "KI-Einsatz wird vollständig transparent ausgewiesen, methodisch reflektiert und in den epistemischen Prozess der Arbeit eingebettet. Die Grenze zwischen Eigenleistung und KI-Unterstützung ist nachvollziehbar gezogen."
+            },
+            "su": {
+              "s1": "Ich mache KI-Beiträge in meiner Präsentation nicht transparent.",
+              "s2": "Ich weise auf KI-Nutzung hin, ohne sie methodisch zu reflektieren.",
+              "s3": "Ich weise KI-Beiträge transparent aus und ordne sie methodisch in meinen Erkenntnisprozess ein.",
+              "s4": "Ich mache KI-Einsatz vollständig transparent, reflektiere ihn methodisch und ziehe nachvollziehbar die Grenze zwischen Eigenleistung und KI-Unterstützung."
+            }
+          }
+        }
+      }
+    ],
+    "fachspezifisch": {
+      "deutsch": [
+        {
+          "id": "deutsch-textqualitaet-pruefen",
+          "name": "KI-generierten Text auf sprachliche Qualität prüfen",
+          "kontext": "Deutsch – Schreiben, Textproduktion",
+          "bloom": "Analysieren",
+          "varianten": {
+            "klasse-3-4": {
+              "lk": {
+                "s1": "KI-Text wird ohne Prüfung übernommen; Schüler:in erkennt keine Auffälligkeiten.",
+                "s2": "Schüler:in bemerkt einzelne Schwächen im KI-Text, kann sie aber nicht benennen.",
+                "s3": "Schüler:in erkennt, ob KI-Text gut klingt, und kann einzelne Stellen nennen, die komisch oder falsch sind.",
+                "s4": "Schüler:in prüft den KI-Text aufmerksam und benennt Stellen, die falsch, komisch oder unklar klingen, mit kurzer Begründung."
+              },
+              "su": {
+                "s1": "Ich habe den KI-Text einfach abgeschrieben, ohne ihn zu lesen.",
+                "s2": "Ich habe den KI-Text gelesen, aber nicht verstanden, was daran komisch oder falsch ist.",
+                "s3": "Ich habe den KI-Text gelesen und eine Stelle gefunden, die nicht gut klingt.",
+                "s4": "Ich habe den KI-Text genau gelesen und mindestens eine Stelle gefunden, die komisch oder falsch ist, und erklärt warum."
+              }
+            },
+            "klasse-5-7": {
+              "lk": {
+                "s1": "Sprachliche Qualität des KI-Textes wird nicht geprüft.",
+                "s2": "Einzelne sprachliche Auffälligkeiten werden bemerkt, aber nicht begründet.",
+                "s3": "KI-Text wird auf Verständlichkeit, Satzbau und Ausdruck geprüft. Mängel werden benannt.",
+                "s4": "KI-Text wird differenziert auf sprachliche Qualität (Ausdruck, Satzbau, Kohärenz) geprüft. Mängel werden präzise beschrieben und begründet."
+              },
+              "su": {
+                "s1": "Ich habe nicht geschaut, ob der KI-Text sprachlich gut ist.",
+                "s2": "Ich habe einzelne sprachliche Stellen bemerkt, die komisch klingen, kann es aber nicht genau sagen.",
+                "s3": "Ich habe den KI-Text auf Verständlichkeit und Ausdruck geprüft und Stellen benannt, die sprachlich nicht gut sind.",
+                "s4": "Ich habe den KI-Text genau auf Ausdruck, Satzbau und Zusammenhang geprüft und Mängel erklärt."
+              }
+            },
+            "klasse-8-10": {
+              "lk": {
+                "s1": "Sprachliche Qualität des KI-Textes wird nicht eingeschätzt.",
+                "s2": "Einzelne sprachliche Schwächen werden bemerkt, aber ohne systematische Analyse.",
+                "s3": "KI-Text wird auf Ausdruck, Kohärenz und Textsortentypik geprüft. Mängel werden benannt und eingeordnet.",
+                "s4": "KI-Text wird differenziert auf Ausdruckqualität, stilistische Angemessenheit, Kohärenz und Textsortentypik analysiert. Mängel werden präzise beschrieben und eingeordnet."
+              },
+              "su": {
+                "s1": "Ich prüfe den KI-Text nicht auf sprachliche Qualität.",
+                "s2": "Ich bemerke sprachliche Schwächen im KI-Text, kann sie aber nicht systematisch beschreiben.",
+                "s3": "Ich prüfe den KI-Text auf Ausdruck, Zusammenhang und ob er zur geforderten Textsorte passt.",
+                "s4": "Ich analysiere den KI-Text differenziert auf Ausdruckqualität, stilistische Passung und Kohärenz und begründe Mängel."
+              }
+            },
+            "klasse-11-13": {
+              "lk": {
+                "s1": "Sprachlich-stilistische Qualität des KI-Textes wird nicht evaluiert.",
+                "s2": "Einzelne stilistische Auffälligkeiten werden registriert, ohne systematische Einordnung.",
+                "s3": "KI-Text wird systematisch auf stilistische Angemessenheit, Kohärenz und Textsortenkonventionen analysiert.",
+                "s4": "KI-Text wird differenziert auf stilistische Qualität, Kohärenz, Textsortenkonventionen und rhetorische Wirksamkeit analysiert. Mängel werden präzise benannt und kontextuell eingeordnet."
+              },
+              "su": {
+                "s1": "Ich evaluiere die sprachlich-stilistische Qualität des KI-Textes nicht.",
+                "s2": "Ich bemerke stilistische Auffälligkeiten, ohne sie systematisch einzuordnen.",
+                "s3": "Ich analysiere den KI-Text auf stilistische Angemessenheit, Kohärenz und Textsortenkonventionen.",
+                "s4": "Ich analysiere KI-Texte differenziert auf stilistische Qualität, Kohärenz, Textsortenkonventionen und rhetorische Wirksamkeit."
+              }
+            }
+          }
+        },
+        {
+          "id": "deutsch-schreibprozess-ki",
+          "name": "KI im Schreibprozess einsetzen",
+          "kontext": "Deutsch – Schreibprozess, Textentwurf, Überarbeitung",
+          "bloom": "Erschaffen",
+          "varianten": {
+            "klasse-3-4": {
+              "lk": {
+                "s1": "Schüler:in übernimmt den KI-Text vollständig; kein eigenes Schreiben erkennbar.",
+                "s2": "Schüler:in verändert den KI-Text kaum. Eigener Beitrag ist minimal.",
+                "s3": "Schüler:in nutzt die KI als Hilfe, schreibt aber erkennbar selbst. Eigene Formulierungen überwiegen.",
+                "s4": "Schüler:in nutzt KI gezielt für einzelne Hilfen (z. B. einen Satz, eine Idee) und schreibt den Rest selbst."
+              },
+              "su": {
+                "s1": "Ich habe einfach genommen, was die KI geschrieben hat.",
+                "s2": "Ich habe den KI-Text kaum verändert und fast nichts selbst geschrieben.",
+                "s3": "Ich habe mir Hilfe von der KI geholt, aber meinen Text meistens selbst geschrieben.",
+                "s4": "Die KI hat mir an einzelnen Stellen geholfen, aber meinen Text habe ich selbst geschrieben."
+              }
+            },
+            "klasse-5-7": {
+              "lk": {
+                "s1": "KI ersetzt den eigenen Schreibprozess vollständig. Kein eigenständiger Textentwurf erkennbar.",
+                "s2": "KI wird eingesetzt, aber der eigene Schreibprozess (Planen, Entwerfen, Überarbeiten) ist kaum erkennbar.",
+                "s3": "KI unterstützt den Schreibprozess. Phasen des eigenen Planens und Überarbeitens sind erkennbar.",
+                "s4": "KI wird phasenspezifisch eingesetzt (Ideen, Entwurf, Überarbeitung). Der eigene Schreibprozess bleibt dominant und ist dokumentiert."
+              },
+              "su": {
+                "s1": "Ich habe den Text von der KI schreiben lassen, ohne selbst einen Entwurf zu machen.",
+                "s2": "Ich habe mit KI geschrieben, aber meinen eigenen Schreibprozess kaum gezeigt.",
+                "s3": "Ich habe KI beim Schreiben genutzt, aber auch selbst geplant, entworfen und überarbeitet.",
+                "s4": "Ich habe KI gezielt in verschiedenen Schreibphasen genutzt und meinen eigenen Schreibprozess klar dokumentiert."
+              }
+            },
+            "klasse-8-10": {
+              "lk": {
+                "s1": "KI substituiert den eigenen Schreibprozess vollständig.",
+                "s2": "KI wird eingesetzt, aber Schreibprozess-Phasen sind kaum eigenständig erkennbar.",
+                "s3": "KI wird phasenspezifisch in den Schreibprozess integriert. Eigenständige Planungs- und Überarbeitungsschritte sind nachvollziehbar.",
+                "s4": "KI wird reflektiert und phasenspezifisch als Schreibwerkzeug eingesetzt. Der eigene Schreibprozess (Planung, Entwurf, Revision) ist klar dokumentiert und dominant."
+              },
+              "su": {
+                "s1": "KI hat meinen eigenen Schreibprozess ersetzt.",
+                "s2": "Ich nutze KI beim Schreiben, ohne die einzelnen Schreibphasen bewusst zu gestalten.",
+                "s3": "Ich integriere KI phasenspezifisch in meinen Schreibprozess und dokumentiere eigene Planungs- und Überarbeitungsschritte.",
+                "s4": "Ich nutze KI reflektiert in spezifischen Schreibphasen und dokumentiere meinen eigenständigen Schreibprozess klar."
+              }
+            },
+            "klasse-11-13": {
+              "lk": {
+                "s1": "KI substituiert den individuellen Schreibprozess.",
+                "s2": "KI wird eingesetzt, ohne differenzierten Bezug zu Schreibprozess-Phasen oder eigenständiger Textentwicklung.",
+                "s3": "KI wird methodisch in den Schreibprozess integriert. Eigenständige Planungs-, Entwurfs- und Revisionsphasen sind nachvollziehbar dokumentiert.",
+                "s4": "KI wird methodisch und phasenspezifisch als Schreibwerkzeug eingesetzt. Die Interaktion zwischen eigenem Schreibprozess und KI-Unterstützung ist reflektiert dokumentiert und zeigt ein souveränes Textproduktionsverständnis."
+              },
+              "su": {
+                "s1": "KI substituiert meinen Schreibprozess.",
+                "s2": "Ich nutze KI ohne differenzierten Bezug zu Schreibprozess-Phasen.",
+                "s3": "Ich integriere KI methodisch in meinen Schreibprozess und dokumentiere eigenständige Planungs-, Entwurfs- und Revisionsphasen.",
+                "s4": "Ich nutze KI methodisch und phasenspezifisch und dokumentiere die Interaktion zwischen meinem Schreibprozess und KI-Unterstützung reflektiert."
+              }
+            }
+          }
+        }
+      ],
+      "englisch": [
+        {
+          "id": "englisch-uebersetzung-pruefen",
+          "name": "KI-Übersetzungen prüfen und bewerten",
+          "kontext": "Englisch/Fremdsprachen – Übersetzung, Textarbeit",
+          "bloom": "Bewerten",
+          "varianten": {
+            "klasse-3-4": {
+              "lk": {
+                "s1": "KI-Übersetzung wird ungeprüft übernommen. Kein Vergleich mit bekannten Vokabeln oder Strukturen.",
+                "s2": "Schüler:in liest KI-Übersetzung, erkennt aber keine möglichen Fehler.",
+                "s3": "Schüler:in vergleicht KI-Übersetzung mit bekannten Vokabeln und bemerkt, wenn etwas nicht stimmt.",
+                "s4": "Schüler:in prüft KI-Übersetzung mit bekannten Vokabeln oder dem Wörterbuch und benennt, was anders klingt."
+              },
+              "su": {
+                "s1": "Ich habe einfach die Übersetzung der KI abgeschrieben, ohne nachzudenken.",
+                "s2": "Ich habe die Übersetzung gelesen, aber nicht geschaut, ob die Wörter stimmen.",
+                "s3": "Ich habe nachgeschaut, ob ich die Wörter der KI schon kenne, und bemerkt, wenn etwas seltsam war.",
+                "s4": "Ich habe die KI-Übersetzung überprüft und erklärt, was ich selbst anders gesagt hätte."
+              }
+            },
+            "klasse-5-7": {
+              "lk": {
+                "s1": "KI-Übersetzungen werden ungeprüft übernommen.",
+                "s2": "Einzelne Fehler werden bemerkt, aber nicht systematisch geprüft.",
+                "s3": "KI-Übersetzungen werden auf offensichtliche Fehler und Sinnhaftigkeit geprüft.",
+                "s4": "KI-Übersetzungen werden auf Richtigkeit, Natürlichkeit und Textsortenangemessenheit geprüft und Verbesserungen vorgenommen."
+              },
+              "su": {
+                "s1": "Ich habe die KI-Übersetzung einfach übernommen.",
+                "s2": "Ich habe einzelne Stellen nachgeschaut, aber nicht alles geprüft.",
+                "s3": "Ich habe die KI-Übersetzung auf Fehler und Verständlichkeit geprüft.",
+                "s4": "Ich habe die KI-Übersetzung auf Richtigkeit, natürlichen Klang und Passung zur Textsorte geprüft und verbessert."
+              }
+            },
+            "klasse-8-10": {
+              "lk": {
+                "s1": "KI-Übersetzungen werden unkritisch verwendet.",
+                "s2": "Einzelne Übersetzungsfehler werden bemerkt, ohne systematische Analyse.",
+                "s3": "KI-Übersetzungen werden auf Grammatik, Idiomatik und Textsortentypik geprüft.",
+                "s4": "KI-Übersetzungen werden differenziert analysiert: Grammatik, Idiomatik, Register und Textsortentypik. Abweichungen werden begründet korrigiert."
+              },
+              "su": {
+                "s1": "Ich übernehme KI-Übersetzungen unkritisch.",
+                "s2": "Ich bemerke Übersetzungsfehler, prüfe aber nicht systematisch.",
+                "s3": "Ich prüfe KI-Übersetzungen auf Grammatik, idiomatischen Ausdruck und Textsortenpassung.",
+                "s4": "Ich analysiere KI-Übersetzungen differenziert auf Grammatik, Idiomatik und Register und begründe Korrekturen."
+              }
+            },
+            "klasse-11-13": {
+              "lk": {
+                "s1": "KI-Übersetzungen werden unreflektiert adaptiert.",
+                "s2": "Übersetzungsmängel werden identifiziert, ohne systematische linguistische Analyse.",
+                "s3": "KI-Übersetzungen werden linguistisch analysiert: Grammatik, Idiomatik, Register und pragmatische Angemessenheit.",
+                "s4": "KI-Übersetzungen werden differenziert auf Grammatik, Idiomatik, Register, pragmatische Angemessenheit und stilistische Qualität analysiert. Begründete Überarbeitungen zeigen souveräne Sprachkompetenz."
+              },
+              "su": {
+                "s1": "Ich adaptiere KI-Übersetzungen unreflektiert.",
+                "s2": "Ich identifiziere Übersetzungsmängel ohne systematische linguistische Analyse.",
+                "s3": "Ich analysiere KI-Übersetzungen linguistisch auf Grammatik, Idiomatik, Register und pragmatische Angemessenheit.",
+                "s4": "Ich analysiere KI-Übersetzungen differenziert auf alle linguistischen Ebenen und belege souveräne Sprachkompetenz durch begründete Überarbeitungen."
+              }
+            }
+          }
+        }
+      ],
+      "geschichte-gpg": [
+        {
+          "id": "geschichte-quellenkritik-ki",
+          "name": "KI-Rechercheergebnisse quellenkritisch prüfen",
+          "kontext": "Geschichte/GPG – Quellenarbeit, historische Methode",
+          "bloom": "Analysieren",
+          "varianten": {
+            "klasse-3-4": {
+              "lk": {
+                "s1": "KI-Informationen zu geschichtlichen Themen werden ungeprüft übernommen.",
+                "s2": "Schüler:in nimmt KI-Information zur Kenntnis, prüft sie aber nicht am Schulbuch.",
+                "s3": "Schüler:in vergleicht KI-Information mit dem Schulbuch und bemerkt Unterschiede.",
+                "s4": "Schüler:in kann benennen, wenn KI und Schulbuch unterschiedliche Informationen geben, und beschreibt den Unterschied."
+              },
+              "su": {
+                "s1": "Ich habe einfach geglaubt, was die KI über das Thema gesagt hat.",
+                "s2": "Ich habe die KI-Information gelesen, aber nicht im Schulbuch nachgeschaut.",
+                "s3": "Ich habe nachgeschaut, ob das, was die KI sagt, auch im Schulbuch steht.",
+                "s4": "Ich habe bemerkt, wenn KI und Schulbuch etwas Verschiedenes sagen, und das aufgeschrieben."
+              }
+            },
+            "klasse-5-7": {
+              "lk": {
+                "s1": "KI-Informationen werden nicht auf Herkunft oder Richtigkeit geprüft.",
+                "s2": "Einzelne Informationen werden hinterfragt, aber nicht systematisch auf Quellen zurückgeführt.",
+                "s3": "KI-Ergebnisse werden mit bekannten Quellen verglichen. Auffälligkeiten werden benannt.",
+                "s4": "KI-Ergebnisse werden systematisch auf Quellenbasis und Faktizität geprüft. Unterschiede zu verlässlichen Quellen werden begründet dargestellt."
+              },
+              "su": {
+                "s1": "Ich habe die Informationen der KI nicht überprüft.",
+                "s2": "Ich habe einzelne Dinge nachgeschaut, aber nicht systematisch auf Quellen geprüft.",
+                "s3": "Ich habe die Informationen der KI mit bekannten Quellen verglichen und Unterschiede benannt.",
+                "s4": "Ich habe die KI-Informationen systematisch überprüft und erklärt, wenn etwas von verlässlichen Quellen abwich."
+              }
+            },
+            "klasse-8-10": {
+              "lk": {
+                "s1": "KI-Informationen werden nicht quellenkritisch eingeordnet.",
+                "s2": "Quellenaspekte werden angesprochen, aber nicht systematisch auf KI-Ergebnisse angewendet.",
+                "s3": "KI-Rechercheergebnisse werden quellenkritisch eingeordnet: Herkunft, Verlässlichkeit und Perspektivität werden berücksichtigt.",
+                "s4": "KI-Ergebnisse werden historisch-methodisch geprüft: Quellenherkunft, Perspektivität, mögliche Überlieferungsverzerrungen und Aktualität werden differenziert eingeordnet."
+              },
+              "su": {
+                "s1": "Ich prüfe KI-Informationen nicht quellenkritisch.",
+                "s2": "Ich erwähne Quellenaspekte, wende sie aber nicht systematisch auf KI-Ergebnisse an.",
+                "s3": "Ich prüfe KI-Ergebnisse quellenkritisch auf Herkunft, Verlässlichkeit und Perspektivität.",
+                "s4": "Ich prüfe KI-Ergebnisse historisch-methodisch auf Quellenherkunft, Perspektivität und mögliche Verzerrungen."
+              }
+            },
+            "klasse-11-13": {
+              "lk": {
+                "s1": "KI-Outputs werden nicht historisch-methodisch eingeordnet.",
+                "s2": "Quellenkritische Aspekte werden benannt, ohne systematische Anwendung auf KI-generierte Inhalte.",
+                "s3": "KI-generierte historische Inhalte werden methodisch eingeordnet: Quellenherkunft, Überlieferungsproblematik und Deutungsperspektiven werden reflektiert.",
+                "s4": "KI-Outputs werden historisch-methodisch und erkenntniskritisch eingeordnet: Konstruiertheit historischer Darstellung, mögliche Verzerrungen in Trainingsdaten und Grenzen der KI bei der Interpretation historischer Quellen werden differenziert reflektiert."
+              },
+              "su": {
+                "s1": "Ich ordne KI-Outputs nicht historisch-methodisch ein.",
+                "s2": "Ich benenne quellenkritische Aspekte, wende sie aber nicht systematisch an.",
+                "s3": "Ich ordne KI-generierte historische Inhalte methodisch ein und reflektiere Quellenherkunft und Deutungsperspektiven.",
+                "s4": "Ich ordne KI-Outputs historisch-methodisch und erkenntniskritisch ein, reflektiere Verzerrungsrisiken und die Grenzen von KI bei historischer Interpretation."
+              }
+            }
+          }
+        },
+        {
+          "id": "gpg-multiperspektivitaet",
+          "name": "KI zur Multiperspektivität nutzen",
+          "kontext": "Geschichte/GPG – Politische Bildung, Multiperspektivität",
+          "bloom": "Analysieren",
+          "varianten": {
+            "klasse-3-4": {
+              "lk": {
+                "s1": "Nur eine Sichtweise (z. B. der KI) wird wahrgenommen; andere Perspektiven bleiben unsichtbar.",
+                "s2": "Schüler:in nimmt eine weitere Sichtweise wahr, kann sie aber nicht von der eigenen unterscheiden.",
+                "s3": "Schüler:in erkennt, dass verschiedene Menschen ein Thema unterschiedlich sehen, und benennt zwei Sichtweisen.",
+                "s4": "Schüler:in vergleicht mehrere Sichtweisen aus der KI mit eigenen Überlegungen und erklärt, warum es verschiedene Meinungen gibt."
+              },
+              "su": {
+                "s1": "Ich habe nur die eine Sichtweise der KI gelesen und keine anderen Meinungen gesucht.",
+                "s2": "Ich habe gehört, dass es verschiedene Meinungen gibt, aber nicht verstanden, warum.",
+                "s3": "Ich habe nachgeschaut, was verschiedene Menschen zu dem Thema denken, und zwei Sichtweisen aufgeschrieben.",
+                "s4": "Ich habe verglichen, was die KI sagt, und was verschiedene Menschen denken, und erklärt, warum es verschiedene Meinungen gibt."
+              }
+            },
+            "klasse-5-7": {
+              "lk": {
+                "s1": "KI liefert nur eine Perspektive, weitere werden nicht eingeholt oder berücksichtigt.",
+                "s2": "KI wird für mehrere Perspektiven genutzt, diese werden aber nicht unterschieden oder eingeordnet.",
+                "s3": "KI wird gezielt genutzt, um verschiedene Perspektiven auf ein Thema zu erhalten. Unterschiede werden benannt.",
+                "s4": "Verschiedene Perspektiven werden mit Hilfe der KI erarbeitet, verglichen und in ihrer jeweiligen Aussageabsicht eingeordnet."
+              },
+              "su": {
+                "s1": "Ich habe nur eine Seite des Themas von der KI bekommen.",
+                "s2": "Ich habe verschiedene Perspektiven geholt, aber nicht erklärt, was der Unterschied ist.",
+                "s3": "Ich habe verschiedene Perspektiven mit KI erarbeitet und die Unterschiede beschrieben.",
+                "s4": "Ich habe verschiedene Perspektiven mit KI erarbeitet, verglichen und erklärt, warum jede Seite so denkt."
+              }
+            },
+            "klasse-8-10": {
+              "lk": {
+                "s1": "KI liefert einseitige Darstellungen, die nicht hinterfragt werden.",
+                "s2": "Mehrere Perspektiven werden abgerufen, aber nicht systematisch eingeordnet.",
+                "s3": "KI wird gezielt zur Erarbeitung verschiedener Perspektiven eingesetzt. Interessen und Positionen werden unterschieden.",
+                "s4": "KI wird methodisch zur Multiperspektivität eingesetzt. Verschiedene Positionen werden eingeholt, eingeordnet, verglichen und auf ihre Interessengebundenheit hin befragt."
+              },
+              "su": {
+                "s1": "Ich hinterfrage nicht, ob die KI nur eine Seite zeigt.",
+                "s2": "Ich hole mehrere Perspektiven, ordne sie aber nicht systematisch ein.",
+                "s3": "Ich nutze KI gezielt für verschiedene Perspektiven und unterscheide deren Interessen und Positionen.",
+                "s4": "Ich setze KI methodisch ein, um verschiedene Perspektiven einzuholen, einzuordnen und auf ihre Interessengebundenheit zu befragen."
+              }
+            },
+            "klasse-11-13": {
+              "lk": {
+                "s1": "KI-Outputs werden nicht auf Perspektivität oder normative Grundannahmen geprüft.",
+                "s2": "Multiperspektivität wird angestrebt, aber nicht systematisch auf normative Grundannahmen hin analysiert.",
+                "s3": "KI wird methodisch zur Erarbeitung verschiedener Perspektiven genutzt. Interessen, normative Grundannahmen und Deutungskonkurrenzen werden reflektiert.",
+                "s4": "KI wird methodisch als Instrument der Multiperspektivität eingesetzt. Verschiedene Positionen werden auf ihre Interessengebundenheit, normativen Grundannahmen und gesellschaftliche Kontextualisierung hin differenziert analysiert."
+              },
+              "su": {
+                "s1": "Ich prüfe KI-Outputs nicht auf Perspektivität oder normative Grundannahmen.",
+                "s2": "Ich strebe Multiperspektivität an, analysiere aber Grundannahmen nicht systematisch.",
+                "s3": "Ich nutze KI methodisch für Multiperspektivität und reflektiere Interessen und Deutungskonkurrenzen.",
+                "s4": "Ich setze KI methodisch für Multiperspektivität ein und analysiere Positionen auf Interessengebundenheit, normative Grundannahmen und gesellschaftliche Kontextualisierung."
+              }
+            }
+          }
+        }
+      ],
+      "mathematik": [
+        {
+          "id": "mathe-rechenweg-pruefen",
+          "name": "KI-Rechenwege prüfen und nachvollziehen",
+          "kontext": "Mathematik – Rechenoperationen, Aufgabenlösung",
+          "bloom": "Analysieren",
+          "varianten": {
+            "klasse-3-4": {
+              "lk": {
+                "s1": "KI-Lösung wird direkt übernommen; kein eigener Rechenweg vorhanden.",
+                "s2": "Schüler:in zeigt eigenen Ansatz, verlässt sich aber vollständig auf die KI-Lösung.",
+                "s3": "Schüler:in rechnet selbst und nutzt die KI zur Kontrolle. Fehler werden erkannt.",
+                "s4": "Schüler:in löst die Aufgabe selbst, prüft mit der KI und kann erklären, ob der KI-Weg stimmt."
+              },
+              "su": {
+                "s1": "Ich habe einfach die Lösung der KI abgeschrieben, ohne selbst zu rechnen.",
+                "s2": "Ich habe versucht selbst zu rechnen, aber dann doch die Lösung der KI genommen.",
+                "s3": "Ich habe selbst gerechnet und die KI zur Kontrolle benutzt.",
+                "s4": "Ich habe selbst gerechnet, mit der KI verglichen und erklärt, ob der KI-Weg richtig ist."
+              }
+            },
+            "klasse-5-7": {
+              "lk": {
+                "s1": "KI-Rechenwege werden nicht nachvollzogen oder überprüft.",
+                "s2": "Das Ergebnis wird überprüft, der Rechenweg aber nicht nachvollzogen.",
+                "s3": "KI-Rechenwege werden Schritt für Schritt nachvollzogen. Fehler werden identifiziert.",
+                "s4": "Rechenwege werden vollständig nachvollzogen, auf Korrektheit geprüft und Fehler werden erklärt."
+              },
+              "su": {
+                "s1": "Ich habe den Rechenweg der KI nicht nachgeschaut.",
+                "s2": "Ich habe nur das Ergebnis überprüft, aber nicht den Rechenweg.",
+                "s3": "Ich habe den Rechenweg der KI Schritt für Schritt nachvollzogen und Fehler gefunden.",
+                "s4": "Ich habe den Rechenweg vollständig nachvollzogen, auf Korrektheit geprüft und erklärt, wo Fehler stecken."
+              }
+            },
+            "klasse-8-10": {
+              "lk": {
+                "s1": "KI-Rechenwege werden nicht überprüft.",
+                "s2": "Ergebnisse werden geprüft, aber Rechenwege nicht nachvollzogen.",
+                "s3": "KI-Rechenwege werden nachvollzogen und auf Korrektheit und Vollständigkeit geprüft. Fehler werden identifiziert und erklärt.",
+                "s4": "Rechenwege werden vollständig nachvollzogen, auf Korrektheit, Vollständigkeit und Eleganz geprüft. Alternative Lösungswege werden berücksichtigt."
+              },
+              "su": {
+                "s1": "Ich überprüfe KI-Rechenwege nicht.",
+                "s2": "Ich prüfe Ergebnisse, ohne Rechenwege nachzuvollziehen.",
+                "s3": "Ich vollziehe KI-Rechenwege nach und erkläre, wo Fehler oder Lücken stecken.",
+                "s4": "Ich prüfe Rechenwege vollständig auf Korrektheit, Vollständigkeit und erkenne alternative Lösungsansätze."
+              }
+            },
+            "klasse-11-13": {
+              "lk": {
+                "s1": "KI-Rechenwege und Lösungsstrategien werden nicht analysiert.",
+                "s2": "Rechenwege werden oberflächlich geprüft, ohne mathematische Begründung.",
+                "s3": "KI-Rechenwege werden vollständig nachvollzogen, mathematisch begründet und auf Korrektheit und Eleganz eingeschätzt.",
+                "s4": "KI-Lösungsstrategien werden mathematisch analysiert: Korrektheit, Vollständigkeit, Eleganz und Verallgemeinerbarkeit werden differenziert beurteilt. Alternative Ansätze werden einbezogen."
+              },
+              "su": {
+                "s1": "Ich analysiere KI-Rechenwege und Lösungsstrategien nicht.",
+                "s2": "Ich prüfe Rechenwege ohne mathematische Begründung.",
+                "s3": "Ich vollziehe KI-Rechenwege vollständig nach und begründe mathematisch Korrektheit und Eleganz.",
+                "s4": "Ich analysiere KI-Lösungsstrategien differenziert auf Korrektheit, Eleganz und Verallgemeinerbarkeit und beziehe alternative Ansätze ein."
+              }
+            }
+          }
+        }
+      ],
+      "naturwissenschaften": [
+        {
+          "id": "nawi-erklaerung-pruefen",
+          "name": "KI-Erklärungen naturwissenschaftlicher Phänomene prüfen",
+          "kontext": "Biologie/Chemie/Physik – Konzeptverständnis, Fachlichkeit",
+          "bloom": "Analysieren",
+          "varianten": {
+            "klasse-3-4": {
+              "lk": {
+                "s1": "KI-Erklärungen zu Naturphänomenen werden ungeprüft übernommen.",
+                "s2": "Eigene Beobachtung wird genannt, KI-Erklärung aber unkritisch übernommen.",
+                "s3": "Schüler:in vergleicht eigene Beobachtung mit KI-Erklärung und beschreibt, was übereinstimmt.",
+                "s4": "Schüler:in beschreibt die eigene Beobachtung klar und erklärt, wie die KI-Erklärung dazu passt oder nicht."
+              },
+              "su": {
+                "s1": "Ich habe einfach aufgeschrieben, was die KI über das Phänomen gesagt hat.",
+                "s2": "Ich habe meine Beobachtung aufgeschrieben, aber die Erklärung direkt von der KI genommen.",
+                "s3": "Ich habe meine Beobachtung mit der KI-Erklärung verglichen und geschaut, ob beides passt.",
+                "s4": "Ich habe genau beschrieben, was ich beobachtet habe, und erklärt, ob die KI-Erklärung dazu passt."
+              }
+            },
+            "klasse-5-7": {
+              "lk": {
+                "s1": "KI-Erklärungen werden nicht auf fachliche Richtigkeit geprüft.",
+                "s2": "Einzelne Fachbegriffe oder Aussagen werden hinterfragt, aber ohne systematische Prüfung.",
+                "s3": "KI-Erklärungen werden mit Lehrbuch oder Unterrichtsinhalten verglichen. Unstimmigkeiten werden benannt.",
+                "s4": "KI-Erklärungen werden systematisch auf fachliche Korrektheit und Vollständigkeit geprüft. Abweichungen werden begründet und korrigiert."
+              },
+              "su": {
+                "s1": "Ich habe nicht geprüft, ob die KI-Erklärung fachlich stimmt.",
+                "s2": "Ich habe einzelne Dinge nachgeschaut, aber nicht systematisch geprüft.",
+                "s3": "Ich habe die KI-Erklärung mit dem Schulbuch oder Unterricht verglichen und Fehler benannt.",
+                "s4": "Ich habe die KI-Erklärung systematisch auf fachliche Richtigkeit geprüft und Fehler erklärt und korrigiert."
+              }
+            },
+            "klasse-8-10": {
+              "lk": {
+                "s1": "Fachliche Korrektheit von KI-Erklärungen wird nicht geprüft.",
+                "s2": "Einzelne Aussagen werden hinterfragt, ohne systematischen Abgleich mit Fachinhalten.",
+                "s3": "KI-Erklärungen werden mit Fachinhalten abgeglichen. Fachliche Fehler und Ungenauigkeiten werden identifiziert.",
+                "s4": "KI-Erklärungen werden differenziert auf Fachlichkeit, Präzision und Vollständigkeit geprüft. Abweichungen werden mit fachlichen Argumenten begründet korrigiert."
+              },
+              "su": {
+                "s1": "Ich prüfe KI-Erklärungen nicht auf fachliche Korrektheit.",
+                "s2": "Ich hinterfrage einzelne Aussagen, prüfe aber nicht systematisch.",
+                "s3": "Ich vergleiche KI-Erklärungen mit Fachinhalten und identifiziere Fehler und Ungenauigkeiten.",
+                "s4": "Ich prüfe KI-Erklärungen differenziert auf Fachlichkeit und Präzision und korrigiere Abweichungen fachlich begründet."
+              }
+            },
+            "klasse-11-13": {
+              "lk": {
+                "s1": "KI-Erklärungen werden nicht auf wissenschaftliche Korrektheit oder Modellhaftigkeit geprüft.",
+                "s2": "Fachliche Mängel werden identifiziert, ohne systematische wissenschaftliche Einordnung.",
+                "s3": "KI-Erklärungen werden auf wissenschaftliche Korrektheit, Modellhaftigkeit und fachliche Präzision geprüft.",
+                "s4": "KI-Erklärungen werden differenziert auf wissenschaftliche Korrektheit, Modellhaftigkeit, Grenzen der Vereinfachung und aktuelle Forschungslage hin analysiert."
+              },
+              "su": {
+                "s1": "Ich prüfe KI-Erklärungen nicht auf wissenschaftliche Korrektheit.",
+                "s2": "Ich identifiziere fachliche Mängel ohne systematische wissenschaftliche Einordnung.",
+                "s3": "Ich prüfe KI-Erklärungen auf wissenschaftliche Korrektheit, Modellhaftigkeit und fachliche Präzision.",
+                "s4": "Ich analysiere KI-Erklärungen differenziert auf wissenschaftliche Korrektheit, Modellgrenzen und aktuelle Forschungslage."
+              }
+            }
+          }
+        },
+        {
+          "id": "nawi-hypothese-ki",
+          "name": "KI bei der Hypothesenbildung nutzen",
+          "kontext": "Biologie/Chemie/Physik – Experimentelles Arbeiten, wissenschaftliche Methode",
+          "bloom": "Erschaffen",
+          "varianten": {
+            "klasse-3-4": {
+              "lk": {
+                "s1": "Keine eigene Vermutung erkennbar; KI-Aussage wird als Ergebnis hingestellt.",
+                "s2": "Schüler:in äußert eine Vermutung, prüft sie aber nicht mit der KI oder dem Experiment.",
+                "s3": "Schüler:in stellt eine Vermutung auf und vergleicht sie mit der KI-Antwort oder dem Experiment.",
+                "s4": "Schüler:in formuliert eine klare Vermutung, überprüft sie und erklärt, was die KI dazu sagt."
+              },
+              "su": {
+                "s1": "Ich habe keine Vermutung aufgestellt, sondern einfach die Antwort der KI genommen.",
+                "s2": "Ich habe eine Vermutung aufgestellt, aber nicht nachgeschaut, ob sie stimmt.",
+                "s3": "Ich habe eine Vermutung aufgestellt und geschaut, ob die KI oder das Experiment das bestätigt.",
+                "s4": "Ich habe eine Vermutung aufgeschrieben, überprüft und erklärt, was die KI dazu gesagt hat."
+              }
+            },
+            "klasse-5-7": {
+              "lk": {
+                "s1": "KI liefert Hypothesen, die ohne eigenes Nachdenken übernommen werden.",
+                "s2": "KI-Hypothesen werden genutzt, aber nicht auf Plausibilität geprüft.",
+                "s3": "KI wird als Ausgangspunkt genutzt. Eigene Überlegungen zur Plausibilität werden angestellt.",
+                "s4": "KI-Hypothesen werden als Impuls genutzt und durch eigene Überlegungen zu testbaren, begründeten Hypothesen weiterentwickelt."
+              },
+              "su": {
+                "s1": "Ich habe die Hypothese von der KI übernommen, ohne selbst nachzudenken.",
+                "s2": "Ich habe die KI-Hypothese genutzt, aber nicht überlegt, ob sie Sinn macht.",
+                "s3": "Ich habe die KI-Hypothese als Ausgangspunkt genutzt und mit eigenen Überlegungen geprüft.",
+                "s4": "Ich habe KI-Ideen als Impuls genutzt und eine eigene, testbare Hypothese mit Begründung entwickelt."
+              }
+            },
+            "klasse-8-10": {
+              "lk": {
+                "s1": "Hypothesen werden von der KI übernommen, ohne eigene wissenschaftliche Überlegung.",
+                "s2": "KI-Hypothesen werden als Ausgangspunkt genutzt, aber nicht auf wissenschaftliche Testbarkeit geprüft.",
+                "s3": "KI-Input wird für die Hypothesenbildung genutzt. Eigene Überlegungen zur Testbarkeit und Plausibilität sind erkennbar.",
+                "s4": "KI dient als Impuls. Eigene, testbare Hypothesen werden mit begründetem Bezug zu Vorwissen und Beobachtung formuliert."
+              },
+              "su": {
+                "s1": "Ich übernehme KI-Hypothesen ohne eigene wissenschaftliche Überlegung.",
+                "s2": "Ich nutze KI-Hypothesen, prüfe aber nicht, ob sie wissenschaftlich testbar sind.",
+                "s3": "Ich nutze KI als Impuls und prüfe Testbarkeit und Plausibilität mit eigenen Überlegungen.",
+                "s4": "Ich nutze KI als Impuls und formuliere eigene, testbare Hypothesen mit begründetem Bezug zu Vorwissen und Beobachtung."
+              }
+            },
+            "klasse-11-13": {
+              "lk": {
+                "s1": "Hypothesen werden von der KI generiert, ohne eigenständige wissenschaftliche Konzeptualisierung.",
+                "s2": "KI-Hypothesen werden adaptiert, ohne systematische Auseinandersetzung mit wissenschaftlicher Methodik.",
+                "s3": "KI dient als Impulsgeber. Hypothesen werden eigenständig auf wissenschaftliche Testbarkeit, Falsifizierbarkeit und Bezug zum Vorwissen geprüft.",
+                "s4": "KI dient als Impulsgeber. Eigenständige, falsifizierbare Hypothesen werden in Bezug auf aktuellen Forschungsstand, theoretische Grundlagen und methodische Machbarkeit differenziert entwickelt."
+              },
+              "su": {
+                "s1": "Ich generiere keine eigenständigen wissenschaftlichen Hypothesen, sondern adaptiere KI-Vorschläge.",
+                "s2": "Ich adaptiere KI-Hypothesen ohne systematische wissenschaftliche Methodik.",
+                "s3": "Ich prüfe KI-Hypothesen auf Testbarkeit und Falsifizierbarkeit und entwickle eigenständige Hypothesen.",
+                "s4": "Ich entwickle eigenständige, falsifizierbare Hypothesen mit Bezug auf Forschungsstand und theoretische Grundlagen, mit KI als Impulsgeber."
+              }
+            }
+          }
+        }
+      ],
+      "informatik": [
+        {
+          "id": "informatik-code-verstehen",
+          "name": "KI-generierten Code verstehen und bewerten",
+          "kontext": "Informatik – Programmierung, Algorithmen",
+          "bloom": "Verstehen",
+          "varianten": {
+            "klasse-3-4": {
+              "lk": {
+                "s1": "KI-Lösungen oder Ablaufbeschreibungen werden ungeprüft übernommen; kein Verständnis erkennbar.",
+                "s2": "Schüler:in kann den KI-Ablauf lesen, versteht aber nicht, was die einzelnen Schritte bedeuten.",
+                "s3": "Schüler:in versteht einen einfachen Schritt-für-Schritt-Ablauf und kann einzelne Schritte erklären.",
+                "s4": "Schüler:in versteht den KI-Ablauf, erklärt ihn in eigenen Worten und kann sagen, ob er richtig ist."
+              },
+              "su": {
+                "s1": "Ich habe einfach die KI-Lösung genommen, ohne zu verstehen, wie sie funktioniert.",
+                "s2": "Ich habe den KI-Ablauf gelesen, aber nicht verstanden, was die Schritte bedeuten.",
+                "s3": "Ich habe den Ablauf verstanden und kann einzelne Schritte in meinen eigenen Worten erklären.",
+                "s4": "Ich habe den KI-Ablauf verstanden, in eigenen Worten erklärt und gesagt, ob er richtig ist."
+              }
+            },
+            "klasse-5-7": {
+              "lk": {
+                "s1": "KI-generierter Code wird nicht nachvollzogen.",
+                "s2": "Einzelne Codezeilen werden betrachtet, aber der Code wird nicht als Ganzes verstanden.",
+                "s3": "KI-Code wird Schritt für Schritt nachvollzogen. Die Funktion der wesentlichen Teile wird erklärt.",
+                "s4": "KI-Code wird vollständig nachvollzogen, die Logik erklärt und einfache Fehler oder Verbesserungen werden identifiziert."
+              },
+              "su": {
+                "s1": "Ich habe den Code von der KI übernommen, ohne ihn zu verstehen.",
+                "s2": "Ich habe einzelne Zeilen angeschaut, aber den ganzen Code nicht verstanden.",
+                "s3": "Ich habe den KI-Code durchgegangen und erklärt, was die wichtigsten Teile machen.",
+                "s4": "Ich habe den KI-Code vollständig verstanden, die Logik erklärt und einfache Fehler oder Verbesserungen benannt."
+              }
+            },
+            "klasse-8-10": {
+              "lk": {
+                "s1": "KI-Code wird nicht analysiert.",
+                "s2": "Code wird oberflächlich gelesen, ohne Verständnis der Programmlogik.",
+                "s3": "KI-Code wird nachvollzogen: Struktur, Logik und Funktion der wesentlichen Komponenten werden erklärt.",
+                "s4": "KI-Code wird differenziert analysiert: Struktur, Logik, Effizienz und mögliche Verbesserungen werden begründet eingeschätzt."
+              },
+              "su": {
+                "s1": "Ich analysiere KI-Code nicht.",
+                "s2": "Ich lese Code oberflächlich, ohne die Programmlogik zu verstehen.",
+                "s3": "Ich vollziehe KI-Code nach und erkläre Struktur, Logik und Funktion der wesentlichen Teile.",
+                "s4": "Ich analysiere KI-Code differenziert auf Struktur, Logik, Effizienz und benenne begründete Verbesserungsmöglichkeiten."
+              }
+            },
+            "klasse-11-13": {
+              "lk": {
+                "s1": "KI-generierter Code wird nicht analysiert oder bewertet.",
+                "s2": "Code wird gelesen, ohne systematische Analyse von Algorithmus, Komplexität oder Korrektheit.",
+                "s3": "KI-Code wird systematisch analysiert: Algorithmus, Korrektheit und Effizienz werden eingeschätzt.",
+                "s4": "KI-Code wird differenziert analysiert: Algorithmus, Zeitkomplexität, Korrektheit, Lesbarkeit und mögliche Optimierungen werden begründet eingeschätzt."
+              },
+              "su": {
+                "s1": "Ich analysiere oder bewerte KI-generierten Code nicht.",
+                "s2": "Ich lese Code, ohne Algorithmus, Komplexität oder Korrektheit systematisch zu analysieren.",
+                "s3": "Ich analysiere KI-Code systematisch auf Algorithmus, Korrektheit und Effizienz.",
+                "s4": "Ich analysiere KI-Code differenziert auf Algorithmus, Komplexität, Korrektheit und Optimierungspotenzial."
+              }
+            }
+          }
+        }
+      ],
+      "kunst-musik": [
+        {
+          "id": "kunst-ki-aesthetik",
+          "name": "KI-generierte Ästhetik einordnen und reflektieren",
+          "kontext": "Kunst/Musik – Ästhetische Bildung, Kreativität",
+          "bloom": "Bewerten",
+          "varianten": {
+            "klasse-3-4": {
+              "lk": {
+                "s1": "KI-generiertes Material wird ohne eigene kreative Leistung übernommen.",
+                "s2": "Eigene Ideen sind ansatzweise erkennbar, werden aber stark von der KI-Ausgabe überlagert.",
+                "s3": "Eigene kreative Idee ist erkennbar. KI wird als Hilfsmittel eingesetzt, nicht als Ersatz.",
+                "s4": "Eigene kreative Idee steht klar im Vordergrund. Schüler:in erklärt, was die KI beigetragen hat und was die eigene Leistung ist."
+              },
+              "su": {
+                "s1": "Ich habe einfach genommen, was die KI vorgeschlagen hat, ohne eigene Ideen.",
+                "s2": "Meine eigene Idee war kaum zu sehen, weil ich fast alles von der KI genommen habe.",
+                "s3": "Ich hatte eine eigene Idee und die KI hat mir dabei geholfen, sie umzusetzen.",
+                "s4": "Meine eigene Idee steht im Vordergrund. Ich kann erklären, was ich selbst gemacht habe und was die KI beigetragen hat."
+              }
+            },
+            "klasse-5-7": {
+              "lk": {
+                "s1": "KI-generierte Bilder oder Musik werden nicht ästhetisch eingeordnet.",
+                "s2": "Eine spontane ästhetische Reaktion ist erkennbar, aber nicht begründet.",
+                "s3": "KI-generierte Werke werden auf Gestaltungselemente hin beschrieben und eine ästhetische Einschätzung begründet.",
+                "s4": "KI-Werke werden differenziert analysiert: Gestaltungselemente, ästhetische Wirkung und Unterschiede zu menschlicher Gestaltung werden begründet beschrieben."
+              },
+              "su": {
+                "s1": "Ich habe das KI-Bild/die KI-Musik nicht weiter betrachtet.",
+                "s2": "Ich habe gesagt, ob mir es gefällt, aber nicht erklärt warum.",
+                "s3": "Ich habe das KI-Werk auf Gestaltungselemente untersucht und meine ästhetische Einschätzung begründet.",
+                "s4": "Ich habe das KI-Werk genau analysiert: Gestaltungselemente, Wirkung und Unterschiede zu menschlichen Werken habe ich begründet beschrieben."
+              }
+            },
+            "klasse-8-10": {
+              "lk": {
+                "s1": "KI-generierte ästhetische Produkte werden nicht reflektiert.",
+                "s2": "Ästhetische Reaktionen sind vorhanden, aber nicht fachsprachlich eingeordnet.",
+                "s3": "KI-Werke werden fachsprachlich analysiert und ästhetisch eingeordnet. Unterschiede zu nicht-KI-Werken werden benannt.",
+                "s4": "KI-Ästhetik wird differenziert analysiert: Gestaltungsprinzipien, ästhetische Wirkung, Originalitätsbegriff und gesellschaftliche Implikationen werden reflektiert."
+              },
+              "su": {
+                "s1": "Ich reflektiere KI-generierte Ästhetik nicht.",
+                "s2": "Ich habe ästhetische Reaktionen, kann sie aber nicht fachsprachlich einordnen.",
+                "s3": "Ich analysiere KI-Werke fachsprachlich und ordne sie ästhetisch ein.",
+                "s4": "Ich analysiere KI-Ästhetik differenziert: Gestaltungsprinzipien, Wirkung und gesellschaftliche Implikationen reflektiere ich begründet."
+              }
+            },
+            "klasse-11-13": {
+              "lk": {
+                "s1": "KI-generierte ästhetische Produkte werden nicht kritisch reflektiert.",
+                "s2": "Ästhetische Analyse bleibt deskriptiv, ohne kritische Auseinandersetzung mit KI-Ästhetik als Phänomen.",
+                "s3": "KI-Ästhetik wird kritisch reflektiert: Originalitätsbegriff, Autorschaft, Gestaltungsprinzipien und gesellschaftliche Implikationen werden einbezogen.",
+                "s4": "KI-Ästhetik wird differenziert reflektiert: Originalitätsbegriff, Autorschaft, Gestaltungslogik, gesellschaftliche Implikationen und die Frage nach ästhetischer Erfahrung als menschlichem Phänomen werden kritisch einbezogen."
+              },
+              "su": {
+                "s1": "Ich reflektiere KI-Ästhetik nicht kritisch.",
+                "s2": "Ich beschreibe KI-Ästhetik, ohne sie kritisch zu analysieren.",
+                "s3": "Ich reflektiere KI-Ästhetik kritisch: Originalitätsbegriff, Autorschaft und gesellschaftliche Implikationen beziehe ich ein.",
+                "s4": "Ich reflektiere KI-Ästhetik differenziert und beziehe Originalitätsbegriff, Autorschaft, Gestaltungslogik und ästhetische Erfahrung als menschliches Phänomen kritisch ein."
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

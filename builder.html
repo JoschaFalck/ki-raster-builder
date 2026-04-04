@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raster erstellen – KI-Bewertungsraster-Builder | Joscha Falck</title>
+  <meta name="description" content="Eigene KI-Bewertungsraster erstellen, anpassen und als DOCX oder PDF herunterladen. Kostenlos, ohne Anmeldung.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<header class="site-header" role="banner">
+  <nav class="nav-inner" aria-label="Hauptnavigation">
+    <a href="index.html" class="nav-brand" aria-label="KI-Bewertungsraster-Builder Startseite">
+      KI-Bewertungsraster-Builder
+      <small>Joscha Falck</small>
+    </a>
+    <button class="nav-burger" id="nav-burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
+    <ul class="nav-links" id="nav-links" role="list">
+      <li><a href="index.html">Fertige Raster</a></li>
+      <li><a href="builder.html" class="active" aria-current="page">Raster erstellen</a></li>
+      <li><a href="impressum.html">Impressum</a></li>
+      <li><a href="datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main-content">
+  <div class="container" style="padding-top: 1.5rem; padding-bottom: 3rem;">
+
+    <div class="builder-layout">
+
+      <!-- Wizard Sidebar -->
+      <aside class="wizard-sidebar" aria-label="Wizard-Schritte">
+        <div class="wizard-step-item active" id="sidebar-step-1">
+          <span class="step-num">1</span>
+          <span>Ausgangspunkt</span>
+        </div>
+        <div class="wizard-step-item" id="sidebar-step-2">
+          <span class="step-num">2</span>
+          <span>Konfigurieren</span>
+        </div>
+        <div class="wizard-step-item" id="sidebar-step-3">
+          <span class="step-num">3</span>
+          <span>Vorschau &amp; Export</span>
+        </div>
+      </aside>
+
+      <!-- Wizard Main -->
+      <div class="wizard-main">
+
+        <!-- ══════════════════════════════════════════════
+             SCHRITT 1 – AUSGANGSPUNKT WÄHLEN
+        ══════════════════════════════════════════════ -->
+        <div class="step-panel active" id="step-1">
+          <div class="step-card">
+            <h2>Wie möchten Sie beginnen?</h2>
+            <p>Wählen Sie einen Ausgangspunkt für Ihr Bewertungsraster.</p>
+
+            <div class="start-options">
+
+              <!-- Option A: Fertiges Raster anpassen -->
+              <button class="start-option" id="opt-fertig" onclick="selectStartOption('fertig')" aria-pressed="false">
+                <div class="start-option-icon">📋</div>
+                <h3>Fertiges Raster anpassen</h3>
+                <p>Eines der 11 fertigen Raster als Grundlage nehmen und anpassen.</p>
+              </button>
+
+              <!-- Option B: Aus Pool starten -->
+              <button class="start-option" id="opt-pool" onclick="selectStartOption('pool')" aria-pressed="false">
+                <div class="start-option-icon">🎯</div>
+                <h3>Aus Themenpool starten</h3>
+                <p>Ein Thema wählen und Vorschläge aus dem Kriterienspool erhalten.</p>
+              </button>
+
+              <!-- Option C: Von Grund auf -->
+              <button class="start-option" id="opt-neu" onclick="selectStartOption('neu')" aria-pressed="false">
+                <div class="start-option-icon">✏️</div>
+                <h3>Von Grund auf neu</h3>
+                <p>Leeres Raster mit 4 freien Kriterien – vollständig selbst gestalten.</p>
+              </button>
+
+            </div>
+
+            <!-- Sub: Fertiges Raster wählen -->
+            <div class="start-sub" id="sub-fertig">
+              <label for="select-fertig-raster">Fertiges Raster auswählen:</label>
+              <select id="select-fertig-raster" aria-label="Fertiges Raster auswählen">
+                <option value="">– Bitte wählen –</option>
+              </select>
+            </div>
+
+            <!-- Sub: Themenpool -->
+            <div class="start-sub" id="sub-pool">
+              <label>Thema wählen:</label>
+              <div class="pool-grid" id="pool-topics-grid" role="group" aria-label="Themen auswählen"></div>
+            </div>
+
+            <div class="d-flex gap-2 mt-3" style="justify-content: flex-end;">
+              <button class="btn btn-primary" id="btn-step1-next" onclick="goToStep(2)" disabled>
+                Weiter: Konfigurieren →
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════
+             SCHRITT 2 – KONFIGURIEREN
+        ══════════════════════════════════════════════ -->
+        <div class="step-panel" id="step-2">
+          <div class="step-card">
+            <h2>Raster konfigurieren</h2>
+            <p>Legen Sie die Rahmendaten fest und bearbeiten Sie die Kriterien.</p>
+
+            <!-- GS Hinweis -->
+            <div id="gs-builder-notice" class="notice notice-info" style="display:none;">
+              <span class="notice-icon">ℹ️</span>
+              <span>Für die Grundschule empfohlen: Raster 01, 02, 04, 07, 09, 10. Andere Raster sind konzeptuell für die Sekundarstufe ausgelegt.</span>
+            </div>
+
+            <!-- Rahmendaten -->
+            <div class="config-grid wide">
+              <div class="form-group span-3">
+                <label for="raster-titel">Titel des Rasters <span style="color: var(--color-text-muted); font-weight:400;">(max. 60 Zeichen)</span></label>
+                <input type="text" id="raster-titel" maxlength="60" placeholder="z.B. Prompt-Qualität – Klasse 8 Deutsch" oninput="updateCharCount(this)" autocomplete="off">
+                <div class="char-count"><span id="titel-count">0</span>/60</div>
+              </div>
+
+              <div class="form-group">
+                <label for="raster-fach">Fach</label>
+                <select id="raster-fach" onchange="onConfigChange()">
+                  <option value="fachunabhaengig">Fachunabhängig</option>
+                  <option value="deutsch">Deutsch</option>
+                  <option value="englisch">Englisch</option>
+                  <option value="mathematik">Mathematik</option>
+                  <option value="geschichte-gpg">Geschichte / GPG</option>
+                  <option value="naturwissenschaften">Biologie / Chemie / Physik</option>
+                  <option value="informatik">Informatik</option>
+                  <option value="kunst-musik">Kunst / Musik / Sport</option>
+                  <option value="weitere">Weitere…</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="raster-jahrgang">Jahrgangsstufe</label>
+                <select id="raster-jahrgang" onchange="onJahrgangChange()">
+                  <option value="klasse-3-4">Klasse 3–4 (Grundschule)</option>
+                  <option value="klasse-5-7">Klasse 5–7</option>
+                  <option value="klasse-8-10" selected>Klasse 8–10</option>
+                  <option value="klasse-11-13">Klasse 11–13 (Oberstufe)</option>
+                  <option value="uebergreifend">Jahrgangsstufen-übergreifend</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>Sprachliches Niveau</label>
+                <div class="slider-group">
+                  <div class="slider-track">
+                    <span>Einfach</span>
+                    <input type="range" id="niveau-slider" min="1" max="3" value="2"
+                      aria-label="Sprachliches Niveau" onchange="onConfigChange()" oninput="updateNiveauLabel()">
+                    <span>Anspruchsvoll</span>
+                  </div>
+                  <div class="text-sm text-muted" style="text-align:center;">
+                    Aktuell: <strong id="niveau-label">Standard</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Einsatzkontext</label>
+                <div class="toggle-group" role="group" aria-label="Einsatzkontext">
+                  <button class="toggle-option active" id="ctx-formativ" onclick="setContext('formativ')" aria-pressed="true">
+                    Formativ
+                  </button>
+                  <button class="toggle-option" id="ctx-summativ" onclick="setContext('summativ')" aria-pressed="false">
+                    Summativ
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Perspektive</label>
+                <div class="toggle-group" role="group" aria-label="Perspektive">
+                  <button class="toggle-option active" id="persp-beide" onclick="setPerspektive('beide')" aria-pressed="true">Beide</button>
+                  <button class="toggle-option" id="persp-lk" onclick="setPerspektive('lk')" aria-pressed="false">Lehrkraft</button>
+                  <button class="toggle-option su" id="persp-su" onclick="setPerspektive('su')" aria-pressed="false">Schüler:in</button>
+                </div>
+              </div>
+            </div>
+
+            <hr class="section-divider">
+
+            <!-- Bewertungssystem -->
+            <h3 class="section-heading">⚖️ Bewertungssystem <span class="text-sm text-muted" style="font-weight:400;">(Lehrkraft-Version)</span></h3>
+
+            <div class="config-grid">
+              <div class="form-group">
+                <label>Anzahl Bewertungsstufen</label>
+                <div class="stepper">
+                  <button onclick="changeStufen(-1)" aria-label="Stufen reduzieren">−</button>
+                  <span class="stepper-value" id="stufen-value" aria-live="polite">4</span>
+                  <button onclick="changeStufen(1)" aria-label="Stufen erhöhen">+</button>
+                </div>
+                <div class="text-sm text-muted mt-1">Min. 2, Max. 6</div>
+              </div>
+
+              <div class="form-group">
+                <label>Punkte pro Stufe <span class="text-sm text-muted" style="font-weight:400;">(editierbar)</span></label>
+                <div id="punkte-display" class="punkte-display" aria-live="polite"></div>
+                <div class="text-sm text-muted mt-1">Maximalpunktzahl: <strong id="max-punkte">20</strong></div>
+              </div>
+            </div>
+
+            <!-- Stufen-Bezeichnungen -->
+            <details class="mt-2" id="stufen-labels-details">
+              <summary style="cursor:pointer; font-size:0.875rem; font-weight:600; padding: 0.5rem 0; color: var(--color-text-muted);">
+                Stufen-Bezeichnungen anpassen ▾
+              </summary>
+              <div class="stufen-labels-grid mt-2" id="stufen-labels-grid"></div>
+            </details>
+
+            <hr class="section-divider">
+
+            <!-- Kriterien -->
+            <div class="d-flex align-center gap-2" style="justify-content: space-between; margin-bottom: 1rem;">
+              <h3 class="section-heading" style="margin-bottom:0;">📝 Kriterien</h3>
+              <span class="criteria-count text-muted text-sm" id="criteria-count">4 Kriterien</span>
+            </div>
+
+            <div class="notice notice-info" style="font-size:0.82rem;">
+              <span class="notice-icon">✨</span>
+              <span>Klicken Sie auf das ✨-Symbol neben einem Textfeld, um Formulierungsvorschläge aus dem Pool zu erhalten.</span>
+            </div>
+
+            <div class="criteria-container mt-2" id="criteria-container" role="list" aria-label="Kriterien"></div>
+
+            <div class="criteria-actions mt-2">
+              <button class="btn btn-secondary btn-sm" onclick="addCriterion()" id="btn-add-criterion" aria-label="Kriterium hinzufügen">
+                + Kriterium hinzufügen
+              </button>
+              <span class="criteria-count text-sm text-muted" id="criteria-count-2"></span>
+            </div>
+
+            <hr class="section-divider">
+
+            <!-- Hinweistext -->
+            <h3 class="section-heading">💬 Hinweistext (Fußzeile)</h3>
+            <div class="hinweis-section">
+              <textarea id="raster-hinweis" rows="2" placeholder="Optionaler Hinweistext für die Fußzeile des Rasters …" oninput="onConfigChange()"></textarea>
+              <label class="cc-checkbox">
+                <input type="checkbox" id="cc-checkbox" checked onchange="onConfigChange()" aria-label="CC-BY 4.0 Lizenzhinweis automatisch ergänzen">
+                CC-BY 4.0 Joscha Falck automatisch ergänzen
+              </label>
+            </div>
+
+            <div class="d-flex gap-2 mt-3" style="justify-content: space-between;">
+              <button class="btn btn-ghost" onclick="goToStep(1)">← Zurück</button>
+              <button class="btn btn-primary" onclick="goToStep(3)">
+                Vorschau &amp; Export →
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════
+             SCHRITT 3 – VORSCHAU & EXPORT
+        ══════════════════════════════════════════════ -->
+        <div class="step-panel" id="step-3">
+          <div class="step-card">
+            <h2>Vorschau &amp; Export</h2>
+            <p>Prüfen Sie Ihr Raster und laden Sie es in Ihrem bevorzugten Format herunter.</p>
+
+            <!-- Vorschau-Steuerung -->
+            <div class="preview-controls">
+              <div class="toggle-group" id="preview-version-toggle" role="group" aria-label="Vorschau-Version">
+                <button class="toggle-option active" id="prev-beide" onclick="setPreviewVersion('beide')" aria-pressed="true">Beide</button>
+                <button class="toggle-option" id="prev-lk" onclick="setPreviewVersion('lk')" aria-pressed="false">Lehrkraft</button>
+                <button class="toggle-option su" id="prev-su" onclick="setPreviewVersion('su')" aria-pressed="false">Schüler:in</button>
+              </div>
+              <button class="btn btn-ghost btn-sm" onclick="goToStep(2)">← Bearbeiten</button>
+            </div>
+
+            <!-- Live-Vorschau -->
+            <div class="preview-panel" id="preview-output" aria-live="polite" aria-label="Raster-Vorschau">
+              <p class="text-muted text-sm" style="text-align:center; padding: 2rem 0;">
+                Vorschau wird generiert …
+              </p>
+            </div>
+
+            <!-- Export -->
+            <h3 class="section-heading">⬇️ Herunterladen</h3>
+
+            <div class="export-grid" id="export-grid">
+              <!-- Buttons werden dynamisch befüllt basierend auf Perspektive -->
+            </div>
+
+            <!-- Dateiname -->
+            <div class="form-group mt-2">
+              <label for="export-filename">Dateiname (ohne Endung)</label>
+              <input type="text" id="export-filename" placeholder="Raster_Prompt_Qualitaet" autocomplete="off">
+            </div>
+
+            <hr class="section-divider">
+
+            <!-- JSON Import/Export -->
+            <h3 class="section-heading">💾 Konfiguration speichern &amp; laden</h3>
+            <p class="text-sm text-muted mb-2">Speichern Sie Ihre Raster-Konfiguration als JSON-Datei, um sie später weiterzubearbeiten.</p>
+            <div class="json-actions">
+              <button class="btn btn-ghost btn-sm" onclick="exportJSON()" aria-label="Konfiguration als JSON exportieren">
+                ⬇ Als JSON speichern
+              </button>
+              <button class="btn btn-ghost btn-sm" onclick="document.getElementById('json-import-input').click()" aria-label="JSON-Konfiguration importieren">
+                ⬆ JSON importieren
+              </button>
+              <input type="file" id="json-import-input" accept=".json" style="display:none;" onchange="importJSON(event)">
+            </div>
+
+            <div class="d-flex gap-2 mt-3" style="justify-content: flex-start;">
+              <button class="btn btn-ghost" onclick="goToStep(2)">← Zurück zum Bearbeiten</button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end wizard-main -->
+    </div><!-- end builder-layout -->
+  </div><!-- end container -->
+</main>
+
+<!-- Suggestion Popup -->
+<div class="suggest-popup" id="suggest-popup" role="dialog" aria-modal="false" aria-label="Formulierungsvorschläge" aria-live="polite">
+  <div class="suggest-popup-header">✨ Formulierungsvorschläge</div>
+  <div id="suggest-list"></div>
+</div>
+
+<!-- Punkte-Editor Modal (inline) -->
+<div class="modal-backdrop" id="punkte-modal" role="dialog" aria-modal="true" aria-labelledby="punkte-modal-title">
+  <div class="modal" style="max-width: 480px;">
+    <div class="modal-header">
+      <h2 id="punkte-modal-title">Punkte konfigurieren</h2>
+      <button class="modal-close" onclick="closePunkteModal()" aria-label="Schließen">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="text-sm text-muted mb-2">Tragen Sie die Punktebereiche für jede Stufe ein.</p>
+      <div id="punkte-editor-grid" style="display:flex; flex-direction:column; gap:0.75rem;"></div>
+      <div class="text-sm text-muted mt-2">Maximalpunktzahl: <strong id="punkte-modal-max"></strong></div>
+    </div>
+    <div class="modal-footer" style="justify-content: flex-end;">
+      <button class="btn btn-primary btn-sm" onclick="closePunkteModal()">Übernehmen</button>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-inner">
+    <span class="cc-badge">
+      <span aria-label="Creative Commons BY">CC BY 4.0</span>
+      Joscha Falck –
+      <a href="https://www.joschafalck.de" target="_blank" rel="noopener">joschafalck.de</a>
+    </span>
+    <nav class="footer-links" aria-label="Footer-Navigation">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <a href="index.html">Fertige Raster</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- CDN Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/docx@8/build/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2/dist/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3/dist/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3/dist/jszip.min.js"></script>
+
+<!-- App Scripts -->
+<script src="export-docx.js"></script>
+<script src="export-pdf.js"></script>
+<script src="app.js"></script>
+
+<script>
+  // Burger menu
+  document.getElementById('nav-burger').addEventListener('click', function() {
+    const links = document.getElementById('nav-links');
+    const isOpen = links.classList.toggle('open');
+    this.setAttribute('aria-expanded', isOpen);
+  });
+
+  // Close suggestion popup on outside click
+  document.addEventListener('click', function(e) {
+    const popup = document.getElementById('suggest-popup');
+    if (popup.classList.contains('open') && !popup.contains(e.target) && !e.target.classList.contains('btn-suggest')) {
+      popup.classList.remove('open');
+    }
+  });
+
+  // Close punkte modal on backdrop click
+  document.getElementById('punkte-modal').addEventListener('click', function(e) {
+    if (e.target === this) closePunkteModal();
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closePunkteModal();
+      document.getElementById('suggest-popup').classList.remove('open');
+    }
+  });
+
+  // URL param: load raster from index page
+  (function() {
+    const params = new URLSearchParams(window.location.search);
+    const rasterId = params.get('raster');
+    if (rasterId) {
+      // Wait for app.js to initialise, then load
+      window._preloadRasterId = rasterId;
+    }
+  })();
+</script>
+
+</body>
+</html>
