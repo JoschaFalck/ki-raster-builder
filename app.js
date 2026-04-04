@@ -70,14 +70,20 @@ const POOL_TOPICS = [
  * Lädt die Wissensbasis und initialisiert die entsprechende Seite.
  */
 async function init() {
-  try {
-    const resp = await fetch('wissensbasis_raster.json');
-    if (!resp.ok) throw new Error('Wissensbasis konnte nicht geladen werden.');
-    WB = await resp.json();
-  } catch (err) {
-    console.error(err);
-    showLoadError();
-    return;
+  // Primär: per script-Tag vorgeladene Daten (funktioniert auch bei file://)
+  if (window.WISSENSBASIS) {
+    WB = window.WISSENSBASIS;
+  } else {
+    // Fallback: fetch (funktioniert auf HTTP-Server / GitHub Pages)
+    try {
+      const resp = await fetch('wissensbasis_raster.json');
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      WB = await resp.json();
+    } catch (err) {
+      console.error('Wissensbasis konnte nicht geladen werden:', err);
+      showLoadError();
+      return;
+    }
   }
 
   const page = detectPage();
@@ -164,9 +170,9 @@ function createRasterCard(raster) {
 }
 
 /**
- * Filtert Rasterkarten nach Schulstufe.
+ * Filtert Rasterkarten nach Kompetenzbereich.
  * @param {HTMLElement} btn - Geklickter Filter-Button
- * @param {string} filter - 'alle' | 'gs' | 'sek1' | 'sek2'
+ * @param {string} filter - 'alle' | 'instrumental' | 'analytisch' | 'personell' | 'integrativ'
  */
 function filterRaster(btn, filter) {
   // Chip-Status aktualisieren
@@ -177,19 +183,14 @@ function filterRaster(btn, filter) {
   btn.classList.add('active');
   btn.setAttribute('aria-pressed', 'true');
 
-  const gsNotice = document.getElementById('gs-notice');
   const cards = document.querySelectorAll('.raster-card');
-
   cards.forEach(card => {
     let show = true;
-    if (filter === 'gs') {
-      show = card.dataset.gs === 'true';
+    if (filter !== 'alle') {
+      show = card.dataset.kompetenz.includes(filter);
     }
-    // Für sek1/sek2: alle Raster anzeigen (alle Raster haben sek-Varianten)
     card.classList.toggle('hidden', !show);
   });
-
-  if (gsNotice) gsNotice.style.display = (filter === 'gs') ? 'flex' : 'none';
 }
 
 // ============================================================
@@ -303,19 +304,16 @@ function initBuilderPage() {
     sel.addEventListener('change', onFertigRasterChange);
   }
 
-  // Pool-Topics befüllen
+  // Pool-Topics direkt aus der Wissensbasis befüllen (nur vorhandene Einträge)
   const poolGrid = document.getElementById('pool-topics-grid');
-  if (poolGrid) {
-    POOL_TOPICS.forEach(topic => {
-      // Prüfen ob im Pool vorhanden
-      const inPool = WB.kriterien_pool.fachunabhaengig.some(k => k.id === topic.id);
+  if (poolGrid && WB.kriterien_pool && WB.kriterien_pool.fachunabhaengig) {
+    WB.kriterien_pool.fachunabhaengig.forEach(entry => {
       const btn = document.createElement('button');
       btn.className = 'pool-option';
-      btn.dataset.topicId = topic.id;
-      btn.textContent = topic.label;
-      if (!inPool) btn.style.opacity = '0.5';
+      btn.dataset.topicId = entry.id;
+      btn.textContent = entry.name;
       btn.addEventListener('click', function() {
-        selectPoolTopic(topic.id, this);
+        selectPoolTopic(entry.id, this);
       });
       poolGrid.appendChild(btn);
     });
@@ -586,6 +584,18 @@ function setPerspektive(p) {
       btn.setAttribute('aria-pressed', v === p ? 'true' : 'false');
     }
   });
+
+  // Spalten-Sichtbarkeit direkt im DOM aktualisieren (ohne Re-Render)
+  document.querySelectorAll('[data-col="lk"]').forEach(el => {
+    el.style.display = (p === 'su') ? 'none' : '';
+  });
+  document.querySelectorAll('[data-col="su"]').forEach(el => {
+    el.style.display = (p === 'lk') ? 'none' : '';
+  });
+
+  // Bewertungssystem-Bereich: nur bei LK relevant
+  const bewertungSection = document.getElementById('bewertung-section');
+  if (bewertungSection) bewertungSection.style.display = (p === 'su') ? 'none' : '';
 }
 
 // ---- Stufen ----

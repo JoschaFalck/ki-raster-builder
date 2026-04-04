@@ -47,12 +47,13 @@
 <main id="main-content">
   <div class="container">
 
-    <!-- Filter -->
-    <div class="filter-bar" role="group" aria-label="Raster nach Schulstufe filtern">
-      <button class="filter-chip active" data-filter="alle" onclick="filterRaster(this, 'alle')">Alle (11)</button>
-      <button class="filter-chip" data-filter="gs" onclick="filterRaster(this, 'gs')">Grundschule (Kl. 3–4)</button>
-      <button class="filter-chip" data-filter="sek1" onclick="filterRaster(this, 'sek1')">Sek. I (Kl. 5–10)</button>
-      <button class="filter-chip" data-filter="sek2" onclick="filterRaster(this, 'sek2')">Sek. II (Kl. 11–13)</button>
+    <!-- Filter nach Kompetenzbereich -->
+    <div class="filter-bar" role="group" aria-label="Raster nach Kompetenzbereich filtern">
+      <button class="filter-chip active" data-filter="alle" onclick="filterRaster(this, 'alle')" aria-pressed="true">Alle (11)</button>
+      <button class="filter-chip" data-filter="instrumental" onclick="filterRaster(this, 'instrumental')" aria-pressed="false">Instrumental (2)</button>
+      <button class="filter-chip" data-filter="analytisch" onclick="filterRaster(this, 'analytisch')" aria-pressed="false">Analytisch-kritisch (4)</button>
+      <button class="filter-chip" data-filter="personell" onclick="filterRaster(this, 'personell')" aria-pressed="false">Personell &amp; SRL (4)</button>
+      <button class="filter-chip" data-filter="integrativ" onclick="filterRaster(this, 'integrativ')" aria-pressed="false">Integrativ (1)</button>
     </div>
 
     <!-- Loading state -->
@@ -63,11 +64,6 @@
     <!-- Cards Grid -->
     <div class="cards-grid" id="cards-grid" aria-live="polite" style="display:none;"></div>
 
-    <!-- GS Filter Notice -->
-    <div id="gs-notice" class="notice notice-info" style="display:none; margin-top: 1rem;">
-      <span class="notice-icon">ℹ️</span>
-      <span>Für die Grundschule empfohlen: Raster 01, 02, 04, 07, 09, 10. Die anderen Raster sind konzeptuell für die Sekundarstufe ausgelegt.</span>
-    </div>
 
   </div>
 </main>
@@ -128,6 +124,9 @@
 
 <!-- CDN: DOCX Export -->
 <script src="https://cdn.jsdelivr.net/npm/docx@8/build/index.min.js"></script>
+
+<!-- Wissensbasis (als globale Variable, funktioniert auch lokal via file://) -->
+<script src="data.js"></script>
 
 <!-- App Scripts -->
 <script src="export-docx.js"></script>

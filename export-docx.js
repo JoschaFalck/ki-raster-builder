@@ -85,15 +85,6 @@ function getColWidths(stufen) {
 // ============================================================
 
 /**
- * Erstellt einen farbigen Tabellenzellen-Hintergrund.
- * @param {string} hex  Farbe ohne #
- * @returns {Object} docx TableCellBackground
- */
-function cellBg(hex) {
-  return new docx.TableCellBackground({ fill: hex });
-}
-
-/**
  * Erstellt einen Paragraph mit optionalen Optionen.
  * @param {string} text
  * @param {Object} opts
@@ -153,7 +144,12 @@ function makeCell(text, opts = {}) {
   };
 
   if (opts.shading) {
-    cellOpts.shading = { fill: opts.shading, type: docx.ShadingType.SOLID };
+    // ShadingType.CLEAR = Hintergrundfarbe sichtbar (kein Muster), color = Musterfarbe
+    cellOpts.shading = {
+      fill: opts.shading,
+      type: docx.ShadingType ? docx.ShadingType.CLEAR : 'clear',
+      color: 'auto',
+    };
   }
 
   return new docx.TableCell(cellOpts);
@@ -226,7 +222,6 @@ async function generateDocxBlob(config) {
 
   const headerRow = new docx.TableRow({
     children: headerCells,
-    tableHeader: true,
   });
 
   // --- Kriterium-Zeilen ---
@@ -254,7 +249,6 @@ async function generateDocxBlob(config) {
   const table = new docx.Table({
     width: { size: NET_WIDTH, type: docx.WidthType.DXA },
     rows: [headerRow, ...dataRows],
-    layout: docx.TableLayoutType.FIXED,
   });
 
   // --- Meta-Zeile ---
