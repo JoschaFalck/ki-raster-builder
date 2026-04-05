@@ -1450,23 +1450,63 @@ function getTagLabel(kompetenzbereich) {
  * Öffnet/schließt eine Info-Glühbirne.
  * @param {string} id - ID des info-bubble Elements
  */
+/**
+ * Öffnet/schließt ein Info-Popup und positioniert es unterhalb des Triggers.
+ */
 function toggleInfo(id) {
   const bubble = document.getElementById(id);
-  if (!bubble) return;
-  const isOpen = bubble.classList.toggle('open');
-
-  // aria-expanded auf dem Trigger aktualisieren
   const trigger = document.querySelector(`[data-info="${id}"]`);
-  if (trigger) trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  if (!bubble || !trigger) return;
 
-  // Alle anderen schließen
-  document.querySelectorAll('.info-bubble.open').forEach(b => {
-    if (b.id !== id) {
-      b.classList.remove('open');
-      const t = document.querySelector(`[data-info="${b.id}"]`);
-      if (t) t.setAttribute('aria-expanded', 'false');
+  const wasOpen = bubble.classList.contains('open');
+
+  // Alle offenen Bubbles schließen
+  _closeAllInfoBubbles();
+
+  if (!wasOpen) {
+    // Popup neben/unter dem Trigger positionieren
+    const rect = trigger.getBoundingClientRect();
+    const bw = 300;   // Bubble-Breite
+    const gap = 8;
+
+    let left = rect.left;
+    let top  = rect.bottom + gap;
+
+    // Am rechten Rand kappen
+    if (left + bw > window.innerWidth - 12) left = window.innerWidth - bw - 12;
+    if (left < 8) left = 8;
+
+    // Wenn kein Platz unten: oberhalb anzeigen
+    const estimatedHeight = 220;
+    if (top + estimatedHeight > window.innerHeight - 12) {
+      top = rect.top - estimatedHeight - gap;
     }
+
+    bubble.style.left = left + 'px';
+    bubble.style.top  = top  + 'px';
+    bubble.classList.add('open');
+    trigger.setAttribute('aria-expanded', 'true');
+
+    // Bei nächstem Klick außerhalb schließen
+    setTimeout(() => document.addEventListener('click', _infoOutsideHandler, { capture: true, once: true }), 0);
+  }
+}
+
+function _closeAllInfoBubbles() {
+  document.querySelectorAll('.info-bubble.open').forEach(b => {
+    b.classList.remove('open');
+    const t = document.querySelector(`[data-info="${b.id}"]`);
+    if (t) t.setAttribute('aria-expanded', 'false');
   });
+}
+
+function _infoOutsideHandler(e) {
+  if (e.target.closest('.info-bubble') || e.target.closest('.info-trigger')) {
+    // Klick war innerhalb – Listener wieder anhängen
+    setTimeout(() => document.addEventListener('click', _infoOutsideHandler, { capture: true, once: true }), 0);
+  } else {
+    _closeAllInfoBubbles();
+  }
 }
 
 /**

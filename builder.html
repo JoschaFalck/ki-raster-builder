@@ -91,12 +91,12 @@
 
             <!-- Sub: Eigenes Raster (leer oder mit Idee) -->
             <div class="start-sub" id="sub-neu">
-              <div class="d-flex align-center gap-2" style="margin-bottom: 0.625rem;">
-                <div class="toggle-group" role="group" aria-label="Startoption wählen">
-                  <button class="toggle-option active" id="nm-leer" onclick="selectNeuMode('leer')" aria-pressed="true">Leeres Raster</button>
-                  <button class="toggle-option" id="nm-idee" onclick="selectNeuMode('idee')" aria-pressed="false">Mit einer Idee starten</button>
-                </div>
-                <button class="info-trigger" data-info="info-neu" onclick="toggleInfo('info-neu')" aria-expanded="false" aria-label="Tipp: Eigenes Raster anlegen">💡</button>
+              <div class="toggle-group" style="width:100%; margin-bottom: 0.625rem;" role="group" aria-label="Startoption wählen">
+                <button class="toggle-option active" id="nm-leer" onclick="selectNeuMode('leer')" aria-pressed="true" style="flex:1;">Leeres Raster</button>
+                <button class="toggle-option" id="nm-idee" onclick="selectNeuMode('idee')" aria-pressed="false" style="flex:1; display:flex; align-items:center; justify-content:center; gap:0.4rem;">
+                  Mit einer Idee starten
+                  <span class="info-trigger" data-info="info-neu" onclick="event.stopPropagation(); toggleInfo('info-neu')" aria-expanded="false" aria-label="Tipp: Eigenes Raster anlegen" style="pointer-events:auto;">💡</span>
+                </button>
               </div>
               <div id="info-neu" class="info-bubble">
                 <span class="info-title">Eigenes Raster anlegen – in 3 Schritten</span>
@@ -221,7 +221,7 @@
             <details class="mt-2" id="stufen-labels-details">
               <summary style="cursor:pointer; font-size:0.875rem; font-weight:600; padding: 0.5rem 0; color: var(--color-text-muted);">
                 Stufen-Bezeichnungen anpassen ▾
-                <button class="info-trigger" data-info="info-stufen" onclick="event.preventDefault(); toggleInfo('info-stufen')" aria-expanded="false" aria-label="Tipp: Stufen-Bezeichnungen formulieren" style="margin-left:0.4rem;">💡</button>
+                <button class="info-trigger" data-info="info-stufen" onclick="event.stopPropagation(); toggleInfo('info-stufen')" aria-expanded="false" aria-label="Tipp: Stufen-Bezeichnungen formulieren" style="margin-left:0.4rem;">💡</button>
               </summary>
               <div id="info-stufen" class="info-bubble">
                 <span class="info-title">Stufen-Bezeichnungen wirkungsvoll gestalten</span>

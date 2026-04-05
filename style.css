@@ -1301,6 +1301,10 @@ input[type="range"] {
 
 .info-bubble {
   display: none;
+  position: fixed;
+  z-index: 1050;
+  width: 300px;
+  max-width: calc(100vw - 2rem);
   background: #FFFEF7;
   border: 1.5px solid #F0D060;
   border-left: 3px solid #D4AC0D;
@@ -1308,8 +1312,8 @@ input[type="range"] {
   padding: 0.875rem 1rem;
   font-size: 0.82rem;
   line-height: 1.65;
-  margin-top: 0.625rem;
   color: var(--color-text);
+  box-shadow: 0 6px 28px rgba(0,0,0,0.16), 0 1px 6px rgba(0,0,0,0.08);
 }
 .info-bubble.open {
   display: block;
