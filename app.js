@@ -999,7 +999,7 @@ function syncCriteriaOrderFromDOM() {
 let _suggestTarget = null; // { criterionId, field, stufe }
 
 /**
- * Öffnet den Suggestions-Popup neben dem Klick-Button.
+ * Öffnet den Pool-Picker Modal für eine Stufe/Perspektive.
  * @param {HTMLElement} btn
  * @param {string} criterionId
  * @param {'lk'|'su'} field
@@ -1008,86 +1008,106 @@ let _suggestTarget = null; // { criterionId, field, stufe }
 function openSuggestPopup(btn, criterionId, field, stufe) {
   _suggestTarget = { criterionId, field, stufe };
 
-  const popup = document.getElementById('suggest-popup');
-  const list = document.getElementById('suggest-list');
-  if (!popup || !list) return;
+  const modal = document.getElementById('pool-picker-modal');
+  const list = document.getElementById('pool-picker-list');
+  const title = document.getElementById('pool-picker-title');
+  if (!modal || !list) return;
 
-  // Vorschläge suchen
+  // Titel
+  const stufeNum = stufe.replace('s', '');
+  const perspLabel = field === 'lk' ? 'Lehrkraft' : 'Schüler:in';
+  const stufenLabel = STATE.stufenLabels[field][parseInt(stufeNum) - 1] || ('Stufe ' + stufeNum);
+  if (title) title.textContent = `Pool-Vorschläge – ${perspLabel}, ${stufenLabel}`;
+
+  // Vorschläge aus Pool laden
   const suggestions = getSuggestions(field, stufe);
 
   list.innerHTML = '';
   if (suggestions.length === 0) {
-    list.innerHTML = '<p class="suggest-empty">Keine Vorschläge für diese Kombination gefunden.</p>';
+    list.innerHTML = '<p class="suggest-empty">Keine Vorschläge für diese Kombination im Pool gefunden.</p>';
   } else {
-    suggestions.forEach(text => {
+    suggestions.forEach(({ label, text }) => {
       const item = document.createElement('div');
-      item.className = 'suggest-item';
-      item.textContent = text;
+      item.className = 'pool-pick-item';
+      item.innerHTML = `
+        <div class="pool-pick-label">${escapeHtml(label)}</div>
+        <div class="pool-pick-text">${escapeHtml(text)}</div>
+      `;
       item.setAttribute('role', 'button');
       item.setAttribute('tabindex', '0');
+      item.title = 'Klicken zum Übernehmen';
       item.addEventListener('click', () => applySuggestion(text));
       item.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') applySuggestion(text); });
       list.appendChild(item);
     });
   }
 
-  // Positionierung
-  const rect = btn.getBoundingClientRect();
-  popup.style.top = (rect.bottom + window.scrollY + 4) + 'px';
-  popup.style.left = Math.max(8, rect.left + window.scrollX - 280) + 'px';
-  popup.classList.add('open');
+  modal.classList.add('open');
+  modal.querySelector('.modal-close')?.focus();
+  document.body.style.overflow = 'hidden';
+}
+
+/**
+ * Schließt den Pool-Picker Modal.
+ */
+function closePoolPicker() {
+  const modal = document.getElementById('pool-picker-modal');
+  if (modal) modal.classList.remove('open');
+  document.body.style.overflow = '';
+  _suggestTarget = null;
 }
 
 /**
  * Holt Formulierungsvorschläge aus dem Pool.
+ * Gibt Array von { label, text } Objekten zurück.
  * @param {'lk'|'su'} field
  * @param {string} stufe
- * @returns {string[]}
+ * @returns {{ label: string, text: string }[]}
  */
 function getSuggestions(field, stufe) {
   if (!WB) return [];
 
-  const jahrgangKey = getJahrgangKey();
-  const fach = document.getElementById('raster-fach')?.value || 'fachunabhaengig';
   const results = [];
 
   // Fachunabhängige Pool-Einträge
+  // Struktur: entry.varianten.lk.s1 / entry.varianten.su.s1
   WB.kriterien_pool.fachunabhaengig.forEach(entry => {
-    const variant = entry.varianten[jahrgangKey] || entry.varianten['klasse-8-10'];
-    if (variant && variant[field] && variant[field][stufe]) {
-      results.push(variant[field][stufe]);
+    const text = entry.varianten?.[field]?.[stufe];
+    if (text) {
+      results.push({ label: entry.name, text });
     }
   });
 
   // Fachspezifische Pool-Einträge
-  if (fach !== 'fachunabhaengig' && WB.kriterien_pool.fachspezifisch && WB.kriterien_pool.fachspezifisch[fach]) {
+  const fach = document.getElementById('raster-fach')?.value || 'fachunabhaengig';
+  if (fach !== 'fachunabhaengig' && WB.kriterien_pool.fachspezifisch?.[fach]) {
     WB.kriterien_pool.fachspezifisch[fach].forEach(entry => {
-      const variant = entry.varianten?.[jahrgangKey] || entry.varianten?.['klasse-8-10'];
-      if (variant && variant[field] && variant[field][stufe]) {
-        results.push(variant[field][stufe]);
+      const text = entry.varianten?.[field]?.[stufe];
+      if (text) {
+        results.push({ label: entry.name, text });
       }
     });
   }
 
-  // Aus den fertigen Rastern ergänzen (maximal 3 davon)
+  // Ergänzung aus fertigen Rastern (maximal 3, aus anderen Kriterien)
   let fromRaster = 0;
   WB.raster_fertig.forEach(raster => {
     if (fromRaster >= 3) return;
     raster.kriterien.forEach(k => {
       if (fromRaster >= 3) return;
-      if (k[field] && k[field][stufe] && !results.includes(k[field][stufe])) {
-        results.push(k[field][stufe]);
+      const text = k[field]?.[stufe];
+      if (text && !results.find(r => r.text === text)) {
+        results.push({ label: `${raster.titel} – ${k.name}`, text });
         fromRaster++;
       }
     });
   });
 
-  // Auf 5 begrenzen
-  return results.slice(0, 5);
+  return results;
 }
 
 /**
- * Überträgt einen Vorschlag in das Ziel-Textarea.
+ * Überträgt einen Vorschlag in das Ziel-Textarea und schließt den Picker.
  * @param {string} text
  */
 function applySuggestion(text) {
@@ -1105,9 +1125,7 @@ function applySuggestion(text) {
     textarea.dispatchEvent(new Event('input'));
   }
 
-  // Popup schließen
-  document.getElementById('suggest-popup').classList.remove('open');
-  _suggestTarget = null;
+  closePoolPicker();
 }
 
 // ============================================================

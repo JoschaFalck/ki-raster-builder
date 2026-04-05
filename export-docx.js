@@ -128,26 +128,25 @@ function makeCell(text, opts = {}) {
     children: paraChildren,
     spacing: { before: 40, after: 40 },
   };
-  if (opts.headerCell) paraOpts.alignment = docx.AlignmentType.CENTER;
+  if (opts.headerCell) paraOpts.alignment = 'center';
 
   const cellOpts = {
-    width: { size: opts.width || 1000, type: docx.WidthType.DXA },
+    width: { size: opts.width || 1000, type: 'dxa' },
     children: [new docx.Paragraph(paraOpts)],
-    verticalAlign: docx.VerticalAlign.CENTER,
+    verticalAlign: 'center',
     margins: { top: 60, bottom: 60, left: 90, right: 90 },
     borders: {
-      top:    { style: docx.BorderStyle.SINGLE, size: 4, color: DOCX_COLORS.border },
-      bottom: { style: docx.BorderStyle.SINGLE, size: 4, color: DOCX_COLORS.border },
-      left:   { style: docx.BorderStyle.SINGLE, size: 4, color: DOCX_COLORS.border },
-      right:  { style: docx.BorderStyle.SINGLE, size: 4, color: DOCX_COLORS.border },
+      top:    { style: 'single', size: 4, color: DOCX_COLORS.border },
+      bottom: { style: 'single', size: 4, color: DOCX_COLORS.border },
+      left:   { style: 'single', size: 4, color: DOCX_COLORS.border },
+      right:  { style: 'single', size: 4, color: DOCX_COLORS.border },
     },
   };
 
   if (opts.shading) {
-    // ShadingType.CLEAR = Hintergrundfarbe sichtbar (kein Muster), color = Musterfarbe
     cellOpts.shading = {
       fill: opts.shading,
-      type: docx.ShadingType ? docx.ShadingType.CLEAR : 'clear',
+      type: 'clear',
       color: 'auto',
     };
   }
@@ -247,7 +246,7 @@ async function generateDocxBlob(config) {
 
   // --- Tabelle ---
   const table = new docx.Table({
-    width: { size: NET_WIDTH, type: docx.WidthType.DXA },
+    width: { size: NET_WIDTH, type: 'dxa' },
     rows: [headerRow, ...dataRows],
   });
 
@@ -304,7 +303,7 @@ async function generateDocxBlob(config) {
           size: {
             width:  PAGE_WIDTH,
             height: PAGE_HEIGHT,
-            orientation: docx.PageOrientation.LANDSCAPE,
+            orientation: 'landscape',
           },
           margin: {
             top:    MARGIN,

@@ -336,10 +336,18 @@
   </div><!-- end container -->
 </main>
 
-<!-- Suggestion Popup -->
-<div class="suggest-popup" id="suggest-popup" role="dialog" aria-modal="false" aria-label="Formulierungsvorschläge" aria-live="polite">
-  <div class="suggest-popup-header">✨ Formulierungsvorschläge</div>
-  <div id="suggest-list"></div>
+<!-- Pool-Picker Modal -->
+<div class="modal-backdrop" id="pool-picker-modal" role="dialog" aria-modal="true" aria-labelledby="pool-picker-title">
+  <div class="modal" style="max-width: 640px;">
+    <div class="modal-header">
+      <h2 id="pool-picker-title">Pool-Vorschläge</h2>
+      <button class="modal-close" onclick="closePoolPicker()" aria-label="Schließen">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="text-sm text-muted mb-2">Klicken Sie auf einen Eintrag, um ihn in das Textfeld zu übernehmen.</p>
+      <div id="pool-picker-list"></div>
+    </div>
+  </div>
 </div>
 
 <!-- Punkte-Editor Modal (inline) -->
@@ -371,7 +379,6 @@
     <nav class="footer-links" aria-label="Footer-Navigation">
       <a href="impressum.html">Impressum</a>
       <a href="datenschutz.html">Datenschutz</a>
-      <a href="index.html">Fertige Raster</a>
     </nav>
   </div>
 </footer>
@@ -396,12 +403,9 @@
     this.setAttribute('aria-expanded', isOpen);
   });
 
-  // Close suggestion popup on outside click
-  document.addEventListener('click', function(e) {
-    const popup = document.getElementById('suggest-popup');
-    if (popup.classList.contains('open') && !popup.contains(e.target) && !e.target.classList.contains('btn-suggest')) {
-      popup.classList.remove('open');
-    }
+  // Close pool picker on backdrop click
+  document.getElementById('pool-picker-modal').addEventListener('click', function(e) {
+    if (e.target === this) closePoolPicker();
   });
 
   // Close punkte modal on backdrop click
@@ -413,7 +417,7 @@
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
       closePunkteModal();
-      document.getElementById('suggest-popup').classList.remove('open');
+      closePoolPicker();
     }
   });
 

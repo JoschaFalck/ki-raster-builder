@@ -304,7 +304,92 @@ main {
 }
 .filter-chip:focus-visible { outline: 2px solid var(--color-lk); outline-offset: 3px; }
 
-/* --- 7. Rubric Cards Grid -------------------------------- */
+/* --- 7. Kachel-Grid (Startseite) ------------------------- */
+.tiles-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.raster-tile {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  padding: 1.1rem 1rem 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  transition: box-shadow 0.22s ease, transform 0.22s ease, border-color 0.22s ease;
+}
+.raster-tile:hover {
+  box-shadow: 0 6px 22px rgba(58,110,168,0.14), 0 2px 8px rgba(0,0,0,0.06);
+  transform: translateY(-3px);
+  border-color: rgba(58,110,168,0.25);
+}
+.raster-tile.hidden { display: none; }
+
+.tile-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.tile-num {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.tile-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.35;
+  flex: 1;
+}
+
+.tile-versions {
+  display: flex;
+  gap: 0.375rem;
+  flex-wrap: wrap;
+}
+.tile-version-badge {
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid;
+}
+.tile-lk {
+  background: var(--color-lk-light);
+  border-color: #b8d4ec;
+  color: var(--color-lk-title);
+}
+.tile-su {
+  background: var(--color-su-light);
+  border-color: #a8d5c7;
+  color: var(--color-su-title);
+}
+
+.tile-actions {
+  display: flex;
+  gap: 0.375rem;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+.tile-actions .btn {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.78rem;
+  padding: 0.35rem 0.5rem;
+  min-height: 34px;
+}
+
+/* Legacy cards grid (for compatibility) */
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1049,52 +1134,47 @@ input[type="range"] {
 .cc-checkbox { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.85rem; }
 .cc-checkbox input { accent-color: var(--color-lk); width: 16px; height: 16px; cursor: pointer; }
 
-/* --- 13. Suggestion Popup -------------------------------- */
-.suggest-popup {
-  position: fixed;
-  z-index: 300;
-  background: var(--color-surface);
+/* --- 13. Pool-Picker ------------------------------------ */
+/* (replaces old suggest-popup) */
+.pool-pick-item {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
   border: 1.5px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  padding: 0.875rem;
-  width: 340px;
-  max-height: 380px;
-  overflow-y: auto;
-  display: none;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: all var(--transition);
+  background: var(--color-surface);
 }
-.suggest-popup.open { display: block; }
+.pool-pick-item:hover {
+  border-color: var(--color-lk);
+  background: var(--color-lk-light);
+  box-shadow: 0 2px 8px rgba(58,110,168,0.12);
+}
+.pool-pick-item:last-child { margin-bottom: 0; }
 
-.suggest-popup-header {
-  font-size: 0.78rem;
+.pool-pick-label {
+  font-size: 0.75rem;
   font-weight: 700;
   color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin-bottom: 0.625rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--color-border);
-}
-
-.suggest-item {
-  padding: 0.5rem 0.625rem;
-  border-radius: var(--radius);
-  font-size: 0.82rem;
-  cursor: pointer;
-  transition: background var(--transition);
   margin-bottom: 0.25rem;
-  line-height: 1.5;
-  border: 1px solid transparent;
 }
-.suggest-item:hover { background: var(--color-lk-light); border-color: var(--color-lk); }
-.suggest-item:last-child { margin-bottom: 0; }
+.pool-pick-text {
+  font-size: 0.875rem;
+  color: var(--color-text);
+  line-height: 1.5;
+}
 
 .suggest-empty {
   font-size: 0.82rem;
   color: var(--color-text-muted);
   text-align: center;
-  padding: 1rem;
+  padding: 1.5rem;
 }
+
+/* Legacy: hide old popup if it still exists in DOM */
+.suggest-popup { display: none !important; }
 
 /* Step 3 – Preview */
 .preview-controls {
@@ -1221,6 +1301,7 @@ input[type="range"] {
 
 /* --- 17. Responsive --------------------------------------- */
 @media (max-width: 1024px) {
+  .tiles-grid { grid-template-columns: repeat(3, 1fr); }
   .cards-grid { grid-template-columns: repeat(2, 1fr); }
   .builder-layout { grid-template-columns: 1fr; }
   .wizard-sidebar { position: static; }
@@ -1232,6 +1313,7 @@ input[type="range"] {
 }
 
 @media (max-width: 768px) {
+  .tiles-grid { grid-template-columns: repeat(2, 1fr); }
   .cards-grid { grid-template-columns: 1fr; }
   .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--color-lk); padding: 0.5rem; z-index: 101; }
   .nav-links.open { display: flex; }
@@ -1249,6 +1331,12 @@ input[type="range"] {
   .start-options { grid-template-columns: 1fr; }
   .export-grid { grid-template-columns: 1fr; }
   .stufen-labels-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .tiles-grid { grid-template-columns: 1fr; }
+  .tile-actions { flex-direction: column; }
+  .tile-actions .btn { flex: none; width: 100%; }
 }
 
 /* --- 18. Print ------------------------------------------- */
