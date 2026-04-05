@@ -493,14 +493,25 @@ main {
 }
 .page-intro .container {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 2rem;
 }
 .page-intro-text { flex: 1; }
 .page-intro-text h1 { margin-bottom: 0.5rem; color: var(--color-lk); }
 .page-intro-text p { color: var(--color-text-muted); font-size: 0.95rem; }
-.page-intro-action { flex-shrink: 0; }
+.page-intro-action {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+.page-intro-action .btn {
+  white-space: normal;
+  text-align: center;
+  max-width: 160px;
+  line-height: 1.35;
+  padding: 0.75rem 1.25rem;
+}
 
 /* --- 9. Modal -------------------------------------------- */
 .modal-backdrop {
@@ -768,6 +779,21 @@ main {
   border: 2px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: 1.25rem;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+}
+.start-option::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('Bilder/Hintergrund Grid.png');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: -1;
+}
   cursor: pointer;
   transition: all var(--transition);
   background: var(--color-surface);
