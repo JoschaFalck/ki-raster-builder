@@ -13,8 +13,7 @@
 <header class="site-header" role="banner">
   <nav class="nav-inner" aria-label="Hauptnavigation">
     <a href="index.html" class="nav-brand" aria-label="KI-Bewertungsraster-Builder Startseite">
-      KI-Bewertungsraster-Builder
-      <small>Joscha Falck</small>
+      KI-Bewertungsraster-Builder <span style="font-weight:400; opacity:0.7;">JF</span>
     </a>
     <button class="nav-burger" id="nav-burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav-links">&#9776;</button>
     <ul class="nav-links" id="nav-links" role="list">
@@ -219,10 +218,9 @@
 
             <!-- Stufen-Bezeichnungen -->
             <details class="mt-2" id="stufen-labels-details">
-              <summary style="cursor:pointer; font-size:0.875rem; font-weight:600; padding: 0.5rem 0; color: var(--color-text-muted);"
-                onclick="if(event.target.closest('.info-trigger')){ event.preventDefault(); toggleInfo('info-stufen'); }">
+              <summary style="cursor:pointer; font-size:0.875rem; font-weight:600; padding: 0.5rem 0; color: var(--color-text-muted);">
                 Stufen-Bezeichnungen anpassen ▾
-                <button class="info-trigger" data-info="info-stufen" aria-expanded="false" aria-label="Tipp: Stufen-Bezeichnungen formulieren" style="margin-left:0.4rem;">💡</button>
+                <button class="info-trigger" data-info="info-stufen" onclick="toggleInfo('info-stufen')" aria-expanded="false" aria-label="Tipp: Stufen-Bezeichnungen formulieren" style="margin-left:0.4rem;">💡</button>
               </summary>
               <div id="info-stufen" class="info-bubble">
                 <span class="info-title">Stufen-Bezeichnungen wirkungsvoll gestalten</span>
