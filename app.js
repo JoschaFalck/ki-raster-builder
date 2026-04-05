@@ -618,7 +618,12 @@ function setPerspektive(p) {
 
   // Bewertungssystem-Bereich: nur bei LK relevant
   const bewertungSection = document.getElementById('bewertung-section');
-  if (bewertungSection) bewertungSection.style.display = (p === 'su') ? 'none' : '';
+  if (bewertungSection) {
+    bewertungSection.style.display = (p === 'su') ? 'none' : '';
+    // hr vor Bewertungssystem ebenfalls ausblenden
+    const behrHr = bewertungSection.previousElementSibling;
+    if (behrHr && behrHr.tagName === 'HR') behrHr.style.display = (p === 'su') ? 'none' : '';
+  }
 
   // Stufen-Bezeichnungen: Spalten je nach Perspektive anpassen
   renderStufenLabels();
@@ -1128,26 +1133,28 @@ function renderExportButtons() {
 
   if (showLk) {
     grid.innerHTML += `
-      <button class="btn btn-secondary" onclick="exportBuilderDocx('lk')">
-        ⬇ LK-Version (DOCX)
-      </button>
-      <button class="btn btn-ghost" onclick="exportBuilderPdf('lk')">
-        ⬇ LK-Version (PDF)
-      </button>`;
+      <div class="export-group export-group-lk">
+        <div class="export-group-header">📋 Lehrkraft-Version</div>
+        <div class="export-group-btns">
+          <button class="btn btn-secondary" onclick="exportBuilderDocx('lk')">⬇ Word (.docx)</button>
+          <button class="btn btn-ghost" onclick="exportBuilderPdf('lk')">⬇ PDF</button>
+        </div>
+      </div>`;
   }
   if (showSu) {
     grid.innerHTML += `
-      <button class="btn btn-su" onclick="exportBuilderDocx('su')">
-        ⬇ SuS-Version (DOCX)
-      </button>
-      <button class="btn btn-ghost" onclick="exportBuilderPdf('su')">
-        ⬇ SuS-Version (PDF)
-      </button>`;
+      <div class="export-group export-group-su">
+        <div class="export-group-header">📝 Schüler:in-Version (Selbsteinschätzung)</div>
+        <div class="export-group-btns">
+          <button class="btn btn-su" onclick="exportBuilderDocx('su')">⬇ Word (.docx)</button>
+          <button class="btn btn-ghost" onclick="exportBuilderPdf('su')">⬇ PDF</button>
+        </div>
+      </div>`;
   }
   if (showLk && showSu) {
     grid.innerHTML += `
-      <button class="btn btn-primary" onclick="exportBuilderZip()" style="grid-column: span 2;">
-        📦 Alle Versionen als ZIP
+      <button class="btn btn-primary" onclick="exportBuilderZip()" style="width:100%;">
+        📦 Alle Versionen als ZIP herunterladen
       </button>`;
   }
 }
@@ -1281,7 +1288,7 @@ function applyImportedConfig(data) {
 
   renderPunkteDisplay();
   renderStufenLabels();
-  alert('Konfiguration erfolgreich geladen!');
+  showToast('Konfiguration erfolgreich geladen!');
 }
 
 // ============================================================
@@ -1435,6 +1442,25 @@ function getTagLabel(kompetenzbereich) {
     'Integrativ': 'Integrativ',
   };
   return map[kompetenzbereich] || kompetenzbereich;
+}
+
+/**
+ * Zeigt eine kurze Toast-Benachrichtigung.
+ * @param {string} message
+ * @param {'success'|'error'|''} type
+ */
+function showToast(message, type = 'success') {
+  const container = document.getElementById('toast-container');
+  if (!container) { alert(message); return; }
+
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'ℹ';
+  toast.innerHTML = `<span style="font-size:1rem;">${icon}</span><span>${escapeHtml(message)}</span>`;
+  container.appendChild(toast);
+
+  // Nach Animation entfernen
+  setTimeout(() => toast.remove(), 2900);
 }
 
 /** Escapet HTML-Sonderzeichen */

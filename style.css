@@ -706,6 +706,14 @@ main {
 }
 .wizard-step-item.done { color: var(--color-su); cursor: pointer; }
 .wizard-step-item.done:hover { background: rgba(45,122,104,0.06); }
+.wizard-step-item.done::after {
+  content: '✓';
+  margin-left: auto;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-su);
+  opacity: 0.8;
+}
 
 .step-num {
   width: 28px;
@@ -728,7 +736,14 @@ main {
 
 /* Step panels */
 .step-panel { display: none; }
-.step-panel.active { display: block; }
+.step-panel.active {
+  display: block;
+  animation: fadeInStep 0.22s ease-out;
+}
+@keyframes fadeInStep {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
 .step-card {
   background: var(--color-surface);
@@ -1125,9 +1140,33 @@ input[type="range"] {
 }
 
 .export-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+.export-group {
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.export-group-header {
+  padding: 0.5rem 0.875rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+}
+.export-group-lk .export-group-header { color: var(--color-lk); background: var(--color-lk-light); border-color: rgba(58,110,168,0.2); }
+.export-group-su .export-group-header { color: var(--color-su); background: rgba(45,122,104,0.07); border-color: rgba(45,122,104,0.2); }
+.export-group-btns {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.625rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  padding: 0.625rem;
+  background: var(--color-surface);
 }
 
 .preview-panel {
@@ -1237,7 +1276,43 @@ input[type="range"] {
   vertical-align: middle;
 }
 
-/* --- 17. Responsive --------------------------------------- */
+/* --- 17. Toast-Benachrichtigung -------------------------- */
+#toast-container {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+.toast {
+  background: #1e293b;
+  color: #fff;
+  padding: 0.75rem 1.1rem;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  animation: toastIn 0.25s ease-out, toastOut 0.3s ease-in 2.5s forwards;
+  pointer-events: auto;
+  max-width: 320px;
+}
+.toast.toast-success { border-left: 3px solid #22c55e; }
+.toast.toast-error   { border-left: 3px solid #ef4444; }
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes toastOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* --- 18. Responsive --------------------------------------- */
 @media (max-width: 1024px) {
   .tiles-grid { grid-template-columns: repeat(3, 1fr); }
   .cards-grid { grid-template-columns: repeat(2, 1fr); }

@@ -173,28 +173,31 @@
             <hr class="section-divider">
 
             <!-- Bewertungssystem -->
-            <div id="bewertung-section">
-            <h3 class="section-heading">⚖️ Bewertungssystem <span class="text-sm text-muted" style="font-weight:400;">(Lehrkraft-Version)</span></h3>
+            <details id="bewertung-section">
+              <summary style="cursor:pointer; font-size:0.875rem; font-weight:600; padding: 0.5rem 0; color: var(--color-text-muted); list-style:none; display:flex; align-items:center; gap:0.4rem;">
+                <span>⚖️ Bewertungssystem anpassen</span>
+                <span class="text-sm" style="font-weight:400;">(Anzahl Stufen, Punkte)</span>
+                <span style="margin-left:auto; font-size:0.75rem; opacity:0.6;">▾</span>
+              </summary>
 
-            <div class="config-grid">
-              <div class="form-group">
-                <label>Anzahl Bewertungsstufen</label>
-                <div class="stepper">
-                  <button onclick="changeStufen(-1)" aria-label="Stufen reduzieren">−</button>
-                  <span class="stepper-value" id="stufen-value" aria-live="polite">4</span>
-                  <button onclick="changeStufen(1)" aria-label="Stufen erhöhen">+</button>
+              <div class="config-grid" style="margin-top:0.75rem;">
+                <div class="form-group">
+                  <label>Anzahl Bewertungsstufen</label>
+                  <div class="stepper">
+                    <button onclick="changeStufen(-1)" aria-label="Stufen reduzieren">−</button>
+                    <span class="stepper-value" id="stufen-value" aria-live="polite">4</span>
+                    <button onclick="changeStufen(1)" aria-label="Stufen erhöhen">+</button>
+                  </div>
+                  <div class="text-sm text-muted mt-1">Min. 2, Max. 6</div>
                 </div>
-                <div class="text-sm text-muted mt-1">Min. 2, Max. 6</div>
-              </div>
 
-              <div class="form-group">
-                <label>Punkte pro Stufe <span class="text-sm text-muted" style="font-weight:400;">(editierbar)</span></label>
-                <div id="punkte-display" class="punkte-display" aria-live="polite"></div>
-                <div class="text-sm text-muted mt-1">Maximalpunktzahl: <strong id="max-punkte">20</strong></div>
+                <div class="form-group">
+                  <label>Punkte pro Stufe <span class="text-sm text-muted" style="font-weight:400;">(editierbar)</span></label>
+                  <div id="punkte-display" class="punkte-display" aria-live="polite"></div>
+                  <div class="text-sm text-muted mt-1">Maximalpunktzahl: <strong id="max-punkte">20</strong></div>
+                </div>
               </div>
-            </div>
-
-            </div><!-- end bewertung-section -->
+            </details><!-- end bewertung-section -->
 
             <!-- Stufen-Bezeichnungen -->
             <details class="mt-2" id="stufen-labels-details">
@@ -323,6 +326,9 @@
     </div>
   </div>
 </div>
+
+<!-- Toast-Benachrichtigungen -->
+<div id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
 <!-- Footer -->
 <footer class="site-footer" role="contentinfo">

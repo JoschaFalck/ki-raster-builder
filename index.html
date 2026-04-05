@@ -135,12 +135,15 @@
 <main id="main-content">
   <div class="container">
 
-    <div class="filter-bar" role="group" aria-label="Raster nach Kompetenzbereich filtern">
-      <button class="filter-chip active" onclick="filterTiles(this,'alle')" aria-pressed="true">Alle (11)</button>
-      <button class="filter-chip" onclick="filterTiles(this,'instrumental')" aria-pressed="false">Instrumental (2)</button>
-      <button class="filter-chip" onclick="filterTiles(this,'analytisch')" aria-pressed="false">Analytisch-kritisch (4)</button>
-      <button class="filter-chip" onclick="filterTiles(this,'personell')" aria-pressed="false">Personell &amp; SRL (4)</button>
-      <button class="filter-chip" onclick="filterTiles(this,'integrativ')" aria-pressed="false">Integrativ (1)</button>
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem;">
+      <div class="filter-bar" role="group" aria-label="Raster nach Kompetenzbereich filtern">
+        <button class="filter-chip active" onclick="filterTiles(this,'alle')" aria-pressed="true">Alle (11)</button>
+        <button class="filter-chip" onclick="filterTiles(this,'instrumental')" aria-pressed="false">Instrumental (2)</button>
+        <button class="filter-chip" onclick="filterTiles(this,'analytisch')" aria-pressed="false">Analytisch-kritisch (4)</button>
+        <button class="filter-chip" onclick="filterTiles(this,'personell')" aria-pressed="false">Personell &amp; SRL (4)</button>
+        <button class="filter-chip" onclick="filterTiles(this,'integrativ')" aria-pressed="false">Integrativ (1)</button>
+      </div>
+      <span id="filter-count" class="text-sm text-muted" style="white-space:nowrap;">11 Raster</span>
     </div>
 
     <p class="text-sm text-muted mb-2" style="margin-bottom:1rem;">
@@ -365,9 +368,14 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
     });
     btn.classList.add('active');
     btn.setAttribute('aria-pressed','true');
+    let visible = 0;
     document.querySelectorAll('.rt').forEach(t => {
-      t.classList.toggle('hidden', filter !== 'alle' && t.dataset.kompetenz !== filter);
+      const hide = filter !== 'alle' && t.dataset.kompetenz !== filter;
+      t.classList.toggle('hidden', hide);
+      if (!hide) visible++;
     });
+    const counter = document.getElementById('filter-count');
+    if (counter) counter.textContent = visible === 11 ? '11 Raster' : `${visible} von 11 Rastern`;
   }
 
   /* ── Download-Hilfsdaten ──────────────────────── */
