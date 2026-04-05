@@ -1276,7 +1276,56 @@ input[type="range"] {
   vertical-align: middle;
 }
 
-/* --- 17. Toast-Benachrichtigung -------------------------- */
+/* --- 17. Info-Tipps (Glühbirne) -------------------------- */
+.info-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid #D4AC0D;
+  background: #FFFDE7;
+  color: #A07800;
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+  vertical-align: middle;
+  flex-shrink: 0;
+  padding: 0;
+  line-height: 1;
+  font-style: normal;
+}
+.info-trigger:hover { background: #FFF176; transform: scale(1.12); }
+.info-trigger[aria-expanded="true"] { background: #FFF176; border-color: #B8860B; }
+
+.info-bubble {
+  display: none;
+  background: #FFFEF7;
+  border: 1.5px solid #F0D060;
+  border-left: 3px solid #D4AC0D;
+  border-radius: var(--radius);
+  padding: 0.875rem 1rem;
+  font-size: 0.82rem;
+  line-height: 1.65;
+  margin-top: 0.625rem;
+  color: var(--color-text);
+}
+.info-bubble.open {
+  display: block;
+  animation: fadeInStep 0.18s ease-out;
+}
+.info-bubble strong { color: #7A5500; }
+.info-bubble ul { margin: 0.35rem 0 0.35rem 1.1rem; padding: 0; }
+.info-bubble li { margin-bottom: 0.2rem; }
+.info-bubble .info-title {
+  font-weight: 700;
+  color: #7A5500;
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+/* --- 18. Toast-Benachrichtigung -------------------------- */
 #toast-container {
   position: fixed;
   bottom: 1.5rem;

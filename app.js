@@ -698,12 +698,13 @@ function renderPunkteDisplay() {
     badge.addEventListener('click', () => openPunkteModal());
     container.appendChild(badge);
 
-    // Maximalpunktzahl berechnen
-    const pts = p.punkte.split('\u2013').map(x => parseInt(x, 10)).filter(n => !isNaN(n));
+    // Maximalpunktzahl berechnen (normalisiert: en-dash und Bindestrich)
+    const pts = String(p.punkte).replace(/\u2013/g, '-').split('-').map(x => parseInt(x.trim(), 10)).filter(n => !isNaN(n));
     if (pts.length > 0) maxP = Math.max(maxP, pts[pts.length - 1]);
   });
 
-  if (maxEl) maxEl.textContent = maxP;
+  // Gesamt-Maximalpunktzahl = max. Punkte × Anzahl Kriterien
+  if (maxEl) maxEl.textContent = maxP * (STATE.kriterien.length || 1);
 }
 
 // ---- Punkte-Modal ----
@@ -744,7 +745,7 @@ function updatePunkteModalMax() {
   if (!maxEl) return;
   let maxP = 0;
   STATE.punkteConfig.forEach(p => {
-    const pts = p.punkte.split('\u2013').map(x => parseInt(x, 10)).filter(n => !isNaN(n));
+    const pts = String(p.punkte).replace(/\u2013/g, '-').split('-').map(x => parseInt(x.trim(), 10)).filter(n => !isNaN(n));
     if (pts.length > 0) maxP = Math.max(maxP, pts[pts.length - 1]);
   });
   maxEl.textContent = STATE.kriterien.length * maxP;
@@ -830,6 +831,7 @@ function renderCriteria() {
   updateCriteriaCount();
   updateAddButton();
   initDragDrop();
+  renderPunkteDisplay(); // Gesamt-Maximalpunktzahl aktualisieren
 }
 
 /**
@@ -1442,6 +1444,29 @@ function getTagLabel(kompetenzbereich) {
     'Integrativ': 'Integrativ',
   };
   return map[kompetenzbereich] || kompetenzbereich;
+}
+
+/**
+ * Öffnet/schließt eine Info-Glühbirne.
+ * @param {string} id - ID des info-bubble Elements
+ */
+function toggleInfo(id) {
+  const bubble = document.getElementById(id);
+  if (!bubble) return;
+  const isOpen = bubble.classList.toggle('open');
+
+  // aria-expanded auf dem Trigger aktualisieren
+  const trigger = document.querySelector(`[data-info="${id}"]`);
+  if (trigger) trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
+  // Alle anderen schließen
+  document.querySelectorAll('.info-bubble.open').forEach(b => {
+    if (b.id !== id) {
+      b.classList.remove('open');
+      const t = document.querySelector(`[data-info="${b.id}"]`);
+      if (t) t.setAttribute('aria-expanded', 'false');
+    }
+  });
 }
 
 /**

@@ -91,9 +91,21 @@
 
             <!-- Sub: Eigenes Raster (leer oder mit Idee) -->
             <div class="start-sub" id="sub-neu">
-              <div class="toggle-group" style="margin-bottom: 0.75rem;" role="group" aria-label="Startoption wählen">
-                <button class="toggle-option active" id="nm-leer" onclick="selectNeuMode('leer')" aria-pressed="true">Leeres Raster</button>
-                <button class="toggle-option" id="nm-idee" onclick="selectNeuMode('idee')" aria-pressed="false">Mit einer Idee starten</button>
+              <div class="d-flex align-center gap-2" style="margin-bottom: 0.625rem;">
+                <div class="toggle-group" role="group" aria-label="Startoption wählen">
+                  <button class="toggle-option active" id="nm-leer" onclick="selectNeuMode('leer')" aria-pressed="true">Leeres Raster</button>
+                  <button class="toggle-option" id="nm-idee" onclick="selectNeuMode('idee')" aria-pressed="false">Mit einer Idee starten</button>
+                </div>
+                <button class="info-trigger" data-info="info-neu" onclick="toggleInfo('info-neu')" aria-expanded="false" aria-label="Tipp: Eigenes Raster anlegen">💡</button>
+              </div>
+              <div id="info-neu" class="info-bubble">
+                <span class="info-title">Eigenes Raster anlegen – in 3 Schritten</span>
+                <ol style="margin: 0.3rem 0 0.5rem 1.1rem; padding: 0;">
+                  <li style="margin-bottom:0.3rem;"><strong>Ziel definieren</strong>: Was sollen Lernende nach der KI-Aufgabe konkret können?</li>
+                  <li style="margin-bottom:0.3rem;"><strong>Kriterien ableiten</strong>: Welche Aspekte lassen sich sinnvoll beobachten und bewerten?</li>
+                  <li><strong>Stufen beschreiben</strong>: Wie unterscheiden sich gute, ausreichende und unzureichende Leistungen konkret?</li>
+                </ol>
+                <strong>Tipp</strong>: Weniger ist mehr – 3–5 klare Kriterien wirken besser als 8 unklare. Raster, die vorab mit Lernenden besprochen werden, entfalten ihre volle formative Wirkung.
               </div>
               <div id="sub-neu-idee" style="display:none;">
                 <p class="text-sm text-muted" style="margin-bottom:0.5rem;">Wählen Sie eine Kategorie als Ausgangspunkt:</p>
@@ -161,7 +173,15 @@
               </div>
 
               <div class="form-group">
-                <label>Perspektive</label>
+                <label>Perspektive
+                  <button class="info-trigger" data-info="info-perspektive" onclick="toggleInfo('info-perspektive')" aria-expanded="false" aria-label="Tipp: Wann welche Version?">💡</button>
+                </label>
+                <div id="info-perspektive" class="info-bubble">
+                  <span class="info-title">Wann welche Version einsetzen?</span>
+                  <strong>LK-Version</strong>: Fremdeinschätzung durch die Lehrkraft – für Bewertung und schriftliches Feedback.<br><br>
+                  <strong>SuS-Version (Selbsteinschätzung)</strong>: Besonders wertvoll im <strong>formativen</strong> Einsatz – Lernende schätzen sich <em>während</em> des Lernprozesses ein, nicht erst am Ende. Regelmäßige Selbstreflexion fördert Lernbewusstsein und Eigenverantwortung.<br><br>
+                  <strong>Tipp</strong>: Beide Versionen kombiniert – Lernende schätzen sich zuerst selbst ein, dann vergleichen sie mit dem Lehrkraft-Feedback. Das öffnet produktive Gespräche über Lernfortschritt.
+                </div>
                 <div class="toggle-group" role="group" aria-label="Perspektive">
                   <button class="toggle-option active" id="persp-beide" onclick="setPerspektive('beide')" aria-pressed="true">Beide</button>
                   <button class="toggle-option" id="persp-lk" onclick="setPerspektive('lk')" aria-pressed="false">Lehrkraft</button>
@@ -174,10 +194,8 @@
 
             <!-- Bewertungssystem -->
             <details id="bewertung-section">
-              <summary style="cursor:pointer; font-size:0.875rem; font-weight:600; padding: 0.5rem 0; color: var(--color-text-muted); list-style:none; display:flex; align-items:center; gap:0.4rem;">
-                <span>⚖️ Bewertungssystem anpassen</span>
-                <span class="text-sm" style="font-weight:400;">(Anzahl Stufen, Punkte)</span>
-                <span style="margin-left:auto; font-size:0.75rem; opacity:0.6;">▾</span>
+              <summary style="cursor:pointer; font-size:0.875rem; font-weight:600; padding: 0.5rem 0; color: var(--color-text-muted);">
+                ⚖️ Bewertungssystem anpassen <span style="font-weight:400;">(Anzahl Stufen, Punkte)</span> ▾
               </summary>
 
               <div class="config-grid" style="margin-top:0.75rem;">
@@ -203,16 +221,40 @@
             <details class="mt-2" id="stufen-labels-details">
               <summary style="cursor:pointer; font-size:0.875rem; font-weight:600; padding: 0.5rem 0; color: var(--color-text-muted);">
                 Stufen-Bezeichnungen anpassen ▾
+                <button class="info-trigger" data-info="info-stufen" onclick="event.preventDefault(); toggleInfo('info-stufen')" aria-expanded="false" aria-label="Tipp: Stufen-Bezeichnungen formulieren" style="margin-left:0.4rem;">💡</button>
               </summary>
+              <div id="info-stufen" class="info-bubble">
+                <span class="info-title">Stufen-Bezeichnungen wirkungsvoll gestalten</span>
+                <strong>SuS-Version</strong>: Ich-Formulierungen helfen der Selbstreflexion:<br>
+                <em>„Das kann ich noch nicht sicher / teilweise / schon gut / sehr sicher."</em><br><br>
+                <strong>LK-Version</strong>: Beschreibt das Erfüllungsniveau:<br>
+                <em>„Nicht erfüllt / Teilweise erfüllt / Weitgehend erfüllt / Vollständig erfüllt"</em><br><br>
+                <strong>Alternative</strong>: Kompetenzorientiert – <em>„Grundlegend / Sicher / Kompetent / Exzellent"</em><br><br>
+                Gut formulierte Stufen machen den Unterschied zwischen Niveaus klar und nachvollziehbar – das ist der Kern eines wirksamen Rasters.
+              </div>
               <div class="stufen-labels-grid mt-2" id="stufen-labels-grid"></div>
             </details>
 
             <hr class="section-divider">
 
             <!-- Kriterien -->
-            <div class="d-flex align-center gap-2" style="justify-content: space-between; margin-bottom: 1rem;">
-              <h3 class="section-heading" style="margin-bottom:0;">📝 Kriterien</h3>
+            <div class="d-flex align-center gap-2" style="justify-content: space-between; margin-bottom: 0.5rem;">
+              <div class="d-flex align-center gap-2">
+                <h3 class="section-heading" style="margin-bottom:0;">📝 Kriterien</h3>
+                <button class="info-trigger" data-info="info-kriterien" onclick="toggleInfo('info-kriterien')" aria-expanded="false" aria-label="Tipp: Gute Kriterien formulieren">💡</button>
+              </div>
               <span class="criteria-count text-muted text-sm" id="criteria-count">4 Kriterien</span>
+            </div>
+            <div id="info-kriterien" class="info-bubble" style="margin-bottom:0.75rem;">
+              <span class="info-title">Was macht ein gutes Kriterium aus?</span>
+              <ul>
+                <li><strong>Beobachtbar</strong> – beschreibt ein sichtbares Verhalten oder Ergebnis</li>
+                <li><strong>Eindeutig</strong> – ein Kriterium, ein Aspekt (nichts doppelt bewerten)</li>
+                <li><strong>Positiv</strong> formuliert – was Lernende <em>können</em>, nicht was sie nicht können</li>
+                <li><strong>Trennscharf</strong> – die Stufen lassen sich klar voneinander unterscheiden</li>
+                <li><strong>Verständlich</strong> – für die jeweilige Jahrgangsstufe geeignet</li>
+              </ul>
+              <strong>Faustregel</strong>: 3–6 Kriterien sind für Lernende überschaubar und handhabbar.
             </div>
 
             <div class="criteria-container mt-2" id="criteria-container" role="list" aria-label="Kriterien"></div>
