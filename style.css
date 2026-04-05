@@ -505,12 +505,40 @@ main {
   display: flex;
   align-items: center;
 }
-.page-intro-action .btn {
-  white-space: normal;
+
+.intro-cta-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  background: var(--color-lk);
+  color: #fff;
+  text-decoration: none;
+  border-radius: var(--radius-lg);
+  padding: 1.1rem 1.4rem;
+  min-width: 130px;
   text-align: center;
-  max-width: 160px;
+  transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+  box-shadow: 0 4px 16px rgba(58,110,168,0.28);
+  font-family: inherit;
+}
+.intro-cta-btn:hover {
+  background: var(--color-lk-title);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(58,110,168,0.35);
+}
+.intro-cta-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+.intro-cta-text {
+  font-size: 0.88rem;
+  font-weight: 700;
   line-height: 1.35;
-  padding: 0.75rem 1.25rem;
+}
+.intro-cta-arrow {
+  font-size: 1rem;
+  opacity: 0.8;
 }
 
 /* --- 9. Modal -------------------------------------------- */
@@ -782,6 +810,7 @@ main {
   position: relative;
   overflow: hidden;
   z-index: 0;
+  background: #ffffff;
 }
 .start-option::before {
   content: '';
