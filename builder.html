@@ -218,22 +218,24 @@
             </details><!-- end bewertung-section -->
 
             <!-- Stufen-Bezeichnungen -->
-            <details class="mt-2" id="stufen-labels-details">
-              <summary style="cursor:pointer; font-size:0.875rem; font-weight:600; padding: 0.5rem 0; color: var(--color-text-muted);">
-                Stufen-Bezeichnungen anpassen ▾
-                <button class="info-trigger" data-info="info-stufen" onclick="event.stopPropagation(); toggleInfo('info-stufen')" aria-expanded="false" aria-label="Tipp: Stufen-Bezeichnungen formulieren" style="margin-left:0.4rem;">💡</button>
-              </summary>
-              <div id="info-stufen" class="info-bubble">
-                <span class="info-title">Stufen-Bezeichnungen wirkungsvoll gestalten</span>
-                <strong>SuS-Version</strong>: Ich-Formulierungen helfen der Selbstreflexion:<br>
-                <em>„Das kann ich noch nicht sicher / teilweise / schon gut / sehr sicher."</em><br><br>
-                <strong>LK-Version</strong>: Beschreibt das Erfüllungsniveau:<br>
-                <em>„Nicht erfüllt / Teilweise erfüllt / Weitgehend erfüllt / Vollständig erfüllt"</em><br><br>
-                <strong>Alternative</strong>: Kompetenzorientiert – <em>„Grundlegend / Sicher / Kompetent / Exzellent"</em><br><br>
-                Gut formulierte Stufen machen den Unterschied zwischen Niveaus klar und nachvollziehbar – das ist der Kern eines wirksamen Rasters.
-              </div>
-              <div class="stufen-labels-grid mt-2" id="stufen-labels-grid"></div>
-            </details>
+            <div style="display:flex; align-items:center; gap:0.4rem;">
+              <details class="mt-2" id="stufen-labels-details" style="flex:1; min-width:0;">
+                <summary style="cursor:pointer; font-size:0.875rem; font-weight:600; padding: 0.5rem 0; color: var(--color-text-muted);">
+                  Stufen-Bezeichnungen anpassen ▾
+                </summary>
+                <div class="stufen-labels-grid mt-2" id="stufen-labels-grid"></div>
+              </details>
+              <button class="info-trigger" data-info="info-stufen" onclick="toggleInfo('info-stufen')" aria-expanded="false" aria-label="Tipp: Stufen-Bezeichnungen formulieren" style="flex-shrink:0; margin-top:2px;">💡</button>
+            </div>
+            <div id="info-stufen" class="info-bubble">
+              <span class="info-title">Stufen-Bezeichnungen wirkungsvoll gestalten</span>
+              <strong>SuS-Version</strong>: Ich-Formulierungen helfen der Selbstreflexion:<br>
+              <em>„Das kann ich noch nicht sicher / teilweise / schon gut / sehr sicher."</em><br><br>
+              <strong>LK-Version</strong>: Beschreibt das Erfüllungsniveau:<br>
+              <em>„Nicht erfüllt / Teilweise erfüllt / Weitgehend erfüllt / Vollständig erfüllt"</em><br><br>
+              <strong>Alternative</strong>: Kompetenzorientiert – <em>„Grundlegend / Sicher / Kompetent / Exzellent"</em><br><br>
+              Gut formulierte Stufen machen den Unterschied zwischen Niveaus klar und nachvollziehbar – das ist der Kern eines wirksamen Rasters.
+            </div>
 
             <hr class="section-divider">
 
