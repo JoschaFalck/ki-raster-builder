@@ -24,20 +24,9 @@
       flex-direction: column;
       gap: 0.6rem;
       transition: box-shadow .2s, transform .2s;
-      position: relative;
-      overflow: hidden;
-      z-index: 0;
-    }
-    .rt::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url('Bilder/Hintergrund Grid.png');
-      background-size: cover;
-      background-position: center;
-      opacity: 0.06;
-      pointer-events: none;
-      z-index: -1;
+      background:
+        linear-gradient(rgba(255,255,255,0.93), rgba(255,255,255,0.93)),
+        url('Bilder/Hintergrund Grid.png') center / cover;
     }
     .rt:hover {
       box-shadow: 0 6px 20px rgba(0,0,0,0.1);
@@ -144,7 +133,7 @@
     <div class="page-intro-action">
       <a href="builder.html" class="intro-cta-btn">
         <span class="intro-cta-icon">✏️</span>
-        <span class="intro-cta-text">Eigenes Raster<br>erstellen</span>
+        <span class="intro-cta-text">Eigenes Raster erstellen</span>
         <span class="intro-cta-arrow">→</span>
       </a>
     </div>
