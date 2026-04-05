@@ -999,6 +999,34 @@ function syncCriteriaOrderFromDOM() {
 let _suggestTarget = null; // { criterionId, field, stufe }
 
 /**
+ * Stellt sicher, dass der Pool-Picker Modal im DOM existiert.
+ * Erstellt ihn dynamisch falls nötig (resilient gegen alte HTML-Versionen).
+ */
+function ensurePoolPickerModal() {
+  if (document.getElementById('pool-picker-modal')) return;
+
+  const backdrop = document.createElement('div');
+  backdrop.id = 'pool-picker-modal';
+  backdrop.className = 'modal-backdrop';
+  backdrop.setAttribute('role', 'dialog');
+  backdrop.setAttribute('aria-modal', 'true');
+  backdrop.setAttribute('aria-labelledby', 'pool-picker-title');
+  backdrop.innerHTML = `
+    <div class="modal" style="max-width:640px;">
+      <div class="modal-header">
+        <h2 id="pool-picker-title">Pool-Vorschläge</h2>
+        <button class="modal-close" onclick="closePoolPicker()" aria-label="Schließen">✕</button>
+      </div>
+      <div class="modal-body">
+        <p class="text-sm text-muted mb-2">Klicken Sie auf einen Eintrag, um ihn in das Textfeld zu übernehmen.</p>
+        <div id="pool-picker-list"></div>
+      </div>
+    </div>`;
+  backdrop.addEventListener('click', e => { if (e.target === backdrop) closePoolPicker(); });
+  document.body.appendChild(backdrop);
+}
+
+/**
  * Öffnet den Pool-Picker Modal für eine Stufe/Perspektive.
  * @param {HTMLElement} btn
  * @param {string} criterionId
@@ -1007,6 +1035,8 @@ let _suggestTarget = null; // { criterionId, field, stufe }
  */
 function openSuggestPopup(btn, criterionId, field, stufe) {
   _suggestTarget = { criterionId, field, stufe };
+
+  ensurePoolPickerModal();
 
   const modal = document.getElementById('pool-picker-modal');
   const list = document.getElementById('pool-picker-list');

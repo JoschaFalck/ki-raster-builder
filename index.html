@@ -3,13 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KI-Bewertungsraster-Builder – Joscha Falck</title>
-  <meta name="description" content="11 fertige KI-Bewertungsraster für Lehrkräfte – kostenlos herunterladen oder im Builder anpassen. Alle Raster als DOCX, zwei Versionen: Lehrkraft &amp; Schüler:in.">
+  <title>KI-Bewertungsraster – Joscha Falck</title>
+  <meta name="description" content="11 fertige KI-Bewertungsraster für Lehrkräfte – kostenlos herunterladen oder im Builder anpassen.">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Tile-Grid – eigenständige Styles, unabhängig von style.css-Version */
+    .rt-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 0;
+    }
+    .rt {
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid #DEE2E6;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.04);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+    }
+    .rt:hover {
+      box-shadow: 0 8px 28px rgba(58,110,168,0.14), 0 2px 8px rgba(0,0,0,0.06);
+      transform: translateY(-3px);
+      border-color: rgba(58,110,168,0.3);
+    }
+    .rt.hidden { display: none; }
+    .rt-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .rt-num {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #6C757D;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .rt-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1A1A1A;
+      line-height: 1.3;
+      margin: 0;
+    }
+    .rt-btns {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: auto;
+      padding-top: 0.25rem;
+    }
+    .rt-btns .btn-secondary, .rt-btns .btn-su {
+      flex: 1;
+      min-width: 0;
+      font-size: 0.82rem;
+    }
+    .rt-edit {
+      flex: 0 0 auto;
+      min-width: 40px;
+      text-align: center;
+    }
+    @media (max-width: 960px) {
+      .rt-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .rt-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- Navigation -->
 <header class="site-header" role="banner">
   <nav class="nav-inner" aria-label="Hauptnavigation">
     <a href="index.html" class="nav-brand" aria-label="KI-Bewertungsraster-Builder Startseite">
@@ -26,7 +95,6 @@
   </nav>
 </header>
 
-<!-- Page Intro -->
 <div class="page-intro">
   <div class="container">
     <div class="page-intro-text">
@@ -42,7 +110,6 @@
 <main id="main-content">
   <div class="container">
 
-    <!-- Filter nach Kompetenzbereich -->
     <div class="filter-bar" role="group" aria-label="Raster nach Kompetenzbereich filtern">
       <button class="filter-chip active" onclick="filterTiles(this, 'alle')" aria-pressed="true">Alle (11)</button>
       <button class="filter-chip" onclick="filterTiles(this, 'instrumental')" aria-pressed="false">Instrumental (2)</button>
@@ -51,190 +118,144 @@
       <button class="filter-chip" onclick="filterTiles(this, 'integrativ')" aria-pressed="false">Integrativ (1)</button>
     </div>
 
-    <!-- Kachel-Grid (statisch gerendert) -->
-    <div class="tiles-grid" id="tiles-grid" aria-live="polite">
-    <article class="raster-tile" data-kompetenz="instrumental" data-id="01">
-      <div class="tile-meta">
-        <span class="tile-num">Raster 01</span>
-        <span class="competency-tag tag-instrumental">Instrumental</span>
-      </div>
-      <h3 class="tile-title">Prompt-Qualität</h3>
-      <div class="tile-versions">
-        <span class="tile-version-badge tile-lk">Lehrkraft</span>
-        <span class="tile-version-badge tile-su">Schüler:in</span>
-      </div>
-      <div class="tile-actions">
-        <button class="btn btn-secondary btn-sm" onclick="tileDownload('01', 'lk')">⬇ LK (DOCX)</button>
-        <button class="btn btn-su btn-sm" onclick="tileDownload('01', 'su')">⬇ SuS (DOCX)</button>
-        <a href="builder.html?raster=01" class="btn btn-ghost btn-sm" title="Im Builder bearbeiten">✏️</a>
-      </div>
-    </article>
-    <article class="raster-tile" data-kompetenz="instrumental" data-id="02">
-      <div class="tile-meta">
-        <span class="tile-num">Raster 02</span>
-        <span class="competency-tag tag-instrumental">Instrumental</span>
-      </div>
-      <h3 class="tile-title">KI-Prozess dokumentieren</h3>
-      <div class="tile-versions">
-        <span class="tile-version-badge tile-lk">Lehrkraft</span>
-        <span class="tile-version-badge tile-su">Schüler:in</span>
-      </div>
-      <div class="tile-actions">
-        <button class="btn btn-secondary btn-sm" onclick="tileDownload('02', 'lk')">⬇ LK (DOCX)</button>
-        <button class="btn btn-su btn-sm" onclick="tileDownload('02', 'su')">⬇ SuS (DOCX)</button>
-        <a href="builder.html?raster=02" class="btn btn-ghost btn-sm" title="Im Builder bearbeiten">✏️</a>
-      </div>
-    </article>
-    <article class="raster-tile" data-kompetenz="analytisch" data-id="03">
-      <div class="tile-meta">
-        <span class="tile-num">Raster 03</span>
-        <span class="competency-tag tag-analytisch-kritisch">Analytisch-kritisch</span>
-      </div>
-      <h3 class="tile-title">KI-Ergebnis analysieren</h3>
-      <div class="tile-versions">
-        <span class="tile-version-badge tile-lk">Lehrkraft</span>
-        <span class="tile-version-badge tile-su">Schüler:in</span>
-      </div>
-      <div class="tile-actions">
-        <button class="btn btn-secondary btn-sm" onclick="tileDownload('03', 'lk')">⬇ LK (DOCX)</button>
-        <button class="btn btn-su btn-sm" onclick="tileDownload('03', 'su')">⬇ SuS (DOCX)</button>
-        <a href="builder.html?raster=03" class="btn btn-ghost btn-sm" title="Im Builder bearbeiten">✏️</a>
-      </div>
-    </article>
-    <article class="raster-tile" data-kompetenz="analytisch" data-id="04">
-      <div class="tile-meta">
-        <span class="tile-num">Raster 04</span>
-        <span class="competency-tag tag-analytisch-kritisch">Analytisch-kritisch</span>
-      </div>
-      <h3 class="tile-title">KI-Ergebnis bewerten &amp; auswählen</h3>
-      <div class="tile-versions">
-        <span class="tile-version-badge tile-lk">Lehrkraft</span>
-        <span class="tile-version-badge tile-su">Schüler:in</span>
-      </div>
-      <div class="tile-actions">
-        <button class="btn btn-secondary btn-sm" onclick="tileDownload('04', 'lk')">⬇ LK (DOCX)</button>
-        <button class="btn btn-su btn-sm" onclick="tileDownload('04', 'su')">⬇ SuS (DOCX)</button>
-        <a href="builder.html?raster=04" class="btn btn-ghost btn-sm" title="Im Builder bearbeiten">✏️</a>
-      </div>
-    </article>
-    <article class="raster-tile" data-kompetenz="analytisch" data-id="05">
-      <div class="tile-meta">
-        <span class="tile-num">Raster 05</span>
-        <span class="competency-tag tag-analytisch-kritisch">Analytisch-kritisch</span>
-      </div>
-      <h3 class="tile-title">KI-Ergebnis überarbeiten</h3>
-      <div class="tile-versions">
-        <span class="tile-version-badge tile-lk">Lehrkraft</span>
-        <span class="tile-version-badge tile-su">Schüler:in</span>
-      </div>
-      <div class="tile-actions">
-        <button class="btn btn-secondary btn-sm" onclick="tileDownload('05', 'lk')">⬇ LK (DOCX)</button>
-        <button class="btn btn-su btn-sm" onclick="tileDownload('05', 'su')">⬇ SuS (DOCX)</button>
-        <a href="builder.html?raster=05" class="btn btn-ghost btn-sm" title="Im Builder bearbeiten">✏️</a>
-      </div>
-    </article>
-    <article class="raster-tile" data-kompetenz="analytisch" data-id="06">
-      <div class="tile-meta">
-        <span class="tile-num">Raster 06</span>
-        <span class="competency-tag tag-analytisch-kritisch">Analytisch-kritisch</span>
-      </div>
-      <h3 class="tile-title">Mit-/Ohne-KI-Vergleich</h3>
-      <div class="tile-versions">
-        <span class="tile-version-badge tile-lk">Lehrkraft</span>
-        <span class="tile-version-badge tile-su">Schüler:in</span>
-      </div>
-      <div class="tile-actions">
-        <button class="btn btn-secondary btn-sm" onclick="tileDownload('06', 'lk')">⬇ LK (DOCX)</button>
-        <button class="btn btn-su btn-sm" onclick="tileDownload('06', 'su')">⬇ SuS (DOCX)</button>
-        <a href="builder.html?raster=06" class="btn btn-ghost btn-sm" title="Im Builder bearbeiten">✏️</a>
-      </div>
-    </article>
-    <article class="raster-tile" data-kompetenz="personell" data-id="07">
-      <div class="tile-meta">
-        <span class="tile-num">Raster 07</span>
-        <span class="competency-tag tag-personell">Personell</span>
-      </div>
-      <h3 class="tile-title">Metakognitive Reflexion</h3>
-      <div class="tile-versions">
-        <span class="tile-version-badge tile-lk">Lehrkraft</span>
-        <span class="tile-version-badge tile-su">Schüler:in</span>
-      </div>
-      <div class="tile-actions">
-        <button class="btn btn-secondary btn-sm" onclick="tileDownload('07', 'lk')">⬇ LK (DOCX)</button>
-        <button class="btn btn-su btn-sm" onclick="tileDownload('07', 'su')">⬇ SuS (DOCX)</button>
-        <a href="builder.html?raster=07" class="btn btn-ghost btn-sm" title="Im Builder bearbeiten">✏️</a>
-      </div>
-    </article>
-    <article class="raster-tile" data-kompetenz="personell" data-id="08">
-      <div class="tile-meta">
-        <span class="tile-num">Raster 08</span>
-        <span class="competency-tag tag-personell">Personell</span>
-      </div>
-      <h3 class="tile-title">Urteilsvermögen über KI-Sinnhaftigkeit</h3>
-      <div class="tile-versions">
-        <span class="tile-version-badge tile-lk">Lehrkraft</span>
-        <span class="tile-version-badge tile-su">Schüler:in</span>
-      </div>
-      <div class="tile-actions">
-        <button class="btn btn-secondary btn-sm" onclick="tileDownload('08', 'lk')">⬇ LK (DOCX)</button>
-        <button class="btn btn-su btn-sm" onclick="tileDownload('08', 'su')">⬇ SuS (DOCX)</button>
-        <a href="builder.html?raster=08" class="btn btn-ghost btn-sm" title="Im Builder bearbeiten">✏️</a>
-      </div>
-    </article>
-    <article class="raster-tile" data-kompetenz="personell" data-id="09">
-      <div class="tile-meta">
-        <span class="tile-num">Raster 09</span>
-        <span class="competency-tag tag-personell">Personell</span>
-      </div>
-      <h3 class="tile-title">Ethische KI-Nutzung</h3>
-      <div class="tile-versions">
-        <span class="tile-version-badge tile-lk">Lehrkraft</span>
-        <span class="tile-version-badge tile-su">Schüler:in</span>
-      </div>
-      <div class="tile-actions">
-        <button class="btn btn-secondary btn-sm" onclick="tileDownload('09', 'lk')">⬇ LK (DOCX)</button>
-        <button class="btn btn-su btn-sm" onclick="tileDownload('09', 'su')">⬇ SuS (DOCX)</button>
-        <a href="builder.html?raster=09" class="btn btn-ghost btn-sm" title="Im Builder bearbeiten">✏️</a>
-      </div>
-    </article>
-    <article class="raster-tile" data-kompetenz="integrativ" data-id="10">
-      <div class="tile-meta">
-        <span class="tile-num">Raster 10</span>
-        <span class="competency-tag tag-integrativ">Integrativ</span>
-      </div>
-      <h3 class="tile-title">KI im Lernprozess (Portfolio)</h3>
-      <div class="tile-versions">
-        <span class="tile-version-badge tile-lk">Lehrkraft</span>
-        <span class="tile-version-badge tile-su">Schüler:in</span>
-      </div>
-      <div class="tile-actions">
-        <button class="btn btn-secondary btn-sm" onclick="tileDownload('10', 'lk')">⬇ LK (DOCX)</button>
-        <button class="btn btn-su btn-sm" onclick="tileDownload('10', 'su')">⬇ SuS (DOCX)</button>
-        <a href="builder.html?raster=10" class="btn btn-ghost btn-sm" title="Im Builder bearbeiten">✏️</a>
-      </div>
-    </article>
-    <article class="raster-tile" data-kompetenz="personell" data-id="11">
-      <div class="tile-meta">
-        <span class="tile-num">Raster 11</span>
-        <span class="competency-tag tag-personell-srl">Personell / SRL</span>
-      </div>
-      <h3 class="tile-title">KI-Einsatz planen</h3>
-      <div class="tile-versions">
-        <span class="tile-version-badge tile-lk">Lehrkraft</span>
-        <span class="tile-version-badge tile-su">Schüler:in</span>
-      </div>
-      <div class="tile-actions">
-        <button class="btn btn-secondary btn-sm" onclick="tileDownload('11', 'lk')">⬇ LK (DOCX)</button>
-        <button class="btn btn-su btn-sm" onclick="tileDownload('11', 'su')">⬇ SuS (DOCX)</button>
-        <a href="builder.html?raster=11" class="btn btn-ghost btn-sm" title="Im Builder bearbeiten">✏️</a>
-      </div>
-    </article>
+    <div class="rt-grid" id="tiles-grid" aria-live="polite">
+      <article class="rt" data-kompetenz="instrumental" data-id="01">
+        <div class="rt-head">
+          <span class="rt-num">Raster 01</span>
+          <span class="competency-tag tag-instrumental">Instrumental</span>
+        </div>
+        <h3 class="rt-title">Prompt-Qualität</h3>
+        <div class="rt-btns">
+          <button class="btn btn-secondary btn-sm" onclick="tileDownload('01', 'lk')">⬇ LK (DOCX)</button>
+          <button class="btn btn-su btn-sm" onclick="tileDownload('01', 'su')">⬇ SuS (DOCX)</button>
+          <a href="builder.html?raster=01" class="btn btn-ghost btn-sm rt-edit" title="Im Builder anpassen">✏️</a>
+        </div>
+      </article>
+      <article class="rt" data-kompetenz="instrumental" data-id="02">
+        <div class="rt-head">
+          <span class="rt-num">Raster 02</span>
+          <span class="competency-tag tag-instrumental">Instrumental</span>
+        </div>
+        <h3 class="rt-title">KI-Prozess dokumentieren</h3>
+        <div class="rt-btns">
+          <button class="btn btn-secondary btn-sm" onclick="tileDownload('02', 'lk')">⬇ LK (DOCX)</button>
+          <button class="btn btn-su btn-sm" onclick="tileDownload('02', 'su')">⬇ SuS (DOCX)</button>
+          <a href="builder.html?raster=02" class="btn btn-ghost btn-sm rt-edit" title="Im Builder anpassen">✏️</a>
+        </div>
+      </article>
+      <article class="rt" data-kompetenz="analytisch" data-id="03">
+        <div class="rt-head">
+          <span class="rt-num">Raster 03</span>
+          <span class="competency-tag tag-analytisch-kritisch">Analytisch-kritisch</span>
+        </div>
+        <h3 class="rt-title">KI-Ergebnis analysieren</h3>
+        <div class="rt-btns">
+          <button class="btn btn-secondary btn-sm" onclick="tileDownload('03', 'lk')">⬇ LK (DOCX)</button>
+          <button class="btn btn-su btn-sm" onclick="tileDownload('03', 'su')">⬇ SuS (DOCX)</button>
+          <a href="builder.html?raster=03" class="btn btn-ghost btn-sm rt-edit" title="Im Builder anpassen">✏️</a>
+        </div>
+      </article>
+      <article class="rt" data-kompetenz="analytisch" data-id="04">
+        <div class="rt-head">
+          <span class="rt-num">Raster 04</span>
+          <span class="competency-tag tag-analytisch-kritisch">Analytisch-kritisch</span>
+        </div>
+        <h3 class="rt-title">KI-Ergebnis bewerten &amp; auswählen</h3>
+        <div class="rt-btns">
+          <button class="btn btn-secondary btn-sm" onclick="tileDownload('04', 'lk')">⬇ LK (DOCX)</button>
+          <button class="btn btn-su btn-sm" onclick="tileDownload('04', 'su')">⬇ SuS (DOCX)</button>
+          <a href="builder.html?raster=04" class="btn btn-ghost btn-sm rt-edit" title="Im Builder anpassen">✏️</a>
+        </div>
+      </article>
+      <article class="rt" data-kompetenz="analytisch" data-id="05">
+        <div class="rt-head">
+          <span class="rt-num">Raster 05</span>
+          <span class="competency-tag tag-analytisch-kritisch">Analytisch-kritisch</span>
+        </div>
+        <h3 class="rt-title">KI-Ergebnis überarbeiten</h3>
+        <div class="rt-btns">
+          <button class="btn btn-secondary btn-sm" onclick="tileDownload('05', 'lk')">⬇ LK (DOCX)</button>
+          <button class="btn btn-su btn-sm" onclick="tileDownload('05', 'su')">⬇ SuS (DOCX)</button>
+          <a href="builder.html?raster=05" class="btn btn-ghost btn-sm rt-edit" title="Im Builder anpassen">✏️</a>
+        </div>
+      </article>
+      <article class="rt" data-kompetenz="analytisch" data-id="06">
+        <div class="rt-head">
+          <span class="rt-num">Raster 06</span>
+          <span class="competency-tag tag-analytisch-kritisch">Analytisch-kritisch</span>
+        </div>
+        <h3 class="rt-title">Mit-/Ohne-KI-Vergleich</h3>
+        <div class="rt-btns">
+          <button class="btn btn-secondary btn-sm" onclick="tileDownload('06', 'lk')">⬇ LK (DOCX)</button>
+          <button class="btn btn-su btn-sm" onclick="tileDownload('06', 'su')">⬇ SuS (DOCX)</button>
+          <a href="builder.html?raster=06" class="btn btn-ghost btn-sm rt-edit" title="Im Builder anpassen">✏️</a>
+        </div>
+      </article>
+      <article class="rt" data-kompetenz="personell" data-id="07">
+        <div class="rt-head">
+          <span class="rt-num">Raster 07</span>
+          <span class="competency-tag tag-personell">Personell</span>
+        </div>
+        <h3 class="rt-title">Metakognitive Reflexion</h3>
+        <div class="rt-btns">
+          <button class="btn btn-secondary btn-sm" onclick="tileDownload('07', 'lk')">⬇ LK (DOCX)</button>
+          <button class="btn btn-su btn-sm" onclick="tileDownload('07', 'su')">⬇ SuS (DOCX)</button>
+          <a href="builder.html?raster=07" class="btn btn-ghost btn-sm rt-edit" title="Im Builder anpassen">✏️</a>
+        </div>
+      </article>
+      <article class="rt" data-kompetenz="personell" data-id="08">
+        <div class="rt-head">
+          <span class="rt-num">Raster 08</span>
+          <span class="competency-tag tag-personell">Personell</span>
+        </div>
+        <h3 class="rt-title">Urteilsvermögen über KI-Sinnhaftigkeit</h3>
+        <div class="rt-btns">
+          <button class="btn btn-secondary btn-sm" onclick="tileDownload('08', 'lk')">⬇ LK (DOCX)</button>
+          <button class="btn btn-su btn-sm" onclick="tileDownload('08', 'su')">⬇ SuS (DOCX)</button>
+          <a href="builder.html?raster=08" class="btn btn-ghost btn-sm rt-edit" title="Im Builder anpassen">✏️</a>
+        </div>
+      </article>
+      <article class="rt" data-kompetenz="personell" data-id="09">
+        <div class="rt-head">
+          <span class="rt-num">Raster 09</span>
+          <span class="competency-tag tag-personell">Personell</span>
+        </div>
+        <h3 class="rt-title">Ethische KI-Nutzung</h3>
+        <div class="rt-btns">
+          <button class="btn btn-secondary btn-sm" onclick="tileDownload('09', 'lk')">⬇ LK (DOCX)</button>
+          <button class="btn btn-su btn-sm" onclick="tileDownload('09', 'su')">⬇ SuS (DOCX)</button>
+          <a href="builder.html?raster=09" class="btn btn-ghost btn-sm rt-edit" title="Im Builder anpassen">✏️</a>
+        </div>
+      </article>
+      <article class="rt" data-kompetenz="integrativ" data-id="10">
+        <div class="rt-head">
+          <span class="rt-num">Raster 10</span>
+          <span class="competency-tag tag-integrativ">Integrativ</span>
+        </div>
+        <h3 class="rt-title">KI im Lernprozess (Portfolio)</h3>
+        <div class="rt-btns">
+          <button class="btn btn-secondary btn-sm" onclick="tileDownload('10', 'lk')">⬇ LK (DOCX)</button>
+          <button class="btn btn-su btn-sm" onclick="tileDownload('10', 'su')">⬇ SuS (DOCX)</button>
+          <a href="builder.html?raster=10" class="btn btn-ghost btn-sm rt-edit" title="Im Builder anpassen">✏️</a>
+        </div>
+      </article>
+      <article class="rt" data-kompetenz="personell" data-id="11">
+        <div class="rt-head">
+          <span class="rt-num">Raster 11</span>
+          <span class="competency-tag tag-personell-srl">Personell / SRL</span>
+        </div>
+        <h3 class="rt-title">KI-Einsatz planen</h3>
+        <div class="rt-btns">
+          <button class="btn btn-secondary btn-sm" onclick="tileDownload('11', 'lk')">⬇ LK (DOCX)</button>
+          <button class="btn btn-su btn-sm" onclick="tileDownload('11', 'su')">⬇ SuS (DOCX)</button>
+          <a href="builder.html?raster=11" class="btn btn-ghost btn-sm rt-edit" title="Im Builder anpassen">✏️</a>
+        </div>
+      </article>
     </div>
 
   </div>
 </main>
 
-<!-- Footer -->
 <footer class="site-footer" role="contentinfo">
   <div class="footer-inner">
     <span class="cc-badge">
@@ -249,19 +270,15 @@
   </div>
 </footer>
 
-<!-- CDN: DOCX Export -->
 <script src="https://cdn.jsdelivr.net/npm/docx@8/build/index.min.js"></script>
 
-<!-- Inline Raster-Daten (kein externer Datei-Aufruf nötig) -->
 <script>
 window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qualität","hl":"Dieses Raster bewertet die Qualität des Promptens im Rahmen einer KI-gestützten Aufgabe. Es ergänzt fachinhaltliche Bewertungskriterien, ersetzt diese aber nicht.","hs":"Dieses Raster bewertet die Qualität des Promptens im Rahmen einer KI-gestützten Aufgabe. Es ergänzt fachinhaltliche Bewertungskriterien, ersetzt diese aber nicht.","k":[{"n":"Klarheit & Präzision","l":{"s1":"Der Prompt ist unklar, unvollständig oder nicht aufgabenbezogen.","s2":"Der Prompt ist verständlich, aber vage oder zu allgemein. Die Antwort der KI bleibt deshalb unspezifisch.","s3":"Der Prompt ist klar und verständlich formuliert. Kleinere Unschärfen beeinträchtigen das Ergebnis kaum.","s4":"Der Prompt ist exakt, präzise und unmissverständlich auf die Aufgabe zugeschnitten. Der Interpretationsspielraum für die KI ist stark reduziert."},"s":{"s1":"Ich habe Schwierigkeiten, meinen Prompt klar zu formulieren.","s2":"Ich kann einen einfachen Prompt formulieren, auch wenn er manchmal zu allgemein bleibt.","s3":"Ich kann einen klaren Prompt formulieren, der der KI zeigt, was ich brauche.","s4":"Ich kann meinen Prompt so präzise formulieren, dass die Antwort der KI sehr gut zu meinem Ziel passt."}},{"n":"Kontext & Zielorientierung","l":{"s1":"Kontext und Ziel fehlen vollständig. Die Anfrage ist generisch.","s2":"Kontext wird angedeutet, aber nicht ausreichend spezifiziert. Das Ziel bleibt teilweise unklar.","s3":"Kontext und Ziel sind erkennbar. Mindestens ein strukturierendes Element (Rolle, Format o.ä.) ist vorhanden.","s4":"Präziser Kontext, klar definiertes Ziel und strukturierende Elemente werden gezielt und wirkungsvoll eingesetzt."},"s":{"s1":"Ich habe meinem Prompt noch keinen Kontext gegeben.","s2":"Ich weiß, dass Kontext wichtig ist, setze ihn aber noch nicht konsequent ein.","s3":"Ich kann meinem Prompt Kontext und ein klares Ziel geben.","s4":"Ich kann Kontext, Ziel und Rolle gezielt einsetzen, um die Antwort der KI deutlich zu verbessern."}},{"n":"Iterative Optimierung","l":{"s1":"Kein iterativer Prozess erkennbar. Der erste Prompt wurde unverändert übernommen.","s2":"Nur vereinzelte Versuche ohne erkennbare Strategie. Änderungen sind kaum nachvollziehbar.","s3":"Mehrere Versuche sind erkennbar. Anpassungen werden vorgenommen und ansatzweise begründet.","s4":"Der Verfeinerungsprozess ist dokumentiert und zeigt eine klare Strategie sowie Verständnis dafür, wie Formulierungen die Antwort der KI beeinflussen."},"s":{"s1":"Ich habe meinen ersten Prompt noch nicht überarbeitet.","s2":"Ich habe meinen Prompt mehrfach ausprobiert, aber noch keine klare Strategie entwickelt.","s3":"Ich kann meinen Prompt auf Basis der Antwort der KI verbessern und Anpassungen ansatzweise begründen.","s4":"Ich kann meinen Prompt strategisch überarbeiten und den Verbesserungsprozess nachvollziehbar dokumentieren."}},{"n":"Reflexion & Begründung","l":{"s1":"Keine Reflexion oder Begründung der Prompt-Entscheidungen vorhanden.","s2":"Begründungen sind oberflächlich. Die Reflexion beschränkt sich auf Beschreibungen des Vorgehens.","s3":"Prompt-Entscheidungen werden begründet. Der Zusammenhang zwischen Formulierung und Ergebnis ist erkennbar.","s4":"Prompt-Entscheidungen werden differenziert begründet und zeigen tiefes Verständnis der Wirkung von Formulierungen."},"s":{"s1":"Ich habe meine Prompt-Entscheidungen noch nicht begründet.","s2":"Ich kann beschreiben, wie ich vorgegangen bin, finde die Begründung aber noch schwierig.","s3":"Ich kann erklären, warum ich bestimmte Formulierungen gewählt habe.","s4":"Ich kann differenziert erklären, wie sich meine Formulierungen auf die Antwort der KI ausgewirkt haben."}}]},{"id":"02","slug":"ki-prozess-dokumentieren","titel":"KI-Prozess dokumentieren","hl":"Dieses Raster bewertet die Qualität der Dokumentation eines KI-gestützten Arbeitsprozesses. Es ergänzt fachinhaltliche Bewertungskriterien, ersetzt diese aber nicht.","hs":"Dieses Raster bewertet die Qualität der Dokumentation eines KI-gestützten Arbeitsprozesses. Es ergänzt fachinhaltliche Bewertungskriterien, ersetzt diese aber nicht.","k":[{"n":"Vollständigkeit der Dokumentation","l":{"s1":"Dokumentation fehlt oder beschränkt sich auf das Endergebnis.","s2":"Einzelne Prozessschritte sind festgehalten, wesentliche Teile fehlen jedoch.","s3":"Wesentliche Schritte des KI-gestützten Arbeitsprozesses sind dokumentiert. Kleinere Lücken beeinträchtigen die Nachvollziehbarkeit kaum.","s4":"Alle Phasen des KI-gestützten Arbeitsprozesses sind lückenlos und nachvollziehbar dokumentiert."},"s":{"s1":"Ich habe meinen Arbeitsprozess noch nicht dokumentiert.","s2":"Ich kann einzelne Schritte meines Arbeitsprozesses festhalten.","s3":"Ich kann die wichtigsten Schritte meines KI-gestützten Arbeitsprozesses dokumentieren.","s4":"Ich kann meinen gesamten KI-gestützten Arbeitsprozess vollständig und lückenlos dokumentieren."}},{"n":"Struktur & Nachvollziehbarkeit","l":{"s1":"Kein erkennbarer Aufbau. Die Dokumentation ist nicht nachvollziehbar.","s2":"Struktur ist ansatzweise erkennbar, aber uneinheitlich oder schwer zu folgen.","s3":"Dokumentation ist geordnet und im Wesentlichen nachvollziehbar.","s4":"Die Dokumentation ist klar strukturiert, logisch aufgebaut und für Dritte vollständig nachvollziehbar."},"s":{"s1":"Meine Dokumentation ist noch ungeordnet und schwer nachzuvollziehen.","s2":"Ich kann meine Schritte aufschreiben, aber die Reihenfolge ist noch nicht immer klar.","s3":"Ich kann meinen Prozess so dokumentieren, dass andere ihn im Wesentlichen nachvollziehen können.","s4":"Ich kann meinen Prozess so klar und strukturiert dokumentieren, dass andere ihn vollständig nachvollziehen können."}},{"n":"Prompt- Dokumentation","l":{"s1":"Verwendete Prompts wurden nicht dokumentiert.","s2":"Einzelne Prompts sind aufgeführt, ohne Erläuterung oder Einordnung.","s3":"Verwendete Prompts sind dokumentiert und ansatzweise erläutert.","s4":"Prompts sind vollständig dokumentiert, begründet und in den Arbeitsprozess eingebettet."},"s":{"s1":"Ich habe meine Prompts nicht aufgeschrieben.","s2":"Ich kann einzelne Prompts notieren, erkläre aber noch nicht, warum ich sie so formuliert habe.","s3":"Ich kann meine Prompts dokumentieren und ansatzweise erklären, warum ich sie so formuliert habe.","s4":"Ich kann alle verwendeten Prompts vollständig dokumentieren und begründen, warum ich sie so formuliert habe."}},{"n":"Reflexion des Prozesses","l":{"s1":"Keine Reflexion des Prozesses erkennbar.","s2":"Beschreibung des Vorgehens ohne tiefergehende Reflexion.","s3":"Die eigene Vorgehensweise wird reflektiert; Entscheidungen werden ansatzweise begründet.","s4":"Der Prozess wird tiefgehend und kritisch reflektiert. Begründungen sind differenziert und zeigen Bewusstsein für Qualität und Grenzen des KI-Einsatzes."},"s":{"s1":"Ich habe noch nicht darüber nachgedacht, wie gut mein Vorgehen war.","s2":"Ich kann beschreiben, was ich gemacht habe, finde die Bewertung meines Vorgehens aber noch schwierig.","s3":"Ich kann meinen KI-gestützten Arbeitsprozess beschreiben und einige meiner Entscheidungen begründen.","s4":"Ich kann meinen Arbeitsprozess tiefgehend reflektieren und differenziert begründen, was gut war und was ich beim nächsten Mal anders machen würde."}}]},{"id":"03","slug":"ki-ergebnis-analysieren","titel":"KI-Ergebnis analysieren","hl":"Dieses Raster bewertet die Fähigkeit, Ergebnisse der KI kritisch zu analysieren, Fehler zu erkennen und Grenzen einzuschätzen.","hs":"Dieses Raster bewertet die Fähigkeit, Ergebnisse der KI kritisch zu analysieren, Fehler zu erkennen und Grenzen einzuschätzen.","k":[{"n":"Fehler- identifikation","l":{"s1":"Fehler oder Schwächen in der KI-Antwort werden nicht erkannt.","s2":"Offensichtliche Fehler werden benannt, ohne sie einzuordnen oder zu begründen.","s3":"Fehler werden identifiziert und in ihrer Bedeutung für das Arbeitsergebnis eingeschätzt.","s4":"Fehler werden systematisch identifiziert, präzise beschrieben und in ihrer Auswirkung auf das Ergebnis differenziert bewertet."},"s":{"s1":"Ich kann noch keine Fehler in der Antwort der KI erkennen.","s2":"Ich kann offensichtliche Fehler benennen, finde es aber schwierig zu erklären, warum sie ein Problem sind.","s3":"Ich kann Fehler in der Antwort der KI erkennen und erklären, welche Auswirkungen sie auf meine Arbeit haben.","s4":"Ich kann Fehler gezielt suchen, sie genau beschreiben und einschätzen, wie stark sie das Ergebnis beeinflussen."}},{"n":"Einschätzung der Qualität","l":{"s1":"Die Qualität der KI-Antwort wird nicht eingeschätzt.","s2":"Die Antwort der KI wird pauschal als gut oder schlecht bewertet, ohne Begründung.","s3":"Die Qualität der KI-Antwort wird anhand einzelner Kriterien eingeschätzt und begründet.","s4":"Die Qualität der KI-Antwort wird kriteriengestützt, differenziert und nachvollziehbar bewertet."},"s":{"s1":"Ich kann die Qualität der KI-Antwort noch nicht einschätzen.","s2":"Ich kann sagen, ob mir die Antwort der KI gut gefällt, kann das aber noch nicht gut begründen.","s3":"Ich kann die Qualität der KI-Antwort anhand von Kriterien einschätzen und meine Einschätzung begründen.","s4":"Ich kann die Qualität der KI-Antwort differenziert und kriteriengestützt bewerten und meine Einschätzung nachvollziehbar erklären."}},{"n":"Erkennen von KI-Grenzen","l":{"s1":"Grenzen oder Schwächen der KI werden nicht erkannt oder thematisiert.","s2":"Es wird ansatzweise erkannt, dass die KI Grenzen hat, ohne dies zu konkretisieren.","s3":"Grenzen der KI werden im Bezug auf die Aufgabe benannt und erklärt.","s4":"Grenzen der KI werden differenziert erkannt, aufgabenbezogen beschrieben und in ihrer Relevanz für das eigene Ergebnis eingeschätzt."},"s":{"s1":"Ich habe noch keine Grenzen der KI bei dieser Aufgabe erkannt.","s2":"Ich weiß, dass die KI nicht immer alles richtig macht, kann aber noch nicht gut sagen, wo die Grenzen liegen.","s3":"Ich kann erkennen, wo die KI bei dieser Aufgabe an ihre Grenzen stößt, und das erklären.","s4":"Ich kann die Grenzen der KI bei dieser Aufgabe genau benennen und einschätzen, wie das mein Ergebnis beeinflusst."}},{"n":"Begründung der Analyse","l":{"s1":"Keine Begründung der Analyseergebnisse vorhanden.","s2":"Begründungen sind knapp oder pauschal. Argumentation ist kaum nachvollziehbar.","s3":"Analyseergebnisse werden begründet. Die Argumentation ist im Wesentlichen nachvollziehbar.","s4":"Analyseergebnisse werden differenziert und präzise begründet. Die Argumentation ist kohärent und sachlich überzeugend."},"s":{"s1":"Ich habe meine Analyseergebnisse noch nicht begründet.","s2":"Ich kann meine Einschätzung kurz begründen, finde ausführliche Begründungen aber noch schwierig.","s3":"Ich kann erklären, warum ich zu meiner Einschätzung gekommen bin.","s4":"Ich kann meine Analyseergebnisse ausführlich und nachvollziehbar begründen."}}]},{"id":"04","slug":"ki-ergebnis-bewerten","titel":"KI-Ergebnis bewerten & auswählen","hl":"Dieses Raster bewertet die Fähigkeit, Ergebnisse der KI kriteriengestützt zu bewerten und begründete Auswahlentscheidungen zu treffen.","hs":"Dieses Raster bewertet die Fähigkeit, Ergebnisse der KI kriteriengestützt zu bewerten und begründete Auswahlentscheidungen zu treffen.","k":[{"n":"Kriteriengeleitetes Bewerten","l":{"s1":"Es werden keine Kriterien für die Bewertung der KI-Ergebnisse herangezogen.","s2":"Einzelne Kriterien werden erwähnt, aber nicht konsequent angewendet.","s3":"Die Bewertung der KI-Ergebnisse erfolgt kriteriengestützt und ist im Wesentlichen nachvollziehbar.","s4":"Die KI-Ergebnisse werden systematisch anhand klar benannter Kriterien bewertet. Stärken und Schwächen werden differenziert herausgearbeitet."},"s":{"s1":"Ich weiß noch nicht, nach welchen Kriterien ich die Antworten der KI bewerten soll.","s2":"Ich kann einzelne Kriterien benennen, wende sie aber noch nicht konsequent an.","s3":"Ich kann die Antworten der KI nach Kriterien bewerten und meine Einschätzung begründen.","s4":"Ich kann die Antworten der KI systematisch nach Kriterien bewerten und Stärken sowie Schwächen klar benennen."}},{"n":"Auswahlkompetenz","l":{"s1":"Es wird keine bewusste Auswahl zwischen verschiedenen KI-Ergebnissen getroffen.","s2":"Eine Auswahl wird getroffen, aber ohne erkennbare Begründung.","s3":"Die Auswahl zwischen KI-Ergebnissen erfolgt begründet. Der Bezug zur Aufgabenstellung ist erkennbar.","s4":"Die Auswahl ist differenziert begründet, aufgabenbezogen und zeigt ein klares Urteilsvermögen gegenüber verschiedenen KI-Ergebnissen."},"s":{"s1":"Ich übernehme die erste Antwort der KI, ohne bewusst eine Auswahl zu treffen.","s2":"Ich kann zwischen verschiedenen Antworten der KI wählen, finde die Begründung aber noch schwierig.","s3":"Ich kann begründet auswählen, welche Antwort der KI für meine Aufgabe am besten geeignet ist.","s4":"Ich kann verschiedene Antworten der KI gezielt vergleichen und differenziert begründen, welche ich warum auswähle."}},{"n":"Begründung der Entscheidung","l":{"s1":"Keine Begründung für übernommene oder verworfene KI-Ergebnisse vorhanden.","s2":"Entscheidungen werden knapp begründet. Die Argumentation bleibt an der Oberfläche.","s3":"Entscheidungen werden nachvollziehbar begründet. Der Zusammenhang zur Aufgabenstellung ist erkennbar.","s4":"Entscheidungen werden differenziert und präzise begründet. Begründungen zeigen kritisches Urteilsvermögen."},"s":{"s1":"Ich begründe noch nicht, warum ich bestimmte Antworten der KI übernommen oder verworfen habe.","s2":"Ich kann kurz erklären, warum ich eine Antwort übernommen habe, ausführliche Begründungen fallen mir noch schwer.","s3":"Ich kann erklären, warum ich bestimmte Antworten der KI übernommen und andere verworfen habe.","s4":"Ich kann differenziert begründen, welche Antworten der KI ich warum übernommen oder verworfen habe."}},{"n":"Eigenständigkeit der Auswahl","l":{"s1":"Die KI-Ergebnisse werden unkritisch und vollständig übernommen.","s2":"Einzelne Korrekturen oder Anpassungen sind erkennbar, erfolgen aber ohne klare Strategie.","s3":"Die Schüler:in trifft eigenständige Entscheidungen und übernimmt KI-Ergebnisse nicht unkritisch.","s4":"Die Schüler:in zeigt eine deutliche und begründete Eigenständigkeit. KI-Ergebnisse werden gezielt eingesetzt, kritisch gefiltert und durch eigene Überlegungen ergänzt."},"s":{"s1":"Ich übernehme die Antworten der KI meistens so, wie sie kommen.","s2":"Ich passe die Antworten der KI manchmal an, habe aber noch keine klare Strategie dafür.","s3":"Ich übernehme die Antworten der KI nicht einfach, sondern entscheide eigenständig, was ich verwende.","s4":"Ich gehe sehr eigenständig mit den Antworten der KI um: Ich filtere sie kritisch und ergänze sie durch eigene Überlegungen."}}]},{"id":"05","slug":"ki-ergebnis-ueberarbeiten","titel":"KI-Ergebnis überarbeiten","hl":"Dieses Raster bewertet die Fähigkeit, Ergebnisse der KI gezielt und qualitätsorientiert zu überarbeiten und den Eigenanteil dabei sichtbar zu machen.","hs":"Dieses Raster bewertet die Fähigkeit, Ergebnisse der KI gezielt und qualitätsorientiert zu überarbeiten und den Eigenanteil dabei sichtbar zu machen.","k":[{"n":"Tiefe & Wirksamkeit der Überarbeitung","l":{"s1":"Das Ergebnis der KI wird unverändert übernommen. Keine Überarbeitung erkennbar.","s2":"Oberflächliche Korrekturen (z.B. Rechtschreibung) sind vorhanden. Eine inhaltliche Überarbeitung, die die Qualität des Ergebnisses verbessert, fehlt.","s3":"Die Antwort der KI wird inhaltlich überarbeitet. Die Überarbeitung verbessert die Qualität des Ergebnisses erkennbar und ist auf die Aufgabenstellung bezogen.","s4":"Die Antwort der KI wird tiefgehend und zielgerichtet überarbeitet. Die Überarbeitung verbessert Inhalt, Struktur und Qualität des Ergebnisses deutlich. Das überarbeitete Ergebnis erfüllt die Aufgabenanforderungen sehr gut."},"s":{"s1":"Ich habe die Antwort der KI so übernommen, wie sie war.","s2":"Ich habe kleinere Änderungen vorgenommen (z.B. Rechtschreibung), aber noch keine inhaltliche Überarbeitung, die das Ergebnis wirklich besser gemacht hat.","s3":"Ich habe die Antwort der KI inhaltlich überarbeitet und dadurch das Ergebnis erkennbar verbessert.","s4":"Ich habe die Antwort der KI tiefgehend überarbeitet und das Ergebnis deutlich verbessert. Es passt jetzt sehr gut zur Aufgabe."}},{"n":"Eigenleistungs- anteil","l":{"s1":"Ein Eigenleistungsanteil ist nicht erkennbar.","s2":"Einzelne eigene Gedanken oder Formulierungen sind vorhanden, prägen das Ergebnis aber kaum.","s3":"Eigene Überlegungen und Formulierungen sind erkennbar und tragen zum Ergebnis bei.","s4":"Der Eigenleistungsanteil ist deutlich erkennbar. Eigene Ideen, Argumentation oder Formulierungen prägen das Ergebnis maßgeblich."},"s":{"s1":"Ich habe noch keine eigenen Ideen oder Formulierungen eingebracht.","s2":"Ich habe einzelne eigene Gedanken eingebracht, aber die Antwort der KI dominiert noch.","s3":"Meine eigenen Überlegungen sind im Ergebnis erkennbar und tragen dazu bei.","s4":"Meine eigenen Ideen und Formulierungen prägen das Ergebnis deutlich."}},{"n":"Überarbeitungs- strategie","l":{"s1":"Keine erkennbare Strategie bei der Überarbeitung. Änderungen wirken zufällig oder unsystematisch.","s2":"Überarbeitungen zielen ansatzweise auf bestimmte Aspekte, aber ohne erkennbare Priorisierung oder Systematik.","s3":"Zu überarbeitende Stellen werden identifiziert und gezielt verändert. Eine erkennbare Strategie liegt vor.","s4":"Die Überarbeitung folgt einer klaren und nachvollziehbaren Strategie. Die Entscheidung, was überarbeitet wird und warum, ist begründbar und zeigt ein klares Qualitätsbewusstsein."},"s":{"s1":"Ich habe einfach drauf losgearbeitet, ohne vorher zu überlegen, was ich ändern will.","s2":"Ich habe einige Stellen gezielt verändert, bin dabei aber noch nicht sehr systematisch vorgegangen.","s3":"Ich habe zuerst überlegt, was an der Antwort der KI geändert werden muss, und dann gezielt überarbeitet.","s4":"Ich bin bei der Überarbeitung klar und strategisch vorgegangen: Ich habe Prioritäten gesetzt und kann erklären, warum ich was in welcher Reihenfolge geändert habe."}},{"n":"Begründung der Überarbeitung","l":{"s1":"Keine Begründung der vorgenommenen Änderungen vorhanden.","s2":"Änderungen werden knapp erwähnt, aber kaum begründet.","s3":"Vorgenommene Änderungen werden begründet. Der Zusammenhang zur Aufgabe ist erkennbar.","s4":"Alle wesentlichen Änderungen werden differenziert begründet und zeigen ein klares Qualitätsbewusstsein."},"s":{"s1":"Ich habe noch nicht erklärt, warum ich was geändert habe.","s2":"Ich kann kurz sagen, was ich geändert habe, finde ausführliche Begründungen aber noch schwierig.","s3":"Ich kann erklären, warum ich bestimmte Stellen überarbeitet habe.","s4":"Ich kann alle wichtigen Änderungen differenziert begründen und zeigen, was dadurch besser geworden ist."}}]},{"id":"06","slug":"mit-ohne-ki-vergleich","titel":"Mit-/Ohne-KI-Vergleich","hl":"Dieses Raster bewertet die Fähigkeit, KI-gestützte und eigenständige Arbeitsprozesse gezielt zu vergleichen und daraus Schlüsse zu ziehen.","hs":"Dieses Raster bewertet die Fähigkeit, KI-gestützte und eigenständige Arbeitsprozesse gezielt zu vergleichen und daraus Schlüsse zu ziehen.","k":[{"n":"Qualität des Vergleichs","l":{"s1":"Kein Vergleich zwischen KI-gestütztem und eigenständigem Vorgehen erkennbar.","s2":"Ein Vergleich ist ansatzweise vorhanden, bleibt aber oberflächlich oder einseitig.","s3":"Beide Vorgehensweisen werden nachvollziehbar beschrieben und gegenübergestellt.","s4":"Der Vergleich ist präzise, differenziert und bezieht konkrete Aspekte beider Vorgehensweisen systematisch aufeinander."},"s":{"s1":"Ich habe noch nicht verglichen, wie ich mit und ohne KI vorgegangen bin.","s2":"Ich kann grob beschreiben, was anders war, finde einen genauen Vergleich aber noch schwierig.","s3":"Ich kann beschreiben, wie ich mit und ohne KI vorgegangen bin, und die Unterschiede benennen.","s4":"Ich kann beide Vorgehensweisen präzise vergleichen und genau beschreiben, was sich unterscheidet."}},{"n":"Reflexion der Unterschiede","l":{"s1":"Unterschiede zwischen den Vorgehensweisen werden nicht reflektiert.","s2":"Unterschiede werden benannt, aber nicht weiter eingeordnet oder erklärt.","s3":"Unterschiede werden reflektiert und in ihrer Bedeutung für den Lernprozess eingeschätzt.","s4":"Unterschiede werden differenziert reflektiert. Auswirkungen auf Denken, Arbeitsweise und Lernprozess werden klar herausgearbeitet."},"s":{"s1":"Ich habe noch nicht darüber nachgedacht, was der Unterschied zwischen beiden Vorgehensweisen bedeutet.","s2":"Ich kann Unterschiede benennen, finde es aber noch schwierig zu erklären, was sie bedeuten.","s3":"Ich kann die Unterschiede erklären und einschätzen, was sie für meinen Lernprozess bedeuten.","s4":"Ich kann die Unterschiede zwischen KI-gestütztem und eigenständigem Arbeiten tiefgehend reflektieren und ihre Bedeutung für mein Lernen erklären."}},{"n":"Bewertung des KI-Mehrwerts","l":{"s1":"Kein Urteil über den Mehrwert der KI-Nutzung für diese Aufgabe erkennbar.","s2":"Der Mehrwert wird pauschal bejaht oder verneint, ohne Begründung.","s3":"Der Mehrwert der KI wird aufgabenbezogen eingeschätzt und ansatzweise begründet.","s4":"Der Mehrwert der KI wird differenziert und aufgabenbezogen bewertet. Sowohl Vorteile als auch Nachteile werden klar benannt und abgewogen."},"s":{"s1":"Ich habe noch nicht eingeschätzt, ob die KI bei dieser Aufgabe wirklich geholfen hat.","s2":"Ich kann sagen, ob die KI hilfreich war, finde die Begründung aber noch schwierig.","s3":"Ich kann einschätzen, ob und wie die KI bei dieser Aufgabe einen Mehrwert hatte, und das begründen.","s4":"Ich kann den Mehrwert der KI differenziert bewerten, Vor- und Nachteile abwägen und das überzeugend begründen."}},{"n":"Schlussfolgerung","l":{"s1":"Keine Schlussfolgerung aus dem Vergleich erkennbar.","s2":"Eine Schlussfolgerung ist ansatzweise vorhanden, bleibt aber vage.","s3":"Eine nachvollziehbare Schlussfolgerung wird gezogen. Bezug zum eigenen Lernprozess ist erkennbar.","s4":"Die Schlussfolgerung ist differenziert, aufgabenbezogen und zeigt eine klare Einschätzung, für welche Situationen KI sinnvoll eingesetzt werden kann."},"s":{"s1":"Ich habe noch keine Schlussfolgerung aus meinem Vergleich gezogen.","s2":"Ich kann eine einfache Schlussfolgerung formulieren, finde differenzierte Aussagen aber noch schwierig.","s3":"Ich kann aus meinem Vergleich eine Schlussfolgerung ziehen und erklären, was ich für meinen Lernprozess gelernt habe.","s4":"Ich kann aus meinem Vergleich eine differenzierte Schlussfolgerung ziehen und beschreiben, wann und warum KI für mich sinnvoll ist."}}]},{"id":"07","slug":"metakognitive-reflexion","titel":"Metakognitive Reflexion","hl":"Dieses Raster bewertet die Fähigkeit, den eigenen KI-gestützten Lernprozess zu beobachten, zu reflektieren und daraus Konsequenzen zu ziehen.","hs":"Dieses Raster bewertet die Fähigkeit, den eigenen KI-gestützten Lernprozess zu beobachten, zu reflektieren und daraus Konsequenzen zu ziehen.","k":[{"n":"Selbst- wahrnehmung","l":{"s1":"Keine Wahrnehmung des eigenen Lernverhaltens beim KI-Einsatz erkennbar.","s2":"Das eigene Vorgehen wird beschrieben, aber nicht in Bezug auf das eigene Lernen eingeordnet.","s3":"Das eigene Lernverhalten beim KI-Einsatz wird wahrgenommen und beschrieben.","s4":"Das eigene Lernverhalten wird differenziert wahrgenommen. Stärken und Schwächen im Umgang mit KI werden präzise benannt."},"s":{"s1":"Ich habe noch nicht darüber nachgedacht, wie ich beim KI-Einsatz lerne.","s2":"Ich kann beschreiben, was ich gemacht habe, denke aber noch wenig darüber nach, was das für mein Lernen bedeutet.","s3":"Ich kann beobachten, wie ich beim KI-Einsatz vorgehe und was das für mein Lernen bedeutet.","s4":"Ich kann genau beschreiben, wie ich beim KI-Einsatz lerne, was mir gut gelingt und wo ich noch Schwierigkeiten habe."}},{"n":"Prozess- reflexion","l":{"s1":"Keine Reflexion des eigenen Lernprozesses erkennbar.","s2":"Der Lernprozess wird beschrieben, ohne ihn zu bewerten oder zu hinterfragen.","s3":"Der eigene Lernprozess wird reflektiert. Entscheidungen werden begründet und eingeordnet.","s4":"Der Lernprozess wird tiefgehend und kritisch reflektiert. Einzelne Entscheidungen werden differenziert begründet und in ihren Auswirkungen eingeschätzt."},"s":{"s1":"Ich habe meinen Lernprozess noch nicht reflektiert.","s2":"Ich kann beschreiben, wie ich vorgegangen bin, finde es aber noch schwierig, meinen Prozess zu bewerten.","s3":"Ich kann meinen KI-gestützten Lernprozess reflektieren und einzelne Entscheidungen begründen.","s4":"Ich kann meinen Lernprozess tiefgehend reflektieren und differenziert einschätzen, was gut gelaufen ist und was ich verbessern könnte."}},{"n":"Lernzuwachs","l":{"s1":"Kein Bewusstsein für eigenen Lernzuwachs erkennbar.","s2":"Ein Lernzuwachs wird benannt, aber kaum konkretisiert.","s3":"Eigener Lernzuwachs durch den KI-Einsatz wird konkret beschrieben und nachvollziehbar eingeschätzt.","s4":"Lernzuwachs wird differenziert, konkret und mit Bezug auf spezifische Aspekte des KI-Einsatzes beschrieben."},"s":{"s1":"Ich habe noch nicht eingeschätzt, was ich durch den KI-Einsatz gelernt habe.","s2":"Ich kann grob sagen, dass ich etwas gelernt habe, finde es aber noch schwierig, das genau zu beschreiben.","s3":"Ich kann konkret beschreiben, was ich durch den Einsatz der KI gelernt habe.","s4":"Ich kann meinen Lernzuwachs durch den KI-Einsatz differenziert und konkret beschreiben und erklären, was sich dadurch verändert hat."}},{"n":"Transferfähigkeit","l":{"s1":"Keine Übertragung auf zukünftige Lern- oder Arbeitssituationen erkennbar.","s2":"Ansätze zur Übertragung sind vorhanden, bleiben aber vage.","s3":"Erkenntnisse werden auf ähnliche Situationen übertragen. Zukünftiger KI-Einsatz wird ansatzweise geplant.","s4":"Erkenntnisse werden differenziert auf andere Situationen übertragen. Zukünftiger KI-Einsatz wird konkret und reflektiert geplant."},"s":{"s1":"Ich habe noch nicht darüber nachgedacht, was ich für das nächste Mal mitnehme.","s2":"Ich kann grob sagen, was ich beim nächsten KI-Einsatz anders machen würde.","s3":"Ich kann Erkenntnisse aus diesem Prozess auf ähnliche Aufgaben übertragen und meinen nächsten KI-Einsatz planen.","s4":"Ich kann meine Erkenntnisse auf verschiedene Situationen übertragen und konkret beschreiben, wie ich in Zukunft mit KI arbeiten möchte."}}]},{"id":"08","slug":"urteilsvermoegen-ki-sinnhaftigkeit","titel":"Urteilsvermögen über KI-Sinnhaftigkeit","hl":"Dieses Raster bewertet die Fähigkeit, situations- und aufgabenbezogen zu beurteilen, ob und wie der Einsatz von KI sinnvoll ist.","hs":"Dieses Raster bewertet die Fähigkeit, situations- und aufgabenbezogen zu beurteilen, ob und wie der Einsatz von KI sinnvoll ist.","k":[{"n":"Situations- einschätzung","l":{"s1":"Keine Einschätzung, ob KI für die jeweilige Aufgabe sinnvoll ist, erkennbar.","s2":"KI-Einsatz wird pauschal bejaht oder abgelehnt, ohne situationsbezogene Begründung.","s3":"Der KI-Einsatz wird situationsbezogen eingeschätzt. Aufgabenmerkmale werden berücksichtigt.","s4":"Der KI-Einsatz wird differenziert und kriteriengestützt situationsbezogen eingeschätzt. Aufgabenmerkmale, Lernziele und Rahmenbedingungen fließen in die Einschätzung ein."},"s":{"s1":"Ich setze KI ein, ohne darüber nachzudenken, ob das bei dieser Aufgabe sinnvoll ist.","s2":"Ich denke manchmal darüber nach, ob KI sinnvoll ist, kann das aber noch nicht gut begründen.","s3":"Ich kann einschätzen, ob KI bei einer bestimmten Aufgabe sinnvoll ist, und das begründen.","s4":"Ich kann situationsbezogen und mit klaren Kriterien einschätzen, ob und wie KI bei einer Aufgabe sinnvoll eingesetzt werden kann."}},{"n":"Erkennen von Stärken & Grenzen","l":{"s1":"Stärken und Grenzen der KI für die jeweilige Aufgabe werden nicht erkannt.","s2":"Stärken oder Grenzen der KI werden pauschal benannt, ohne Aufgabenbezug.","s3":"Stärken und Grenzen der KI werden aufgabenbezogen benannt und erklärt.","s4":"Stärken und Grenzen der KI werden differenziert und präzise aufgabenbezogen beschrieben. Aussagen sind begründet und zeigen ein reifes Verständnis von KI-Möglichkeiten."},"s":{"s1":"Ich erkenne noch nicht, wo die KI bei dieser Aufgabe stark ist und wo sie Grenzen hat.","s2":"Ich weiß, dass KI Stärken und Grenzen hat, kann das aber noch nicht gut auf konkrete Aufgaben beziehen.","s3":"Ich kann beschreiben, wo die KI bei dieser Aufgabe hilfreich ist und wo sie an Grenzen stößt.","s4":"Ich kann die Stärken und Grenzen der KI für konkrete Aufgaben differenziert beschreiben und begründen."}},{"n":"Begründung des Einsatzes","l":{"s1":"Keine Begründung für die Entscheidung, KI einzusetzen oder nicht, vorhanden.","s2":"Die Entscheidung wird knapp begründet. Argumentation ist kaum nachvollziehbar.","s3":"Die Entscheidung für oder gegen KI-Einsatz wird aufgabenbezogen begründet.","s4":"Die Entscheidung wird differenziert, präzise und aufgabenbezogen begründet. Begründungen sind kohärent und überzeugend."},"s":{"s1":"Ich begründe noch nicht, warum ich KI einsetze oder nicht einsetze.","s2":"Ich kann kurz begründen, warum ich KI eingesetzt oder nicht eingesetzt habe.","s3":"Ich kann aufgabenbezogen begründen, warum der Einsatz von KI sinnvoll oder nicht sinnvoll war.","s4":"Ich kann differenziert und überzeugend begründen, warum ich KI bei dieser Aufgabe eingesetzt oder bewusst nicht eingesetzt habe."}},{"n":"Urteilsqualität","l":{"s1":"Kein eigenständiges Urteil über den KI-Einsatz erkennbar.","s2":"Ein Urteil ist ansatzweise vorhanden, bleibt aber pauschal oder unreflektiert.","s3":"Ein begründetes Urteil über den sinnvollen KI-Einsatz wird formuliert.","s4":"Das Urteil ist differenziert, sachlich fundiert und zeigt ein reifes Verständnis dafür, wann und warum KI lernförderlich oder lernhinderlich sein kann."},"s":{"s1":"Ich habe noch kein eigenes Urteil darüber, wann KI sinnvoll ist.","s2":"Ich kann ein einfaches Urteil formulieren, finde differenzierte Urteile aber noch schwierig.","s3":"Ich kann ein begründetes Urteil darüber formulieren, wann der Einsatz von KI sinnvoll ist.","s4":"Ich kann ein differenziertes und sachlich fundiertes Urteil darüber formulieren, wann und warum KI beim Lernen hilft oder nicht hilft."}}]},{"id":"09","slug":"ethische-ki-nutzung","titel":"Ethische KI-Nutzung","hl":"Dieses Raster bewertet den verantwortungsvollen Umgang mit KI im Hinblick auf Transparenz, Datenschutz, Urheberrecht und ethische Reflexion.","hs":"Dieses Raster bewertet den verantwortungsvollen Umgang mit KI im Hinblick auf Transparenz, Datenschutz, Urheberrecht und ethische Reflexion.","k":[{"n":"Transparenz & Kennzeichnung","l":{"s1":"Der KI-Einsatz wird nicht transparent gemacht oder gekennzeichnet.","s2":"Der KI-Einsatz wird erwähnt, aber nicht nachvollziehbar dargestellt.","s3":"Der KI-Einsatz wird transparent gemacht und nachvollziehbar gekennzeichnet.","s4":"Der KI-Einsatz wird vollständig transparent gemacht, präzise beschrieben und nachvollziehbar in das Ergebnis eingebettet."},"s":{"s1":"Ich habe noch nicht kenntlich gemacht, dass ich KI verwendet habe.","s2":"Ich weiß, dass ich KI-Nutzung kennzeichnen soll, tue das aber noch nicht immer.","s3":"Ich kennzeichne meinen KI-Einsatz transparent und mache deutlich, welche Teile meiner Arbeit mit KI entstanden sind.","s4":"Ich mache meinen KI-Einsatz vollständig transparent und kann genau beschreiben, welche Rolle die KI bei meiner Arbeit gespielt hat."}},{"n":"Datenschutz & Verantwortung","l":{"s1":"Kein Bewusstsein für Datenschutz oder Verantwortung im Umgang mit KI erkennbar.","s2":"Datenschutz wird ansatzweise thematisiert, ohne konkrete Konsequenzen zu ziehen.","s3":"Datenschutzaspekte werden berücksichtigt. Es werden keine personenbezogenen Daten unbedacht eingegeben.","s4":"Verantwortungsvoller Umgang mit KI bezüglich Datenschutz wird nachvollziehbar beschrieben und differenziert reflektiert."},"s":{"s1":"Ich habe noch nicht darüber nachgedacht, welche Daten ich der KI gebe.","s2":"Ich weiß, dass ich bei der KI aufpassen soll, welche Daten ich eingebe, tue das aber noch nicht konsequent.","s3":"Ich achte darauf, keine persönlichen Daten in die KI einzugeben, und begründe das.","s4":"Ich gehe verantwortungsvoll mit Datenschutz beim KI-Einsatz um und kann erklären, warum das wichtig ist."}},{"n":"Urheberrecht & Quellen","l":{"s1":"Kein Bewusstsein für Urheberrechtsfragen beim Einsatz von KI erkennbar.","s2":"Urheberrechtliche Aspekte werden ansatzweise erwähnt, ohne sie zu vertiefen.","s3":"Urheberrechtliche Aspekte werden berücksichtigt. KI-generierte Inhalte werden als solche kenntlich gemacht.","s4":"Urheberrechtliche Aspekte werden differenziert reflektiert. Der Umgang mit KI-generierten Inhalten ist verantwortungsvoll und nachvollziehbar begründet."},"s":{"s1":"Ich habe noch nicht darüber nachgedacht, wer die Rechte an KI-generierten Texten hat.","s2":"Ich weiß, dass es beim Urheberrecht Fragen zum KI-Einsatz gibt, kenne mich damit aber noch nicht gut aus.","s3":"Ich berücksichtige Urheberrechtsfragen beim KI-Einsatz und mache KI-generierte Inhalte als solche kenntlich.","s4":"Ich reflektiere Urheberrechtsfragen beim KI-Einsatz differenziert und gehe verantwortungsvoll mit KI-generierten Inhalten um."}},{"n":"Ethische Reflexion","l":{"s1":"Keine ethischen oder sozialen Überlegungen zum KI-Einsatz erkennbar.","s2":"Ethische Fragen werden oberflächlich erwähnt, ohne sie zu vertiefen.","s3":"Ethische und soziale Dimensionen des KI-Einsatzes werden reflektiert und ansatzweise begründet.","s4":"Ethische und soziale Dimensionen werden differenziert reflektiert. Eigene Entscheidungen werden im Hinblick auf ihre gesellschaftliche Bedeutung eingeschätzt."},"s":{"s1":"Ich habe noch nicht über ethische Fragen beim KI-Einsatz nachgedacht.","s2":"Ich weiß, dass es ethische Fragen zum KI-Einsatz gibt, habe mich damit aber noch wenig beschäftigt.","s3":"Ich kann ethische und soziale Fragen des KI-Einsatzes benennen und meinen eigenen Umgang daran ausrichten.","s4":"Ich kann ethische und soziale Dimensionen des KI-Einsatzes differenziert reflektieren und eigene Entscheidungen begründet daran ausrichten."}}]},{"id":"10","slug":"ki-im-lernprozess-portfolio","titel":"KI im Lernprozess (Portfolio)","hl":"Dieses Raster bewertet den reflektierten KI-Einsatz über einen längeren Zeitraum im Rahmen eines Portfolios oder Lernprozesses.","hs":"Dieses Raster bewertet den reflektierten KI-Einsatz über einen längeren Zeitraum im Rahmen eines Portfolios oder Lernprozesses.","k":[{"n":"Kontinuität & Vielfalt","l":{"s1":"KI-Einsatz ist nur punktuell oder nicht dokumentiert.","s2":"KI wird in einzelnen Situationen eingesetzt, ohne erkennbare Entwicklung oder Vielfalt.","s3":"KI wird über den Lernprozess hinweg in verschiedenen Situationen eingesetzt und dokumentiert.","s4":"KI wird kontinuierlich, vielfältig und aufgabenbezogen eingesetzt. Die Dokumentation zeigt eine reflektierte Auseinandersetzung über den gesamten Lernprozess."},"s":{"s1":"Ich habe KI nur einmal oder gar nicht eingesetzt.","s2":"Ich habe KI in einigen Situationen eingesetzt, habe das aber noch nicht systematisch dokumentiert.","s3":"Ich habe KI in verschiedenen Situationen eingesetzt und dokumentiert.","s4":"Ich habe KI kontinuierlich und in verschiedenen Situationen eingesetzt und meinen Einsatz durchgehend dokumentiert."}},{"n":"Entwicklung der Kompetenz","l":{"s1":"Keine Entwicklung im Umgang mit KI über den Zeitraum erkennbar.","s2":"Ansätze einer Entwicklung sind erkennbar, werden aber nicht reflektiert.","s3":"Eine Entwicklung im KI-Einsatz ist erkennbar und wird nachvollziehbar beschrieben.","s4":"Eine deutliche Kompetenzentwicklung im KI-Einsatz wird differenziert beschrieben und an konkreten Beispielen belegt."},"s":{"s1":"Ich habe noch nicht darüber nachgedacht, ob ich mich im Umgang mit KI weiterentwickelt habe.","s2":"Ich glaube, ich bin besser geworden im Umgang mit KI, kann das aber noch nicht gut beschreiben.","s3":"Ich kann beschreiben, wie sich mein Umgang mit KI über den Lernprozess verändert hat.","s4":"Ich kann meine Kompetenzentwicklung im Umgang mit KI differenziert beschreiben und an konkreten Beispielen zeigen."}},{"n":"Reflexionstiefe im Portfolio","l":{"s1":"Keine oder nur oberflächliche Reflexion des KI-Einsatzes im Portfolio erkennbar.","s2":"KI-Einsatz wird beschrieben, ohne ihn zu hinterfragen oder einzuordnen.","s3":"KI-Einsatz wird im Portfolio reflektiert. Entscheidungen werden begründet und in den Lernprozess eingeordnet.","s4":"Der KI-Einsatz wird tiefgehend und kritisch im Portfolio reflektiert. Einzelne Erfahrungen werden differenziert bewertet und mit dem eigenen Lernen verknüpft."},"s":{"s1":"Ich habe meinen KI-Einsatz im Portfolio noch nicht reflektiert.","s2":"Ich habe aufgeschrieben, was ich mit KI gemacht habe, aber noch wenig darüber nachgedacht.","s3":"Ich kann meinen KI-Einsatz im Portfolio reflektieren und erklären, was ich dadurch gelernt habe.","s4":"Ich kann meinen KI-Einsatz im Portfolio tiefgehend reflektieren und differenziert einschätzen, welchen Einfluss KI auf meinen Lernprozess hatte."}},{"n":"Eigenverantwortung & Planung","l":{"s1":"Keine eigenverantwortliche Planung des KI-Einsatzes erkennbar.","s2":"KI wird eingesetzt, ohne erkennbare eigene Planung oder Zielsetzung.","s3":"KI-Einsatz wird eigenverantwortlich geplant und auf Lernziele bezogen.","s4":"KI-Einsatz wird selbstständig, zielgerichtet und eigenverantwortlich geplant. Planung und Reflexion sind eng miteinander verknüpft."},"s":{"s1":"Ich setze KI ein, ohne vorher zu planen, wann und wie ich sie nutzen will.","s2":"Ich plane meinen KI-Einsatz manchmal, aber noch nicht systematisch.","s3":"Ich plane meinen KI-Einsatz eigenverantwortlich und beziehe ihn auf meine Lernziele.","s4":"Ich plane meinen KI-Einsatz selbstständig und zielgerichtet und verknüpfe Planung und Reflexion bewusst miteinander."}}]},{"id":"11","slug":"ki-einsatz-planen","titel":"KI-Einsatz planen","hl":"Dieses Raster bewertet die Fähigkeit, den Einsatz von KI für eine Aufgabe gezielt zu planen, bevor mit der Arbeit begonnen wird.","hs":"Dieses Raster unterstützt die Planung des eigenen KI-Einsatzes vor Beginn einer Aufgabe.","k":[{"n":"Aufgaben- analyse","l":{"s1":"Keine Analyse der Aufgabe vor dem KI-Einsatz erkennbar. KI wird ohne Vorüberlegung eingesetzt.","s2":"Einzelne Aspekte der Aufgabe werden berücksichtigt, aber nicht systematisch daraufhin analysiert, ob und wie KI sinnvoll eingesetzt werden kann.","s3":"Die Aufgabe wird analysiert. Es wird erkennbar unterschieden, welche Teile mit KI-Unterstützung und welche eigenständig bearbeitet werden sollen.","s4":"Die Aufgabe wird differenziert analysiert. Möglichkeiten und Grenzen eines KI-Einsatzes werden aufgabenbezogen und begründet abgewogen. Die Analyse ist nachvollziehbar dokumentiert."},"s":{"s1":"Ich habe einfach angefangen, die KI zu nutzen, ohne vorher über die Aufgabe nachzudenken.","s2":"Ich habe kurz überlegt, was die Aufgabe verlangt, aber noch nicht genau durchdacht, wo KI helfen kann.","s3":"Ich habe die Aufgabe analysiert und überlegt, welche Teile ich mit KI bearbeiten will und welche ich selbst erledige.","s4":"Ich habe die Aufgabe sorgfältig analysiert und kann genau begründen, wo KI sinnvoll ist und wo nicht."}},{"n":"Ziel- setzung","l":{"s1":"Kein erkennbares Ziel für den KI-Einsatz formuliert. Die Nutzung erfolgt ohne definierten Zweck.","s2":"Ein Ziel ist ansatzweise erkennbar, aber vage oder nicht explizit formuliert.","s3":"Ein konkretes Ziel für den KI-Einsatz ist erkennbar formuliert. Es wird deutlich, was die KI leisten soll.","s4":"Das Ziel für den KI-Einsatz ist präzise und aufgabenbezogen formuliert. Es ist klar, was die KI leisten soll, was die Schüler:in selbst einbringt und woran das Ergebnis gemessen wird."},"s":{"s1":"Ich hatte noch kein klares Ziel dafür, was die KI für mich tun soll.","s2":"Ich hatte grob im Kopf, was ich von der KI will, aber es war noch nicht genau formuliert.","s3":"Ich habe vor dem KI-Einsatz ein konkretes Ziel formuliert: Was soll die KI leisten?","s4":"Ich habe genau geplant, was die KI tun soll, was ich selbst beitrage und woran ich erkenne, ob das Ergebnis gut ist."}},{"n":"Prompt- Planung","l":{"s1":"Keine Planung des Vorgehens erkennbar. Der erste Prompt entsteht ohne Vorbereitung.","s2":"Ansatzweise Überlegungen zur Vorgehensweise erkennbar, aber kein konkreter Plan für die Gestaltung des Prompts oder die Nutzungsstrategie.","s3":"Das Vorgehen beim KI-Einsatz wird geplant. Grundlegende Überlegungen zur Prompt-Gestaltung oder zur Nutzungsstrategie sind erkennbar.","s4":"Der KI-Einsatz wird strukturiert geplant. Überlegungen zu Prompt-Gestaltung, Vorgehensweise und möglichen Iterationsschritten sind nachvollziehbar dokumentiert."},"s":{"s1":"Ich habe mir vorher nicht überlegt, wie ich die KI ansprechen will.","s2":"Ich hatte grob im Kopf, was ich schreiben will, aber keinen konkreten Plan.","s3":"Ich habe überlegt, wie ich meinen Prompt gestalten will und wie ich vorgehen möchte.","s4":"Ich habe meinen KI-Einsatz strukturiert geplant: Prompt-Gestaltung, Vorgehen und mögliche nächste Schritte habe ich vorher durchdacht."}},{"n":"Antizipation von Grenzen","l":{"s1":"Keine Auseinandersetzung mit möglichen Grenzen der KI oder dem eigenen Beitrag erkennbar.","s2":"Ansatzweise Bewusstsein für die Grenzen der KI oder die notwendige Eigenleistung vorhanden, ohne konkrete Konsequenzen für die Planung.","s3":"Grenzen des KI-Einsatzes und der erwartete Eigenleistungsanteil werden vor Beginn der Arbeit eingeschätzt und in der Planung berücksichtigt.","s4":"Eine differenzierte Antizipation möglicher Schwächen des KI-Einsatzes und des eigenen Beitrags ist erkennbar. Die Planung berücksichtigt, wie mit Lücken oder Fehlern der KI umgegangen wird."},"s":{"s1":"Ich habe vorher nicht darüber nachgedacht, was die KI möglicherweise nicht leisten kann.","s2":"Ich weiß, dass KI Grenzen hat, habe das beim Planen aber noch nicht wirklich berücksichtigt.","s3":"Ich habe überlegt, wo die KI an Grenzen stoßen könnte, und geplant, was ich dann selbst machen muss.","s4":"Ich habe genau durchdacht, was die KI gut kann und was nicht, und meinen Plan daran angepasst – auch für den Fall, dass die KI-Antwort nicht passt."}}]}];
 </script>
 
-<!-- Export-Modul -->
 <script src="export-docx.js"></script>
 
 <script>
-  // ── Filter ─────────────────────────────────────────────
   function filterTiles(btn, filter) {
     document.querySelectorAll('.filter-chip').forEach(c => {
       c.classList.remove('active');
@@ -269,13 +286,12 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
     });
     btn.classList.add('active');
     btn.setAttribute('aria-pressed', 'true');
-    document.querySelectorAll('.raster-tile').forEach(tile => {
+    document.querySelectorAll('.rt').forEach(tile => {
       const show = filter === 'alle' || tile.dataset.kompetenz === filter;
       tile.classList.toggle('hidden', !show);
     });
   }
 
-  // ── DOCX Download ──────────────────────────────────────
   const STUFEN_LABELS_LK = ['Nicht erfüllt','Teilweise erfüllt','Weitgehend erfüllt','Vollständig erfüllt'];
   const STUFEN_LABELS_SU = ['Das kann ich noch nicht sicher','Das kann ich teilweise','Das kann ich schon gut','Das kann ich sehr sicher'];
   const PUNKTE_CONFIG = [{punkte:'0'},{punkte:'1–2'},{punkte:'3–4'},{punkte:'5'}];
@@ -283,6 +299,7 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
   function tileDownload(id, version) {
     const raster = window.RASTER_INDEX.find(r => r.id === id);
     if (!raster) { alert('Raster nicht gefunden.'); return; }
+    if (typeof generateDocx === 'undefined') { alert('Export-Modul noch nicht geladen. Bitte Seite neu laden.'); return; }
     const isLk = version === 'lk';
     const config = {
       titel: raster.titel,
@@ -307,7 +324,6 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
     generateDocx(config, `Raster_${id}_${slug}_${vLabel}.docx`);
   }
 
-  // ── Burger Menu ────────────────────────────────────────
   document.getElementById('nav-burger').addEventListener('click', function() {
     const links = document.getElementById('nav-links');
     const isOpen = links.classList.toggle('open');
