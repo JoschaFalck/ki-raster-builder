@@ -29,7 +29,6 @@ const STATE = {
   fach: 'fachunabhaengig',
   jahrgang: 'klasse-8-10',
   niveau: 2,               // 1=einfach, 2=standard, 3=anspruchsvoll
-  kontext: 'formativ',
   perspektive: 'beide',
   stufen: 4,
   punkteConfig: [
@@ -564,17 +563,6 @@ function updateNiveauLabel() {
   label.textContent = labels[slider.value] || 'Standard';
 }
 
-function setContext(ctx) {
-  STATE.kontext = ctx;
-  ['formativ', 'summativ'].forEach(c => {
-    const btn = document.getElementById('ctx-' + c);
-    if (btn) {
-      btn.classList.toggle('active', c === ctx);
-      btn.setAttribute('aria-pressed', c === ctx ? 'true' : 'false');
-    }
-  });
-}
-
 function setPerspektive(p) {
   STATE.perspektive = p;
   ['beide', 'lk', 'su'].forEach(v => {
@@ -871,9 +859,6 @@ function buildLevelRowsHTML(kriterium, idx) {
               oninput="updateCriterionText('${kriterium.id}', 'lk', '${sk}', this.value)"
               aria-label="Lehrkraft-Formulierung Stufe ${s}"
               rows="3">${escapeHtml(lkVal)}</textarea>
-            <button class="btn-suggest" title="Formulierungsvorschlag aus Pool"
-              aria-label="Vorschlag f\u00fcr Lehrkraft Stufe ${s}"
-              onclick="openSuggestPopup(this, '${kriterium.id}', 'lk', '${sk}')">✨</button>
           </div>
           <div class="textarea-wrap" data-col="su">
             <label class="visually-hidden" for="su-${kriterium.id}-${sk}">Sch\u00fcler:in – ${suLabel}</label>
@@ -884,9 +869,6 @@ function buildLevelRowsHTML(kriterium, idx) {
               oninput="updateCriterionText('${kriterium.id}', 'su', '${sk}', this.value)"
               aria-label="Sch\u00fcler:in-Formulierung Stufe ${s}"
               rows="3">${escapeHtml(suVal)}</textarea>
-            <button class="btn-suggest" title="Formulierungsvorschlag aus Pool"
-              aria-label="Vorschlag f\u00fcr Sch\u00fcler:in Stufe ${s}"
-              onclick="openSuggestPopup(this, '${kriterium.id}', 'su', '${sk}')">✨</button>
           </div>
         </div>
       </div>`;
@@ -990,172 +972,6 @@ function syncCriteriaOrderFromDOM() {
     if (found) newOrder.push(found);
   });
   STATE.kriterien = newOrder;
-}
-
-// ============================================================
-// ✨ SUGGESTIONS POPUP
-// ============================================================
-
-let _suggestTarget = null; // { criterionId, field, stufe }
-
-/**
- * Stellt sicher, dass der Pool-Picker Modal im DOM existiert.
- * Erstellt ihn dynamisch falls nötig (resilient gegen alte HTML-Versionen).
- */
-function ensurePoolPickerModal() {
-  if (document.getElementById('pool-picker-modal')) return;
-
-  const backdrop = document.createElement('div');
-  backdrop.id = 'pool-picker-modal';
-  backdrop.className = 'modal-backdrop';
-  backdrop.setAttribute('role', 'dialog');
-  backdrop.setAttribute('aria-modal', 'true');
-  backdrop.setAttribute('aria-labelledby', 'pool-picker-title');
-  backdrop.innerHTML = `
-    <div class="modal" style="max-width:640px;">
-      <div class="modal-header">
-        <h2 id="pool-picker-title">Pool-Vorschläge</h2>
-        <button class="modal-close" onclick="closePoolPicker()" aria-label="Schließen">✕</button>
-      </div>
-      <div class="modal-body">
-        <p class="text-sm text-muted mb-2">Klicken Sie auf einen Eintrag, um ihn in das Textfeld zu übernehmen.</p>
-        <div id="pool-picker-list"></div>
-      </div>
-    </div>`;
-  backdrop.addEventListener('click', e => { if (e.target === backdrop) closePoolPicker(); });
-  document.body.appendChild(backdrop);
-}
-
-/**
- * Öffnet den Pool-Picker Modal für eine Stufe/Perspektive.
- * @param {HTMLElement} btn
- * @param {string} criterionId
- * @param {'lk'|'su'} field
- * @param {string} stufe  e.g. 's1'
- */
-function openSuggestPopup(btn, criterionId, field, stufe) {
-  _suggestTarget = { criterionId, field, stufe };
-
-  ensurePoolPickerModal();
-
-  const modal = document.getElementById('pool-picker-modal');
-  const list = document.getElementById('pool-picker-list');
-  const title = document.getElementById('pool-picker-title');
-  if (!modal || !list) return;
-
-  // Titel
-  const stufeNum = stufe.replace('s', '');
-  const perspLabel = field === 'lk' ? 'Lehrkraft' : 'Schüler:in';
-  const stufenLabel = STATE.stufenLabels[field][parseInt(stufeNum) - 1] || ('Stufe ' + stufeNum);
-  if (title) title.textContent = `Pool-Vorschläge – ${perspLabel}, ${stufenLabel}`;
-
-  // Vorschläge aus Pool laden
-  const suggestions = getSuggestions(field, stufe);
-
-  list.innerHTML = '';
-  if (suggestions.length === 0) {
-    list.innerHTML = '<p class="suggest-empty">Keine Vorschläge für diese Kombination im Pool gefunden.</p>';
-  } else {
-    suggestions.forEach(({ label, text }) => {
-      const item = document.createElement('div');
-      item.className = 'pool-pick-item';
-      item.innerHTML = `
-        <div class="pool-pick-label">${escapeHtml(label)}</div>
-        <div class="pool-pick-text">${escapeHtml(text)}</div>
-      `;
-      item.setAttribute('role', 'button');
-      item.setAttribute('tabindex', '0');
-      item.title = 'Klicken zum Übernehmen';
-      item.addEventListener('click', () => applySuggestion(text));
-      item.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') applySuggestion(text); });
-      list.appendChild(item);
-    });
-  }
-
-  modal.classList.add('open');
-  modal.querySelector('.modal-close')?.focus();
-  document.body.style.overflow = 'hidden';
-}
-
-/**
- * Schließt den Pool-Picker Modal.
- */
-function closePoolPicker() {
-  const modal = document.getElementById('pool-picker-modal');
-  if (modal) modal.classList.remove('open');
-  document.body.style.overflow = '';
-  _suggestTarget = null;
-}
-
-/**
- * Holt Formulierungsvorschläge aus dem Pool.
- * Gibt Array von { label, text } Objekten zurück.
- * @param {'lk'|'su'} field
- * @param {string} stufe
- * @returns {{ label: string, text: string }[]}
- */
-function getSuggestions(field, stufe) {
-  if (!WB) return [];
-
-  const results = [];
-
-  // Fachunabhängige Pool-Einträge
-  // Struktur: entry.varianten.lk.s1 / entry.varianten.su.s1
-  WB.kriterien_pool.fachunabhaengig.forEach(entry => {
-    const text = entry.varianten?.[field]?.[stufe];
-    if (text) {
-      results.push({ label: entry.name, text });
-    }
-  });
-
-  // Fachspezifische Pool-Einträge
-  const fach = document.getElementById('raster-fach')?.value || 'fachunabhaengig';
-  if (fach !== 'fachunabhaengig' && WB.kriterien_pool.fachspezifisch?.[fach]) {
-    WB.kriterien_pool.fachspezifisch[fach].forEach(entry => {
-      const text = entry.varianten?.[field]?.[stufe];
-      if (text) {
-        results.push({ label: entry.name, text });
-      }
-    });
-  }
-
-  // Ergänzung aus fertigen Rastern (maximal 3, aus anderen Kriterien)
-  let fromRaster = 0;
-  WB.raster_fertig.forEach(raster => {
-    if (fromRaster >= 3) return;
-    raster.kriterien.forEach(k => {
-      if (fromRaster >= 3) return;
-      const text = k[field]?.[stufe];
-      if (text && !results.find(r => r.text === text)) {
-        results.push({ label: `${raster.titel} – ${k.name}`, text });
-        fromRaster++;
-      }
-    });
-  });
-
-  return results;
-}
-
-/**
- * Überträgt einen Vorschlag in das Ziel-Textarea und schließt den Picker.
- * @param {string} text
- */
-function applySuggestion(text) {
-  if (!_suggestTarget) return;
-  const { criterionId, field, stufe } = _suggestTarget;
-
-  // State aktualisieren
-  const k = STATE.kriterien.find(k => k.id === criterionId);
-  if (k) k[field][stufe] = text;
-
-  // DOM aktualisieren
-  const textarea = document.getElementById(`${field}-${criterionId}-${stufe}`);
-  if (textarea) {
-    textarea.value = text;
-    textarea.dispatchEvent(new Event('input'));
-  }
-
-  closePoolPicker();
 }
 
 // ============================================================
@@ -1339,7 +1155,6 @@ function exportJSON() {
     fach: STATE.fach,
     jahrgang: STATE.jahrgang,
     niveau: STATE.niveau,
-    kontext: STATE.kontext,
     perspektive: STATE.perspektive,
     stufen: STATE.stufen,
     punkteConfig: STATE.punkteConfig,
@@ -1391,7 +1206,6 @@ function applyImportedConfig(data) {
   }
   if (data.punkteConfig) STATE.punkteConfig = data.punkteConfig;
   if (data.stufenLabels) STATE.stufenLabels = data.stufenLabels;
-  if (data.kontext) setContext(data.kontext);
   if (data.perspektive) setPerspektive(data.perspektive);
   if (data.kriterien) {
     STATE.kriterien = data.kriterien;

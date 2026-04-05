@@ -174,18 +174,6 @@
               </div>
 
               <div class="form-group">
-                <label>Einsatzkontext</label>
-                <div class="toggle-group" role="group" aria-label="Einsatzkontext">
-                  <button class="toggle-option active" id="ctx-formativ" onclick="setContext('formativ')" aria-pressed="true">
-                    Formativ
-                  </button>
-                  <button class="toggle-option" id="ctx-summativ" onclick="setContext('summativ')" aria-pressed="false">
-                    Summativ
-                  </button>
-                </div>
-              </div>
-
-              <div class="form-group">
                 <label>Perspektive</label>
                 <div class="toggle-group" role="group" aria-label="Perspektive">
                   <button class="toggle-option active" id="persp-beide" onclick="setPerspektive('beide')" aria-pressed="true">Beide</button>
@@ -235,11 +223,6 @@
             <div class="d-flex align-center gap-2" style="justify-content: space-between; margin-bottom: 1rem;">
               <h3 class="section-heading" style="margin-bottom:0;">📝 Kriterien</h3>
               <span class="criteria-count text-muted text-sm" id="criteria-count">4 Kriterien</span>
-            </div>
-
-            <div class="notice notice-info" style="font-size:0.82rem;">
-              <span class="notice-icon">✨</span>
-              <span>Klicken Sie auf das ✨-Symbol neben einem Textfeld, um Formulierungsvorschläge aus dem Pool zu erhalten.</span>
             </div>
 
             <div class="criteria-container mt-2" id="criteria-container" role="list" aria-label="Kriterien"></div>
@@ -336,20 +319,6 @@
   </div><!-- end container -->
 </main>
 
-<!-- Pool-Picker Modal -->
-<div class="modal-backdrop" id="pool-picker-modal" role="dialog" aria-modal="true" aria-labelledby="pool-picker-title">
-  <div class="modal" style="max-width: 640px;">
-    <div class="modal-header">
-      <h2 id="pool-picker-title">Pool-Vorschläge</h2>
-      <button class="modal-close" onclick="closePoolPicker()" aria-label="Schließen">✕</button>
-    </div>
-    <div class="modal-body">
-      <p class="text-sm text-muted mb-2">Klicken Sie auf einen Eintrag, um ihn in das Textfeld zu übernehmen.</p>
-      <div id="pool-picker-list"></div>
-    </div>
-  </div>
-</div>
-
 <!-- Punkte-Editor Modal (inline) -->
 <div class="modal-backdrop" id="punkte-modal" role="dialog" aria-modal="true" aria-labelledby="punkte-modal-title">
   <div class="modal" style="max-width: 480px;">
@@ -384,7 +353,7 @@
 </footer>
 
 <!-- CDN Libraries -->
-<script src="https://cdn.jsdelivr.net/npm/docx@8/build/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx@8/build/index.umd.js"></script>
 <script src="data.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2/dist/jspdf.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3/dist/jspdf.plugin.autotable.min.js"></script>
@@ -403,11 +372,6 @@
     this.setAttribute('aria-expanded', isOpen);
   });
 
-  // Close pool picker on backdrop click
-  document.getElementById('pool-picker-modal').addEventListener('click', function(e) {
-    if (e.target === this) closePoolPicker();
-  });
-
   // Close punkte modal on backdrop click
   document.getElementById('punkte-modal').addEventListener('click', function(e) {
     if (e.target === this) closePunkteModal();
@@ -415,10 +379,7 @@
 
   // Close on Escape
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-      closePunkteModal();
-      closePoolPicker();
-    }
+    if (e.key === 'Escape') closePunkteModal();
   });
 
   // URL param: load raster from index page
