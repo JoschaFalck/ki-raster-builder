@@ -38,15 +38,15 @@
             ← Fertige Raster
           </a>
         </div>
-        <div class="wizard-step-item active" id="sidebar-step-1">
+        <div class="wizard-step-item active" id="sidebar-step-1" onclick="goToStep(1)" style="cursor:pointer;" title="Zurück zu Schritt 1">
           <span class="step-num">1</span>
           <span>Ausgangspunkt</span>
         </div>
-        <div class="wizard-step-item" id="sidebar-step-2">
+        <div class="wizard-step-item" id="sidebar-step-2" onclick="goToStep(2)" style="cursor:pointer;" title="Zurück zu Schritt 2">
           <span class="step-num">2</span>
           <span>Konfigurieren</span>
         </div>
-        <div class="wizard-step-item" id="sidebar-step-3">
+        <div class="wizard-step-item" id="sidebar-step-3" onclick="goToStep(3)" style="cursor:pointer;" title="Zu Vorschau &amp; Export">
           <span class="step-num">3</span>
           <span>Vorschau &amp; Export</span>
         </div>
@@ -72,18 +72,11 @@
                 <p>Eines der 11 fertigen Raster als Grundlage nehmen und anpassen.</p>
               </button>
 
-              <!-- Option B: Aus Pool starten -->
-              <button class="start-option" id="opt-pool" onclick="selectStartOption('pool')" aria-pressed="false">
-                <div class="start-option-icon">🎯</div>
-                <h3>Aus Themenpool starten</h3>
-                <p>Ein Thema wählen und Vorschläge aus dem Kriterienspool erhalten.</p>
-              </button>
-
-              <!-- Option C: Von Grund auf -->
+              <!-- Option B: Eigenes Raster -->
               <button class="start-option" id="opt-neu" onclick="selectStartOption('neu')" aria-pressed="false">
                 <div class="start-option-icon">✏️</div>
-                <h3>Von Grund auf neu</h3>
-                <p>Leeres Raster mit 4 freien Kriterien – vollständig selbst gestalten.</p>
+                <h3>Eigenes Raster erstellen</h3>
+                <p>Leeres Raster selbst gestalten – oder mit einer Idee aus dem Themenpool starten.</p>
               </button>
 
             </div>
@@ -96,10 +89,16 @@
               </select>
             </div>
 
-            <!-- Sub: Themenpool -->
-            <div class="start-sub" id="sub-pool">
-              <label>Thema wählen:</label>
-              <div class="pool-grid" id="pool-topics-grid" role="group" aria-label="Themen auswählen"></div>
+            <!-- Sub: Eigenes Raster (leer oder mit Idee) -->
+            <div class="start-sub" id="sub-neu">
+              <div class="toggle-group" style="margin-bottom: 0.75rem;" role="group" aria-label="Startoption wählen">
+                <button class="toggle-option active" id="nm-leer" onclick="selectNeuMode('leer')" aria-pressed="true">Leeres Raster</button>
+                <button class="toggle-option" id="nm-idee" onclick="selectNeuMode('idee')" aria-pressed="false">Mit einer Idee starten</button>
+              </div>
+              <div id="sub-neu-idee" style="display:none;">
+                <p class="text-sm text-muted" style="margin-bottom:0.5rem;">Wählen Sie eine Kategorie als Ausgangspunkt:</p>
+                <div class="pool-grid" id="pool-topics-grid" role="group" aria-label="Themen auswählen"></div>
+              </div>
             </div>
 
             <div class="d-flex gap-2 mt-3" style="justify-content: flex-end;">
@@ -134,7 +133,7 @@
 
               <div class="form-group">
                 <label for="raster-fach">Fach</label>
-                <select id="raster-fach" onchange="onConfigChange()">
+                <select id="raster-fach" onchange="onFachChange()">
                   <option value="fachunabhaengig">Fachunabhängig</option>
                   <option value="deutsch">Deutsch</option>
                   <option value="englisch">Englisch</option>
@@ -143,8 +142,11 @@
                   <option value="naturwissenschaften">Biologie / Chemie / Physik</option>
                   <option value="informatik">Informatik</option>
                   <option value="kunst-musik">Kunst / Musik / Sport</option>
-                  <option value="weitere">Weitere…</option>
+                  <option value="weitere">Sonstiges (eigene Eingabe)</option>
                 </select>
+                <input type="text" id="raster-fach-custom" placeholder="z.B. Ethik, Erdkunde, Sport …"
+                  style="display:none; margin-top:0.4rem;"
+                  oninput="onConfigChange()" autocomplete="off">
               </div>
 
               <div class="form-group">
@@ -156,21 +158,6 @@
                   <option value="klasse-11-13">Klasse 11–13 (Oberstufe)</option>
                   <option value="uebergreifend">Jahrgangsstufen-übergreifend</option>
                 </select>
-              </div>
-
-              <div class="form-group">
-                <label>Sprachliches Niveau</label>
-                <div class="slider-group">
-                  <div class="slider-track">
-                    <span>Einfach</span>
-                    <input type="range" id="niveau-slider" min="1" max="3" value="2"
-                      aria-label="Sprachliches Niveau" onchange="onConfigChange()" oninput="updateNiveauLabel()">
-                    <span>Anspruchsvoll</span>
-                  </div>
-                  <div class="text-sm text-muted" style="text-align:center;">
-                    Aktuell: <strong id="niveau-label">Standard</strong>
-                  </div>
-                </div>
               </div>
 
               <div class="form-group">

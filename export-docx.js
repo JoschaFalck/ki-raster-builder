@@ -179,11 +179,17 @@ async function generateDocx(config, filename) {
  * @returns {Promise<Blob>}
  */
 async function generateDocxBlob(config) {
-  const { titel, version, stufen, stufenLabels, punkteConfig, maxPunkte, kriterien, hinweis } = config;
+  const { titel, version, stufen, stufenLabels, punkteConfig, maxPunkte, kriterien, hinweis, fach, jahrgang } = config;
   const isLk = version === 'lk';
   const colors = isLk ? DOCX_COLORS.lk : DOCX_COLORS.su;
   const stufenFarben = ['s1', 's2', 's3', 's4', 's5', 's6'].slice(0, stufen);
   const colWidths = getColWidths(stufen);
+
+  // --- Untertitel (Fach / Jahrgang) ---
+  const subtitleParts = [];
+  if (fach && fach !== 'Fachunabh\u00e4ngig') subtitleParts.push(fach);
+  if (jahrgang) subtitleParts.push(jahrgang);
+  const hasSubtitle = subtitleParts.length > 0;
 
   // --- Titelzeile ---
   const versionLabel = isLk ? 'Einsch\u00e4tzung der Lehrkraft' : 'Selbsteinsch\u00e4tzung Sch\u00fcler:in';
@@ -197,8 +203,20 @@ async function generateDocxBlob(config) {
         font: 'Calibri',
       }),
     ],
-    spacing: { before: 0, after: 120 },
+    spacing: { before: 0, after: hasSubtitle ? 40 : 120 },
   });
+
+  const subtitleParagraph = hasSubtitle ? new docx.Paragraph({
+    children: [
+      new docx.TextRun({
+        text: subtitleParts.join('  \u2502  '),
+        color: DOCX_COLORS.metaText,
+        size: 16,
+        font: 'Calibri',
+      }),
+    ],
+    spacing: { before: 0, after: 100 },
+  }) : null;
 
   // --- Header-Zeile der Tabelle ---
   const headerCells = [
@@ -271,7 +289,9 @@ async function generateDocxBlob(config) {
   });
 
   // --- Hinweis-Zeile ---
-  const docChildren = [titleParagraph, table, metaParagraph];
+  const docChildren = hasSubtitle
+    ? [titleParagraph, subtitleParagraph, table, metaParagraph]
+    : [titleParagraph, table, metaParagraph];
 
   if (hinweis) {
     const hintParagraph = new docx.Paragraph({

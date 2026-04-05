@@ -118,6 +118,18 @@ function buildPdfPage(doc, raster, version) {
   doc.text(`Bewertungsraster ${raster.titel} \u2013 ${versionLabel}`, margin, y + 4);
   y += 8;
 
+  // --- Untertitel Fach / Jahrgang ---
+  const subtitleParts = [];
+  if (raster.fach && raster.fach !== 'Fachunabh\u00e4ngig') subtitleParts.push(raster.fach);
+  if (raster.jahrgang) subtitleParts.push(raster.jahrgang);
+  if (subtitleParts.length > 0) {
+    doc.setFontSize(FONT_META);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...PDF_COLORS.meta);
+    doc.text(subtitleParts.join('  \u2502  '), margin, y + 2);
+    y += 5;
+  }
+
   // --- AutoTable ---
   const head = [buildHeaderRow(stufen, labelArr, punkteConfig, isLk)];
   const body = buildBodyRows(raster.kriterien, version, stufen);

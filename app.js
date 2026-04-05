@@ -19,7 +19,8 @@ let WB = null;
 
 /** Aktueller Builder-Zustand */
 const STATE = {
-  startOption: null,       // 'fertig' | 'pool' | 'neu'
+  startOption: null,       // 'fertig' | 'neu'
+  startNeuMode: 'leer',   // 'leer' | 'idee'
   selectedRasterId: null,  // ID des gewählten fertigen Rasters
   selectedPoolTopic: null, // ID des gewählten Pool-Themas
   currentStep: 1,
@@ -27,8 +28,10 @@ const STATE = {
   // Konfiguration (Schritt 2)
   titel: '',
   fach: 'fachunabhaengig',
+  fachLabel: 'Fachunabh\u00e4ngig',
   jahrgang: 'klasse-8-10',
-  niveau: 2,               // 1=einfach, 2=standard, 3=anspruchsvoll
+  jahrgangLabel: 'Klasse 8\u201310',
+  niveau: 2,               // gespeichert aber kein UI mehr
   perspektive: 'beide',
   stufen: 4,
   punkteConfig: [
@@ -370,7 +373,7 @@ function selectStartOption(option) {
   STATE.startOption = option;
 
   // Karten-Status
-  ['fertig', 'pool', 'neu'].forEach(o => {
+  ['fertig', 'neu'].forEach(o => {
     const el = document.getElementById('opt-' + o);
     if (el) {
       el.classList.toggle('selected', o === option);
@@ -383,7 +386,7 @@ function selectStartOption(option) {
   const sub = document.getElementById('sub-' + option);
   if (sub) sub.classList.add('visible');
 
-  // Für "neu" direkt freigeben
+  // Für "neu" direkt freigeben; "fertig" erst nach Raster-Auswahl
   if (option === 'neu') {
     enableStep1Next(true);
   } else {
@@ -408,6 +411,27 @@ function selectPoolTopic(topicId, btn) {
   document.querySelectorAll('.pool-option').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
   enableStep1Next(true);
+}
+
+/**
+ * Wechselt den Neu-Modus (leer vs. mit Idee).
+ * @param {'leer'|'idee'} mode
+ */
+function selectNeuMode(mode) {
+  STATE.startNeuMode = mode;
+  ['leer', 'idee'].forEach(m => {
+    const btn = document.getElementById('nm-' + m);
+    if (btn) {
+      btn.classList.toggle('active', m === mode);
+      btn.setAttribute('aria-pressed', m === mode ? 'true' : 'false');
+    }
+  });
+  const ideeDiv = document.getElementById('sub-neu-idee');
+  if (ideeDiv) ideeDiv.style.display = mode === 'idee' ? '' : 'none';
+  if (mode === 'leer') {
+    STATE.selectedPoolTopic = null;
+    document.querySelectorAll('.pool-option').forEach(b => b.classList.remove('selected'));
+  }
 }
 
 // ============================================================
@@ -460,9 +484,13 @@ function goToStep(step) {
 function applyStartOption() {
   if (STATE.startOption === 'fertig' && STATE.selectedRasterId) {
     loadRasterIntoBuilder(STATE.selectedRasterId);
-  } else if (STATE.startOption === 'pool' && STATE.selectedPoolTopic) {
-    loadPoolTopicIntoBuilder(STATE.selectedPoolTopic);
   } else if (STATE.startOption === 'neu') {
+    if (STATE.startNeuMode === 'idee' && STATE.selectedPoolTopic) {
+      loadPoolTopicIntoBuilder(STATE.selectedPoolTopic);
+    } else {
+      initDefaultKriterien();
+    }
+  } else {
     initDefaultKriterien();
   }
 }
@@ -541,6 +569,13 @@ function onConfigChange() {
   // Nichts nötig – state wird beim Wechsel zu Schritt 3 gelesen
 }
 
+function onFachChange() {
+  const sel = document.getElementById('raster-fach');
+  const custom = document.getElementById('raster-fach-custom');
+  if (custom) custom.style.display = (sel?.value === 'weitere') ? '' : 'none';
+  onConfigChange();
+}
+
 function onJahrgangChange() {
   const sel = document.getElementById('raster-jahrgang');
   const notice = document.getElementById('gs-builder-notice');
@@ -584,6 +619,9 @@ function setPerspektive(p) {
   // Bewertungssystem-Bereich: nur bei LK relevant
   const bewertungSection = document.getElementById('bewertung-section');
   if (bewertungSection) bewertungSection.style.display = (p === 'su') ? 'none' : '';
+
+  // Stufen-Bezeichnungen: Spalten je nach Perspektive anpassen
+  renderStufenLabels();
 }
 
 // ---- Stufen ----
@@ -723,39 +761,47 @@ function renderStufenLabels() {
   if (!grid) return;
   grid.innerHTML = '';
 
-  const colLk = document.createElement('div');
-  colLk.className = 'stufen-labels-col';
-  colLk.innerHTML = '<label>Lehrkraft-Version</label>';
+  const showLk = STATE.perspektive !== 'su';
+  const showSu = STATE.perspektive !== 'lk';
 
-  const colSu = document.createElement('div');
-  colSu.className = 'stufen-labels-col';
-  colSu.innerHTML = '<label>Sch\u00fcler:in-Version</label>';
-
-  for (let i = 0; i < STATE.stufen; i++) {
-    const lkVal = STATE.stufenLabels.lk[i] || `Stufe ${i + 1}`;
-    const suVal = STATE.stufenLabels.su[i] || `Stufe ${i + 1}`;
-
-    colLk.innerHTML += `
-      <div class="stufen-label-row">
-        <span class="stufen-label-badge s${i + 1}" aria-hidden="true">${i + 1}</span>
-        <input type="text" value="${escapeHtml(lkVal)}" data-type="lk" data-idx="${i}"
-          style="font-size:0.82rem; padding:0.3rem 0.5rem; border:1.5px solid var(--color-border); border-radius:var(--radius-sm); flex:1;"
-          aria-label="LK-Label Stufe ${i + 1}"
-          oninput="updateStufenLabel('lk', ${i}, this.value)">
-      </div>`;
-
-    colSu.innerHTML += `
-      <div class="stufen-label-row">
-        <span class="stufen-label-badge s${i + 1}" aria-hidden="true">${i + 1}</span>
-        <input type="text" value="${escapeHtml(suVal)}" data-type="su" data-idx="${i}"
-          style="font-size:0.82rem; padding:0.3rem 0.5rem; border:1.5px solid var(--color-border); border-radius:var(--radius-sm); flex:1;"
-          aria-label="SuS-Label Stufe ${i + 1}"
-          oninput="updateStufenLabel('su', ${i}, this.value)">
-      </div>`;
+  if (showLk) {
+    const colLk = document.createElement('div');
+    colLk.className = 'stufen-labels-col';
+    colLk.innerHTML = '<label>Lehrkraft-Version</label>';
+    for (let i = 0; i < STATE.stufen; i++) {
+      const lkVal = STATE.stufenLabels.lk[i] || `Stufe ${i + 1}`;
+      colLk.innerHTML += `
+        <div class="stufen-label-row">
+          <span class="stufen-label-badge s${i + 1}" aria-hidden="true">${i + 1}</span>
+          <input type="text" value="${escapeHtml(lkVal)}" data-type="lk" data-idx="${i}"
+            style="font-size:0.82rem; padding:0.3rem 0.5rem; border:1.5px solid var(--color-border); border-radius:var(--radius-sm); flex:1;"
+            aria-label="LK-Label Stufe ${i + 1}"
+            oninput="updateStufenLabel('lk', ${i}, this.value)">
+        </div>`;
+    }
+    grid.appendChild(colLk);
   }
 
-  grid.appendChild(colLk);
-  grid.appendChild(colSu);
+  if (showSu) {
+    const colSu = document.createElement('div');
+    colSu.className = 'stufen-labels-col';
+    colSu.innerHTML = '<label>Sch\u00fcler:in-Version</label>';
+    for (let i = 0; i < STATE.stufen; i++) {
+      const suVal = STATE.stufenLabels.su[i] || `Stufe ${i + 1}`;
+      colSu.innerHTML += `
+        <div class="stufen-label-row">
+          <span class="stufen-label-badge s${i + 1}" aria-hidden="true">${i + 1}</span>
+          <input type="text" value="${escapeHtml(suVal)}" data-type="su" data-idx="${i}"
+            style="font-size:0.82rem; padding:0.3rem 0.5rem; border:1.5px solid var(--color-border); border-radius:var(--radius-sm); flex:1;"
+            aria-label="SuS-Label Stufe ${i + 1}"
+            oninput="updateStufenLabel('su', ${i}, this.value)">
+        </div>`;
+    }
+    grid.appendChild(colSu);
+  }
+
+  // Rasterbreite anpassen: 1 oder 2 Spalten
+  grid.style.gridTemplateColumns = (showLk && showSu) ? 'repeat(2, 1fr)' : 'repeat(1, 1fr)';
 }
 
 function updateStufenLabel(type, idx, val) {
@@ -981,9 +1027,18 @@ function syncCriteriaOrderFromDOM() {
 /** Liest alle Formular-Inputs in STATE */
 function readFormToState() {
   STATE.titel = document.getElementById('raster-titel')?.value || '';
-  STATE.fach = document.getElementById('raster-fach')?.value || 'fachunabhaengig';
-  STATE.jahrgang = document.getElementById('raster-jahrgang')?.value || 'klasse-8-10';
-  STATE.niveau = parseInt(document.getElementById('niveau-slider')?.value || '2', 10);
+
+  const fachSel = document.getElementById('raster-fach');
+  STATE.fach = fachSel?.value || 'fachunabhaengig';
+  const fachCustom = document.getElementById('raster-fach-custom');
+  STATE.fachLabel = (STATE.fach === 'weitere' && fachCustom?.value?.trim())
+    ? fachCustom.value.trim()
+    : (fachSel?.selectedOptions[0]?.text || 'Fachunabh\u00e4ngig');
+
+  const jahrgangSel = document.getElementById('raster-jahrgang');
+  STATE.jahrgang = jahrgangSel?.value || 'klasse-8-10';
+  STATE.jahrgangLabel = jahrgangSel?.selectedOptions[0]?.text || '';
+
   STATE.hinweis = document.getElementById('raster-hinweis')?.value || '';
   STATE.ccBy = document.getElementById('cc-checkbox')?.checked ?? true;
 
@@ -1046,6 +1101,8 @@ function buildCurrentRasterData() {
     slug: sanitizeFilename(STATE.titel),
     titel: STATE.titel || 'Eigenes Raster',
     kompetenzbereich: '',
+    fach: STATE.fachLabel,
+    jahrgang: STATE.jahrgangLabel,
     kriterien: STATE.kriterien.map(k => ({
       name: k.name || 'Kriterium',
       lk: Object.fromEntries(Array.from({ length: STATE.stufen }, (_, i) => [`s${i + 1}`, k.lk[`s${i + 1}`] || ''])),
@@ -1342,6 +1399,8 @@ function buildDocxConfigFromRaster(raster, version) {
       stufen: Array.from({ length: stufen }, (_, i) => k[version]?.[`s${i + 1}`] || ''),
     })),
     hinweis: isLk ? (raster.hinweis_lk || '') : (raster.hinweis_su || ''),
+    fach: raster.fach || '',
+    jahrgang: raster.jahrgang || '',
   };
 }
 

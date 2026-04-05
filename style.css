@@ -704,7 +704,8 @@ main {
   font-weight: 700;
   border-left: 3px solid var(--color-lk);
 }
-.wizard-step-item.done { color: var(--color-su); }
+.wizard-step-item.done { color: var(--color-su); cursor: pointer; }
+.wizard-step-item.done:hover { background: rgba(45,122,104,0.06); }
 
 .step-num {
   width: 28px;
@@ -743,7 +744,7 @@ main {
 /* Step 1 – Ausgangspunkt */
 .start-options {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
@@ -1244,7 +1245,7 @@ input[type="range"] {
   .wizard-sidebar { position: static; }
   .wizard-step-items { display: flex; flex-direction: row; overflow-x: auto; }
   .wizard-step-item { border-bottom: none; border-right: 1px solid var(--color-border); flex-shrink: 0; }
-  .start-options { grid-template-columns: 1fr; }
+  .start-options { grid-template-columns: repeat(2, 1fr); }
   .config-grid.wide { grid-template-columns: repeat(2, 1fr); }
   .form-group.span-3 { grid-column: span 2; }
 }
