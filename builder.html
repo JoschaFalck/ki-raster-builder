@@ -49,6 +49,147 @@
           <span class="step-num">3</span>
           <span>Vorschau &amp; Export</span>
         </div>
+
+        <!-- KI-Prompt-Tipp -->
+        <div class="sidebar-prompt-box">
+          <button class="sidebar-prompt-toggle" onclick="toggleSidebarPrompt()" aria-expanded="false" id="sidebar-prompt-btn">
+            <span class="sidebar-prompt-icon">🤖</span>
+            <span>Mit KI-Chatbot erstellen</span>
+            <span class="sidebar-prompt-chevron">▾</span>
+          </button>
+          <div class="sidebar-prompt-panel" id="sidebar-prompt-panel" style="display:none;">
+            <p class="sidebar-prompt-desc">Lieber mit ChatGPT, Claude oder einem anderen Chatbot arbeiten? Kopieren Sie diesen Prompt:</p>
+            <div class="sidebar-prompt-copy-wrap">
+              <button class="sidebar-prompt-copy" onclick="copySidebarPrompt()" id="sidebar-prompt-copy-btn" title="Prompt kopieren">
+                📋 Prompt kopieren
+              </button>
+            </div>
+            <textarea id="sidebar-prompt-text" readonly style="display:none;" aria-label="KI-Prompt">Ich möchte mit dir ein Bewertungsraster oder einen Selbsteinschätzungsbogen für den KI-Einsatz im Unterricht erstellen.
+
+Bitte arbeite so:
+
+## Ablauf
+
+Stelle mir zuerst **genau drei kurze Fragen** und warte auf meine Antworten.
+Danach gibst du **direkt** das fertige Raster aus.
+Stelle nach diesen drei Fragen **nur dann weitere Rückfragen**, wenn eine sinnvolle Ausgabe sonst unmöglich wäre.
+Wenn einzelne Angaben fehlen, triff eine **plausible Annahme** und kennzeichne sie transparent.
+
+### Deine drei Fragen sollen diese Punkte klären:
+1. **Worum geht es genau?**
+   Thema, konkrete Aufgabe oder Unterrichtssituation
+
+2. **Für wen ist das Raster gedacht?**
+   Jahrgangsstufe, Schulart und Fach
+
+3. **Wie soll das Raster angelegt sein?**
+   fachunabhängig oder fachspezifisch, formativ oder summativ, nur Lehrkraft-Raster oder zusätzlich Selbsteinschätzung
+
+Wenn ich knapp antworte, interpretiere meine Angaben sinnvoll und arbeite trotzdem weiter.
+
+---
+
+## Dein Auftrag
+
+Erstelle ein Bewertungsraster, das den **KI-gestützten Arbeitsprozess von Schüler:innen** bewertbar macht.
+
+Je nach meiner Antwort erstellst du:
+
+- **Version A:** Lehrkraft-Version zur Fremdbeurteilung mit Punkten
+- **Version B:** Selbsteinschätzung für Schüler:innen in Ich-Kann-Formulierungen ohne Punkte
+
+Wenn ich nichts anderes sage, erstelle **beide Versionen**.
+
+---
+
+## Grundlogik des Rasters
+
+Das Raster soll aus **4 Kriterien** bestehen.
+
+### Punktesystem für die Lehrkraft-Version
+Jedes Kriterium wird auf einer **4-stufigen Skala** beschrieben:
+
+| Stufe | Punkte | Bezeichnung |
+|------|--------|-------------|
+| 1 | 0 | Nicht erfüllt |
+| 2 | 1–2 | Teilweise erfüllt |
+| 3 | 3–4 | Weitgehend erfüllt |
+| 4 | 5 | Vollständig erfüllt |
+
+Maximalpunktzahl: **20 Punkte**
+
+### Stufenbezeichnungen für die Schüler:innen-Version
+- Stufe 1: **Das kann ich noch nicht sicher**
+- Stufe 2: **Das kann ich teilweise**
+- Stufe 3: **Das kann ich schon gut**
+- Stufe 4: **Das kann ich sehr sicher**
+
+---
+
+## Qualitätskriterien für die Formulierungen
+
+### Für die Lehrkraft-Version
+- Formuliere **beobachtbar und überprüfbar**
+- Beschreibe klar, was **sichtbar, hörbar oder schriftlich nachweisbar** ist
+- Formuliere so präzise, dass zwei Lehrkräfte möglichst ähnlich bewerten würden
+- Die Stufen müssen sich **klar voneinander unterscheiden**
+- Von Stufe 1 bis 4 nimmt **Tiefe, Qualität und Selbstständigkeit** erkennbar zu
+
+### Anforderungen an die vier Stufen
+- **Stufe 1:** Keine Leistung oder eindeutiges Scheitern erkennbar. Kein pädagogischer Optimismus.
+- **Stufe 2:** Erste Ansätze vorhanden, aber noch unsicher, lückenhaft, unpassend oder wenig begründet.
+- **Stufe 3:** Die zentrale Kompetenz ist erkennbar erfüllt.
+- **Stufe 4:** Gegenüber Stufe 3 muss eine **qualitativ neue Dimension** sichtbar werden, zum Beispiel Transfer, reflektierte Auswahl, Selbstständigkeit, kritische Distanz oder metakognitive Durchdringung.
+
+### Für die Schüler:innen-Version
+- Formuliere in **Ich-Form**
+- Verwende **klare, einfache Schulsprache**
+- Die Aussagen müssen **ankreuzbar** und realistisch selbsteinschätzbar sein
+- Vermeide Formulierungen, die totale Kontrolle über KI suggerieren
+- Nutze lieber **„Antwort der KI"** oder **„Ergebnis der KI"** statt „Output"
+- Passe die Sprache an die angegebene Jahrgangsstufe an
+
+### Allgemein
+- Vermeide Redundanzen zwischen den Kriterien
+- Nutze Fachsprache nur, wenn sie zur Zielgruppe passt
+- Verwende in fachunabhängigen Rastern lieber Wörter wie **„sachlich"**, **„inhaltlich"** oder **„nachvollziehbar"** statt **„fachlich"**
+
+---
+
+## Ausgabeformat
+
+Gib das Ergebnis **immer** in genau diesem Format aus:
+
+---RASTER-START---
+THEMA: [Thema des Rasters]
+JAHRGANGSSTUFE: [Angabe oder „fachunabhängig"]
+FACH: [Fach oder „fachübergreifend"]
+EINSATZ: [formativ / summativ / beides]
+
+KRITERIUM_1: [Name des Kriteriums]
+LK_1_STUFE_1: [Lehrkraft-Version]
+LK_1_STUFE_2: [Lehrkraft-Version]
+LK_1_STUFE_3: [Lehrkraft-Version]
+LK_1_STUFE_4: [Lehrkraft-Version]
+SU_1_STUFE_1: [Schüler:innen-Version]
+SU_1_STUFE_2: [Schüler:innen-Version]
+SU_1_STUFE_3: [Schüler:innen-Version]
+SU_1_STUFE_4: [Schüler:innen-Version]
+
+[… Kriterien 2–4 analog …]
+
+HINWEIS_LK: [Ein Satz: Was bewertet dieses Raster?]
+HINWEIS_SU: [Derselbe Satz für Schüler:innen]
+---RASTER-ENDE---
+
+---
+
+## Starte jetzt
+
+Stelle mir jetzt **genau drei kurze Fragen**, nummeriert mit **1., 2., 3.**</textarea>
+          </div>
+        </div>
+
       </aside>
 
       <!-- Wizard Main -->
@@ -403,6 +544,41 @@
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closePunkteModal();
   });
+
+  // Sidebar Prompt-Box
+  function toggleSidebarPrompt() {
+    const panel = document.getElementById('sidebar-prompt-panel');
+    const btn   = document.getElementById('sidebar-prompt-btn');
+    const open  = panel.style.display === 'none';
+    panel.style.display = open ? 'block' : 'none';
+    btn.setAttribute('aria-expanded', open);
+  }
+
+  function copySidebarPrompt() {
+    const text = document.getElementById('sidebar-prompt-text').value;
+    const btn  = document.getElementById('sidebar-prompt-copy-btn');
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✅ Kopiert!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerHTML = '📋 Prompt kopieren';
+        btn.classList.remove('copied');
+      }, 2000);
+    }).catch(() => {
+      // Fallback für ältere Browser
+      const ta = document.getElementById('sidebar-prompt-text');
+      ta.style.display = 'block';
+      ta.select();
+      document.execCommand('copy');
+      ta.style.display = 'none';
+      btn.textContent = '✅ Kopiert!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerHTML = '📋 Prompt kopieren';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
 
   // URL param: load raster from index page
   (function() {

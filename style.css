@@ -716,6 +716,80 @@ main {
   box-shadow: var(--shadow-sm);
 }
 
+/* Sidebar: KI-Prompt-Box */
+.sidebar-prompt-box {
+  border-top: 1px solid var(--color-border);
+  margin-top: 0.75rem;
+}
+.sidebar-prompt-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.875rem 1.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-align: left;
+  transition: background var(--transition), color var(--transition);
+}
+.sidebar-prompt-toggle:hover {
+  background: #f8f9fa;
+  color: var(--color-text);
+}
+.sidebar-prompt-icon { font-size: 1rem; flex-shrink: 0; }
+.sidebar-prompt-chevron {
+  margin-left: auto;
+  font-size: 0.75rem;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+.sidebar-prompt-toggle[aria-expanded="true"] .sidebar-prompt-chevron {
+  transform: rotate(180deg);
+}
+.sidebar-prompt-panel {
+  padding: 0 1.25rem 1rem;
+}
+.sidebar-prompt-desc {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+}
+.sidebar-prompt-copy-wrap {
+  display: flex;
+}
+.sidebar-prompt-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.875rem;
+  background: #f1f5f9;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition);
+  width: 100%;
+  justify-content: center;
+}
+.sidebar-prompt-copy:hover {
+  background: #e2e8f0;
+  border-color: var(--color-border-dark);
+}
+.sidebar-prompt-copy.copied {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: #15803d;
+}
+
 .wizard-step-item {
   display: flex;
   align-items: center;
