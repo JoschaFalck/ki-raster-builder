@@ -135,13 +135,13 @@
             </div>
 
             <!-- Rahmendaten -->
-            <div class="config-grid wide">
-              <div class="form-group span-3">
-                <label for="raster-titel">Titel des Rasters <span style="color: var(--color-text-muted); font-weight:400;">(max. 60 Zeichen)</span></label>
-                <input type="text" id="raster-titel" maxlength="60" placeholder="z.B. Prompt-Qualität – Klasse 8 Deutsch" oninput="updateCharCount(this)" autocomplete="off">
-                <div class="char-count"><span id="titel-count">0</span>/60</div>
-              </div>
-
+            <!-- Kompakte Rahmendaten -->
+            <div class="form-group" style="margin-bottom:0.75rem;">
+              <label for="raster-titel">Titel <span style="color: var(--color-text-muted); font-weight:400;">(max. 60 Zeichen)</span></label>
+              <input type="text" id="raster-titel" maxlength="60" placeholder="z.B. Prompt-Qualität – Klasse 8 Deutsch" oninput="updateCharCount(this)" autocomplete="off">
+              <div class="char-count"><span id="titel-count">0</span>/60</div>
+            </div>
+            <div class="config-meta-row">
               <div class="form-group">
                 <label for="raster-fach">Fach</label>
                 <select id="raster-fach" onchange="onFachChange()">
@@ -159,7 +159,6 @@
                   style="display:none; margin-top:0.4rem;"
                   oninput="onConfigChange()" autocomplete="off">
               </div>
-
               <div class="form-group">
                 <label for="raster-jahrgang">Jahrgangsstufe</label>
                 <select id="raster-jahrgang" onchange="onJahrgangChange()">
@@ -170,7 +169,6 @@
                   <option value="uebergreifend">Jahrgangsstufen-übergreifend</option>
                 </select>
               </div>
-
               <div class="form-group">
                 <label>Perspektive
                   <button class="info-trigger" data-info="info-perspektive" onclick="toggleInfo('info-perspektive')" aria-expanded="false" aria-label="Tipp: Wann welche Version?">💡</button>
@@ -220,17 +218,7 @@
             <details class="mt-2" id="stufen-labels-details">
               <summary style="cursor:pointer; font-size:0.875rem; font-weight:600; padding: 0.5rem 0; color: var(--color-text-muted);">
                 Stufen-Bezeichnungen anpassen ▾
-                <button class="info-trigger" data-info="info-stufen" onclick="toggleInfo('info-stufen')" aria-expanded="false" aria-label="Tipp: Stufen-Bezeichnungen formulieren" style="margin-left:0.4rem;">💡</button>
               </summary>
-              <div id="info-stufen" class="info-bubble">
-                <span class="info-title">Stufen-Bezeichnungen wirkungsvoll gestalten</span>
-                <strong>SuS-Version</strong>: Ich-Formulierungen helfen der Selbstreflexion:<br>
-                <em>„Das kann ich noch nicht sicher / teilweise / schon gut / sehr sicher."</em><br><br>
-                <strong>LK-Version</strong>: Beschreibt das Erfüllungsniveau:<br>
-                <em>„Nicht erfüllt / Teilweise erfüllt / Weitgehend erfüllt / Vollständig erfüllt"</em><br><br>
-                <strong>Alternative</strong>: Kompetenzorientiert – <em>„Grundlegend / Sicher / Kompetent / Exzellent"</em><br><br>
-                Gut formulierte Stufen machen den Unterschied zwischen Niveaus klar und nachvollziehbar – das ist der Kern eines wirksamen Rasters.
-              </div>
               <div class="stufen-labels-grid mt-2" id="stufen-labels-grid"></div>
             </details>
 

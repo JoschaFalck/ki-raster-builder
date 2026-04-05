@@ -1009,7 +1009,7 @@ window.WISSENSBASIS = {
       },
       {
         "id": "ki-dialogfuehrung",
-        "name": "KI-Dialog führen (Multiturner Prompt)",
+        "name": "KI-Dialog führen",
         "kompetenzbereich": "Instrumental",
         "bloom": "Anwenden",
         "varianten": {

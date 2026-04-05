@@ -822,10 +822,24 @@ function updateStufenLabel(type, idx, val) {
 function renderCriteria() {
   const container = document.getElementById('criteria-container');
   if (!container) return;
+
+  // Remember which were expanded before re-render
+  const prevExpanded = new Set();
+  container.querySelectorAll('.criterion-item:not(.collapsed)').forEach(el => {
+    prevExpanded.add(el.dataset.id);
+  });
+  const isFirstRender = prevExpanded.size === 0 && container.children.length === 0;
+
   container.innerHTML = '';
 
   STATE.kriterien.forEach((kriterium, idx) => {
-    container.appendChild(createCriterionElement(kriterium, idx));
+    let isExpanded;
+    if (isFirstRender) {
+      isExpanded = idx === 0;
+    } else {
+      isExpanded = prevExpanded.has(kriterium.id);
+    }
+    container.appendChild(createCriterionElement(kriterium, idx, isExpanded));
   });
 
   updateCriteriaCount();
@@ -838,11 +852,12 @@ function renderCriteria() {
  * Erstellt das DOM-Element für ein Kriterium.
  * @param {Object} kriterium
  * @param {number} idx
+ * @param {boolean} isExpanded
  * @returns {HTMLElement}
  */
-function createCriterionElement(kriterium, idx) {
+function createCriterionElement(kriterium, idx, isExpanded) {
   const item = document.createElement('div');
-  item.className = 'criterion-item';
+  item.className = 'criterion-item' + (isExpanded === false ? ' collapsed' : '');
   item.dataset.id = kriterium.id;
   item.setAttribute('role', 'listitem');
   item.setAttribute('draggable', 'true');
@@ -854,6 +869,7 @@ function createCriterionElement(kriterium, idx) {
   item.innerHTML = `
     <div class="criterion-header">
       <span class="drag-handle" title="Ziehen zum Verschieben" aria-label="Kriterium verschieben" tabindex="0" role="button">⠿</span>
+      <button class="criterion-toggle" onclick="toggleCriterion('${kriterium.id}')" aria-label="Kriterium auf-/zuklappen" title="Auf-/Zuklappen">▾</button>
       <input type="text"
         class="criterion-name-input"
         value="${escapeHtml(kriterium.name)}"
@@ -942,13 +958,34 @@ function updateCriterionText(id, field, stufe, val) {
 function addCriterion() {
   if (STATE.kriterien.length >= 8) return;
   STATE.kriterien.push(createEmptyCriterion());
+  // Remember expanded state before re-render; new criterion starts collapsed
+  const container = document.getElementById('criteria-container');
+  const prevExpanded = new Set();
+  if (container) {
+    container.querySelectorAll('.criterion-item:not(.collapsed)').forEach(el => {
+      prevExpanded.add(el.dataset.id);
+    });
+  }
   renderCriteria();
+  // After render, collapse the newly added criterion (last one)
+  if (container) {
+    const items = container.querySelectorAll('.criterion-item');
+    if (items.length > 0) {
+      items[items.length - 1].classList.add('collapsed');
+    }
+  }
 }
 
 function removeCriterion(id) {
   if (STATE.kriterien.length <= 1) return;
   STATE.kriterien = STATE.kriterien.filter(k => k.id !== id);
   renderCriteria();
+}
+
+function toggleCriterion(id) {
+  const item = document.querySelector(`.criterion-item[data-id="${id}"]`);
+  if (!item) return;
+  item.classList.toggle('collapsed');
 }
 
 function updateCriteriaCount() {
