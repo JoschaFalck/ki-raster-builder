@@ -381,6 +381,16 @@
       </article>
     </div>
 
+    <!-- Alle herunterladen -->
+    <div style="display:flex; justify-content:flex-end; margin-top:1.25rem; padding-bottom:2rem;">
+      <button id="btn-all-dl" onclick="downloadAllRaster()"
+        style="display:inline-flex; align-items:center; gap:0.5rem; padding:0.6rem 1.1rem; background:#1e293b; color:#fff; border:none; border-radius:8px; font-size:0.85rem; font-weight:600; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.15); transition:background .2s, opacity .2s;"
+        onmouseover="this.style.background='#334155'" onmouseout="this.style.background='#1e293b'"
+        title="Alle 11 Raster in beiden Versionen als ZIP herunterladen">
+        📦 Alle Raster herunterladen (ZIP)
+      </button>
+    </div>
+
   </div>
 </main>
 
@@ -656,6 +666,48 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
     win.document.write('</body></html>');
     win.document.close();
     win.addEventListener('load', () => { win.focus(); win.print(); });
+  }
+
+  /* ── Alle Raster als ZIP ──────────────────────── */
+  async function downloadAllRaster() {
+    const btn = document.getElementById('btn-all-dl');
+    if (btn) { btn.disabled = true; btn.innerHTML = '⏳ Wird erstellt …'; }
+
+    if (typeof JSZip === 'undefined') { alert('ZIP-Modul nicht geladen. Seite neu laden.'); return; }
+    const zip = new JSZip();
+
+    for (const raw of window.RASTER_INDEX) {
+      for (const version of ['lk', 'su']) {
+        const vLabel = version === 'lk' ? 'Lehrkraft' : 'Schueler';
+        const config = {
+          titel: raw.titel,
+          version,
+          stufen: 4,
+          stufenLabels: version === 'lk' ? SL_LK : SL_SU,
+          punkteConfig: PC,
+          maxPunkte: 20,
+          kriterien: raw.k.map(k => ({
+            name: k.name,
+            stufen: [k[version].s1, k[version].s2, k[version].s3, k[version].s4]
+          })),
+          hinweis: version === 'lk' ? raw.hl : raw.hs,
+        };
+        try {
+          const blob = await generateDocxBlob(config);
+          const slug = raw.slug || raw.id;
+          zip.file(`Raster_${raw.id}_${slug}_${vLabel}.docx`, blob);
+        } catch(e) { console.error('Fehler bei Raster', raw.id, version, e); }
+      }
+    }
+
+    const content = await zip.generateAsync({ type: 'blob' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(content);
+    a.download = 'KI-Bewertungsraster_Alle.zip';
+    document.body.appendChild(a); a.click();
+    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 100);
+
+    if (btn) { btn.disabled = false; btn.innerHTML = '📦 Alle Raster herunterladen (ZIP)'; }
   }
 
   /* ── Dynamische Tile-Buttons ──────────────────── */
