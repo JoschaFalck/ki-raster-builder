@@ -50,6 +50,9 @@
           <span>Vorschau &amp; Export</span>
         </div>
 
+        <!-- Autosave-Status -->
+        <div id="autosave-status" class="autosave-status-text"></div>
+
         <!-- KI-Prompt-Tipp -->
         <div class="sidebar-prompt-box">
           <button class="sidebar-prompt-toggle" onclick="toggleSidebarPrompt()" aria-expanded="false" id="sidebar-prompt-btn">
@@ -437,7 +440,10 @@ Stelle mir jetzt **genau drei kurze Fragen**, nummeriert mit **1., 2., 3.**</tex
                 <button class="toggle-option" id="prev-lk" onclick="setPreviewVersion('lk')" aria-pressed="false">Lehrkraft</button>
                 <button class="toggle-option su" id="prev-su" onclick="setPreviewVersion('su')" aria-pressed="false">Schüler:in</button>
               </div>
-              <button class="btn btn-ghost btn-sm" onclick="goToStep(2)">← Bearbeiten</button>
+              <div style="display:flex; gap:0.5rem;">
+                <button class="btn btn-ghost btn-sm" onclick="printBuilderPreview()" title="Raster drucken">🖨 Drucken</button>
+                <button class="btn btn-ghost btn-sm" onclick="goToStep(2)">← Bearbeiten</button>
+              </div>
             </div>
 
             <!-- Live-Vorschau -->

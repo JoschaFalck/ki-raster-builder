@@ -1242,6 +1242,56 @@ input[type="range"] {
   color: var(--color-text-muted);
 }
 
+/* Duplicate button */
+.btn-duplicate {
+  opacity: 0.6;
+  transition: opacity var(--transition);
+}
+.btn-duplicate:hover { opacity: 1; }
+
+/* Autosave status */
+.autosave-status-text {
+  font-size: 0.71rem;
+  color: var(--color-text-muted);
+  padding: 0.3rem 1rem 0.5rem;
+  text-align: center;
+  min-height: 1.4rem;
+  transition: color 0.3s;
+}
+
+/* Tile: link-copy button */
+.rt-link-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.82rem;
+  padding: 0.1rem 0.25rem;
+  border-radius: 4px;
+  opacity: 0.45;
+  transition: opacity .15s, background .15s;
+  margin-left: auto;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.rt-link-btn:hover { opacity: 1; background: #f0f4ff; }
+
+/* Tile: ZIP row */
+.rt-row-zip { margin-top: 0.35rem; }
+.rt-zip {
+  width: 100%;
+  background: #f0f7ff;
+  border: 1.5px solid #c7d9f7;
+  color: #2a5aad;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.3rem 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background .15s;
+  text-align: center;
+}
+.rt-zip:hover { background: #dce8ff; border-color: #a8c4f0; }
+
 /* Stufen-Labels editor */
 .stufen-labels-grid {
   display: grid;

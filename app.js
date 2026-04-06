@@ -881,6 +881,9 @@ function createCriterionElement(kriterium, idx, isExpanded) {
         data-criterion-id="${kriterium.id}"
         aria-label="Name Kriterium ${idx + 1}"
         oninput="updateCriterionName('${kriterium.id}', this.value)">
+      <button class="btn-icon btn-duplicate" onclick="duplicateCriterion('${kriterium.id}')"
+        aria-label="Kriterium ${idx + 1} duplizieren"
+        title="Kriterium duplizieren">📋</button>
       <button class="btn-icon" onclick="removeCriterion('${kriterium.id}')"
         aria-label="Kriterium ${idx + 1} entfernen"
         title="Kriterium entfernen">🗑️</button>
@@ -990,6 +993,51 @@ function toggleCriterion(id) {
   const item = document.querySelector(`.criterion-item[data-id="${id}"]`);
   if (!item) return;
   item.classList.toggle('collapsed');
+}
+
+function duplicateCriterion(id) {
+  const idx = STATE.kriterien.findIndex(k => k.id === id);
+  if (idx === -1 || STATE.kriterien.length >= 8) return;
+  const original = STATE.kriterien[idx];
+  const copy = {
+    id: generateId(),
+    name: original.name ? original.name + ' (Kopie)' : '',
+    lk: { ...original.lk },
+    su: { ...original.su },
+  };
+  // Remember expanded state before re-render
+  const container = document.getElementById('criteria-container');
+  const prevExpanded = new Set();
+  if (container) {
+    container.querySelectorAll('.criterion-item:not(.collapsed)').forEach(el => {
+      prevExpanded.add(el.dataset.id);
+    });
+  }
+  STATE.kriterien.splice(idx + 1, 0, copy);
+  renderCriteria();
+  // Restore expanded states + open the new copy
+  if (container) {
+    container.querySelectorAll('.criterion-item').forEach(el => {
+      if (!prevExpanded.has(el.dataset.id) && el.dataset.id !== copy.id) {
+        el.classList.add('collapsed');
+      }
+    });
+  }
+}
+
+/** Druckt die Builder-Vorschau sauber in einem neuen Fenster */
+function printBuilderPreview() {
+  const output = document.getElementById('preview-output');
+  if (!output) return;
+  const win = window.open('', '_blank', 'width=1100,height=800');
+  win.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><title>Raster drucken</title>');
+  win.document.write('<link rel="stylesheet" href="style.css">');
+  win.document.write('<style>body{padding:2rem;} @media print{body{padding:0;}}</style>');
+  win.document.write('</head><body>');
+  win.document.write(output.innerHTML);
+  win.document.write('</body></html>');
+  win.document.close();
+  win.addEventListener('load', () => { win.focus(); win.print(); });
 }
 
 function updateCriteriaCount() {
@@ -1356,6 +1404,14 @@ function autosave() {
       _savedAt: Date.now(),
     };
     localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(data));
+
+    // Statusanzeige aktualisieren
+    const statusEl = document.getElementById('autosave-status');
+    if (statusEl) {
+      const now = new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+      statusEl.textContent = '\uD83D\uDCAB ' + now + ' gespeichert';
+      statusEl.style.color = '#16a34a';
+    }
   } catch (e) {
     // localStorage nicht verfügbar (z.B. privater Modus)
   }
