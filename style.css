@@ -1158,10 +1158,17 @@ input[type="range"] {
 
 .criterion-body {
   padding: 0.875rem 1rem;
+  max-height: 3000px;
+  overflow: hidden;
+  transition: max-height 0.32s ease-in-out, padding 0.32s ease-in-out, opacity 0.25s ease;
+  opacity: 1;
 }
 
 .criterion-item.collapsed .criterion-body {
-  display: none;
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  opacity: 0;
 }
 .criterion-toggle {
   background: none;

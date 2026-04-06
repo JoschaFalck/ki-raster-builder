@@ -330,6 +330,9 @@ function initBuilderPage() {
   // Stufen-Labels initialisieren
   renderStufenLabels();
 
+  // Autosave prüfen (nur wenn kein URL-Param vorhanden)
+  if (!window._preloadRasterId) checkAutosave();
+
   // URL-Param: Raster vorladen
   if (window._preloadRasterId) {
     selectStartOption('fertig');
@@ -566,7 +569,7 @@ function loadPoolTopicIntoBuilder(topicId) {
 // ============================================================
 
 function onConfigChange() {
-  // Nichts nötig – state wird beim Wechsel zu Schritt 3 gelesen
+  autosave();
 }
 
 function onFachChange() {
@@ -845,7 +848,8 @@ function renderCriteria() {
   updateCriteriaCount();
   updateAddButton();
   initDragDrop();
-  renderPunkteDisplay(); // Gesamt-Maximalpunktzahl aktualisieren
+  renderPunkteDisplay();
+  autosave();
 }
 
 /**
@@ -1328,6 +1332,216 @@ function applyImportedConfig(data) {
   renderPunkteDisplay();
   renderStufenLabels();
   showToast('Konfiguration erfolgreich geladen!');
+}
+
+// ============================================================
+// AUTOSAVE (localStorage)
+// ============================================================
+
+const AUTOSAVE_KEY = 'ki-raster-builder-v1';
+
+function autosave() {
+  try {
+    const data = {
+      titel: STATE.titel,
+      fach: STATE.fach,
+      jahrgang: STATE.jahrgang,
+      perspektive: STATE.perspektive,
+      stufen: STATE.stufen,
+      punkteConfig: STATE.punkteConfig,
+      stufenLabels: STATE.stufenLabels,
+      kriterien: STATE.kriterien,
+      hinweis: STATE.hinweis,
+      ccBy: STATE.ccBy,
+      _savedAt: Date.now(),
+    };
+    localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(data));
+  } catch (e) {
+    // localStorage nicht verfügbar (z.B. privater Modus)
+  }
+}
+
+function checkAutosave() {
+  try {
+    const raw = localStorage.getItem(AUTOSAVE_KEY);
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    const hasMeaningfulContent = data.titel ||
+      (data.kriterien && data.kriterien.some(k =>
+        k.name || Object.values(k.lk || {}).some(v => v)));
+    if (!hasMeaningfulContent) return;
+    showRestoreNotice(data);
+  } catch (e) {
+    // Fehlerhafte Daten ignorieren
+  }
+}
+
+let _autosaveNoticeEl = null;
+let _autosaveData = null;
+
+function showRestoreNotice(data) {
+  if (_autosaveNoticeEl) return;
+  _autosaveData = data;
+  const notice = document.createElement('div');
+  notice.id = 'autosave-notice';
+  notice.style.cssText = [
+    'position:fixed', 'bottom:1.25rem', 'left:1.25rem', 'z-index:9999',
+    'background:#1e293b', 'color:#f1f5f9',
+    'padding:0.85rem 1.1rem', 'border-radius:0.6rem',
+    'box-shadow:0 4px 20px rgba(0,0,0,0.35)',
+    'display:flex', 'align-items:center', 'gap:0.8rem',
+    'font-size:0.85rem', 'max-width:380px', 'line-height:1.4',
+  ].join(';');
+  const savedDate = data._savedAt
+    ? new Date(data._savedAt).toLocaleString('de-DE', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })
+    : '';
+  notice.innerHTML = `
+    <span style="font-size:1.15rem;flex-shrink:0;">&#128190;</span>
+    <span style="flex:1;">Gespeichertes Raster${savedDate ? ' vom ' + savedDate : ''} wiederherstellen?</span>
+    <button onclick="restoreAutosave()" style="background:#3b82f6;color:#fff;border:none;border-radius:0.4rem;padding:0.35rem 0.75rem;cursor:pointer;font-size:0.8rem;white-space:nowrap;flex-shrink:0;">Wiederherstellen</button>
+    <button onclick="dismissAutosave()" style="background:transparent;color:#94a3b8;border:none;cursor:pointer;font-size:1.1rem;padding:0.2rem 0.35rem;line-height:1;flex-shrink:0;" title="Verwerfen">&#x2715;</button>
+  `;
+  document.body.appendChild(notice);
+  _autosaveNoticeEl = notice;
+}
+
+function restoreAutosave() {
+  if (!_autosaveData) return;
+  const data = _autosaveData;
+  dismissAutosave();
+  applyImportedConfig(data);
+  goToStep(2);
+}
+
+function dismissAutosave() {
+  if (_autosaveNoticeEl) {
+    _autosaveNoticeEl.remove();
+    _autosaveNoticeEl = null;
+  }
+  _autosaveData = null;
+  try { localStorage.removeItem(AUTOSAVE_KEY); } catch (e) {}
+}
+
+// ============================================================
+// KI-OUTPUT IMPORT
+// ============================================================
+
+function importKiRasterOutput() {
+  const ta = document.getElementById('sidebar-import-text');
+  if (!ta) return;
+  const text = ta.value.trim();
+  if (!text) {
+    showToast('Bitte erst den KI-Output einf\u00fcgen.', 'error');
+    return;
+  }
+
+  // Block zwischen Markierungen extrahieren
+  const startMarker = '---RASTER-START---';
+  const endMarker   = '---RASTER-ENDE---';
+  let block = text;
+  const si = text.indexOf(startMarker);
+  const ei = text.indexOf(endMarker);
+  if (si !== -1 && ei !== -1 && ei > si) {
+    block = text.slice(si + startMarker.length, ei).trim();
+  }
+
+  const lines = block.split('\n').map(l => l.trim()).filter(Boolean);
+  const parsed = {};
+  const criteria = {};
+
+  for (const line of lines) {
+    const colonIdx = line.indexOf(':');
+    if (colonIdx === -1) continue;
+    const key = line.slice(0, colonIdx).trim();
+    const val = line.slice(colonIdx + 1).trim();
+    if (!key) continue;
+
+    const kritMatch = key.match(/^KRITERIUM_(\d+)$/i);
+    const lkMatch   = key.match(/^LK_(\d+)_STUFE_(\d+)$/i);
+    const suMatch   = key.match(/^SU_(\d+)_STUFE_(\d+)$/i);
+
+    if (kritMatch) {
+      const n = parseInt(kritMatch[1], 10);
+      if (!criteria[n]) criteria[n] = { name: '', lk: {}, su: {} };
+      criteria[n].name = val;
+    } else if (lkMatch) {
+      const n = parseInt(lkMatch[1], 10);
+      const s = parseInt(lkMatch[2], 10);
+      if (!criteria[n]) criteria[n] = { name: '', lk: {}, su: {} };
+      criteria[n].lk['s' + s] = val;
+    } else if (suMatch) {
+      const n = parseInt(suMatch[1], 10);
+      const s = parseInt(suMatch[2], 10);
+      if (!criteria[n]) criteria[n] = { name: '', lk: {}, su: {} };
+      criteria[n].su['s' + s] = val;
+    } else {
+      parsed[key.toUpperCase()] = val;
+    }
+  }
+
+  const data = {};
+
+  // Titel
+  if (parsed['THEMA'] || parsed['TITEL']) {
+    data.titel = parsed['THEMA'] || parsed['TITEL'];
+  }
+
+  // Fach
+  if (parsed['FACH']) {
+    const fachRaw = parsed['FACH'].toLowerCase();
+    const fachMap = {
+      'deutsch': 'deutsch', 'mathematik': 'mathematik', 'mathe': 'mathematik',
+      'englisch': 'englisch', 'informatik': 'informatik',
+      'naturwissenschaft': 'naturwissenschaften', 'biologie': 'naturwissenschaften',
+      'physik': 'naturwissenschaften', 'chemie': 'naturwissenschaften',
+      'gesellschaft': 'gesellschaft', 'sozialwissenschaften': 'gesellschaft',
+      'kunst': 'kunst', 'musik': 'musik', 'sport': 'sport',
+      'fachunabh': 'fachunabhaengig', 'fach\u00fcbergreifend': 'fachunabhaengig',
+    };
+    let matched = 'weitere';
+    for (const [pattern, val] of Object.entries(fachMap)) {
+      if (fachRaw.includes(pattern)) { matched = val; break; }
+    }
+    data.fach = matched;
+  }
+
+  // Jahrgang
+  if (parsed['JAHRGANGSSTUFE'] || parsed['JAHRGANG']) {
+    const jStr = (parsed['JAHRGANGSSTUFE'] || parsed['JAHRGANG']).toLowerCase();
+    if (/grundschule|klasse\s*[1-4]|kl\.?\s*[1-4]|\b[1-4]\.\s*klasse/.test(jStr)) {
+      data.jahrgang = 'klasse-3-4';
+    } else if (/klasse\s*[5-7]|\b[5-7]\b/.test(jStr)) {
+      data.jahrgang = 'klasse-5-7';
+    } else if (/klasse\s*(8|9|10)|\b(8|9|10)\b/.test(jStr)) {
+      data.jahrgang = 'klasse-8-10';
+    } else if (/klasse\s*(11|12|13)|\b(11|12|13)\b|oberstufe|gymnasium/.test(jStr)) {
+      data.jahrgang = 'klasse-11-13';
+    }
+  }
+
+  // Hinweis
+  if (parsed['HINWEIS_LK']) data.hinweis = parsed['HINWEIS_LK'];
+
+  // Kriterien
+  const sortedNums = Object.keys(criteria).map(Number).sort((a, b) => a - b);
+  if (sortedNums.length > 0) {
+    data.kriterien = sortedNums.map(n => ({
+      id: generateId(),
+      name: criteria[n].name || '',
+      lk: criteria[n].lk,
+      su: criteria[n].su,
+    }));
+  }
+
+  if (!data.titel && (!data.kriterien || data.kriterien.length === 0)) {
+    showToast('Kein g\u00fcltiges Raster-Format erkannt. Bitte KI-Output pr\u00fcfen.', 'error');
+    return;
+  }
+
+  applyImportedConfig(data);
+  ta.value = '';
+  goToStep(2);
+  showToast('KI-Raster erfolgreich geladen! \u2705');
 }
 
 // ============================================================
