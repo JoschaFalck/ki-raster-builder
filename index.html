@@ -120,6 +120,14 @@
     .rt.rt-preview-mode .rt-num {
       font-size: 0.68rem;
     }
+    /* Kurzbeschreibung auf Kachel */
+    .rt-desc {
+      font-size: 0.77rem;
+      color: #64748b;
+      margin: 0.2rem 0 0;
+      line-height: 1.45;
+      flex-shrink: 0;
+    }
     /* Vorschau-Hint unterhalb des Titels */
     .rt-preview-hint {
       font-size: 0.72rem;
@@ -209,6 +217,7 @@
       <article class="rt rt-preview-mode" style="border-left:3px solid #3A6EA8" onclick="openRasterPreview('01')">
         <div class="rt-head"><span class="rt-num">Nr. 01</span></div>
         <h3 class="rt-title">Prompt-Qualität</h3>
+        <p class="rt-desc">Bewertet die Qualität der KI-Prompteingaben</p>
         <p class="rt-preview-hint">👁 Klick für Vorschau</p>
         <div class="rt-actions" style="display:none;">
           <div class="rt-row">
@@ -223,6 +232,7 @@
       <article class="rt rt-preview-mode" style="border-left:3px solid #3A6EA8" onclick="openRasterPreview('02')">
         <div class="rt-head"><span class="rt-num">Nr. 02</span></div>
         <h3 class="rt-title">KI-Prozess dokumentieren</h3>
+        <p class="rt-desc">Bewertet die Dokumentation des KI-gestützten Arbeitsprozesses</p>
         <p class="rt-preview-hint">👁 Klick für Vorschau</p>
         <div class="rt-actions" style="display:none;">
           <div class="rt-row">
@@ -237,6 +247,7 @@
       <article class="rt rt-preview-mode" style="border-left:3px solid #E65100" onclick="openRasterPreview('03')">
         <div class="rt-head"><span class="rt-num">Nr. 03</span></div>
         <h3 class="rt-title">KI-Ergebnis analysieren</h3>
+        <p class="rt-desc">Bewertet die kritische Analyse von KI-Ausgaben</p>
         <p class="rt-preview-hint">👁 Klick für Vorschau</p>
         <div class="rt-actions" style="display:none;">
           <div class="rt-row">
@@ -251,6 +262,7 @@
       <article class="rt rt-preview-mode" style="border-left:3px solid #E65100" onclick="openRasterPreview('04')">
         <div class="rt-head"><span class="rt-num">Nr. 04</span></div>
         <h3 class="rt-title">KI-Ergebnis bewerten &amp; auswählen</h3>
+        <p class="rt-desc">Bewertet die kriteriengestützte Auswahl von KI-Ergebnissen</p>
         <p class="rt-preview-hint">👁 Klick für Vorschau</p>
         <div class="rt-actions" style="display:none;">
           <div class="rt-row">
@@ -265,6 +277,7 @@
       <article class="rt rt-preview-mode" style="border-left:3px solid #E65100" onclick="openRasterPreview('05')">
         <div class="rt-head"><span class="rt-num">Nr. 05</span></div>
         <h3 class="rt-title">KI-Ergebnis überarbeiten</h3>
+        <p class="rt-desc">Bewertet die gezielte Überarbeitung von KI-Ergebnissen</p>
         <p class="rt-preview-hint">👁 Klick für Vorschau</p>
         <div class="rt-actions" style="display:none;">
           <div class="rt-row">
@@ -279,6 +292,7 @@
       <article class="rt rt-preview-mode" style="border-left:3px solid #E65100" onclick="openRasterPreview('06')">
         <div class="rt-head"><span class="rt-num">Nr. 06</span></div>
         <h3 class="rt-title">Mit-/Ohne-KI-Vergleich</h3>
+        <p class="rt-desc">Bewertet den Vergleich zwischen KI-gestützter und eigenständiger Arbeit</p>
         <p class="rt-preview-hint">👁 Klick für Vorschau</p>
         <div class="rt-actions" style="display:none;">
           <div class="rt-row">
@@ -293,6 +307,7 @@
       <article class="rt rt-preview-mode" style="border-left:3px solid #2E7D32" onclick="openRasterPreview('07')">
         <div class="rt-head"><span class="rt-num">Nr. 07</span></div>
         <h3 class="rt-title">Metakognitive Reflexion</h3>
+        <p class="rt-desc">Bewertet die Reflexion des eigenen KI-gestützten Lernprozesses</p>
         <p class="rt-preview-hint">👁 Klick für Vorschau</p>
         <div class="rt-actions" style="display:none;">
           <div class="rt-row">
@@ -307,6 +322,7 @@
       <article class="rt rt-preview-mode" style="border-left:3px solid #2E7D32" onclick="openRasterPreview('08')">
         <div class="rt-head"><span class="rt-num">Nr. 08</span></div>
         <h3 class="rt-title">Urteilsvermögen über KI-Sinnhaftigkeit</h3>
+        <p class="rt-desc">Bewertet die Urteilsbildung über sinnvollen KI-Einsatz</p>
         <p class="rt-preview-hint">👁 Klick für Vorschau</p>
         <div class="rt-actions" style="display:none;">
           <div class="rt-row">
@@ -321,6 +337,7 @@
       <article class="rt rt-preview-mode" style="border-left:3px solid #2E7D32" onclick="openRasterPreview('09')">
         <div class="rt-head"><span class="rt-num">Nr. 09</span></div>
         <h3 class="rt-title">Ethische KI-Nutzung</h3>
+        <p class="rt-desc">Bewertet ethischen und verantwortungsvollen Umgang mit KI</p>
         <p class="rt-preview-hint">👁 Klick für Vorschau</p>
         <div class="rt-actions" style="display:none;">
           <div class="rt-row">
@@ -335,6 +352,7 @@
       <article class="rt rt-preview-mode" style="border-left:3px solid #00838F" onclick="openRasterPreview('10')">
         <div class="rt-head"><span class="rt-num">Nr. 10</span></div>
         <h3 class="rt-title">KI im Lernprozess (Portfolio)</h3>
+        <p class="rt-desc">Bewertet den reflektierten KI-Einsatz über einen längeren Zeitraum</p>
         <p class="rt-preview-hint">👁 Klick für Vorschau</p>
         <div class="rt-actions" style="display:none;">
           <div class="rt-row">
@@ -349,6 +367,7 @@
       <article class="rt rt-preview-mode" style="border-left:3px solid #6A1B9A" onclick="openRasterPreview('11')">
         <div class="rt-head"><span class="rt-num">Nr. 11</span></div>
         <h3 class="rt-title">KI-Einsatz planen</h3>
+        <p class="rt-desc">Bewertet die Planung des KI-Einsatzes vor der Aufgabe</p>
         <p class="rt-preview-hint">👁 Klick für Vorschau</p>
         <div class="rt-actions" style="display:none;">
           <div class="rt-row">

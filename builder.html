@@ -189,11 +189,8 @@ HINWEIS_SU: [Derselbe Satz für Schüler:innen]
 Stelle mir jetzt **genau drei kurze Fragen**, nummeriert mit **1., 2., 3.**</textarea>
             <div class="sidebar-prompt-copy-wrap" style="margin-top:0.85rem; padding-top:0.85rem; border-top:1px solid var(--color-border);">
               <p class="sidebar-prompt-desc" style="margin-bottom:0.45rem; margin-top:0;">KI-Ergebnis direkt in den Builder laden:</p>
-              <textarea id="sidebar-import-text" rows="4"
-                placeholder="KI-Output hier einfügen (---RASTER-START--- … ---RASTER-ENDE---) …"
-                style="width:100%; font-size:0.78rem; border:1.5px solid var(--color-border); border-radius:var(--radius); padding:0.5rem; resize:vertical; font-family:inherit; box-sizing:border-box; background:#fff;"></textarea>
-              <button class="sidebar-prompt-copy" onclick="importKiRasterOutput()" style="margin-top:0.4rem;">
-                🔁 Ins Raster laden
+              <button class="sidebar-prompt-copy" onclick="openImportModal()" style="width:100%; justify-content:center; display:flex; align-items:center; gap:0.4rem;">
+                🔁 KI-Ergebnis importieren
               </button>
             </div>
           </div>
@@ -395,6 +392,7 @@ Stelle mir jetzt **genau drei kurze Fragen**, nummeriert mit **1., 2., 3.**</tex
             </div>
 
             <div class="criteria-container mt-2" id="criteria-container" role="list" aria-label="Kriterien"></div>
+            <p class="drag-hint-text">⠿ Reihenfolge per Drag &amp; Drop ändern</p>
 
             <div class="criteria-actions mt-2">
               <button class="btn btn-secondary btn-sm" onclick="addCriterion()" id="btn-add-criterion" aria-label="Kriterium hinzufügen">
@@ -506,6 +504,42 @@ Stelle mir jetzt **genau drei kurze Fragen**, nummeriert mit **1., 2., 3.**</tex
   </div>
 </div>
 
+<!-- KI-Import Modal -->
+<div class="modal-backdrop" id="ki-import-modal" role="dialog" aria-modal="true" aria-labelledby="ki-import-modal-title" onclick="if(event.target===this)closeImportModal()">
+  <div class="modal-box" style="max-width:600px;">
+    <div class="modal-header">
+      <h2 id="ki-import-modal-title" style="font-size:1.05rem; margin:0;">🔁 KI-Output importieren</h2>
+      <button class="modal-close" onclick="closeImportModal()" aria-label="Schließen">✕</button>
+    </div>
+    <div class="modal-body" style="padding:1.25rem 1.5rem;">
+      <p style="font-size:0.85rem; color:var(--color-text-muted); margin:0 0 0.85rem;">
+        Kopieren Sie den vollständigen Output des KI-Chatbots hier hinein. Das Format mit
+        <code style="font-size:0.8rem; background:#f1f5f9; padding:0.1rem 0.3rem; border-radius:3px;">---RASTER-START---</code>
+        …
+        <code style="font-size:0.8rem; background:#f1f5f9; padding:0.1rem 0.3rem; border-radius:3px;">---RASTER-ENDE---</code>
+        wird automatisch erkannt.
+      </p>
+      <textarea id="sidebar-import-text" rows="12"
+        placeholder="KI-Output hier einfügen …
+
+---RASTER-START---
+THEMA: Prompt-Qualität
+JAHRGANGSSTUFE: Klasse 9
+FACH: fachübergreifend
+
+KRITERIUM_1: Zielgerichtetes Prompting
+LK_1_STUFE_1: …
+…
+---RASTER-ENDE---"
+        style="width:100%; font-size:0.82rem; border:1.5px solid var(--color-border); border-radius:var(--radius); padding:0.6rem 0.75rem; resize:vertical; font-family:inherit; box-sizing:border-box; line-height:1.5;"></textarea>
+    </div>
+    <div class="modal-footer" style="padding:0.85rem 1.5rem; display:flex; gap:0.75rem; justify-content:flex-end; border-top:1px solid var(--color-border);">
+      <button class="btn btn-ghost" onclick="closeImportModal()">Abbrechen</button>
+      <button class="btn btn-primary" onclick="importKiRasterOutput()">🔁 Ins Raster laden</button>
+    </div>
+  </div>
+</div>
+
 <!-- Toast-Benachrichtigungen -->
 <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
@@ -551,7 +585,10 @@ Stelle mir jetzt **genau drei kurze Fragen**, nummeriert mit **1., 2., 3.**</tex
 
   // Close on Escape
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closePunkteModal();
+    if (e.key === 'Escape') {
+      closePunkteModal();
+      closeImportModal();
+    }
   });
 
   // Sidebar Prompt-Box

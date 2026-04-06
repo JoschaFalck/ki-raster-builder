@@ -1538,10 +1538,29 @@ function importKiRasterOutput() {
     return;
   }
 
-  applyImportedConfig(data);
-  ta.value = '';
+  // Step 2 öffnen (ggf. resettet Kriterien via applyStartOption),
+  // dann importierte Daten DANACH aufsetzen, damit sie nicht überschrieben werden
+  STATE.startOption = STATE.startOption || 'fertig';
   goToStep(2);
+  applyImportedConfig(data);
+  closeImportModal();
   showToast('KI-Raster erfolgreich geladen! \u2705');
+}
+
+function openImportModal() {
+  const modal = document.getElementById('ki-import-modal');
+  if (!modal) return;
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  const ta = document.getElementById('sidebar-import-text');
+  if (ta) ta.focus();
+}
+
+function closeImportModal() {
+  const modal = document.getElementById('ki-import-modal');
+  if (!modal) return;
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
 }
 
 // ============================================================
