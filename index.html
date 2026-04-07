@@ -481,6 +481,7 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
       }
     }
 
+    _currentFilter = filter;
     const counter = document.getElementById('filter-count');
     if (counter) counter.textContent = '11 Raster';
   }
@@ -541,17 +542,29 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
   /* ── Raster-Vorschau ──────────────────────────────── */
   let _rpCurrentTab = 'lk';
   let _rpCurrentId = null;
+  let _currentFilter = 'alle';
 
   function openRasterPreview(id) {
     const raw = window.RASTER_INDEX.find(r => r.id === id);
     if (!raw) return;
     _rpCurrentId = id;
-    _rpCurrentTab = 'lk';
+
+    // Startversion und Tab-Sichtbarkeit nach aktivem Filter
+    const startTab = _currentFilter === 'su' ? 'su' : 'lk';
+    _rpCurrentTab = startTab;
+
     document.getElementById('rp-num').textContent = 'Nr. ' + id;
     document.getElementById('rp-title').textContent = raw.titel;
-    document.getElementById('rp-desc').textContent = raw.hl || '';
+    document.getElementById('rp-desc').textContent = startTab === 'lk' ? (raw.hl || '') : (raw.hs || '');
     document.getElementById('rp-edit-link').href = 'builder.html?raster=' + id;
-    rpSetTab('lk');
+
+    // Tab-Buttons ein-/ausblenden je nach Filter
+    const tabLk = document.getElementById('rp-tab-lk');
+    const tabSu = document.getElementById('rp-tab-su');
+    tabLk.style.display = _currentFilter === 'su' ? 'none' : '';
+    tabSu.style.display = _currentFilter === 'lk' ? 'none' : '';
+
+    rpSetTab(startTab);
     document.getElementById('raster-preview-backdrop').style.display = 'block';
     document.body.style.overflow = 'hidden';
   }
@@ -567,6 +580,10 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
     document.getElementById('rp-tab-su').classList.toggle('active', tab === 'su');
     const raw = window.RASTER_INDEX.find(r => r.id === _rpCurrentId);
     if (!raw) return;
+
+    // Header-Beschreibung versionsspezifisch aktualisieren
+    const descEl = document.getElementById('rp-desc');
+    if (descEl) descEl.textContent = tab === 'lk' ? (raw.hl || '') : (raw.hs || '');
 
     const SL = tab === 'lk'
       ? ['Nicht erfüllt','Teilweise erfüllt','Weitgehend erfüllt','Vollständig erfüllt']
@@ -588,6 +605,13 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
     });
 
     html += '</tbody></table>';
+
+    // Hinweis-Zeile (versions-spezifisch)
+    const hinweis = tab === 'lk' ? raw.hl : raw.hs;
+    if (hinweis) {
+      html += `<p style="font-size:0.7rem; color:#666; margin-top:0.6rem; line-height:1.4;"><strong style="color:#444;">Hinweis:</strong> ${escHtml(hinweis)}</p>`;
+    }
+
     document.getElementById('rp-body').innerHTML = html;
   }
 

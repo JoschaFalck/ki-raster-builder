@@ -46,6 +46,7 @@ const STATE = {
   },
   kriterien: [],           // Array von Kriterium-Objekten
   hinweis: '',
+  hinweis_su: '',          // Separate SuS-Fußzeile (wird beim Laden eines Fertig-Rasters gesetzt)
   ccBy: true,
 
   // Vorschau
@@ -522,10 +523,11 @@ function loadRasterIntoBuilder(rasterId) {
     su: { ...k.su, s5: '', s6: '' },
   }));
 
-  // Hinweis
+  // Hinweis (LK und SuS getrennt speichern)
   const hinweisInput = document.getElementById('raster-hinweis');
   if (hinweisInput) hinweisInput.value = raster.hinweis_lk || '';
   STATE.hinweis = raster.hinweis_lk || '';
+  STATE.hinweis_su = raster.hinweis_su || '';
 
   renderCriteria();
 }
@@ -1208,7 +1210,7 @@ function buildCurrentRasterData() {
     punkteConfig: STATE.punkteConfig,
     stufen: STATE.stufen,
     hinweis_lk: hinweisText,
-    hinweis_su: hinweisText,
+    hinweis_su: STATE.hinweis_su || hinweisText,
     perspektive: STATE.perspektive,
   };
 }
@@ -1316,6 +1318,7 @@ function exportJSON() {
     stufenLabels: STATE.stufenLabels,
     kriterien: STATE.kriterien,
     hinweis: STATE.hinweis,
+    hinweis_su: STATE.hinweis_su,
     ccBy: STATE.ccBy,
   };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -1371,6 +1374,9 @@ function applyImportedConfig(data) {
     const ta = document.getElementById('raster-hinweis');
     if (ta) ta.value = data.hinweis;
   }
+  if (data.hinweis_su !== undefined) {
+    STATE.hinweis_su = data.hinweis_su;
+  }
   if (data.ccBy !== undefined) {
     STATE.ccBy = data.ccBy;
     const cb = document.getElementById('cc-checkbox');
@@ -1400,6 +1406,7 @@ function autosave() {
       stufenLabels: STATE.stufenLabels,
       kriterien: STATE.kriterien,
       hinweis: STATE.hinweis,
+      hinweis_su: STATE.hinweis_su,
       ccBy: STATE.ccBy,
       _savedAt: Date.now(),
     };
