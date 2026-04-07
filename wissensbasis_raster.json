@@ -52,7 +52,7 @@
           "lk": {
             "s1": "Der Prompt ist unklar, unvollständig oder nicht aufgabenbezogen.",
             "s2": "Der Prompt ist verständlich, aber vage oder zu allgemein. Die Antwort der KI bleibt deshalb unspezifisch.",
-            "s3": "Der Prompt ist klar und verständlich formuliert. Kleinere Unschärfen beeinträchtigen das Ergebnis kaum.",
+            "s3": "Der Prompt ist klar und verständlich formuliert. Kleinere Unschärfen können das Ergebnis noch beeinträchtigen.",
             "s4": "Der Prompt ist exakt, präzise und unmissverständlich auf die Aufgabe zugeschnitten. Der Interpretationsspielraum für die KI ist stark reduziert."
           },
           "su": {
@@ -67,7 +67,7 @@
           "lk": {
             "s1": "Kontext und Ziel fehlen vollständig. Die Anfrage ist generisch.",
             "s2": "Kontext wird angedeutet, aber nicht ausreichend spezifiziert. Das Ziel bleibt teilweise unklar.",
-            "s3": "Kontext und Ziel sind erkennbar. Mindestens ein strukturierendes Element (Rolle, Format o.ä.) ist vorhanden.",
+            "s3": "Kontext und Ziel sind erkennbar. Mindestens ein weiteres strukturierendes Element (Rolle, Format o.ä.) ist vorhanden.",
             "s4": "Präziser Kontext, klar definiertes Ziel und strukturierende Elemente werden gezielt und wirkungsvoll eingesetzt."
           },
           "su": {
@@ -82,8 +82,8 @@
           "lk": {
             "s1": "Kein iterativer Prozess erkennbar. Der erste Prompt wurde unverändert übernommen.",
             "s2": "Nur vereinzelte Versuche ohne erkennbare Strategie. Änderungen sind kaum nachvollziehbar.",
-            "s3": "Mehrere Versuche sind erkennbar. Anpassungen werden vorgenommen und ansatzweise begründet.",
-            "s4": "Der Verfeinerungsprozess ist dokumentiert und zeigt eine klare Strategie sowie Verständnis dafür, wie Formulierungen die Antwort der KI beeinflussen."
+            "s3": "Mehrere Versuche sind erkennbar. Anpassungen werden nachvollziehbar vorgenommen.",
+            "s4": "Der strategische Verfeinerungsprozess ist erkennbar und zeigt tieferes Verständnis dafür, wie veränderte Formulierungen die Antwort der KI beeinflussen."
           },
           "su": {
             "s1": "Ich habe meinen ersten Prompt noch nicht überarbeitet.",
@@ -97,8 +97,8 @@
           "lk": {
             "s1": "Keine Reflexion oder Begründung der Prompt-Entscheidungen vorhanden.",
             "s2": "Begründungen sind oberflächlich. Die Reflexion beschränkt sich auf Beschreibungen des Vorgehens.",
-            "s3": "Prompt-Entscheidungen werden begründet. Der Zusammenhang zwischen Formulierung und Ergebnis ist erkennbar.",
-            "s4": "Prompt-Entscheidungen werden differenziert begründet und zeigen tiefes Verständnis der Wirkung von Formulierungen."
+            "s3": "Prompt-Entscheidungen werden nachvollziehbar begründet. Der Zusammenhang zwischen Formulierung und Ergebnis ist erkannt worden.",
+            "s4": "Prompt-Entscheidungen werden differenziert und sinnvoll begründet und zeigen tiefes Verständnis der Wirkung von Formulierungen."
           },
           "su": {
             "s1": "Ich habe meine Prompt-Entscheidungen noch nicht begründet.",
@@ -108,8 +108,8 @@
           }
         }
       ],
-      "hinweis_lk": "Dieses Raster bewertet die Qualität des Promptens im Rahmen einer KI-gestützten Aufgabe. Es ergänzt fachinhaltliche Bewertungskriterien, ersetzt diese aber nicht.",
-      "hinweis_su": "Dieses Raster bewertet die Qualität des Promptens im Rahmen einer KI-gestützten Aufgabe. Es ergänzt fachinhaltliche Bewertungskriterien, ersetzt diese aber nicht."
+      "hinweis_lk": "Dieses Raster bewertet die Qualität des Promptens im Rahmen einer KI-gestützten Aufgabe. Es ergänzt fachinhaltliche Bewertungskriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck",
+      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck"
     },
     {
       "id": "02",
@@ -152,8 +152,8 @@
           "lk": {
             "s1": "Verwendete Prompts wurden nicht dokumentiert.",
             "s2": "Einzelne Prompts sind aufgeführt, ohne Erläuterung oder Einordnung.",
-            "s3": "Verwendete Prompts sind dokumentiert und ansatzweise erläutert.",
-            "s4": "Prompts sind vollständig dokumentiert, begründet und in den Arbeitsprozess eingebettet."
+            "s3": "Verwendete Prompts sind sauber dokumentiert, aber nur ansatzweise erläutert.",
+            "s4": "Prompts sind vollständig dokumentiert und in Bezug auf den Arbeitsprozess erläutert."
           },
           "su": {
             "s1": "Ich habe meine Prompts nicht aufgeschrieben.",
@@ -178,8 +178,8 @@
           }
         }
       ],
-      "hinweis_lk": "Dieses Raster bewertet die Qualität der Dokumentation eines KI-gestützten Arbeitsprozesses. Es ergänzt fachinhaltliche Bewertungskriterien, ersetzt diese aber nicht.",
-      "hinweis_su": "Dieses Raster bewertet die Qualität der Dokumentation eines KI-gestützten Arbeitsprozesses. Es ergänzt fachinhaltliche Bewertungskriterien, ersetzt diese aber nicht."
+      "hinweis_lk": "Dieses Raster bewertet die Qualität der Dokumentation eines KI-gestützten Arbeitsprozesses. Es ergänzt fachinhaltliche Bewertungskriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck",
+      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck"
     },
     {
       "id": "03",
@@ -206,7 +206,7 @@
           "name": "Einschätzung der Qualität",
           "lk": {
             "s1": "Die Qualität der KI-Antwort wird nicht eingeschätzt.",
-            "s2": "Die Antwort der KI wird pauschal als gut oder schlecht bewertet, ohne Begründung.",
+            "s2": "Die Antwort der KI wird pauschal bewertet, die Begründung fehlt überwiegend.",
             "s3": "Die Qualität der KI-Antwort wird anhand einzelner Kriterien eingeschätzt und begründet.",
             "s4": "Die Qualität der KI-Antwort wird kriteriengestützt, differenziert und nachvollziehbar bewertet."
           },
@@ -222,7 +222,7 @@
           "lk": {
             "s1": "Grenzen oder Schwächen der KI werden nicht erkannt oder thematisiert.",
             "s2": "Es wird ansatzweise erkannt, dass die KI Grenzen hat, ohne dies zu konkretisieren.",
-            "s3": "Grenzen der KI werden im Bezug auf die Aufgabe benannt und erklärt.",
+            "s3": "Grenzen der KI werden in Bezug auf die Aufgabe benannt und erklärt.",
             "s4": "Grenzen der KI werden differenziert erkannt, aufgabenbezogen beschrieben und in ihrer Relevanz für das eigene Ergebnis eingeschätzt."
           },
           "su": {
@@ -248,8 +248,8 @@
           }
         }
       ],
-      "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, Ergebnisse der KI kritisch zu analysieren, Fehler zu erkennen und Grenzen einzuschätzen.",
-      "hinweis_su": "Dieses Raster bewertet die Fähigkeit, Ergebnisse der KI kritisch zu analysieren, Fehler zu erkennen und Grenzen einzuschätzen."
+      "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, Ergebnisse der KI kritisch zu analysieren, Fehler zu erkennen und Grenzen einzuschätzen. CC-BY 4.0 Joscha Falck",
+      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck"
     },
     {
       "id": "04",
@@ -318,8 +318,8 @@
           }
         }
       ],
-      "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, Ergebnisse der KI kriteriengestützt zu bewerten und begründete Auswahlentscheidungen zu treffen.",
-      "hinweis_su": "Dieses Raster bewertet die Fähigkeit, Ergebnisse der KI kriteriengestützt zu bewerten und begründete Auswahlentscheidungen zu treffen."
+      "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, Ergebnisse der KI kriteriengestützt zu bewerten und begründete Auswahlentscheidungen zu treffen. CC-BY 4.0 Joscha Falck",
+      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck"
     },
     {
       "id": "05",
@@ -388,8 +388,8 @@
           }
         }
       ],
-      "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, Ergebnisse der KI gezielt und qualitätsorientiert zu überarbeiten und den Eigenanteil dabei sichtbar zu machen.",
-      "hinweis_su": "Dieses Raster bewertet die Fähigkeit, Ergebnisse der KI gezielt und qualitätsorientiert zu überarbeiten und den Eigenanteil dabei sichtbar zu machen."
+      "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, Ergebnisse der KI gezielt und qualitätsorientiert zu überarbeiten und den Eigenanteil dabei sichtbar zu machen. CC-BY 4.0 Joscha Falck",
+      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck"
     },
     {
       "id": "06",
@@ -432,7 +432,7 @@
           "lk": {
             "s1": "Kein Urteil über den Mehrwert der KI-Nutzung für diese Aufgabe erkennbar.",
             "s2": "Der Mehrwert wird pauschal bejaht oder verneint, ohne Begründung.",
-            "s3": "Der Mehrwert der KI wird aufgabenbezogen eingeschätzt und ansatzweise begründet.",
+            "s3": "Der Mehrwert der KI wird aufgabenbezogen eingeschätzt und teilweise begründet.",
             "s4": "Der Mehrwert der KI wird differenziert und aufgabenbezogen bewertet. Sowohl Vorteile als auch Nachteile werden klar benannt und abgewogen."
           },
           "su": {
@@ -458,8 +458,8 @@
           }
         }
       ],
-      "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, KI-gestützte und eigenständige Arbeitsprozesse gezielt zu vergleichen und daraus Schlüsse zu ziehen.",
-      "hinweis_su": "Dieses Raster bewertet die Fähigkeit, KI-gestützte und eigenständige Arbeitsprozesse gezielt zu vergleichen und daraus Schlüsse zu ziehen."
+      "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, KI-gestützte und eigenständige Arbeitsprozesse gezielt zu vergleichen und daraus Schlüsse zu ziehen. CC-BY 4.0 Joscha Falck",
+      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck"
     },
     {
       "id": "07",
@@ -487,7 +487,7 @@
           "lk": {
             "s1": "Keine Reflexion des eigenen Lernprozesses erkennbar.",
             "s2": "Der Lernprozess wird beschrieben, ohne ihn zu bewerten oder zu hinterfragen.",
-            "s3": "Der eigene Lernprozess wird reflektiert. Entscheidungen werden begründet und eingeordnet.",
+            "s3": "Der eigene Lernprozess wird reflektiert. Entscheidungen werden teilweise begründet und eingeordnet.",
             "s4": "Der Lernprozess wird tiefgehend und kritisch reflektiert. Einzelne Entscheidungen werden differenziert begründet und in ihren Auswirkungen eingeschätzt."
           },
           "su": {
@@ -502,7 +502,7 @@
           "lk": {
             "s1": "Kein Bewusstsein für eigenen Lernzuwachs erkennbar.",
             "s2": "Ein Lernzuwachs wird benannt, aber kaum konkretisiert.",
-            "s3": "Eigener Lernzuwachs durch den KI-Einsatz wird konkret beschrieben und nachvollziehbar eingeschätzt.",
+            "s3": "Eigener Lernzuwachs durch den KI-Einsatz wird teilweise beschrieben und nachvollziehbar eingeschätzt.",
             "s4": "Lernzuwachs wird differenziert, konkret und mit Bezug auf spezifische Aspekte des KI-Einsatzes beschrieben."
           },
           "su": {
@@ -517,7 +517,7 @@
           "lk": {
             "s1": "Keine Übertragung auf zukünftige Lern- oder Arbeitssituationen erkennbar.",
             "s2": "Ansätze zur Übertragung sind vorhanden, bleiben aber vage.",
-            "s3": "Erkenntnisse werden auf ähnliche Situationen übertragen. Zukünftiger KI-Einsatz wird ansatzweise geplant.",
+            "s3": "Erkenntnisse werden auf ähnliche Situationen übertragen. Zukünftiger KI-Einsatz wird teilweise geplant.",
             "s4": "Erkenntnisse werden differenziert auf andere Situationen übertragen. Zukünftiger KI-Einsatz wird konkret und reflektiert geplant."
           },
           "su": {
@@ -528,8 +528,8 @@
           }
         }
       ],
-      "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, den eigenen KI-gestützten Lernprozess zu beobachten, zu reflektieren und daraus Konsequenzen zu ziehen.",
-      "hinweis_su": "Dieses Raster bewertet die Fähigkeit, den eigenen KI-gestützten Lernprozess zu beobachten, zu reflektieren und daraus Konsequenzen zu ziehen."
+      "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, den eigenen KI-gestützten Lernprozess zu beobachten, zu reflektieren und daraus Konsequenzen zu ziehen. CC-BY 4.0 Joscha Falck",
+      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck"
     },
     {
       "id": "08",
@@ -598,8 +598,8 @@
           }
         }
       ],
-      "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, situations- und aufgabenbezogen zu beurteilen, ob und wie der Einsatz von KI sinnvoll ist.",
-      "hinweis_su": "Dieses Raster bewertet die Fähigkeit, situations- und aufgabenbezogen zu beurteilen, ob und wie der Einsatz von KI sinnvoll ist."
+      "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, situations- und aufgabenbezogen zu beurteilen, ob und wie der Einsatz von KI sinnvoll ist. CC-BY 4.0 Joscha Falck",
+      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck"
     },
     {
       "id": "09",
@@ -668,8 +668,8 @@
           }
         }
       ],
-      "hinweis_lk": "Dieses Raster bewertet den verantwortungsvollen Umgang mit KI im Hinblick auf Transparenz, Datenschutz, Urheberrecht und ethische Reflexion.",
-      "hinweis_su": "Dieses Raster bewertet den verantwortungsvollen Umgang mit KI im Hinblick auf Transparenz, Datenschutz, Urheberrecht und ethische Reflexion."
+      "hinweis_lk": "Dieses Raster bewertet den verantwortungsvollen Umgang mit KI im Hinblick auf Transparenz, Datenschutz, Urheberrecht und ethische Reflexion. CC-BY 4.0 Joscha Falck",
+      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck"
     },
     {
       "id": "10",
@@ -738,8 +738,8 @@
           }
         }
       ],
-      "hinweis_lk": "Dieses Raster bewertet den reflektierten KI-Einsatz über einen längeren Zeitraum im Rahmen eines Portfolios oder Lernprozesses.",
-      "hinweis_su": "Dieses Raster bewertet den reflektierten KI-Einsatz über einen längeren Zeitraum im Rahmen eines Portfolios oder Lernprozesses."
+      "hinweis_lk": "Dieses Raster bewertet den reflektierten KI-Einsatz über einen längeren Zeitraum im Rahmen eines Portfolios oder Lernprozesses. CC-BY 4.0 Joscha Falck",
+      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck"
     },
     {
       "id": "11",
@@ -808,8 +808,8 @@
           }
         }
       ],
-      "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, den Einsatz von KI für eine Aufgabe gezielt zu planen, bevor mit der Arbeit begonnen wird.",
-      "hinweis_su": "Dieses Raster unterstützt die Planung des eigenen KI-Einsatzes vor Beginn einer Aufgabe."
+      "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, den Einsatz von KI für eine Aufgabe gezielt zu planen, bevor mit der Arbeit begonnen wird. CC-BY 4.0 Joscha Falck",
+      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck"
     }
   ],
   "kriterien_pool": {
