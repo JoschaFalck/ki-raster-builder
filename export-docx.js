@@ -2,8 +2,8 @@
  * KI-Bewertungsraster-Builder | Joscha Falck | CC-BY 4.0
  * export-docx.js – DOCX-Export-Modul
  *
+ * Formatierung exakt an den Original-DOCX-Dateien ausgerichtet.
  * Verwendet docx.js v8 (geladen via CDN).
- * Exportformat: DIN A4 Querformat, identisch mit den 22 Original-DOCX-Dateien.
  *
  * Öffentliche API:
  *   generateDocx(config, filename)          – direkter Download
@@ -13,70 +13,51 @@
 'use strict';
 
 // ============================================================
-// FARBKONSTANTEN (identisch mit den Original-DOCX-Dateien)
+// FARBKONSTANTEN – exakt aus den Original-DOCX-Dateien
 // ============================================================
 
 const DOCX_COLORS = {
   lk: {
-    header:    '3A6EA8',
-    kriterium: 'E5EFF8',
-    title:     '2A4E7A',
+    headerKriterium: '3A6EA8',   // Erste Kopfspalte (Kriterium) – LK
+    kriteriumFill:   'E5EFF8',   // Kriterium-Zellen Hintergrund – LK
+    kriteriumText:   '2A4E7A',   // Kriterium-Zellen Text – LK
+    title:           '2A4E7A',
   },
   su: {
-    header:    '2D7A68',
-    kriterium: 'DDF0EA',
-    title:     '1A5C4A',
+    headerKriterium: '2D7A68',   // Erste Kopfspalte – SuS
+    kriteriumFill:   'DDF0EA',   // Kriterium-Zellen Hintergrund – SuS
+    kriteriumText:   '1A5C4A',   // Kriterium-Zellen Text – SuS
+    title:           '1A5C4A',
   },
-  stufen: {
-    s1: 'F5F5F5',
-    s2: 'FFF8F0',
-    s3: 'EEF3FC',
-    s4: 'F0FAF0',
-    s5: 'EDE7F6',
-    s6: 'FCE4EC',
-  },
-  text:       '1A1A1A',
-  headerText: 'FFFFFF',
-  metaText:   '666666',
-  hintText:   '999999',
-  hintLabel:  '555555',
-  border:     'BFBFBF',
+  // Stufenspezifische Header-Farben (gelten für LK und SuS identisch)
+  stageHeader: ['7F96AA', 'C09060', '4A7FB5', '5E9E42', 'A855F7', 'EC4899'],
+  // Stufenspezifische Daten-Zellen-Farben
+  stageData:   ['F5F5F5', 'FEF8EC', 'EDF4FB', 'EDF7E8', 'F3E8FF', 'FDE8F0'],
+  headerText:  'FFFFFF',
+  bodyText:    '222222',
+  metaText:    '666666',
+  hintLabel:   '555555',
+  hintText:    '999999',
+  border:      'C8D8E8',
 };
 
 // ============================================================
-// LAYOUT-KONSTANTEN
-// Seitenformat: DIN A4 Querformat (297 × 210 mm)
-// Ränder: 1,5 cm = 851 Twips (1 cm = 567,17 Twips)
-// Nutzbreite: 297 - 3 = 294 mm → aber Nutzbreite inkl. Ränder
-// Spaltenbreiten in DXA (1 cm = 567 DXA / Twips)
+// LAYOUT-KONSTANTEN – exakt aus den Original-DOCX-Dateien
 // ============================================================
 
-const CM = 567;   // 1 cm in DXA/Twips
-const MARGIN = Math.round(1.5 * CM);  // 851
+const CM = 567;                            // 1 cm in DXA/Twips
+const MARGIN = 720;                        // Rand: 720 DXA ≈ 1,27 cm (Word-Standard)
+const PAGE_W = 16838;                      // A4 Querformat Breite (DXA)
+const PAGE_H = 11906;                      // A4 Querformat Höhe (DXA)
+const NET_WIDTH = PAGE_W - 2 * MARGIN;    // 15398 DXA Nutzbreite
+const COL_KRITERIUM = 2000;               // Kriterium-Spalte (DXA)
 
-// Nutzbreite: A4 Landscape = 11906 Twips (29,7 cm * 400) minus 2 Ränder
-// A4 landscape: page width = 16838 DXA (29,7 cm), height = 11906 DXA (21 cm)
-// Nutzbreite: 16838 - 2*851 = 15136 DXA
-const PAGE_WIDTH   = 16838;
-const PAGE_HEIGHT  = 11906;
-const NET_WIDTH    = PAGE_WIDTH - 2 * MARGIN;  // 15136
-
-// Spaltenbreiten (in DXA, muss zusammen NET_WIDTH ergeben)
-// Kriterium: 3,5 cm = 1985 DXA, Rest gleichmäßig verteilt
-const COL_KRITERIUM = Math.round(3.5 * CM);  // 1985
-
+/** Berechnet Inhaltsspalten-Breiten so, dass sie zusammen NET_WIDTH ergeben. */
 function getColWidths(stufen) {
   const rest = NET_WIDTH - COL_KRITERIUM;
-  const colW = Math.floor(rest / stufen);
-  // Letzte Spalte bekommt Rest, damit Summe stimmt
-  const widths = [];
-  for (let i = 0; i < stufen; i++) {
-    if (i === stufen - 1) {
-      widths.push(NET_WIDTH - COL_KRITERIUM - colW * (stufen - 1));
-    } else {
-      widths.push(colW);
-    }
-  }
+  const base = Math.floor(rest / stufen);
+  const widths = Array(stufen).fill(base);
+  widths[stufen - 1] += rest - base * stufen; // Rest zur letzten Spalte
   return widths;
 }
 
@@ -84,74 +65,46 @@ function getColWidths(stufen) {
 // HILFSFUNKTIONEN
 // ============================================================
 
-/**
- * Erstellt einen Paragraph mit optionalen Optionen.
- * @param {string} text
- * @param {Object} opts
- * @returns {docx.Paragraph}
- */
-function makeParagraph(text, opts = {}) {
-  const runOpts = {};
-  if (opts.bold)     runOpts.bold = true;
-  if (opts.color)    runOpts.color = opts.color;
-  if (opts.size)     runOpts.size = opts.size;      // half-points
-  if (opts.font)     runOpts.font = opts.font;
-  if (opts.italics)  runOpts.italics = true;
-
-  const paraOpts = {};
-  if (opts.alignment) paraOpts.alignment = opts.alignment;
-  if (opts.spacing)   paraOpts.spacing = opts.spacing;
-
-  return new docx.Paragraph({
-    ...paraOpts,
-    children: [new docx.TextRun({ text: text || '', ...runOpts })],
-  });
-}
-
-/**
- * Erstellt eine Tabellenzelle.
- * @param {string} text
- * @param {Object} opts
- * @returns {docx.TableCell}
- */
-function makeCell(text, opts = {}) {
-  const runOpts = {
-    font: 'Calibri',
-    size: opts.headerCell ? 18 : 16,  // 9pt = 18 half-points, 8pt = 16
-    color: opts.headerCell ? DOCX_COLORS.headerText : DOCX_COLORS.text,
-  };
-  if (opts.bold || opts.headerCell) runOpts.bold = true;
-
-  const paraChildren = [new docx.TextRun({ text: text || '', ...runOpts })];
-
-  const paraOpts = {
-    children: paraChildren,
-    spacing: { before: 40, after: 40 },
-  };
-  if (opts.headerCell) paraOpts.alignment = 'center';
-
+/** Erstellt eine Tabellenzelle mit exakten Original-Formatierungen. */
+function makeCell(paragraphChildren, opts = {}) {
   const cellOpts = {
     width: { size: opts.width || 1000, type: 'dxa' },
-    children: [new docx.Paragraph(paraOpts)],
     verticalAlign: 'center',
-    margins: { top: 60, bottom: 60, left: 90, right: 90 },
-    borders: {
-      top:    { style: 'single', size: 4, color: DOCX_COLORS.border },
-      bottom: { style: 'single', size: 4, color: DOCX_COLORS.border },
-      left:   { style: 'single', size: 4, color: DOCX_COLORS.border },
-      right:  { style: 'single', size: 4, color: DOCX_COLORS.border },
+    margins: {
+      top:    140,
+      bottom: 140,
+      left:   160,
+      right:  160,
     },
+    borders: {
+      top:    { style: 'single', size: 3, color: DOCX_COLORS.border },
+      bottom: { style: 'single', size: 3, color: DOCX_COLORS.border },
+      left:   { style: 'single', size: 3, color: DOCX_COLORS.border },
+      right:  { style: 'single', size: 3, color: DOCX_COLORS.border },
+    },
+    children: [new docx.Paragraph({
+      alignment: opts.center ? 'center' : undefined,
+      children: paragraphChildren,
+    })],
   };
 
-  if (opts.shading) {
-    cellOpts.shading = {
-      fill: opts.shading,
-      type: 'clear',
-      color: 'auto',
-    };
+  if (opts.fill) {
+    cellOpts.shading = { fill: opts.fill, type: 'clear', color: 'auto' };
   }
 
   return new docx.TableCell(cellOpts);
+}
+
+/** Erstellt einen TextRun mit Arial-Font und optionalem Zeilenumbruch. */
+function makeRun(text, opts = {}) {
+  return new docx.TextRun({
+    text,
+    font: 'Arial',
+    bold:    opts.bold    || false,
+    color:   opts.color   || DOCX_COLORS.bodyText,
+    size:    opts.size    || 18,   // 9 pt default
+    break:   opts.break   || undefined,
+  });
 }
 
 // ============================================================
@@ -160,8 +113,6 @@ function makeCell(text, opts = {}) {
 
 /**
  * Generiert ein DOCX und löst einen Download aus.
- * @param {Object} config  - Exportkonfiguration (aus buildDocxConfigFromRaster)
- * @param {string} filename
  */
 async function generateDocx(config, filename) {
   try {
@@ -175,152 +126,157 @@ async function generateDocx(config, filename) {
 
 /**
  * Generiert ein DOCX und gibt ein Blob zurück (für ZIP).
- * @param {Object} config
- * @returns {Promise<Blob>}
  */
 async function generateDocxBlob(config) {
-  const { titel, version, stufen, stufenLabels, punkteConfig, maxPunkte, kriterien, hinweis, fach, jahrgang } = config;
+  const {
+    titel, version, stufen, stufenLabels, punkteConfig,
+    maxPunkte, kriterien, hinweis, fach, jahrgang,
+  } = config;
+
   const isLk = version === 'lk';
   const colors = isLk ? DOCX_COLORS.lk : DOCX_COLORS.su;
-  const stufenFarben = ['s1', 's2', 's3', 's4', 's5', 's6'].slice(0, stufen);
   const colWidths = getColWidths(stufen);
 
-  // --- Untertitel (Fach / Jahrgang) ---
-  const subtitleParts = [];
-  if (fach && fach !== 'Fachunabh\u00e4ngig') subtitleParts.push(fach);
-  if (jahrgang) subtitleParts.push(jahrgang);
-  const hasSubtitle = subtitleParts.length > 0;
-
-  // --- Titelzeile ---
-  const versionLabel = isLk ? 'Einsch\u00e4tzung der Lehrkraft' : 'Selbsteinsch\u00e4tzung Sch\u00fcler:in';
+  // ── 1. Titelzeile ────────────────────────────────────────
+  const versionLabel = isLk ? 'Einschätzung der Lehrkraft' : 'Selbsteinschätzung Schüler:in';
   const titleParagraph = new docx.Paragraph({
-    children: [
-      new docx.TextRun({
-        text: `Bewertungsraster ${titel} \u2013 ${versionLabel}`,
-        bold: true,
-        color: colors.title,
-        size: 22,   // 11pt
-        font: 'Calibri',
-      }),
-    ],
-    spacing: { before: 0, after: hasSubtitle ? 40 : 120 },
+    children: [new docx.TextRun({
+      text: `Bewertungsraster ${titel} \u2013 ${versionLabel}`,
+      font:  'Arial',
+      bold:  true,
+      color: colors.title,
+      size:  26,   // 13 pt
+    })],
+    spacing: { after: 0 },
   });
 
-  const subtitleParagraph = hasSubtitle ? new docx.Paragraph({
-    children: [
-      new docx.TextRun({
-        text: subtitleParts.join('  \u2502  '),
-        color: DOCX_COLORS.metaText,
-        size: 16,
-        font: 'Calibri',
-      }),
-    ],
-    spacing: { before: 0, after: 100 },
-  }) : null;
-
-  // --- Header-Zeile der Tabelle ---
-  const headerCells = [
-    makeCell('Kriterium', {
-      width: COL_KRITERIUM,
-      headerCell: true,
-      shading: colors.header,
-    }),
-  ];
-
-  stufenFarben.forEach((sk, i) => {
-    const label = stufenLabels[i] || `Stufe ${i + 1}`;
-    const ptsText = isLk && punkteConfig[i] ? ` (${punkteConfig[i].punkte} Pkt.)` : '';
-    headerCells.push(makeCell(label + ptsText, {
-      width: colWidths[i],
-      headerCell: true,
-      shading: colors.header,
-    }));
-  });
-
-  const headerRow = new docx.TableRow({
-    children: headerCells,
-  });
-
-  // --- Kriterium-Zeilen ---
-  const dataRows = kriterien.map(k => {
-    const cells = [
-      makeCell(k.name || 'Kriterium', {
-        width: COL_KRITERIUM,
-        bold: true,
-        shading: colors.kriterium,
-      }),
-    ];
-
-    stufenFarben.forEach((sk, i) => {
-      const text = k.stufen[i] || '';
-      cells.push(makeCell(text, {
-        width: colWidths[i],
-        shading: DOCX_COLORS.stufen[sk],
-      }));
-    });
-
-    return new docx.TableRow({ children: cells });
-  });
-
-  // --- Tabelle ---
-  const table = new docx.Table({
-    width: { size: NET_WIDTH, type: 'dxa' },
-    rows: [headerRow, ...dataRows],
-  });
-
-  // --- Meta-Zeile ---
+  // ── 2. Meta-Zeile (VOR der Tabelle, wie im Original) ─────
   let metaText;
   if (isLk) {
-    metaText = `Name: _______________________ \u00a0\u00a0\u00a0 Fach: _____________ \u00a0\u00a0\u00a0 Datum: _____________ \u00a0\u00a0\u00a0 Punkte: _____/${maxPunkte}`;
+    metaText = `Name: _________________________   Fach: _________________________   Datum: _______________   Punkte: _______ / ${maxPunkte}`;
   } else {
-    metaText = 'Name: _______________________ \u00a0\u00a0\u00a0 Klasse: _____________ \u00a0\u00a0\u00a0 Datum: _____________';
+    metaText = 'Name: _________________________   Klasse: _________________________   Datum: _______________';
   }
-
   const metaParagraph = new docx.Paragraph({
-    children: [
-      new docx.TextRun({
-        text: metaText,
-        color: DOCX_COLORS.metaText,
-        size: 16,
-        font: 'Calibri',
-      }),
-    ],
-    spacing: { before: 120, after: 60 },
+    children: [new docx.TextRun({
+      text:  metaText,
+      font:  'Arial',
+      color: DOCX_COLORS.metaText,
+      size:  18,   // 9 pt
+    })],
+    spacing: { before: 0, after: 100 },
   });
 
-  // --- Hinweis-Zeile ---
-  const docChildren = hasSubtitle
-    ? [titleParagraph, subtitleParagraph, table, metaParagraph]
-    : [titleParagraph, table, metaParagraph];
+  // ── 3. Optionaler Untertitel (Fach/Jahrgang) ─────────────
+  const subtitleParts = [];
+  if (fach && fach !== 'Fachunabhängig') subtitleParts.push(fach);
+  if (jahrgang) subtitleParts.push(jahrgang);
+  const subtitleParagraph = subtitleParts.length > 0
+    ? new docx.Paragraph({
+        children: [new docx.TextRun({
+          text:  subtitleParts.join('  |  '),
+          font:  'Arial',
+          color: DOCX_COLORS.metaText,
+          size:  16,
+        })],
+        spacing: { before: 0, after: 60 },
+      })
+    : null;
 
-  if (hinweis) {
-    const hintParagraph = new docx.Paragraph({
-      children: [
-        new docx.TextRun({
-          text: 'Hinweis: ',
-          bold: true,
-          color: DOCX_COLORS.hintLabel,
-          size: 14,
-          font: 'Calibri',
-        }),
-        new docx.TextRun({
-          text: hinweis,
-          color: DOCX_COLORS.hintText,
-          size: 14,
-          font: 'Calibri',
-        }),
-      ],
-      spacing: { before: 0, after: 0 },
-    });
-    docChildren.push(hintParagraph);
+  // ── 4. Header-Zeile der Tabelle ──────────────────────────
+  const headerCells = [
+    makeCell(
+      [makeRun('Kriterium', { bold: true, color: DOCX_COLORS.headerText, size: 19 })],
+      { width: COL_KRITERIUM, fill: colors.headerKriterium, center: true }
+    ),
+  ];
+
+  for (let i = 0; i < stufen; i++) {
+    const label  = stufenLabels[i] || `Stufe ${i + 1}`;
+    const ptsStr = isLk && punkteConfig[i] ? `(${punkteConfig[i].punkte} Pkt.)` : '';
+    const runOpts = { bold: true, color: DOCX_COLORS.headerText, size: 19 };
+
+    const runs = ptsStr
+      ? [makeRun(label, runOpts), makeRun(ptsStr, { ...runOpts, break: 1 })]
+      : [makeRun(label, runOpts)];
+
+    headerCells.push(makeCell(runs, {
+      width: colWidths[i],
+      fill:  DOCX_COLORS.stageHeader[i] || DOCX_COLORS.stageHeader[0],
+      center: true,
+    }));
   }
 
-  // --- Dokument ---
+  const headerRow = new docx.TableRow({
+    children:      headerCells,
+    tableHeader:   true,
+    height: { value: 820, rule: docx.HeightRule.ATLEAST },
+  });
+
+  // ── 5. Daten-Zeilen ──────────────────────────────────────
+  const dataRows = kriterien.map(k => {
+    const nameCell = makeCell(
+      [makeRun(k.name || 'Kriterium', { bold: true, color: colors.kriteriumText, size: 19 })],
+      { width: COL_KRITERIUM, fill: colors.kriteriumFill }
+    );
+
+    const dataCells = Array.from({ length: stufen }, (_, i) => {
+      const text = k.stufen?.[i] || '';
+      return makeCell(
+        [makeRun(text, { color: DOCX_COLORS.bodyText, size: 18 })],
+        { width: colWidths[i], fill: DOCX_COLORS.stageData[i] || 'FFFFFF' }
+      );
+    });
+
+    return new docx.TableRow({
+      children: [nameCell, ...dataCells],
+      height: { value: 1701, rule: docx.HeightRule.ATLEAST },
+    });
+  });
+
+  // ── 6. Tabelle ───────────────────────────────────────────
+  const table = new docx.Table({
+    width: { size: NET_WIDTH, type: 'dxa' },
+    rows:  [headerRow, ...dataRows],
+  });
+
+  // ── 7. Hinweis ───────────────────────────────────────────
+  const hintChildren = [];
+  if (hinweis) {
+    hintChildren.push(new docx.Paragraph({
+      children: [
+        new docx.TextRun({
+          text:  'Hinweis: ',
+          font:  'Arial',
+          bold:  true,
+          color: DOCX_COLORS.hintLabel,
+          size:  17,
+        }),
+        new docx.TextRun({
+          text:  hinweis,
+          font:  'Arial',
+          color: DOCX_COLORS.hintText,
+          size:  17,
+        }),
+      ],
+      spacing: { before: 80, after: 0 },
+    }));
+  }
+
+  // ── 8. Dokument zusammenbauen ────────────────────────────
+  const docChildren = [titleParagraph];
+  if (subtitleParagraph) docChildren.push(subtitleParagraph);
+  docChildren.push(metaParagraph);
+  docChildren.push(table);
+  docChildren.push(...hintChildren);
+
   const doc = new docx.Document({
     sections: [{
       properties: {
         page: {
           size: {
+            width:       PAGE_W,
+            height:      PAGE_H,
             orientation: docx.PageOrientation.LANDSCAPE,
           },
           margin: {
@@ -339,12 +295,12 @@ async function generateDocxBlob(config) {
 }
 
 /**
- * Triggert einen Browser-Download (Fallback, falls app.js noch nicht geladen).
+ * Triggert einen Browser-Download.
  */
 function triggerDownload(blob, filename) {
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
+  const a   = document.createElement('a');
+  a.href     = url;
   a.download = filename;
   document.body.appendChild(a);
   a.click();
