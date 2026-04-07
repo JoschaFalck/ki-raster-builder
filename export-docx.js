@@ -323,7 +323,7 @@ async function generateDocxBlob(config) {
           size: {
             width:  PAGE_WIDTH,
             height: PAGE_HEIGHT,
-            orientation: 'landscape',
+            orientation: docx.PageOrientation.LANDSCAPE,
           },
           margin: {
             top:    MARGIN,
