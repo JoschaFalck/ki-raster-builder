@@ -275,8 +275,8 @@ async function generateDocxBlob(config) {
       properties: {
         page: {
           size: {
-            width:       PAGE_W,
-            height:      PAGE_H,
+            width:       PAGE_H,   // docx.js erwartet Hochformat-Maße und tauscht bei LANDSCAPE
+            height:      PAGE_W,
             orientation: docx.PageOrientation.LANDSCAPE,
           },
           margin: {

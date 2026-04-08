@@ -571,6 +571,15 @@ function loadPoolTopicIntoBuilder(topicId) {
 // ============================================================
 
 function onConfigChange() {
+  // Hinweistext direkt in korrektes STATE-Feld schreiben
+  const hinweisInput = document.getElementById('raster-hinweis');
+  if (hinweisInput) {
+    if (STATE.perspektive === 'su') {
+      STATE.hinweis_su = hinweisInput.value;
+    } else {
+      STATE.hinweis = hinweisInput.value;
+    }
+  }
   autosave();
 }
 
@@ -604,6 +613,16 @@ function updateNiveauLabel() {
 }
 
 function setPerspektive(p) {
+  // Aktuellen Hinweistext speichern, bevor Perspektive wechselt
+  const hinweisInput = document.getElementById('raster-hinweis');
+  if (hinweisInput) {
+    if (STATE.perspektive === 'su') {
+      STATE.hinweis_su = hinweisInput.value;
+    } else {
+      STATE.hinweis = hinweisInput.value;
+    }
+  }
+
   STATE.perspektive = p;
   ['beide', 'lk', 'su'].forEach(v => {
     const btn = document.getElementById('persp-' + v);
@@ -632,6 +651,17 @@ function setPerspektive(p) {
 
   // Stufen-Bezeichnungen: Spalten je nach Perspektive anpassen
   renderStufenLabels();
+
+  // Hinweistext und Label je nach Perspektive wechseln
+  if (hinweisInput) {
+    hinweisInput.value = (p === 'su') ? STATE.hinweis_su : STATE.hinweis;
+    const heading = document.getElementById('hinweis-heading');
+    if (heading) {
+      heading.textContent = p === 'su'
+        ? '💬 Hinweistext Schüler:in (Fußzeile)'
+        : '💬 Hinweistext Lehrkraft (Fußzeile)';
+    }
+  }
 }
 
 // ---- Stufen ----
@@ -1137,7 +1167,12 @@ function readFormToState() {
   STATE.jahrgang = jahrgangSel?.value || 'klasse-8-10';
   STATE.jahrgangLabel = jahrgangSel?.selectedOptions[0]?.text || '';
 
-  STATE.hinweis = document.getElementById('raster-hinweis')?.value || '';
+  const hinweisVal = document.getElementById('raster-hinweis')?.value || '';
+  if (STATE.perspektive === 'su') {
+    STATE.hinweis_su = hinweisVal;
+  } else {
+    STATE.hinweis = hinweisVal;
+  }
   STATE.ccBy = document.getElementById('cc-checkbox')?.checked ?? true;
 
   // Kriterien aus DOM synchronisieren
