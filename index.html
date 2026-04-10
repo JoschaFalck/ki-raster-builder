@@ -162,6 +162,140 @@
     .rp-s2 { background: #fff3e0 !important; }
     .rp-s3 { background: #e8f0fe !important; }
     .rp-s4 { background: #e8f5e9 !important; }
+
+    /* ─── Raster-Finder ─────────────────────────────── */
+    .rf-wrap {
+      background: linear-gradient(135deg, #f0f7ff 0%, #eaf4f0 100%);
+      border-radius: 14px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid #c8ddf0;
+    }
+    .rf-headline {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #1e3a5f;
+      margin: 0 0 0.3rem;
+    }
+    .rf-subline {
+      font-size: 0.86rem;
+      color: #4a6080;
+      margin: 0 0 1.1rem;
+    }
+    .rf-type-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.65rem;
+    }
+    @media (max-width: 760px) { .rf-type-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .rf-type-grid { grid-template-columns: 1fr 1fr; } }
+    .rf-type-card {
+      background: #fff;
+      border: 2px solid #d0e6f8;
+      border-radius: 10px;
+      padding: 0.85rem 0.75rem;
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      transition: all .15s;
+      font-family: inherit;
+    }
+    .rf-type-card:hover {
+      border-color: #3a6ea8;
+      background: #f0f7ff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(58,110,168,0.13);
+    }
+    .rf-type-card.rf-active {
+      border-color: #3a6ea8;
+      background: #3a6ea8;
+    }
+    .rf-type-card.rf-active .rf-type-name { color: #fff; }
+    .rf-type-card.rf-active .rf-type-desc { color: rgba(255,255,255,0.75); }
+    .rf-type-icon { font-size: 1.35rem; line-height: 1; }
+    .rf-type-name { font-size: 0.85rem; font-weight: 700; color: #1e3a5f; }
+    .rf-type-desc { font-size: 0.73rem; color: #64748b; line-height: 1.35; }
+    /* Ergebnis-Bereich */
+    .rf-results-wrap { animation: rfFade .18s ease; }
+    @keyframes rfFade { from { opacity:0; transform:translateY(5px); } to { opacity:1; transform:none; } }
+    .rf-back-btn {
+      background: none;
+      border: none;
+      color: #3a6ea8;
+      font-size: 0.83rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0;
+      margin-bottom: 0.9rem;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .rf-back-btn:hover { color: #1e4a80; text-decoration: underline; }
+    .rf-result-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.65rem;
+    }
+    @media (max-width: 760px) { .rf-result-cards { grid-template-columns: 1fr; } }
+    .rf-result-card {
+      background: #fff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      border-top: 3px solid #3a6ea8;
+    }
+    .rf-rc-badge {
+      font-size: 0.63rem;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: #94a3b8;
+    }
+    .rf-rc-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin: 0;
+    }
+    .rf-rc-desc {
+      font-size: 0.76rem;
+      color: #64748b;
+      line-height: 1.4;
+      flex: 1;
+    }
+    .rf-rc-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-top: 0.25rem;
+    }
+    /* Alle-Raster-Umschalter */
+    .alle-section-toggle {
+      margin-bottom: 0.75rem;
+    }
+    .alle-toggle-btn {
+      background: none;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      color: #64748b;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0.45rem 0.9rem;
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all .15s;
+    }
+    .alle-toggle-btn:hover { color: #3a6ea8; border-color: #93c5fd; background: #f0f7ff; }
   </style>
 </head>
 <body>
@@ -199,6 +333,62 @@
 
 <main id="main-content">
   <div class="container">
+
+    <!-- ── Raster-Finder ─────────────────────────────────────── -->
+    <div class="rf-wrap" id="rf-wrap">
+      <h2 class="rf-headline">🧭 Welches Raster passt zu meiner Aufgabe?</h2>
+      <p class="rf-subline">Wähle einen Aufgabentyp – du bekommst sofort passende Raster-Empfehlungen.</p>
+
+      <!-- Schritt 1: Aufgabentyp wählen -->
+      <div id="rf-step1">
+        <div class="rf-type-grid">
+          <button class="rf-type-card" onclick="rfSelectType('text')">
+            <span class="rf-type-icon">✍️</span>
+            <span class="rf-type-name">Textproduktion</span>
+            <span class="rf-type-desc">Aufsätze, Berichte, kreatives Schreiben mit KI-Unterstützung</span>
+          </button>
+          <button class="rf-type-card" onclick="rfSelectType('recherche')">
+            <span class="rf-type-icon">🔍</span>
+            <span class="rf-type-name">Recherche</span>
+            <span class="rf-type-desc">Informationssuche und Quellenarbeit mit KI</span>
+          </button>
+          <button class="rf-type-card" onclick="rfSelectType('projekt')">
+            <span class="rf-type-icon">📁</span>
+            <span class="rf-type-name">Projektarbeit / Portfolio</span>
+            <span class="rf-type-desc">Längere Projekte, Portfolios oder Dokumentationsaufgaben</span>
+          </button>
+          <button class="rf-type-card" onclick="rfSelectType('vergleich')">
+            <span class="rf-type-icon">⚖️</span>
+            <span class="rf-type-name">Vergleichsaufgabe</span>
+            <span class="rf-type-desc">Texte, Quellen oder Argumente mit KI vergleichen und bewerten</span>
+          </button>
+          <button class="rf-type-card" onclick="rfSelectType('einstieg')">
+            <span class="rf-type-icon">🚀</span>
+            <span class="rf-type-name">Ersteinstieg in der Klasse</span>
+            <span class="rf-type-desc">Erste strukturierte KI-Nutzung mit der Lerngruppe einführen</span>
+          </button>
+          <button class="rf-type-card" onclick="rfSelectType('kreativ')">
+            <span class="rf-type-icon">🎨</span>
+            <span class="rf-type-name">Kreativ / gestalterisch</span>
+            <span class="rf-type-desc">Bildgestaltung, Präsentationen, kreative KI-Outputs</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Schritt 2: Empfehlungen -->
+      <div id="rf-step2" style="display:none;" class="rf-results-wrap">
+        <button class="rf-back-btn" onclick="rfBack()">← Andere Aufgabe wählen</button>
+        <div id="rf-result-cards" class="rf-result-cards"></div>
+      </div>
+    </div>
+
+    <!-- ── Alle Raster (sekundär) ─────────────────────────────── -->
+    <div class="alle-section-toggle">
+      <button class="alle-toggle-btn" id="alle-toggle-btn" onclick="toggleAlleRaster()">
+        Alle 11 Raster anzeigen <span id="alle-toggle-arrow">▼</span>
+      </button>
+    </div>
+    <div id="alle-raster-wrap" style="display:none;">
 
     <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; margin-bottom:1rem;">
       <div class="filter-bar" role="group" aria-label="Raster nach Version filtern">
@@ -390,6 +580,8 @@
         📦 Alle Raster herunterladen (ZIP)
       </button>
     </div>
+
+    </div><!-- /alle-raster-wrap -->
 
   </div>
 </main>
@@ -757,7 +949,8 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
     win.document.write(hintHtml);
     win.document.write('</body></html>');
     win.document.close();
-    win.addEventListener('load', function() { win.focus(); win.print(); });
+    win.focus();
+    win.print();
   }
 
   /* ── Alle Raster als ZIP ──────────────────────── */
@@ -833,6 +1026,122 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
       actions.appendChild(zipRow);
     }
   });
+
+  /* ─────────────────────────────────────────────────── */
+  /* Raster-Finder                                        */
+  /* ─────────────────────────────────────────────────── */
+
+  const RF_DATA = {
+    text: {
+      label: 'Textproduktion',
+      raster: [
+        { id: '03', hint: 'Bewertet Umgang mit KI-generierten Texten – inhaltliche Einschätzung, Überarbeitung und Eigenleistung.' },
+        { id: '01', hint: 'Bewertet die Qualität der Prompt-Formulierung als Grundlage jeder Textproduktion mit KI.' },
+        { id: '02', hint: 'Für die Dokumentation und Transparenz über den KI-Einsatz im Schreibprozess.' },
+      ]
+    },
+    recherche: {
+      label: 'Recherche',
+      raster: [
+        { id: '04', hint: 'Direkt auf KI-gestützte Rechercheaufgaben ausgerichtet – Strategie, Quellenkritik, Einordnung.' },
+        { id: '08', hint: 'Bewertet die kritische Reflexion über Quellen und deren Verlässlichkeit.' },
+        { id: '01', hint: 'Bewertet die Prompt-Qualität bei der gezielten Informationssuche.' },
+      ]
+    },
+    projekt: {
+      label: 'Projektarbeit / Portfolio',
+      raster: [
+        { id: '02', hint: 'Kernraster für Projektarbeiten – dokumentiert Art und Umfang der KI-Nutzung.' },
+        { id: '09', hint: 'Fordert zur Reflexion über den eigenen KI-Einsatz im Projektverlauf auf.' },
+        { id: '01', hint: 'Setzt Maßstäbe für die Qualität der Prompt-Formulierungen im gesamten Projekt.' },
+      ]
+    },
+    vergleich: {
+      label: 'Vergleichsaufgabe',
+      raster: [
+        { id: '08', hint: 'Bewertet die kritische Auseinandersetzung mit unterschiedlichen Quellen und Informationen.' },
+        { id: '04', hint: 'Geeignet, wenn KI als Rechercheinstrument für Vergleichsmaterial genutzt wird.' },
+        { id: '09', hint: 'Fördert die Reflexion über Stärken und Grenzen der KI bei Vergleichsaufgaben.' },
+      ]
+    },
+    einstieg: {
+      label: 'Ersteinstieg in der Klasse',
+      raster: [
+        { id: '11', hint: 'Ideal für den Einstieg – thematisiert ethische Fragen und gesellschaftliche Implikationen.' },
+        { id: '09', hint: 'Regt zur grundlegenden Reflexion über KI-Nutzung an – auch ohne Vorwissen.' },
+        { id: '10', hint: 'Sensibilisiert für Datenschutz und verantwortungsvollen Umgang mit KI-Tools.' },
+      ]
+    },
+    kreativ: {
+      label: 'Kreativ / gestalterisch',
+      raster: [
+        { id: '05', hint: 'Bewertet die kritische Analyse und kreative Nutzung von KI-generierten Bildern.' },
+        { id: '07', hint: 'Geeignet für Präsentationsaufgaben, die KI-Inhalte einbeziehen.' },
+        { id: '03', hint: 'Wenn KI für kreative Textbausteine genutzt wird – z. B. Gedichte, Szenarien, Skripte.' },
+      ]
+    },
+  };
+
+  // Raster-Metadaten für die Ergebniskarten (aus RASTER_INDEX)
+  function rfGetMeta(id) {
+    return window.RASTER_INDEX.find(r => r.id === id) || null;
+  }
+
+  function rfSelectType(type) {
+    const data = RF_DATA[type];
+    if (!data) return;
+
+    // Step 1 ausblenden, aktive Kachel markieren
+    document.querySelectorAll('.rf-type-card').forEach(btn => btn.classList.remove('rf-active'));
+    event.currentTarget.classList.add('rf-active');
+    document.getElementById('rf-step1').style.display = 'none';
+
+    // Ergebnis-Karten bauen
+    const container = document.getElementById('rf-result-cards');
+    container.innerHTML = '';
+    data.raster.forEach(function(rec) {
+      const meta = rfGetMeta(rec.id);
+      if (!meta) return;
+      const card = document.createElement('div');
+      card.className = 'rf-result-card';
+      card.innerHTML =
+        '<span class="rf-rc-badge">Raster ' + meta.id + '</span>' +
+        '<p class="rf-rc-title">' + escHtml(meta.titel) + '</p>' +
+        '<p class="rf-rc-desc">' + escHtml(rec.hint) + '</p>' +
+        '<div class="rf-rc-actions">' +
+          '<button class="rt-btn" style="background:#f0f7ff;border-color:#bfdbfe;color:#1d4ed8;font-size:0.72rem;padding:0.3rem 0.5rem;flex:1;" onclick="openRasterPreview(\'' + meta.id + '\')">👁 Vorschau</button>' +
+          '<button class="rt-btn rt-docx" style="font-size:0.72rem;padding:0.3rem 0.5rem;" onclick="tileDl(\'' + meta.id + '\',\'lk\',\'docx\')" title="LK Word">W LK</button>' +
+          '<button class="rt-btn rt-pdf"  style="font-size:0.72rem;padding:0.3rem 0.5rem;" onclick="tileDl(\'' + meta.id + '\',\'lk\',\'pdf\')"  title="LK PDF">P LK</button>' +
+          '<button class="rt-btn rt-docx" style="font-size:0.72rem;padding:0.3rem 0.5rem;" onclick="tileDl(\'' + meta.id + '\',\'su\',\'docx\')" title="SuS Word">W SuS</button>' +
+          '<button class="rt-btn rt-pdf"  style="font-size:0.72rem;padding:0.3rem 0.5rem;" onclick="tileDl(\'' + meta.id + '\',\'su\',\'pdf\')"  title="SuS PDF">P SuS</button>' +
+          '<a href="builder.html?raster=' + meta.id + '" class="rt-btn rt-edit" style="font-size:0.72rem;padding:0.3rem 0.4rem;" title="Im Builder anpassen">✏️</a>' +
+        '</div>';
+      container.appendChild(card);
+    });
+
+    document.getElementById('rf-step2').style.display = '';
+  }
+
+  function rfBack() {
+    document.getElementById('rf-step2').style.display = 'none';
+    document.getElementById('rf-step1').style.display = '';
+    document.querySelectorAll('.rf-type-card').forEach(btn => btn.classList.remove('rf-active'));
+  }
+
+  function toggleAlleRaster() {
+    const wrap = document.getElementById('alle-raster-wrap');
+    const arrow = document.getElementById('alle-toggle-arrow');
+    const btn   = document.getElementById('alle-toggle-btn');
+    const open  = wrap.style.display === 'none';
+    wrap.style.display = open ? '' : 'none';
+    arrow.textContent = open ? '▲' : '▼';
+    btn.textContent = '';
+    btn.appendChild(document.createTextNode(open ? 'Alle 11 Raster ausblenden ' : 'Alle 11 Raster anzeigen '));
+    const arrowSpan = document.createElement('span');
+    arrowSpan.id = 'alle-toggle-arrow';
+    arrowSpan.textContent = open ? '▲' : '▼';
+    btn.appendChild(arrowSpan);
+  }
 </script>
 
 </body>
