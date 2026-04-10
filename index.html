@@ -891,83 +891,14 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
   function printRasterPreview() {
     const raw = window.RASTER_INDEX.find(r => r.id === _rpCurrentId);
     if (!raw) return;
-
-    const tab     = _rpCurrentTab;
-    const isLk    = tab === 'lk';
-    const titleTxt = raw.titel;
-    const vLabel  = isLk ? 'Einsch\u00e4tzung der Lehrkraft' : 'Selbsteinsch\u00e4tzung Sch\u00fcler:in';
-
-    // Versionsabh\u00e4ngige Farben \u2013 identisch zu den DOCX/PDF-Exporten
-    const titleColor       = isLk ? '#2A4E7A' : '#1A5C4A';
-    const headerKrit       = isLk ? '#3A6EA8' : '#2D7A68';
-    const critFill         = isLk ? '#E5EFF8' : '#DDF0EA';
-    const critTextColor    = isLk ? '#2A4E7A' : '#1A5C4A';
-    const stageHeaderColors = ['#7F96AA','#C09060','#4A7FB5','#5E9E42'];
-    const stageDataColors   = ['#F5F5F5','#FEF8EC','#EDF4FB','#EDF7E8'];
-    const stufenLabels      = isLk
-      ? ['Nicht erf\u00fcllt','Teilweise erf\u00fcllt','Weitgehend erf\u00fcllt','Vollst\u00e4ndig erf\u00fcllt']
-      : ['Das kann ich noch nicht sicher','Das kann ich teilweise','Das kann ich schon gut','Das kann ich sehr sicher'];
-    const punkteConfig = [{punkte:'0'},{punkte:'1\u20132'},{punkte:'3\u20134'},{punkte:'5'}];
-
-    // Header-Zeile
-    let tableHtml = '<table style="width:100%;border-collapse:collapse;font-size:9pt;table-layout:fixed;">';
-    tableHtml += '<thead><tr>';
-    tableHtml += '<th style="background:' + headerKrit + ';color:#fff;padding:5px 6px;border:1px solid #aaa;width:13%;font-weight:700;text-align:center;">Kriterium</th>';
-    for (let i = 0; i < 4; i++) {
-      const pts = isLk ? '<br>(' + punkteConfig[i].punkte + ' Pkt.)' : '';
-      tableHtml += '<th style="background:' + stageHeaderColors[i] + ';color:#fff;padding:5px 6px;border:1px solid #aaa;font-weight:700;text-align:center;">'
-        + escHtml(stufenLabels[i]) + pts + '</th>';
+    if (typeof window.jspdf === 'undefined' || typeof buildPdfPage === 'undefined') {
+      alert('PDF-Modul nicht geladen. Seite neu laden.');
+      return;
     }
-    tableHtml += '</tr></thead><tbody>';
-
-    // Kriterien-Zeilen
-    raw.k.forEach(function(k) {
-      tableHtml += '<tr>';
-      tableHtml += '<td style="background:' + critFill + ';color:' + critTextColor + ';padding:5px 6px;border:1px solid #aaa;font-weight:700;vertical-align:middle;min-height:28mm;">'
-        + escHtml(k.name) + '</td>';
-      for (var s = 1; s <= 4; s++) {
-        var text = (k[tab] && k[tab]['s' + s]) || '';
-        var prefix = isLk ? '' : '\u2610 ';
-        tableHtml += '<td style="background:' + stageDataColors[s - 1] + ';padding:5px 6px;border:1px solid #aaa;vertical-align:middle;word-wrap:break-word;">'
-          + prefix + escHtml(text) + '</td>';
-      }
-      tableHtml += '</tr>';
-    });
-    tableHtml += '</tbody></table>';
-
-    // Meta-Zeile
-    var metaHtml = isLk
-      ? '<p style="margin:5px 0;font-size:8pt;color:#666;">Name: _______________________&nbsp;&nbsp; Fach: _____________&nbsp;&nbsp; Datum: _____________&nbsp;&nbsp; Punkte: _____/20</p>'
-      : '<p style="margin:5px 0;font-size:8pt;color:#666;">Name: _______________________&nbsp;&nbsp; Klasse: _____________&nbsp;&nbsp; Datum: _____________</p>';
-
-    // Hinweis-Zeile
-    var hint = isLk ? (raw.hl || '') : (raw.hs || '');
-    var hintHtml = hint
-      ? '<p style="font-size:7.5pt;color:#888;margin-top:5px;"><strong style="color:#555;">Hinweis:</strong> ' + escHtml(hint) + '</p>'
-      : '';
-
-    var win = window.open('', '_blank', 'width=1070,height=720');
-    win.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><title>' + escHtml(titleTxt) + '</title>');
-    win.document.write('<style>'
-      + '@page{size:A4 landscape;margin:15mm;}'
-      + '*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;box-sizing:border-box;}'
-      + 'html{margin:0;padding:0;}'
-      /* Body = 267mm = A4 Querformat (297mm) minus 2×15mm Seitenränder.
-         Auf dem Bildschirm ist der Inhalt damit genauso breit wie die spätere
-         Druckseite → kein Skalierungsunterschied beim Drucken. */
-      + 'body{width:267mm;margin:0 auto;padding:0;font-family:Arial,Helvetica,sans-serif;font-size:9pt;}'
-      + '@media print{body{width:auto;margin:0;}}'
-      + '</style>');
-    win.document.write('</head><body>');
-    win.document.write('<p style="font-weight:700;font-size:11pt;color:' + titleColor + ';margin:0 0 3px;">Bewertungsraster '
-      + escHtml(titleTxt) + ' \u2013 ' + vLabel + '</p>');
-    win.document.write(metaHtml);
-    win.document.write(tableHtml);
-    win.document.write(hintHtml);
-    win.document.write('</body></html>');
-    win.document.close();
-    win.focus();
-    win.print();
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+    buildPdfPage(doc, toRasterObj(raw), _rpCurrentTab);
+    window.open(doc.output('bloburl'), '_blank');
   }
 
   /* ── Alle Raster als ZIP ──────────────────────── */
