@@ -294,7 +294,20 @@
       /* Unter 400px: Aufgabentypen einspaltig */
       .rf-type-grid { grid-template-columns: 1fr; }
     }
-  </style>
+  
+/* ── Blog-Artikel-Links ─────────────────────────────────── */
+.blog-articles { margin-top: 0.9rem; display: flex; flex-direction: column; gap: 0.45rem; }
+.blog-article-link {
+  display: flex; align-items: baseline; gap: 0.5rem;
+  font-size: 0.85rem; font-weight: 600; color: #2a4e7a;
+  text-decoration: none; padding: 0.5rem 0.65rem;
+  border-radius: 8px; border: 1px solid #d0e6f8; background: #fff;
+  transition: background .15s, border-color .15s; line-height: 1.35;
+}
+.blog-article-link:hover { background: #e8f2fc; border-color: #93c5fd; }
+.blog-article-link.soon { color: #94a3b8; border-color: #e2e8f0; background: #f8fafc; cursor: default; pointer-events: none; }
+.blog-article-domain { font-size: 0.73rem; font-weight: 400; color: #94a3b8; margin-left: auto; white-space: nowrap; flex-shrink: 0; }
+</style>
 </head>
 <body>
 
@@ -585,16 +598,23 @@
     </div><!-- /alle-raster-wrap -->
 
     <!-- ── Blog-Verweis ──────────────────────────────────────── -->
-    <!-- TODO: href auf finale URL aktualisieren, sobald Blogbeitrag live -->
-    <a href="#"
-       class="alle-wrap"
-       style="text-decoration:none; margin-top:0.75rem; display:flex;"
-       target="_blank" rel="noopener noreferrer">
-      <div>
-        <h2 class="rf-headline" style="margin-bottom:0.2rem;">📖 Sie möchten mehr über die Hintergründe erfahren?</h2>
-        <p class="rf-subline" style="margin:0;">Zum Blogbeitrag „10+1 KI-Raster für Unterricht und Prüfungen“ auf www.joschafalck.de 🔗</p>
+    <div class="alle-wrap" style="margin-top:0.75rem;">
+      <h2 class="rf-headline" style="margin-bottom:0.6rem;">📖 Hintergründe &amp; weiterführende Artikel</h2>
+      <div class="blog-articles">
+        <span class="blog-article-link soon">
+          <span>„10+1 KI-Raster für Unterricht und Prüfungen“</span>
+          <span class="blog-article-domain">demnächst</span>
+        </span>
+        <a class="blog-article-link" href="https://joschafalck.de/ki-bewertung/" target="_blank" rel="noopener noreferrer">
+          <span>„KI-Einsatz im Unterricht reflektieren und bewerten“</span>
+          <span class="blog-article-domain">joschafalck.de ↗</span>
+        </a>
+        <a class="blog-article-link" href="https://joschafalck.de/pruefen-und-ki/" target="_blank" rel="noopener noreferrer">
+          <span>„Prüfungsaufgaben mit Künstlicher Intelligenz“</span>
+          <span class="blog-article-domain">joschafalck.de ↗</span>
+        </a>
       </div>
-    </a>
+    </div>
 
   </div>
 </main>
