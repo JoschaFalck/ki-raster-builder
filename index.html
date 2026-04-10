@@ -805,10 +805,17 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
     const base = window.location.href.replace(/[^/]*$/, '');
     const url = base + 'builder.html?raster=' + id;
     navigator.clipboard.writeText(url).then(() => {
-      const orig = btn.textContent;
-      btn.textContent = '✓';
-      btn.style.color = '#16a34a';
-      setTimeout(() => { btn.textContent = orig; btn.style.color = ''; }, 1500);
+      const rect = btn.getBoundingClientRect();
+      const tip = document.createElement('span');
+      tip.textContent = 'Link zum Raster kopiert';
+      tip.style.cssText = 'position:fixed;background:#1e293b;color:#fff;font-size:0.72rem;font-family:inherit;'
+        + 'padding:0.3rem 0.65rem;border-radius:6px;white-space:nowrap;pointer-events:none;z-index:9999;'
+        + 'left:' + (rect.left + rect.width / 2) + 'px;'
+        + 'top:' + (rect.top - 36) + 'px;'
+        + 'transform:translateX(-50%);opacity:1;transition:opacity .35s;';
+      document.body.appendChild(tip);
+      setTimeout(() => { tip.style.opacity = '0'; }, 1000);
+      setTimeout(() => { document.body.removeChild(tip); }, 1350);
     }).catch(() => {
       prompt('Link kopieren:', url);
     });
