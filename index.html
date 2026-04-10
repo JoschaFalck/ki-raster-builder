@@ -241,40 +241,12 @@
       gap: 0.65rem;
     }
     @media (max-width: 760px) { .rf-result-cards { grid-template-columns: 1fr; } }
-    .rf-result-card {
-      background: #fff;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 10px;
-      padding: 0.9rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      border-top: 3px solid #3a6ea8;
-    }
-    .rf-rc-badge {
-      font-size: 0.63rem;
-      font-weight: 700;
-      letter-spacing: .07em;
-      text-transform: uppercase;
+    .rf-legend {
+      font-size: 0.74rem;
       color: #94a3b8;
-    }
-    .rf-rc-title {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: #1e293b;
-      margin: 0;
-    }
-    .rf-rc-desc {
-      font-size: 0.76rem;
-      color: #64748b;
-      line-height: 1.4;
-      flex: 1;
-    }
-    .rf-rc-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.3rem;
-      margin-top: 0.25rem;
+      margin: 0.6rem 0 0;
+      padding-top: 0.5rem;
+      border-top: 1px solid #e2e8f0;
     }
     /* Alle-Raster-Umschalter */
     .alle-section-toggle {
@@ -342,6 +314,11 @@
       <!-- Schritt 1: Aufgabentyp wählen -->
       <div id="rf-step1">
         <div class="rf-type-grid">
+          <button class="rf-type-card" onclick="rfSelectType('einstieg')">
+            <span class="rf-type-icon">🚀</span>
+            <span class="rf-type-name">Ersteinstieg in der Klasse</span>
+            <span class="rf-type-desc">Erste strukturierte KI-Nutzung mit der Lerngruppe einführen</span>
+          </button>
           <button class="rf-type-card" onclick="rfSelectType('text')">
             <span class="rf-type-icon">✍️</span>
             <span class="rf-type-name">Textproduktion</span>
@@ -362,11 +339,6 @@
             <span class="rf-type-name">Vergleichsaufgabe</span>
             <span class="rf-type-desc">Texte, Quellen oder Argumente mit KI vergleichen und bewerten</span>
           </button>
-          <button class="rf-type-card" onclick="rfSelectType('einstieg')">
-            <span class="rf-type-icon">🚀</span>
-            <span class="rf-type-name">Ersteinstieg in der Klasse</span>
-            <span class="rf-type-desc">Erste strukturierte KI-Nutzung mit der Lerngruppe einführen</span>
-          </button>
           <button class="rf-type-card" onclick="rfSelectType('kreativ')">
             <span class="rf-type-icon">🎨</span>
             <span class="rf-type-name">Kreativ / gestalterisch</span>
@@ -379,6 +351,7 @@
       <div id="rf-step2" style="display:none;" class="rf-results-wrap">
         <button class="rf-back-btn" onclick="rfBack()">← Andere Aufgabe wählen</button>
         <div id="rf-result-cards" class="rf-result-cards"></div>
+        <p class="rf-legend"><strong>W</strong> = Word (.docx) &nbsp;·&nbsp; <strong>P</strong> = PDF &nbsp;·&nbsp; <strong>LK</strong> = Lehrkraft &nbsp;·&nbsp; <strong>SuS</strong> = Schüler:in &nbsp;·&nbsp; ✏️ = Im Builder anpassen</p>
       </div>
     </div>
 
@@ -648,28 +621,32 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
 
     const legend = document.getElementById('rt-legend');
 
+    // Scope auf #alle-raster-wrap – Finder-Kacheln bleiben unberührt
+    const scope = document.getElementById('alle-raster-wrap');
+    if (!scope) return;
+
     if (filter === 'alle') {
       // Vorschau-Modus: Download-Buttons weg, Kacheln klickbar
-      document.querySelectorAll('.rt-actions').forEach(a => a.style.display = 'none');
-      document.querySelectorAll('.rt').forEach(t => {
+      scope.querySelectorAll('.rt-actions').forEach(a => a.style.display = 'none');
+      scope.querySelectorAll('.rt').forEach(t => {
         t.classList.add('rt-preview-mode');
         t.style.pointerEvents = '';
       });
       if (legend) legend.style.display = 'none';
     } else {
       // Download-Modus: Buttons einblenden, Kacheln nicht als Card klickbar
-      document.querySelectorAll('.rt-actions').forEach(a => a.style.display = '');
-      document.querySelectorAll('.rt').forEach(t => {
+      scope.querySelectorAll('.rt-actions').forEach(a => a.style.display = '');
+      scope.querySelectorAll('.rt').forEach(t => {
         t.classList.remove('rt-preview-mode');
         t.style.cursor = '';
       });
       if (legend) legend.style.display = '';
       if (filter === 'lk') {
-        document.querySelectorAll('.rt-version-su').forEach(b => b.style.display = 'none');
-        document.querySelectorAll('.rt-version-lk, .rt-edit').forEach(b => b.style.display = '');
+        scope.querySelectorAll('.rt-version-su').forEach(b => b.style.display = 'none');
+        scope.querySelectorAll('.rt-version-lk, .rt-edit').forEach(b => b.style.display = '');
       } else {
-        document.querySelectorAll('.rt-version-lk').forEach(b => b.style.display = 'none');
-        document.querySelectorAll('.rt-version-su, .rt-edit').forEach(b => b.style.display = '');
+        scope.querySelectorAll('.rt-version-lk').forEach(b => b.style.display = 'none');
+        scope.querySelectorAll('.rt-version-su, .rt-edit').forEach(b => b.style.display = '');
       }
     }
 
@@ -934,12 +911,17 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
       ? '<p style="font-size:7.5pt;color:#888;margin-top:5px;"><strong style="color:#555;">Hinweis:</strong> ' + escHtml(hint) + '</p>'
       : '';
 
-    var win = window.open('', '_blank', 'width=1200,height=850');
+    var win = window.open('', '_blank', 'width=1070,height=720');
     win.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><title>' + escHtml(titleTxt) + '</title>');
     win.document.write('<style>'
       + '@page{size:A4 landscape;margin:15mm;}'
-      + '*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}'
-      + 'body{padding:0;margin:0;font-family:Arial,Helvetica,sans-serif;font-size:9pt;}'
+      + '*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;box-sizing:border-box;}'
+      + 'html{margin:0;padding:0;}'
+      /* Body = 267mm = A4 Querformat (297mm) minus 2×15mm Seitenränder.
+         Auf dem Bildschirm ist der Inhalt damit genauso breit wie die spätere
+         Druckseite → kein Skalierungsunterschied beim Drucken. */
+      + 'body{width:267mm;margin:0 auto;padding:0;font-family:Arial,Helvetica,sans-serif;font-size:9pt;}'
+      + '@media print{body{width:auto;margin:0;}}'
       + '</style>');
     win.document.write('</head><body>');
     win.document.write('<p style="font-weight:700;font-size:11pt;color:' + titleColor + ';margin:0 0 3px;">Bewertungsraster '
@@ -1082,10 +1064,26 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
     },
   };
 
-  // Raster-Metadaten für die Ergebniskarten (aus RASTER_INDEX)
-  function rfGetMeta(id) {
-    return window.RASTER_INDEX.find(r => r.id === id) || null;
-  }
+  // Farben und Kurzbeschreibungen der Raster (identisch zu den rt-Kacheln)
+  const RASTER_COLORS = {
+    '01':'#3A6EA8','02':'#3A6EA8',
+    '03':'#E65100','04':'#E65100','05':'#E65100','06':'#E65100',
+    '07':'#2E7D32','08':'#2E7D32','09':'#2E7D32',
+    '10':'#00838F','11':'#6A1B9A'
+  };
+  const RASTER_DESCS = {
+    '01':'Bewertet die Qualität der KI-Prompteingaben',
+    '02':'Bewertet die Dokumentation des KI-gestützten Arbeitsprozesses',
+    '03':'Bewertet die kritische Analyse von KI-Ausgaben',
+    '04':'Bewertet die kriteriengestützte Auswahl von KI-Ergebnissen',
+    '05':'Bewertet die gezielte Überarbeitung von KI-Ergebnissen',
+    '06':'Bewertet den Vergleich zwischen KI-gestützter und eigenständiger Arbeit',
+    '07':'Bewertet die Reflexion des eigenen KI-gestützten Lernprozesses',
+    '08':'Bewertet die Urteilsbildung über sinnvollen KI-Einsatz',
+    '09':'Bewertet ethischen und verantwortungsvollen Umgang mit KI',
+    '10':'Bewertet den reflektierten KI-Einsatz über einen längeren Zeitraum',
+    '11':'Bewertet die Planung des KI-Einsatzes vor der Aufgabe'
+  };
 
   function rfSelectType(type) {
     const data = RF_DATA[type];
@@ -1096,27 +1094,102 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
     event.currentTarget.classList.add('rf-active');
     document.getElementById('rf-step1').style.display = 'none';
 
-    // Ergebnis-Karten bauen
+    // Ergebnis-Kacheln bauen – identisch zu den rt-Kacheln
     const container = document.getElementById('rf-result-cards');
     container.innerHTML = '';
+
     data.raster.forEach(function(rec) {
-      const meta = rfGetMeta(rec.id);
+      const meta = window.RASTER_INDEX.find(r => r.id === rec.id);
       if (!meta) return;
-      const card = document.createElement('div');
-      card.className = 'rf-result-card';
-      card.innerHTML =
-        '<span class="rf-rc-badge">Raster ' + meta.id + '</span>' +
-        '<p class="rf-rc-title">' + escHtml(meta.titel) + '</p>' +
-        '<p class="rf-rc-desc">' + escHtml(rec.hint) + '</p>' +
-        '<div class="rf-rc-actions">' +
-          '<button class="rt-btn" style="background:#f0f7ff;border-color:#bfdbfe;color:#1d4ed8;font-size:0.72rem;padding:0.3rem 0.5rem;flex:1;" onclick="openRasterPreview(\'' + meta.id + '\')">👁 Vorschau</button>' +
-          '<button class="rt-btn rt-docx" style="font-size:0.72rem;padding:0.3rem 0.5rem;" onclick="tileDl(\'' + meta.id + '\',\'lk\',\'docx\')" title="LK Word">W LK</button>' +
-          '<button class="rt-btn rt-pdf"  style="font-size:0.72rem;padding:0.3rem 0.5rem;" onclick="tileDl(\'' + meta.id + '\',\'lk\',\'pdf\')"  title="LK PDF">P LK</button>' +
-          '<button class="rt-btn rt-docx" style="font-size:0.72rem;padding:0.3rem 0.5rem;" onclick="tileDl(\'' + meta.id + '\',\'su\',\'docx\')" title="SuS Word">W SuS</button>' +
-          '<button class="rt-btn rt-pdf"  style="font-size:0.72rem;padding:0.3rem 0.5rem;" onclick="tileDl(\'' + meta.id + '\',\'su\',\'pdf\')"  title="SuS PDF">P SuS</button>' +
-          '<a href="builder.html?raster=' + meta.id + '" class="rt-btn rt-edit" style="font-size:0.72rem;padding:0.3rem 0.4rem;" title="Im Builder anpassen">✏️</a>' +
-        '</div>';
-      container.appendChild(card);
+      const color = RASTER_COLORS[rec.id] || '#3A6EA8';
+      const desc  = RASTER_DESCS[rec.id]  || '';
+
+      const article = document.createElement('article');
+      article.className = 'rt rt-preview-mode';
+      article.style.cssText = 'border-left:3px solid ' + color;
+      article.addEventListener('click', function() { openRasterPreview(rec.id); });
+
+      // rt-head: Nummer + Link-Button
+      const head = document.createElement('div');
+      head.className = 'rt-head';
+      const numSpan = document.createElement('span');
+      numSpan.className = 'rt-num';
+      numSpan.textContent = 'Nr. ' + meta.id;
+      head.appendChild(numSpan);
+      const linkBtn = document.createElement('button');
+      linkBtn.className = 'rt-link-btn';
+      linkBtn.title = 'Link kopieren';
+      linkBtn.textContent = '🔗';
+      linkBtn.addEventListener('click', function(e) { e.stopPropagation(); copyTileLink(rec.id, linkBtn); });
+      head.appendChild(linkBtn);
+      article.appendChild(head);
+
+      // Titel
+      const titleEl = document.createElement('h3');
+      titleEl.className = 'rt-title';
+      titleEl.textContent = meta.titel;
+      article.appendChild(titleEl);
+
+      // Standard-Kurzbeschreibung
+      const descP = document.createElement('p');
+      descP.className = 'rt-desc';
+      descP.textContent = desc;
+      article.appendChild(descP);
+
+      // Empfehlungshinweis (kursiv, dezent)
+      const hintP = document.createElement('p');
+      hintP.style.cssText = 'font-size:0.72rem;color:#64748b;margin:0;line-height:1.35;font-style:italic;';
+      hintP.textContent = rec.hint;
+      article.appendChild(hintP);
+
+      // Vorschau-Hint
+      const pvHint = document.createElement('p');
+      pvHint.className = 'rt-preview-hint';
+      pvHint.style.display = 'flex';
+      pvHint.textContent = '👁 Klick für Vorschau';
+      article.appendChild(pvHint);
+
+      // Download-Buttons (immer sichtbar im Finder)
+      const actions = document.createElement('div');
+      actions.className = 'rt-actions';
+      // kein display:none – im Finder immer eingeblendet
+
+      const row1 = document.createElement('div');
+      row1.className = 'rt-row';
+      [['rt-docx','lk','docx','W LK','LK-Version als Word'],
+       ['rt-pdf', 'lk','pdf', 'P LK','LK-Version als PDF'],
+       ['rt-docx','su','docx','W SuS','SuS-Version als Word'],
+       ['rt-pdf', 'su','pdf', 'P SuS','SuS-Version als PDF']
+      ].forEach(function(cfg) {
+        const btn = document.createElement('button');
+        btn.className = 'rt-btn ' + cfg[0];
+        btn.title = cfg[4];
+        btn.textContent = cfg[3];
+        const id = rec.id, ver = cfg[1], fmt = cfg[2];
+        btn.addEventListener('click', function(e) { e.stopPropagation(); tileDl(id, ver, fmt); });
+        row1.appendChild(btn);
+      });
+      const editLink = document.createElement('a');
+      editLink.className = 'rt-btn rt-edit';
+      editLink.href = 'builder.html?raster=' + rec.id;
+      editLink.title = 'Im Builder anpassen';
+      editLink.textContent = '✏️';
+      editLink.addEventListener('click', function(e) { e.stopPropagation(); });
+      row1.appendChild(editLink);
+      actions.appendChild(row1);
+
+      const row2 = document.createElement('div');
+      row2.className = 'rt-row rt-row-zip';
+      const zipBtn = document.createElement('button');
+      zipBtn.className = 'rt-btn rt-zip';
+      zipBtn.title = 'Beide Versionen als ZIP';
+      zipBtn.textContent = '📦 Beide als ZIP';
+      zipBtn.addEventListener('click', function(e) { e.stopPropagation(); tileZipDl(rec.id); });
+      row2.appendChild(zipBtn);
+      actions.appendChild(row2);
+
+      article.appendChild(actions);
+      container.appendChild(article);
     });
 
     document.getElementById('rf-step2').style.display = '';
