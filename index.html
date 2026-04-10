@@ -274,6 +274,26 @@
       transition: transform .2s;
     }
     .alle-wrap.open .alle-wrap-arrow { transform: rotate(180deg); }
+
+    /* ── Mobile ──────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .rf-wrap  { padding: 1.1rem 1rem; }
+      .alle-wrap { padding: 0.9rem 1rem; }
+      .rf-headline { font-size: 1rem; }
+      .rf-subline  { font-size: 0.82rem; }
+      .rf-type-grid { gap: 0.45rem; }
+      .rf-type-card { padding: 0.7rem 0.6rem; }
+      .rf-type-icon { font-size: 1.2rem; }
+      .rf-type-name { font-size: 0.82rem; }
+      .rf-type-desc { font-size: 0.7rem; }
+      /* Vorschau-Modal: Tabelle scrollbar machen */
+      #rp-body { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .rp-preview-table { min-width: 480px; }
+    }
+    @media (max-width: 400px) {
+      /* Unter 400px: Aufgabentypen einspaltig */
+      .rf-type-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>

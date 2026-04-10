@@ -1590,6 +1590,9 @@ input[type="range"] {
 }
 
 @media (max-width: 768px) {
+  html, body { overflow-x: hidden; }
+  main { padding: 1.25rem 0 2rem; }
+  .page-intro { padding: 1.5rem 0; }
   .tiles-grid { grid-template-columns: repeat(2, 1fr); }
   .cards-grid { grid-template-columns: 1fr; }
   .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--color-lk); padding: 0.5rem; z-index: 101; }
