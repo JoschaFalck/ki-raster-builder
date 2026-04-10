@@ -222,8 +222,10 @@ async function generateDocxBlob(config) {
 
     const dataCells = Array.from({ length: stufen }, (_, i) => {
       const text = k.stufen?.[i] || '';
+      // SuS-Version: Ankreuz-Checkbox (☐) vor jede Stufenbeschreibung
+      const cellText = isLk ? text : '\u2610 ' + text;
       return makeCell(
-        [makeRun(text, { color: DOCX_COLORS.bodyText, size: 18 })],
+        [makeRun(cellText, { color: DOCX_COLORS.bodyText, size: 18 })],
         { width: colWidths[i], fill: DOCX_COLORS.stageData[i] || 'FFFFFF' }
       );
     });

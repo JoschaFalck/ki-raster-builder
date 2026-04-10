@@ -180,23 +180,31 @@ function buildPdfPage(doc, raster, version) {
     columnStyles: buildPdfColumnStyles(stufen, colWidths),
     headStyles: {
       // fillColor wird per willDrawCell gesetzt
-      textColor: PDF_COLORS.white,
-      fontStyle: 'bold',
-      fontSize:  9.5,
-      cellPadding: { top: 2, right: 2, bottom: 2, left: 2 },
-      halign: 'center',
-      valign: 'middle',
+      textColor:      PDF_COLORS.white,
+      fontStyle:      'bold',
+      fontSize:       9.5,
+      // Padding proportional zu DOCX: top/bottom=140 DXA≈2.5mm, left/right=160 DXA≈2.8mm
+      cellPadding:    { top: 2.5, right: 2.8, bottom: 2.5, left: 2.8 },
+      halign:         'center',
+      valign:         'middle',
+      // Mindesthöhe entspricht DOCX-Headerzeile: 820 DXA ≈ 14.5mm
+      minCellHeight:  14,
     },
     bodyStyles: {
-      fontSize:    9,
-      cellPadding: { top: 2, right: 2.5, bottom: 2, left: 2.5 },
-      textColor:   PDF_COLORS.bodyText,
-      valign:      'top',
-      lineColor:   PDF_COLORS.border,
-      lineWidth:   0.2,
+      fontSize:       9,
+      // Padding identisch zu DOCX-Zellrändern: top/bottom=140 DXA≈2.5mm, left/right=160 DXA≈2.8mm
+      cellPadding:    { top: 2.5, right: 2.8, bottom: 2.5, left: 2.8 },
+      textColor:      PDF_COLORS.bodyText,
+      // Vertikal zentriert wie DOCX (verticalAlign: 'center')
+      valign:         'middle',
+      lineColor:      PDF_COLORS.border,
+      lineWidth:      0.2,
+      // Mindesthöhe entspricht DOCX-Datenzeile: 1701 DXA ≈ 30mm
+      minCellHeight:  30,
     },
     alternateRowStyles: {},
-    margin:      { left: PDF_MARGIN, right: PDF_MARGIN },
+    // top: 0 verhindert unerwarteten Standard-Abstand bei autoTable
+    margin:      { top: 0, left: PDF_MARGIN, right: PDF_MARGIN, bottom: PDF_MARGIN },
     tableWidth:  PDF_NET_W,
     styles: {
       overflow:   'linebreak',
@@ -277,13 +285,15 @@ function buildPdfHeaderRow(stufen, labelArr, punkteConfig, isLk) {
 
 /**
  * Body-Zeilen – Farben werden per didParseCell gesetzt.
+ * SuS-Version: Ankreuz-Checkbox (☐ U+2610) vor jede Stufenbeschreibung.
  */
 function buildPdfBodyRows(kriterien, version, stufen) {
+  const prefix = version === 'su' ? '\u2610 ' : '';
   return kriterien.map(k => {
     const row = [{ content: k.name || 'Kriterium' }];
     for (let i = 0; i < stufen; i++) {
       const text = k[version]?.[`s${i + 1}`] || k.stufen?.[i] || '';
-      row.push({ content: text });
+      row.push({ content: prefix + text });
     }
     return row;
   });

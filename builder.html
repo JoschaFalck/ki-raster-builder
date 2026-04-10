@@ -637,8 +637,11 @@ LK_1_STUFE_1: …
     const params = new URLSearchParams(window.location.search);
     const rasterId = params.get('raster');
     if (rasterId) {
-      // Wait for app.js to initialise, then load
       window._preloadRasterId = rasterId;
+    }
+    const perspektive = params.get('perspektive');
+    if (perspektive === 'lk' || perspektive === 'su') {
+      window._preloadPerspektive = perspektive;
     }
   })();
 </script>

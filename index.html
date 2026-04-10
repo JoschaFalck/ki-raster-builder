@@ -556,7 +556,7 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
     document.getElementById('rp-num').textContent = 'Nr. ' + id;
     document.getElementById('rp-title').textContent = raw.titel;
     document.getElementById('rp-desc').textContent = startTab === 'lk' ? (raw.hl || '') : (raw.hs || '');
-    document.getElementById('rp-edit-link').href = 'builder.html?raster=' + id;
+    // Edit-Link wird in rpSetTab() mit der aktiven Perspektive gesetzt
 
     // Tab-Buttons ein-/ausblenden je nach Filter
     const tabLk = document.getElementById('rp-tab-lk');
@@ -599,7 +599,9 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
       html += `<td class="rp-crit-name">${escHtml(k.name)}</td>`;
       for (let s = 1; s <= 4; s++) {
         const text = (k[tab] && k[tab]['s'+s]) || '';
-        html += `<td class="rp-s${s}">${escHtml(text)}</td>`;
+        // SuS-Version: Ankreuz-Checkbox (☐) vor jede Stufenbeschreibung
+        const cellContent = tab === 'lk' ? escHtml(text) : '\u2610 ' + escHtml(text);
+        html += `<td class="rp-s${s}">${cellContent}</td>`;
       }
       html += '</tr>';
     });
@@ -613,6 +615,12 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
     }
 
     document.getElementById('rp-body').innerHTML = html;
+
+    // Edit-Link: Perspektive der aktiven Tab-Seite übergeben
+    const editLink = document.getElementById('rp-edit-link');
+    if (editLink && _rpCurrentId) {
+      editLink.href = 'builder.html?raster=' + _rpCurrentId + '&perspektive=' + tab;
+    }
   }
 
   function escHtml(str) {
@@ -683,7 +691,7 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
     const win = window.open('', '_blank', 'width=1100,height=800');
     win.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><title>' + title + '</title>');
     win.document.write('<link rel="stylesheet" href="style.css">');
-    win.document.write('<style>body{padding:2rem; font-family:system-ui,sans-serif;} .rp-preview-table{width:100%; border-collapse:collapse;} .rp-preview-table th,.rp-preview-table td{border:1px solid #ccc; padding:6px 8px; font-size:11px; vertical-align:top;} .rp-preview-table th{font-weight:700;} .rp-crit-name{font-weight:600; width:15%;}</style>');
+    win.document.write('<style>@page{size:A4 landscape; margin:15mm;} body{padding:0; font-family:system-ui,sans-serif; font-size:9pt;} h2{font-size:11pt; margin-bottom:8px;} .rp-preview-table{width:100%; border-collapse:collapse; table-layout:fixed;} .rp-preview-table th,.rp-preview-table td{border:1px solid #ccc; padding:4px 5px; font-size:9pt; vertical-align:middle; word-wrap:break-word;} .rp-preview-table th{font-weight:700; text-align:center;} .rp-crit-name{font-weight:600; width:13%;}</style>');
     win.document.write('</head><body>');
     win.document.write('<h2 style="font-size:1rem; margin-bottom:1rem;">' + escHtml(title) + '</h2>');
     win.document.write(body.innerHTML);

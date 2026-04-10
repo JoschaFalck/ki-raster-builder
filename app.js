@@ -334,7 +334,7 @@ function initBuilderPage() {
   // Autosave prüfen (nur wenn kein URL-Param vorhanden)
   if (!window._preloadRasterId) checkAutosave();
 
-  // URL-Param: Raster vorladen
+  // URL-Param: Raster vorladen (optional mit Perspektive)
   if (window._preloadRasterId) {
     selectStartOption('fertig');
     const selEl = document.getElementById('select-fertig-raster');
@@ -343,6 +343,10 @@ function initBuilderPage() {
       onFertigRasterChange();
     }
     goToStep(2);
+    // Perspektive aus URL-Param anwenden (lk | su — sonst bleibt Default 'beide')
+    if (window._preloadPerspektive) {
+      setPerspektive(window._preloadPerspektive);
+    }
   }
 }
 
@@ -1712,7 +1716,9 @@ function buildRasterTableHTML(raster, version) {
     html += `<tr><td class="col-kriterium">${escapeHtml(k.name || 'Kriterium')}</td>`;
     for (let s = 1; s <= stufen; s++) {
       const text = k[version]?.[`s${s}`] || '';
-      html += `<td class="col-s${s}">${escapeHtml(text)}</td>`;
+      // SuS-Version: Ankreuz-Checkbox (☐) vor jede Stufenbeschreibung
+      const cellContent = isLk ? escapeHtml(text) : '\u2610 ' + escapeHtml(text);
+      html += `<td class="col-s${s}">${cellContent}</td>`;
     }
     html += '</tr>';
   });
