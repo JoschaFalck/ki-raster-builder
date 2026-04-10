@@ -1063,17 +1063,16 @@ function duplicateCriterion(id) {
 
 /** Druckt die Builder-Vorschau sauber in einem neuen Fenster */
 function printBuilderPreview() {
-  const output = document.getElementById('preview-output');
-  if (!output) return;
-  const win = window.open('', '_blank', 'width=1100,height=800');
-  win.document.write('<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><title>Raster drucken</title>');
-  win.document.write('<link rel="stylesheet" href="style.css">');
-  win.document.write('<style>body{padding:2rem;} @media print{body{padding:0;}}</style>');
-  win.document.write('</head><body>');
-  win.document.write(output.innerHTML);
-  win.document.write('</body></html>');
-  win.document.close();
-  win.addEventListener('load', () => { win.focus(); win.print(); });
+  if (typeof window.jspdf === 'undefined' || typeof buildPdfPage === 'undefined') {
+    alert('PDF-Modul nicht geladen. Seite neu laden.');
+    return;
+  }
+  const rasterData = buildCurrentRasterData();
+  const version    = STATE.perspektive === 'su' ? 'su' : 'lk';
+  const { jsPDF }  = window.jspdf;
+  const doc        = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+  buildPdfPage(doc, rasterData, version);
+  window.open(doc.output('bloburl'), '_blank');
 }
 
 function updateCriteriaCount() {

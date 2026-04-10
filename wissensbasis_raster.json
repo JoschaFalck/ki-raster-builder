@@ -148,7 +148,7 @@
           }
         },
         {
-          "name": "Prompt- Dokumentation",
+          "name": "Prompt-Dokumentation",
           "lk": {
             "s1": "Verwendete Prompts wurden nicht dokumentiert.",
             "s2": "Einzelne Prompts sind aufgeführt, ohne Erläuterung oder Einordnung.",
@@ -188,7 +188,7 @@
       "kompetenzbereich": "Analytisch-kritisch",
       "kriterien": [
         {
-          "name": "Fehler- identifikation",
+          "name": "Fehleridentifikation",
           "lk": {
             "s1": "Fehler oder Schwächen in der KI-Antwort werden nicht erkannt.",
             "s2": "Offensichtliche Fehler werden benannt, ohne sie einzuordnen oder zu begründen.",
@@ -343,7 +343,7 @@
           }
         },
         {
-          "name": "Eigenleistungs- anteil",
+          "name": "Eigenleistungsanteil",
           "lk": {
             "s1": "Ein Eigenleistungsanteil ist nicht erkennbar.",
             "s2": "Einzelne eigene Gedanken oder Formulierungen sind vorhanden, prägen das Ergebnis aber kaum.",
@@ -358,7 +358,7 @@
           }
         },
         {
-          "name": "Überarbeitungs- strategie",
+          "name": "Überarbeitungsstrategie",
           "lk": {
             "s1": "Keine erkennbare Strategie bei der Überarbeitung. Änderungen wirken zufällig oder unsystematisch.",
             "s2": "Überarbeitungen zielen ansatzweise auf bestimmte Aspekte, aber ohne erkennbare Priorisierung oder Systematik.",
@@ -468,7 +468,7 @@
       "kompetenzbereich": "Personell",
       "kriterien": [
         {
-          "name": "Selbst- wahrnehmung",
+          "name": "Selbstwahrnehmung",
           "lk": {
             "s1": "Keine Wahrnehmung des eigenen Lernverhaltens beim KI-Einsatz erkennbar.",
             "s2": "Das eigene Vorgehen wird beschrieben, aber nicht in Bezug auf das eigene Lernen eingeordnet.",
@@ -483,7 +483,7 @@
           }
         },
         {
-          "name": "Prozess- reflexion",
+          "name": "Prozessreflexion",
           "lk": {
             "s1": "Keine Reflexion des eigenen Lernprozesses erkennbar.",
             "s2": "Der Lernprozess wird beschrieben, ohne ihn zu bewerten oder zu hinterfragen.",
@@ -538,7 +538,7 @@
       "kompetenzbereich": "Personell",
       "kriterien": [
         {
-          "name": "Situations- einschätzung",
+          "name": "Situationseinschätzung",
           "lk": {
             "s1": "Keine Einschätzung, ob KI für die jeweilige Aufgabe sinnvoll ist, erkennbar.",
             "s2": "KI-Einsatz wird pauschal bejaht oder abgelehnt, ohne situationsbezogene Begründung.",
@@ -748,7 +748,7 @@
       "kompetenzbereich": "Personell / SRL",
       "kriterien": [
         {
-          "name": "Aufgaben- analyse",
+          "name": "Aufgabenanalyse",
           "lk": {
             "s1": "Keine Analyse der Aufgabe vor dem KI-Einsatz erkennbar. KI wird ohne Vorüberlegung eingesetzt.",
             "s2": "Einzelne Aspekte der Aufgabe werden berücksichtigt, aber nicht systematisch daraufhin analysiert, ob und wie KI sinnvoll eingesetzt werden kann.",
@@ -763,7 +763,7 @@
           }
         },
         {
-          "name": "Ziel- setzung",
+          "name": "Zielsetzung",
           "lk": {
             "s1": "Kein erkennbares Ziel für den KI-Einsatz formuliert. Die Nutzung erfolgt ohne definierten Zweck.",
             "s2": "Ein Ziel ist ansatzweise erkennbar, aber vage oder nicht explizit formuliert.",
@@ -778,7 +778,7 @@
           }
         },
         {
-          "name": "Prompt- Planung",
+          "name": "Prompt-Planung",
           "lk": {
             "s1": "Keine Planung des Vorgehens erkennbar. Der erste Prompt entsteht ohne Vorbereitung.",
             "s2": "Ansatzweise Überlegungen zur Vorgehensweise erkennbar, aber kein konkreter Plan für die Gestaltung des Prompts oder die Nutzungsstrategie.",

@@ -243,6 +243,17 @@ function buildPdfPage(doc, raster, version) {
         data.cell.styles.fillColor = stageData;
       }
     },
+    didDrawCell(data) {
+      // SuS-Version: Checkbox als Vektorrechteck in der linken Padding-Fläche
+      if (version === 'su' && data.section === 'body' && data.column.index > 0) {
+        const boxSize = 3;
+        const bx = data.cell.x + 2.8;
+        const by = data.cell.y + (data.cell.height - boxSize) / 2;
+        doc.setDrawColor(80, 80, 80);
+        doc.setLineWidth(0.35);
+        doc.rect(bx, by, boxSize, boxSize, 'S');
+      }
+    },
   });
 
   y = doc.lastAutoTable.finalY + 4;
@@ -285,16 +296,18 @@ function buildPdfHeaderRow(stufen, labelArr, punkteConfig, isLk) {
 
 /**
  * Body-Zeilen – Farben werden per didParseCell gesetzt.
- * SuS-Version: Checkbox-Platzhalter [ ] vor jede Stufenbeschreibung.
- * Hinweis: ☐ (U+2610) liegt außerhalb von WinAnsi (Helvetica), daher ASCII [ ].
+ * SuS-Version: Kein Text-Prefix – Checkbox wird per didDrawCell als Vektorrechteck gezeichnet.
+ * Extra cellPadding.left schafft Platz für das Kästchen.
  */
 function buildPdfBodyRows(kriterien, version, stufen) {
-  const prefix = version === 'su' ? '[ ] ' : '';
+  const isSu = version === 'su';
   return kriterien.map(k => {
     const row = [{ content: k.name || 'Kriterium' }];
     for (let i = 0; i < stufen; i++) {
       const text = k[version]?.[`s${i + 1}`] || k.stufen?.[i] || '';
-      row.push({ content: prefix + text });
+      row.push(isSu
+        ? { content: text, styles: { cellPadding: { top: 2.5, right: 2.8, bottom: 2.5, left: 8 } } }
+        : { content: text });
     }
     return row;
   });
