@@ -249,25 +249,31 @@
       border-top: 1px solid #e2e8f0;
     }
     /* Alle-Raster-Umschalter */
-    .alle-section-toggle {
+    .alle-wrap {
+      background: linear-gradient(135deg, #f0f7ff 0%, #eaf4f0 100%);
+      border-radius: 14px;
+      padding: 1.25rem 1.75rem;
       margin-bottom: 0.75rem;
-    }
-    .alle-toggle-btn {
-      background: none;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 8px;
-      color: #64748b;
-      font-size: 0.82rem;
-      font-weight: 600;
+      border: 1px solid #c8ddf0;
       cursor: pointer;
-      padding: 0.45rem 0.9rem;
-      font-family: inherit;
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 0.35rem;
-      transition: all .15s;
+      justify-content: space-between;
+      gap: 1rem;
+      transition: box-shadow .15s, border-color .15s;
+      user-select: none;
     }
-    .alle-toggle-btn:hover { color: #3a6ea8; border-color: #93c5fd; background: #f0f7ff; }
+    .alle-wrap:hover {
+      border-color: #93c5fd;
+      box-shadow: 0 3px 14px rgba(58,110,168,0.1);
+    }
+    .alle-wrap-arrow {
+      font-size: 1rem;
+      color: #94a3b8;
+      flex-shrink: 0;
+      transition: transform .2s;
+    }
+    .alle-wrap.open .alle-wrap-arrow { transform: rotate(180deg); }
   </style>
 </head>
 <body>
@@ -356,10 +362,12 @@
     </div>
 
     <!-- ── Alle Raster (sekundär) ─────────────────────────────── -->
-    <div class="alle-section-toggle">
-      <button class="alle-toggle-btn" id="alle-toggle-btn" onclick="toggleAlleRaster()">
-        Alle 11 Raster anzeigen <span id="alle-toggle-arrow">▼</span>
-      </button>
+    <div class="alle-wrap" id="alle-wrap" onclick="toggleAlleRaster()" role="button" tabindex="0" aria-expanded="false">
+      <div>
+        <h2 class="rf-headline" style="margin-bottom:0.2rem;">🗂️ Du möchtest alle 11 Raster sehen?</h2>
+        <p class="rf-subline" style="margin:0;">Alle fertigen Bewertungsraster auf einen Blick – mit Vorschau und Download.</p>
+      </div>
+      <span class="alle-wrap-arrow" id="alle-toggle-arrow">▼</span>
     </div>
     <div id="alle-raster-wrap" style="display:none;">
 
@@ -1024,17 +1032,17 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
     text: {
       label: 'Textproduktion',
       raster: [
-        { id: '03', hint: 'Bewertet Umgang mit KI-generierten Texten – inhaltliche Einschätzung, Überarbeitung und Eigenleistung.' },
-        { id: '01', hint: 'Bewertet die Qualität der Prompt-Formulierung als Grundlage jeder Textproduktion mit KI.' },
-        { id: '02', hint: 'Für die Dokumentation und Transparenz über den KI-Einsatz im Schreibprozess.' },
+        { id: '03', hint: 'Passt, wenn Schüler:innen KI-Texte einschätzen, überarbeiten oder damit weiterarbeiten.' },
+        { id: '01', hint: 'Jede Textproduktion mit KI beginnt mit einem Prompt – das Raster macht seine Qualität sichtbar.' },
+        { id: '02', hint: 'Für Transparenz darüber, wie und in welchem Umfang KI im Schreibprozess eingesetzt wurde.' },
       ]
     },
     recherche: {
       label: 'Recherche',
       raster: [
         { id: '04', hint: 'Direkt auf KI-gestützte Rechercheaufgaben ausgerichtet – Strategie, Quellenkritik, Einordnung.' },
-        { id: '08', hint: 'Bewertet die kritische Reflexion über Quellen und deren Verlässlichkeit.' },
-        { id: '01', hint: 'Bewertet die Prompt-Qualität bei der gezielten Informationssuche.' },
+        { id: '08', hint: 'Schärft den Blick dafür, welchen Quellen und KI-Outputs wirklich vertraut werden kann.' },
+        { id: '01', hint: 'Gutes Recherchieren mit KI setzt präzises Prompting voraus – hier wird es sichtbar.' },
       ]
     },
     projekt: {
@@ -1048,7 +1056,7 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
     vergleich: {
       label: 'Vergleichsaufgabe',
       raster: [
-        { id: '08', hint: 'Bewertet die kritische Auseinandersetzung mit unterschiedlichen Quellen und Informationen.' },
+        { id: '08', hint: 'Schärft das Urteilsvermögen darüber, wann KI sinnvoll eingesetzt werden sollte und wann nicht.' },
         { id: '04', hint: 'Geeignet, wenn KI als Rechercheinstrument für Vergleichsmaterial genutzt wird.' },
         { id: '09', hint: 'Fördert die Reflexion über Stärken und Grenzen der KI bei Vergleichsaufgaben.' },
       ]
@@ -1064,7 +1072,7 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
     kreativ: {
       label: 'Kreativ / gestalterisch',
       raster: [
-        { id: '05', hint: 'Bewertet die kritische Analyse und kreative Nutzung von KI-generierten Bildern.' },
+        { id: '05', hint: 'Ideal für Aufgaben, bei denen KI-Bilder erstellt, analysiert oder bildkritisch eingesetzt werden.' },
         { id: '07', hint: 'Geeignet für Präsentationsaufgaben, die KI-Inhalte einbeziehen.' },
         { id: '03', hint: 'Wenn KI für kreative Textbausteine genutzt wird – z. B. Gedichte, Szenarien, Skripte.' },
       ]
@@ -1209,18 +1217,14 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
   }
 
   function toggleAlleRaster() {
-    const wrap = document.getElementById('alle-raster-wrap');
-    const arrow = document.getElementById('alle-toggle-arrow');
-    const btn   = document.getElementById('alle-toggle-btn');
-    const open  = wrap.style.display === 'none';
+    const wrap   = document.getElementById('alle-raster-wrap');
+    const card   = document.getElementById('alle-wrap');
+    const arrow  = document.getElementById('alle-toggle-arrow');
+    const open   = wrap.style.display === 'none';
     wrap.style.display = open ? '' : 'none';
-    arrow.textContent = open ? '▲' : '▼';
-    btn.textContent = '';
-    btn.appendChild(document.createTextNode(open ? 'Alle 11 Raster ausblenden ' : 'Alle 11 Raster anzeigen '));
-    const arrowSpan = document.createElement('span');
-    arrowSpan.id = 'alle-toggle-arrow';
-    arrowSpan.textContent = open ? '▲' : '▼';
-    btn.appendChild(arrowSpan);
+    arrow.textContent  = open ? '▲' : '▼';
+    card.classList.toggle('open', open);
+    card.setAttribute('aria-expanded', open ? 'true' : 'false');
   }
 </script>
 
