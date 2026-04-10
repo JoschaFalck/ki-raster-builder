@@ -285,10 +285,11 @@ function buildPdfHeaderRow(stufen, labelArr, punkteConfig, isLk) {
 
 /**
  * Body-Zeilen – Farben werden per didParseCell gesetzt.
- * SuS-Version: Ankreuz-Checkbox (☐ U+2610) vor jede Stufenbeschreibung.
+ * SuS-Version: Checkbox-Platzhalter [ ] vor jede Stufenbeschreibung.
+ * Hinweis: ☐ (U+2610) liegt außerhalb von WinAnsi (Helvetica), daher ASCII [ ].
  */
 function buildPdfBodyRows(kriterien, version, stufen) {
-  const prefix = version === 'su' ? '\u2610 ' : '';
+  const prefix = version === 'su' ? '[ ] ' : '';
   return kriterien.map(k => {
     const row = [{ content: k.name || 'Kriterium' }];
     for (let i = 0; i < stufen; i++) {
