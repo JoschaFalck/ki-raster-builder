@@ -285,7 +285,7 @@ function buildPdfPage(doc, raster, version) {
  * Header-Zeile – Farben werden per willDrawCell gesetzt.
  */
 function buildPdfHeaderRow(stufen, labelArr, punkteConfig, isLk) {
-  const row = [{ content: 'Kriterium', styles: { halign: 'center', fontStyle: 'bold' } }];
+  const row = [{ content: 'Kriterium', styles: { halign: 'left', fontStyle: 'bold' } }];
   for (let i = 0; i < stufen; i++) {
     const label = labelArr[i] || `Stufe ${i + 1}`;
     const pts   = isLk && punkteConfig[i] ? `\n(${punkteConfig[i].punkte} Pkt.)` : '';

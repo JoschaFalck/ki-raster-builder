@@ -187,7 +187,7 @@ async function generateDocxBlob(config) {
   const headerCells = [
     makeCell(
       [makeRun('Kriterium', { bold: true, color: DOCX_COLORS.headerText, size: 19 })],
-      { width: COL_KRITERIUM, fill: colors.headerKriterium, center: true }
+      { width: COL_KRITERIUM, fill: colors.headerKriterium }
     ),
   ];
 
