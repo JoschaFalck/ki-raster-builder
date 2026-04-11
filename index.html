@@ -153,11 +153,16 @@
       font-family: inherit;
     }
     .rp-tab.active { background: #3a6ea8; color: #fff; border-color: #3a6ea8; }
-    .rp-preview-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
-    .rp-preview-table th { background: #3a6ea8; color: #fff; padding: 0.5rem 0.75rem; text-align: left; font-weight: 600; }
-    .rp-preview-table td { padding: 0.5rem 0.75rem; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
-    .rp-preview-table tr:nth-child(even) td { background: #f8f9fa; }
-    .rp-crit-name { font-weight: 700; color: #1e293b; white-space: nowrap; }
+    @keyframes rpFadeUp {
+      from { opacity:0; transform:translateY(10px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    #rp-modal-box { animation: rpFadeUp 0.22s ease-out; }
+    .rp-preview-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; table-layout: fixed; }
+    .rp-preview-table th { background: #3a6ea8; color: #fff; padding: 0.5rem 0.75rem; text-align: left; font-weight: 600; position: sticky; top: 0; z-index: 2; }
+    .rp-preview-table td { padding: 0.5rem 0.75rem; border-bottom: 1px solid #e2e8f0; vertical-align: top; word-wrap: break-word; }
+    .rp-preview-table tbody tr:hover td { background: rgba(58,110,168,0.06) !important; }
+    .rp-crit-name { font-weight: 700; color: #1e293b; }
     .rp-s1 { background: #f0f0f0 !important; }
     .rp-s2 { background: #fff3e0 !important; }
     .rp-s3 { background: #e8f0fe !important; }
@@ -628,8 +633,8 @@ a.blog-card-item:hover { background: #e8f2fc; border-color: #93c5fd; }
 </main>
 
 <!-- Raster-Vorschau Modal -->
-<div id="raster-preview-backdrop" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:2000; overflow-y:auto; padding:2rem 1rem;" onclick="if(event.target===this)closeRasterPreview()">
-  <div style="background:#fff; border-radius:12px; max-width:1080px; margin:0 auto; box-shadow:0 20px 60px rgba(0,0,0,0.3); display:flex; flex-direction:column; max-height:90vh;">
+<div id="raster-preview-backdrop" style="display:none; position:fixed; inset:0; background:rgba(15,30,60,0.45); z-index:2000; backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px); overflow-y:auto; padding:2rem 1rem;" onclick="if(event.target===this)closeRasterPreview()">
+  <div id="rp-modal-box" style="background:#fff; border-radius:12px; max-width:1080px; margin:0 auto; box-shadow:0 24px 64px rgba(0,0,0,0.28); display:flex; flex-direction:column; max-height:90vh; border-top:4px solid #3a6ea8; overflow:hidden;">
     <div id="rp-header" style="padding:1.25rem 1.5rem; border-bottom:1px solid #dee2e6; display:flex; align-items:center; gap:1rem; flex-shrink:0;">
       <span id="rp-num" style="font-size:0.72rem; font-weight:700; color:#94a3b8; letter-spacing:.06em; text-transform:uppercase; white-space:nowrap;"></span>
       <h2 id="rp-title" style="margin:0; font-size:1.1rem; flex:1;"></h2>
@@ -788,6 +793,10 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
     const raw = window.RASTER_INDEX.find(r => r.id === id);
     if (!raw) return;
     _rpCurrentId = id;
+    // Akzentfarbe oben am Modal setzen
+    const accentColor = RASTER_COLORS[id] || '#3a6ea8';
+    const modalBox = document.getElementById('rp-modal-box');
+    if (modalBox) modalBox.style.borderTopColor = accentColor;
 
     // Startversion und Tab-Sichtbarkeit nach aktivem Filter
     const startTab = _currentFilter === 'su' ? 'su' : 'lk';
@@ -830,7 +839,7 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
       : ['Noch nicht sicher','Teilweise','Schon gut','Sehr sicher'];
 
     let html = '<table class="rp-preview-table"><thead><tr>';
-    html += '<th style="width:18%">Kriterium</th>';
+    html += '<th style="width:17%">Kriterium</th>';
     SL.forEach((l, i) => html += `<th class="rp-s${i+1}" style="background:${['#d8d8d8','#f0c87a','#a8c4f8','#a5d6a7'][i]}; color:#333;">${escHtml(l)}</th>`);
     html += '</tr></thead><tbody>';
 
