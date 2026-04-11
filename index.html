@@ -642,8 +642,9 @@
     <div id="rp-desc" style="padding:0.75rem 1.5rem; font-size:0.85rem; color:#6c757d; border-bottom:1px solid #dee2e6; flex-shrink:0;"></div>
     <div id="rp-body" style="padding:1.5rem; overflow-y:auto; flex:1;"></div>
     <div style="padding:1rem 1.5rem; border-top:1px solid #dee2e6; display:flex; justify-content:flex-end; gap:0.5rem; flex-shrink:0;">
-      <button onclick="copyPreviewLink(_rpCurrentId, this)" style="padding:0.5rem 1rem; background:#f8fafc; color:#64748b; border:1.5px solid #e2e8f0; border-radius:6px; cursor:pointer; font-size:0.875rem; font-weight:600;" title="Vorschau-Link kopieren">🔗 Vorschau teilen</button>
-      <a id="rp-edit-link" href="#" class="rt-btn rt-edit" style="padding:0.5rem 1rem; font-size:0.85rem; text-decoration:none; border-radius:6px; border:1.5px solid #e2e8f0; background:#f8fafc; color:#64748b;">✏️ Im Builder anpassen</a>
+      <button onclick="copyPreviewLink(_rpCurrentId, this)" style="padding:0.5rem 1rem; background:#f8fafc; color:#64748b; border:1.5px solid #e2e8f0; border-radius:6px; cursor:pointer; font-size:0.875rem; font-weight:600;" title="Vorschau-Link in die Zwischenablage kopieren">🔗 Vorschau teilen</button>
+      <button onclick="copyBuilderLink(this)" style="padding:0.5rem 1rem; background:#f8fafc; color:#64748b; border:1.5px solid #e2e8f0; border-radius:6px; cursor:pointer; font-size:0.875rem; font-weight:600;" title="Bearbeitungs-Link in die Zwischenablage kopieren">🔗 Bearbeitungs-Link teilen</button>
+      <a id="rp-edit-link" href="#" class="rt-btn rt-edit" style="padding:0.5rem 1rem; font-size:0.85rem; text-decoration:none; border-radius:6px; border:1.5px solid #e2e8f0; background:#f8fafc; color:#64748b;">✏️ Raster anpassen</a>
       <button onclick="printRasterPreview()" style="padding:0.5rem 1rem; background:#f8fafc; color:#64748b; border:1.5px solid #e2e8f0; border-radius:6px; cursor:pointer; font-size:0.875rem; font-weight:600;">🖨 Drucken</button>
       <button onclick="closeRasterPreview()" style="padding:0.5rem 1rem; background:#3a6ea8; color:#fff; border:none; border-radius:6px; cursor:pointer; font-size:0.875rem; font-weight:600;">Schließen</button>
     </div>
@@ -909,6 +910,24 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
     }).catch(() => { prompt('Link kopieren:', url); });
   }
 
+  function copyBuilderLink(btn) {
+    const base = window.location.href.replace(/[?#].*$/, '').replace(/[^/]*$/, '');
+    const url = base + 'builder.html?raster=' + _rpCurrentId;
+    navigator.clipboard.writeText(url).then(() => {
+      const rect = btn.getBoundingClientRect();
+      const tip = document.createElement('span');
+      tip.textContent = 'Bearbeitungs-Link kopiert';
+      tip.style.cssText = 'position:fixed;background:#1e293b;color:#fff;font-size:0.72rem;font-family:inherit;'
+        + 'padding:0.3rem 0.65rem;border-radius:6px;white-space:nowrap;pointer-events:none;z-index:9999;'
+        + 'left:' + (rect.left + rect.width / 2) + 'px;'
+        + 'top:' + (rect.top - 36) + 'px;'
+        + 'transform:translateX(-50%);opacity:1;transition:opacity .35s;';
+      document.body.appendChild(tip);
+      setTimeout(() => { tip.style.opacity = '0'; }, 1000);
+      setTimeout(() => { document.body.removeChild(tip); }, 1350);
+    }).catch(() => { prompt('Link kopieren:', url); });
+  }
+
   /* ── ZIP-Download ──────────────────────────────── */
   async function tileZipDl(id) {
     const raw = window.RASTER_INDEX.find(r => r.id === id);
@@ -1008,17 +1027,6 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
     const numEl = article.querySelector('.rt-num');
     if (!numEl) return;
     const id = numEl.textContent.replace('Nr.', '').trim();
-
-    // Link-kopieren-Button im rt-head
-    const head = article.querySelector('.rt-head');
-    if (head) {
-      const linkBtn = document.createElement('button');
-      linkBtn.className = 'rt-link-btn';
-      linkBtn.title = 'Link zu diesem Raster kopieren';
-      linkBtn.textContent = '🔗';
-      linkBtn.addEventListener('click', e => { e.stopPropagation(); copyTileLink(id, linkBtn); });
-      head.appendChild(linkBtn);
-    }
 
     // ZIP-Button in rt-actions
     const actions = article.querySelector('.rt-actions');
@@ -1142,12 +1150,6 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
       numSpan.className = 'rt-num';
       numSpan.textContent = 'Nr. ' + meta.id;
       head.appendChild(numSpan);
-      const linkBtn = document.createElement('button');
-      linkBtn.className = 'rt-link-btn';
-      linkBtn.title = 'Link kopieren';
-      linkBtn.textContent = '🔗';
-      linkBtn.addEventListener('click', function(e) { e.stopPropagation(); copyTileLink(rec.id, linkBtn); });
-      head.appendChild(linkBtn);
       article.appendChild(head);
 
       // Titel
@@ -1195,19 +1197,6 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
         btn.addEventListener('click', function(e) { e.stopPropagation(); tileDl(id, ver, fmt); });
         row1.appendChild(btn);
       });
-      const editLink = document.createElement('a');
-      editLink.className = 'rt-btn rt-edit';
-      editLink.href = 'builder.html?raster=' + rec.id;
-      editLink.title = 'Im Builder anpassen';
-      editLink.textContent = '✏️';
-      editLink.addEventListener('click', function(e) { e.stopPropagation(); });
-      row1.appendChild(editLink);
-      const shareBtn = document.createElement('button');
-      shareBtn.className = 'rt-btn rt-share-preview';
-      shareBtn.title = 'Vorschau-Link teilen';
-      shareBtn.textContent = '🔗';
-      shareBtn.addEventListener('click', function(e) { e.stopPropagation(); copyPreviewLink(rec.id, shareBtn); });
-      row1.appendChild(shareBtn);
       actions.appendChild(row1);
 
       const row2 = document.createElement('div');
