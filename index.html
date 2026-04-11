@@ -296,11 +296,16 @@
     }
   
 /* ── Blog-Artikel-Links ─────────────────────────────────── */
-.blog-articles { margin-top: 0.9rem; display: flex; flex-direction: column; gap: 0.45rem; }
+.blog-card { cursor: default !important; }
+.blog-card:hover { box-shadow: none !important; border-color: #c8ddf0 !important; }
+.blog-intro { max-width: 195px; flex-shrink: 0; }
+.blog-headline { font-size: 0.93rem; font-weight: 700; color: #1e3a5f; margin: 0 0 0.35rem; line-height: 1.35; }
+.blog-subtext { font-size: 0.78rem; color: #64748b; margin: 0; font-weight: 400; line-height: 1.45; }
+.blog-articles { flex: 1; display: flex; flex-direction: column; gap: 0.35rem; }
 .blog-article-link {
   display: flex; align-items: baseline; gap: 0.5rem;
-  font-size: 0.85rem; font-weight: 600; color: #2a4e7a;
-  text-decoration: none; padding: 0.5rem 0.65rem;
+  font-size: 0.84rem; font-weight: 600; color: #2a4e7a;
+  text-decoration: none; padding: 0.42rem 0.65rem;
   border-radius: 8px; border: 1px solid #d0e6f8; background: #fff;
   transition: background .15s, border-color .15s; line-height: 1.35;
 }
@@ -598,8 +603,11 @@
     </div><!-- /alle-raster-wrap -->
 
     <!-- ── Blog-Verweis ──────────────────────────────────────── -->
-    <div class="alle-wrap" style="margin-top:0.75rem;">
-      <h2 class="rf-headline" style="margin-bottom:0.6rem;">📖 Hintergründe &amp; weiterführende Artikel</h2>
+    <div class="alle-wrap blog-card" style="margin-top:1.5rem; padding:1rem 1.5rem; align-items:flex-start; cursor:default;">
+      <div class="blog-intro">
+        <p class="blog-headline">📖 Sie möchten mehr über die Hintergründe erfahren?</p>
+        <p class="blog-subtext">Erläuterungen und weiterführende Artikel zu KI-integrierenden Aufgaben, deren Reflexion und Bewertung</p>
+      </div>
       <div class="blog-articles">
         <span class="blog-article-link soon">
           <span>„10+1 KI-Raster für Unterricht und Prüfungen“</span>
