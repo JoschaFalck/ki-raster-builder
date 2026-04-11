@@ -1267,8 +1267,8 @@ function renderExportButtons() {
       <div class="export-group export-group-lk">
         <div class="export-group-header">📋 Lehrkraft-Version</div>
         <div class="export-group-btns">
-          <button class="btn btn-secondary" onclick="exportBuilderDocx('lk')">⬇ Word (.docx)</button>
-          <button class="btn btn-ghost" onclick="exportBuilderPdf('lk')">⬇ PDF</button>
+          <button class="btn btn-secondary" onclick="exportBuilderDocx('lk',this)">⬇ Word (.docx)</button>
+          <button class="btn btn-ghost" onclick="exportBuilderPdf('lk',this)">⬇ PDF</button>
         </div>
       </div>`;
   }
@@ -1277,14 +1277,14 @@ function renderExportButtons() {
       <div class="export-group export-group-su">
         <div class="export-group-header">📝 Schüler:in-Version (Selbsteinschätzung)</div>
         <div class="export-group-btns">
-          <button class="btn btn-su" onclick="exportBuilderDocx('su')">⬇ Word (.docx)</button>
-          <button class="btn btn-ghost" onclick="exportBuilderPdf('su')">⬇ PDF</button>
+          <button class="btn btn-su" onclick="exportBuilderDocx('su',this)">⬇ Word (.docx)</button>
+          <button class="btn btn-ghost" onclick="exportBuilderPdf('su',this)">⬇ PDF</button>
         </div>
       </div>`;
   }
   if (showLk && showSu) {
     grid.innerHTML += `
-      <button class="btn btn-primary" onclick="exportBuilderZip()" style="width:100%;">
+      <button class="btn btn-primary" onclick="exportBuilderZip(this)" style="width:100%;">
         📦 Alle Versionen als ZIP herunterladen
       </button>`;
   }
@@ -1302,40 +1302,62 @@ function getExportFilename() {
   return sanitizeFilename(input?.value || STATE.titel || 'Raster');
 }
 
-function exportBuilderDocx(version) {
-  const rasterData = buildCurrentRasterData();
-  const config = buildDocxConfigFromRaster(rasterData, version);
-  const filename = `${getExportFilename()}_${version === 'lk' ? 'Lehrkraft' : 'Schueler'}.docx`;
-  generateDocx(config, filename);
-}
-
-function exportBuilderPdf(version) {
-  const rasterData = buildCurrentRasterData();
-  const filename = `${getExportFilename()}_${version === 'lk' ? 'Lehrkraft' : 'Schueler'}.pdf`;
-  generatePdf(rasterData, version, filename);
-}
-
-async function exportBuilderZip() {
-  const rasterData = buildCurrentRasterData();
-  const baseName = getExportFilename();
-  const zip = new JSZip();
-
-  const versions = [];
-  if (STATE.perspektive !== 'su') versions.push('lk');
-  if (STATE.perspektive !== 'lk') versions.push('su');
-
-  for (const v of versions) {
-    const config = buildDocxConfigFromRaster(rasterData, v);
+function exportBuilderDocx(version, btn) {
+  const orig = btn ? btn.textContent : '';
+  if (btn) { btn.textContent = '⏳ Wird erstellt…'; btn.disabled = true; }
+  setTimeout(() => {
     try {
-      const blob = await generateDocxBlob(config);
-      zip.file(`${baseName}_${v === 'lk' ? 'Lehrkraft' : 'Schueler'}.docx`, blob);
-    } catch (e) {
-      console.error('DOCX Blob Fehler:', e);
+      const rasterData = buildCurrentRasterData();
+      const config = buildDocxConfigFromRaster(rasterData, version);
+      const filename = `${getExportFilename()}_${version === 'lk' ? 'Lehrkraft' : 'Schueler'}.docx`;
+      generateDocx(config, filename);
+    } finally {
+      if (btn) { btn.textContent = orig; btn.disabled = false; }
     }
-  }
+  }, 40);
+}
 
-  const content = await zip.generateAsync({ type: 'blob' });
-  triggerDownload(content, `${baseName}_Raster.zip`);
+function exportBuilderPdf(version, btn) {
+  const orig = btn ? btn.textContent : '';
+  if (btn) { btn.textContent = '⏳ Wird erstellt…'; btn.disabled = true; }
+  setTimeout(() => {
+    try {
+      const rasterData = buildCurrentRasterData();
+      const filename = `${getExportFilename()}_${version === 'lk' ? 'Lehrkraft' : 'Schueler'}.pdf`;
+      generatePdf(rasterData, version, filename);
+    } finally {
+      if (btn) { btn.textContent = orig; btn.disabled = false; }
+    }
+  }, 40);
+}
+
+async function exportBuilderZip(btn) {
+  const orig = btn ? btn.textContent : '';
+  if (btn) { btn.textContent = '⏳ Wird erstellt…'; btn.disabled = true; }
+  try {
+    const rasterData = buildCurrentRasterData();
+    const baseName = getExportFilename();
+    const zip = new JSZip();
+
+    const versions = [];
+    if (STATE.perspektive !== 'su') versions.push('lk');
+    if (STATE.perspektive !== 'lk') versions.push('su');
+
+    for (const v of versions) {
+      const config = buildDocxConfigFromRaster(rasterData, v);
+      try {
+        const blob = await generateDocxBlob(config);
+        zip.file(`${baseName}_${v === 'lk' ? 'Lehrkraft' : 'Schueler'}.docx`, blob);
+      } catch (e) {
+        console.error('DOCX Blob Fehler:', e);
+      }
+    }
+
+    const content = await zip.generateAsync({ type: 'blob' });
+    triggerDownload(content, `${baseName}_Raster.zip`);
+  } finally {
+    if (btn) { btn.textContent = orig; btn.disabled = false; }
+  }
 }
 
 // ============================================================
@@ -1860,10 +1882,23 @@ function toggleInfo(id) {
     bubble.classList.add('open');
     trigger.setAttribute('aria-expanded', 'true');
 
+    // Schließen-Button einmalig hinzufügen
+    if (!bubble.querySelector('.info-close-btn')) {
+      const cb = document.createElement('button');
+      cb.className = 'info-close-btn';
+      cb.innerHTML = '✕';
+      cb.setAttribute('aria-label', 'Schließen');
+      cb.addEventListener('click', (e) => { e.stopPropagation(); _closeAllInfoBubbles(); });
+      bubble.prepend(cb);
+    }
+
     // Bei nächstem Klick außerhalb schließen
     setTimeout(() => document.addEventListener('click', _infoOutsideHandler, { capture: true, once: true }), 0);
   }
 }
+
+// ESC schließt alle Info-Bubbles
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') _closeAllInfoBubbles(); });
 
 function _closeAllInfoBubbles() {
   document.querySelectorAll('.info-bubble.open').forEach(b => {

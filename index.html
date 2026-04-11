@@ -642,6 +642,7 @@
     <div id="rp-desc" style="padding:0.75rem 1.5rem; font-size:0.85rem; color:#6c757d; border-bottom:1px solid #dee2e6; flex-shrink:0;"></div>
     <div id="rp-body" style="padding:1.5rem; overflow-y:auto; flex:1;"></div>
     <div style="padding:1rem 1.5rem; border-top:1px solid #dee2e6; display:flex; justify-content:flex-end; gap:0.5rem; flex-shrink:0;">
+      <button onclick="copyPreviewLink(_rpCurrentId, this)" style="padding:0.5rem 1rem; background:#f8fafc; color:#64748b; border:1.5px solid #e2e8f0; border-radius:6px; cursor:pointer; font-size:0.875rem; font-weight:600;" title="Vorschau-Link kopieren">🔗 Vorschau teilen</button>
       <a id="rp-edit-link" href="#" class="rt-btn rt-edit" style="padding:0.5rem 1rem; font-size:0.85rem; text-decoration:none; border-radius:6px; border:1.5px solid #e2e8f0; background:#f8fafc; color:#64748b;">✏️ Im Builder anpassen</a>
       <button onclick="printRasterPreview()" style="padding:0.5rem 1rem; background:#f8fafc; color:#64748b; border:1.5px solid #e2e8f0; border-radius:6px; cursor:pointer; font-size:0.875rem; font-weight:600;">🖨 Drucken</button>
       <button onclick="closeRasterPreview()" style="padding:0.5rem 1rem; background:#3a6ea8; color:#fff; border:none; border-radius:6px; cursor:pointer; font-size:0.875rem; font-weight:600;">Schließen</button>
@@ -876,7 +877,7 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
     navigator.clipboard.writeText(url).then(() => {
       const rect = btn.getBoundingClientRect();
       const tip = document.createElement('span');
-      tip.textContent = 'Link zum Raster kopiert';
+      tip.textContent = 'Builder-Link kopiert';
       tip.style.cssText = 'position:fixed;background:#1e293b;color:#fff;font-size:0.72rem;font-family:inherit;'
         + 'padding:0.3rem 0.65rem;border-radius:6px;white-space:nowrap;pointer-events:none;z-index:9999;'
         + 'left:' + (rect.left + rect.width / 2) + 'px;'
@@ -888,6 +889,24 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
     }).catch(() => {
       prompt('Link kopieren:', url);
     });
+  }
+
+  function copyPreviewLink(id, btn) {
+    const base = window.location.href.replace(/[?#].*$/, '');
+    const url = base + '?preview=' + id;
+    navigator.clipboard.writeText(url).then(() => {
+      const rect = btn.getBoundingClientRect();
+      const tip = document.createElement('span');
+      tip.textContent = 'Vorschau-Link kopiert';
+      tip.style.cssText = 'position:fixed;background:#1e293b;color:#fff;font-size:0.72rem;font-family:inherit;'
+        + 'padding:0.3rem 0.65rem;border-radius:6px;white-space:nowrap;pointer-events:none;z-index:9999;'
+        + 'left:' + (rect.left + rect.width / 2) + 'px;'
+        + 'top:' + (rect.top - 36) + 'px;'
+        + 'transform:translateX(-50%);opacity:1;transition:opacity .35s;';
+      document.body.appendChild(tip);
+      setTimeout(() => { tip.style.opacity = '0'; }, 1000);
+      setTimeout(() => { document.body.removeChild(tip); }, 1350);
+    }).catch(() => { prompt('Link kopieren:', url); });
   }
 
   /* ── ZIP-Download ──────────────────────────────── */
@@ -1183,6 +1202,12 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
       editLink.textContent = '✏️';
       editLink.addEventListener('click', function(e) { e.stopPropagation(); });
       row1.appendChild(editLink);
+      const shareBtn = document.createElement('button');
+      shareBtn.className = 'rt-btn rt-share-preview';
+      shareBtn.title = 'Vorschau-Link teilen';
+      shareBtn.textContent = '🔗';
+      shareBtn.addEventListener('click', function(e) { e.stopPropagation(); copyPreviewLink(rec.id, shareBtn); });
+      row1.appendChild(shareBtn);
       actions.appendChild(row1);
 
       const row2 = document.createElement('div');
@@ -1218,6 +1243,16 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
     card.classList.toggle('open', open);
     card.setAttribute('aria-expanded', open ? 'true' : 'false');
   }
+
+  // ?preview=XX → Vorschau-Modal automatisch öffnen
+  (function() {
+    const params = new URLSearchParams(window.location.search);
+    const pid = params.get('preview');
+    if (pid) {
+      const padded = pid.length < 2 ? pid.padStart(2, '0') : pid;
+      setTimeout(() => openRasterPreview(padded), 120);
+    }
+  })();
 </script>
 
 </body>

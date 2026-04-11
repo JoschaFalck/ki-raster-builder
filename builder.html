@@ -323,6 +323,7 @@ Stelle mir jetzt **genau drei kurze Fragen**, nummeriert mit **1., 2., 3.**</tex
                 <label>Perspektive
                   <button class="info-trigger" data-info="info-perspektive" onclick="toggleInfo('info-perspektive')" aria-expanded="false" aria-label="Tipp: Wann welche Version?">💡</button>
                 </label>
+                <p class="form-hint-text">Wer bewertet? Lehrkraft oder Schüler:in (Selbsteinschätzung)</p>
                 <div id="info-perspektive" class="info-bubble">
                   <span class="info-title">Wann welche Version einsetzen?</span>
                   <strong>LK-Version</strong>: Fremdeinschätzung durch die Lehrkraft – für Bewertung und schriftliches Feedback.<br><br>
@@ -409,7 +410,7 @@ Stelle mir jetzt **genau drei kurze Fragen**, nummeriert mit **1., 2., 3.**</tex
             <!-- Hinweistext -->
             <h3 class="section-heading" id="hinweis-heading">💬 Hinweistext Lehrkraft (Fußzeile)</h3>
             <div class="hinweis-section">
-              <textarea id="raster-hinweis" rows="2" placeholder="Optionaler Hinweistext für die Fußzeile des Rasters …" oninput="onConfigChange()"></textarea>
+              <textarea id="raster-hinweis" rows="2" placeholder="z. B. „Dieses Raster bewertet die Prompt-Qualität, nicht die Fachleistung.“" oninput="onConfigChange()"></textarea>
               <label class="cc-checkbox">
                 <input type="checkbox" id="cc-checkbox" checked onchange="onConfigChange()" aria-label="CC-BY 4.0 Lizenzhinweis automatisch ergänzen">
                 CC-BY 4.0 Joscha Falck automatisch ergänzen

@@ -1628,3 +1628,13 @@ input[type="range"] {
   .raster-table { font-size: 8pt; }
   main { padding: 0; }
 }
+
+/* ── Builder: Hilfstext + Info-Bubble-Schließen ─────────── */
+.form-hint-text { font-size: 0.78rem; color: #64748b; margin: 0.1rem 0 0.4rem; line-height: 1.4; }
+.info-close-btn {
+  float: right; margin: -2px -2px 6px 10px;
+  background: none; border: none; cursor: pointer;
+  font-size: 0.82rem; color: #94a3b8; padding: 2px 6px;
+  border-radius: 4px; line-height: 1;
+}
+.info-close-btn:hover { background: #f1f5f9; color: #475569; }
