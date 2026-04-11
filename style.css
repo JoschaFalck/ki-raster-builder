@@ -1593,7 +1593,9 @@ input[type="range"] {
 @media (max-width: 768px) {
   html, body { overflow-x: hidden; }
   main { padding: 1.25rem 0 2rem; }
-  .page-intro { padding: 1.5rem 0; }
+  .page-intro { padding: 1.25rem 0; }
+  .page-intro-text h1 { font-size: 1.35rem; }
+  .page-intro-text p { font-size: 0.84rem; }
   .tiles-grid { grid-template-columns: repeat(2, 1fr); }
   .cards-grid { grid-template-columns: 1fr; }
   .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--color-lk); padding: 0.5rem; z-index: 101; }
