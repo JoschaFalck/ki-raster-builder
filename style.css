@@ -730,19 +730,19 @@ main {
   gap: 0.5rem;
   width: 100%;
   padding: 0.875rem 1.25rem;
-  background: none;
+  background: linear-gradient(135deg, #eef4fb 0%, #e8f3ee 100%);
   border: none;
   cursor: pointer;
   font-family: inherit;
   font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--color-text-muted);
+  font-weight: 700;
+  color: var(--color-lk);
   text-align: left;
   transition: background var(--transition), color var(--transition);
 }
 .sidebar-prompt-toggle:hover {
-  background: #f8f9fa;
-  color: var(--color-text);
+  background: linear-gradient(135deg, #e2ecf7 0%, #daeee6 100%);
+  color: var(--color-lk-title);
 }
 .sidebar-prompt-icon { font-size: 1rem; flex-shrink: 0; }
 .sidebar-prompt-chevron {
@@ -755,7 +755,7 @@ main {
   transform: rotate(180deg);
 }
 .sidebar-prompt-panel {
-  padding: 0 1.25rem 1rem;
+  padding: 0.85rem 1.25rem 1rem;
 }
 .sidebar-prompt-desc {
   font-size: 0.78rem;
