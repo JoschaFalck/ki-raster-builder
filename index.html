@@ -167,6 +167,26 @@
     .rp-s2 { background: #fff3e0 !important; }
     .rp-s3 { background: #e8f0fe !important; }
     .rp-s4 { background: #e8f5e9 !important; }
+    /* ─── Preview-Modal Mobile ──────────────────────────── */
+    @media (max-width: 640px) {
+      #raster-preview-backdrop { padding: 0.35rem !important; }
+      #rp-modal-box { max-height: 97vh !important; border-radius: 10px !important; }
+      #rp-header { padding: 0.65rem 0.9rem !important; gap: 0.5rem !important; flex-wrap: wrap; }
+      #rp-header h2 { font-size: 0.92rem !important; }
+      #rp-header > span { font-size: 0.62rem !important; }
+      .rp-tab { padding: 0.28rem 0.6rem !important; font-size: 0.76rem !important; }
+      #rp-body { padding: 0.65rem !important; }
+      .rp-preview-table { font-size: 0.71rem !important; }
+      .rp-preview-table th,
+      .rp-preview-table td { padding: 0.3rem 0.45rem !important; }
+      #rp-footer { padding: 0.6rem 0.75rem !important; flex-wrap: wrap !important;
+                   justify-content: stretch !important; gap: 0.4rem !important; }
+      #rp-footer button, #rp-footer a {
+        flex: 1 1 40% !important; text-align: center !important;
+        font-size: 0.75rem !important; padding: 0.45rem 0.4rem !important;
+        white-space: nowrap !important; justify-content: center !important;
+      }
+    }
 
     /* ─── Raster-Finder ─────────────────────────────── */
     .rf-wrap {
