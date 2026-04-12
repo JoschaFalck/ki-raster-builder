@@ -646,7 +646,7 @@ a.blog-card-item:hover { background: #e8f2fc; border-color: #93c5fd; }
     </div>
     <div id="rp-desc" style="display:none;"></div>
     <div id="rp-body" style="padding:1.5rem; overflow-y:auto; flex:1;"></div>
-    <div style="padding:1rem 1.5rem; border-top:1px solid #dee2e6; display:flex; justify-content:flex-end; gap:0.5rem; flex-shrink:0;">
+    <div id="rp-footer" style="padding:1rem 1.5rem; border-top:1px solid #dee2e6; display:flex; justify-content:flex-end; gap:0.5rem; flex-shrink:0;">
       <button onclick="copyPreviewLink(_rpCurrentId, this)" style="padding:0.5rem 1rem; background:#f8fafc; color:#64748b; border:1.5px solid #e2e8f0; border-radius:6px; cursor:pointer; font-size:0.875rem; font-weight:600;" title="Vorschau-Link in die Zwischenablage kopieren">🔗 Vorschau teilen</button>
       <button onclick="copyBuilderLink(this)" style="padding:0.5rem 1rem; background:#f8fafc; color:#64748b; border:1.5px solid #e2e8f0; border-radius:6px; cursor:pointer; font-size:0.875rem; font-weight:600;" title="Bearbeitungs-Link in die Zwischenablage kopieren">🔗 Bearbeitungs-Link teilen</button>
       <a id="rp-edit-link" href="#" class="rt-btn rt-edit" style="padding:0.5rem 1rem; font-size:0.85rem; text-decoration:none; border-radius:6px; border:1.5px solid #e2e8f0; background:#f8fafc; color:#64748b;">✏️ Raster anpassen</a>
@@ -807,11 +807,9 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
     document.getElementById('rp-desc').textContent = startTab === 'lk' ? (raw.hl || '') : (raw.hs || '');
     // Edit-Link wird in rpSetTab() mit der aktiven Perspektive gesetzt
 
-    // Tab-Buttons ein-/ausblenden je nach Filter
-    const tabLk = document.getElementById('rp-tab-lk');
-    const tabSu = document.getElementById('rp-tab-su');
-    tabLk.style.display = _currentFilter === 'su' ? 'none' : '';
-    tabSu.style.display = _currentFilter === 'lk' ? 'none' : '';
+    // Beide Tabs immer sichtbar – unabhängig vom aktiven Filter
+    document.getElementById('rp-tab-lk').style.display = '';
+    document.getElementById('rp-tab-su').style.display = '';
 
     rpSetTab(startTab);
     document.getElementById('raster-preview-backdrop').style.display = 'block';
