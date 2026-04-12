@@ -167,6 +167,19 @@
     .rp-s2 { background: #fff3e0 !important; }
     .rp-s3 { background: #e8f0fe !important; }
     .rp-s4 { background: #e8f5e9 !important; }
+    .rp-scroll-hint {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      font-size: 0.7rem;
+      color: #94a3b8;
+      margin-top: 0.5rem;
+      padding: 0.3rem 0;
+      border-top: 1px solid #f0f4f8;
+    }
+    .rp-scroll-hint::before { content: '←'; }
+    .rp-scroll-hint::after  { content: '→'; }
     /* ─── Preview-Modal Mobile ──────────────────────────── */
     @media (max-width: 640px) {
       #raster-preview-backdrop { padding: 0.35rem !important; }
@@ -186,6 +199,7 @@
         font-size: 0.75rem !important; padding: 0.45rem 0.4rem !important;
         white-space: nowrap !important; justify-content: center !important;
       }
+      .rp-scroll-hint { display: flex !important; }
     }
 
     /* ─── Raster-Finder ─────────────────────────────── */
@@ -881,6 +895,7 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
       html += `<p style="font-size:0.7rem; color:#666; margin-top:0.6rem; line-height:1.4;"><strong style="color:#444;">Hinweis:</strong> ${escHtml(hinweis)}</p>`;
     }
 
+    html += '<div class="rp-scroll-hint">Tabelle scrollbar</div>';
     document.getElementById('rp-body').innerHTML = html;
 
     // Edit-Link: Perspektive der aktiven Tab-Seite übergeben
