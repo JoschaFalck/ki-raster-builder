@@ -704,7 +704,7 @@ main {
   display: grid;
   grid-template-columns: 260px 1fr;
   gap: 2rem;
-  align-items: start;
+  align-items: stretch;
 }
 
 .wizard-sidebar {
