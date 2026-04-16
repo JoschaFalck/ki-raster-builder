@@ -335,17 +335,28 @@
     }
   
 /* ── Blog-Artikel-Links ─────────────────────────────────── */
-.blog-card { cursor: default !important; }
-.blog-card:hover { box-shadow: none !important; border-color: #c8ddf0 !important; }
+.blog-section {
+  margin-top: 1.5rem;
+  padding: 1.1rem 1.5rem;
+  background: linear-gradient(135deg, #f0f7ff 0%, #eaf4f0 100%);
+  border-radius: 14px;
+  border: 1px solid #c8ddf0;
+}
 .blog-headline { font-size: 1.15rem; font-weight: 700; color: #1e3a5f; margin: 0 0 0.2rem; line-height: 1.35; }
 .blog-subtext { font-size: 0.86rem; color: #4a6080; margin: 0 0 0.85rem; font-weight: 400; line-height: 1.4; }
 .blog-cards-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.65rem; }
+.blog-cards-row + .blog-cards-row { margin-top: 0.65rem; }
 .blog-card-item {
-  display: flex; flex-direction: column; gap: 0.25rem;
-  padding: 0.7rem 0.9rem; border-radius: 9px;
-  border: 1px solid #d0e6f8; background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 9px;
+  border: 1px solid #d0e6f8;
+  background: #fff;
   text-decoration: none;
   transition: background .15s, border-color .15s;
+  box-sizing: border-box;
 }
 a.blog-card-item:hover { background: #e8f2fc; border-color: #93c5fd; }
 .blog-card-item.soon { border-color: #e2e8f0; background: #f8fafc; cursor: default; pointer-events: none; }
@@ -644,7 +655,7 @@ a.blog-card-item:hover { background: #e8f2fc; border-color: #93c5fd; }
     </div><!-- /alle-raster-wrap -->
 
     <!-- ── Blog-Verweis ──────────────────────────────────────── -->
-    <div class="alle-wrap blog-card" style="margin-top:1.5rem; padding:1.1rem 1.5rem; flex-direction:column; align-items:stretch; cursor:default;">
+    <div class="blog-section">
       <p class="blog-headline">📖 Sie möchten mehr über die Hintergründe erfahren?</p>
       <p class="blog-subtext">Weiterführende Artikel zu KI-integrierenden Aufgaben, deren Reflexion und Bewertung</p>
       <div class="blog-cards-row">
