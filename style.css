@@ -664,7 +664,8 @@ main {
   text-align: center;
 }
 
-.raster-table .col-kriterium {
+.raster-table .col-kriterium,
+.raster-table thead th.col-kriterium {
   width: 16%;
   font-weight: 700;
   text-align: left;
