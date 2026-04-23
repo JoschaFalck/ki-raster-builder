@@ -1516,6 +1516,8 @@ input[type="range"] {
   z-index: 1050;
   width: 300px;
   max-width: calc(100vw - 2rem);
+  max-height: min(70vh, 420px);
+  overflow-y: auto;
   background: #FFFEF7;
   border: 1.5px solid #F0D060;
   border-left: 3px solid #D4AC0D;

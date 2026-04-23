@@ -304,7 +304,7 @@ function initBuilderPage() {
     WB.raster_fertig.forEach(r => {
       const opt = document.createElement('option');
       opt.value = r.id;
-      opt.textContent = `${r.id} \u2013 ${r.titel}`;
+      opt.textContent = `R${r.id} \u2013 ${r.titel}`;
       sel.appendChild(opt);
     });
     sel.addEventListener('change', onFertigRasterChange);
