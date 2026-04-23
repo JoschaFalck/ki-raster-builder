@@ -1534,6 +1534,15 @@ input[type="range"] {
   display: block;
   animation: fadeInStep 0.18s ease-out;
 }
+.info-bubble[data-inline].open {
+  position: static;
+  width: 100%;
+  max-width: 100%;
+  max-height: none;
+  overflow-y: visible;
+  overscroll-behavior: auto;
+  box-shadow: none;
+}
 .info-bubble strong { color: #7A5500; }
 .info-bubble ul { margin: 0.35rem 0 0.35rem 1.1rem; padding: 0; }
 .info-bubble li { margin-bottom: 0.2rem; }

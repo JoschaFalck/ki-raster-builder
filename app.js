@@ -2077,42 +2077,47 @@ function toggleInfo(id) {
   _closeAllInfoBubbles();
 
   if (!wasOpen) {
-    // Popup neben/unter dem Trigger positionieren
-    const rect = trigger.getBoundingClientRect();
-    const bw = 300;   // Bubble-Breite
-    const gap = 8;
+    // Inline-Bubble: direkt im Dokumentfluss anzeigen, kein Fixed-Positioning
+    if (bubble.dataset.inline) {
+      bubble.classList.add('open');
+      trigger.setAttribute('aria-expanded', 'true');
+    } else {
+      // Popup neben/unter dem Trigger positionieren
+      const rect = trigger.getBoundingClientRect();
+      const bw = 300;   // Bubble-Breite
+      const gap = 8;
 
-    let left = rect.left;
-    let top  = rect.bottom + gap;
+      let left = rect.left;
+      let top  = rect.bottom + gap;
 
-    // Am rechten Rand kappen
-    if (left + bw > window.innerWidth - 12) left = window.innerWidth - bw - 12;
-    if (left < 8) left = 8;
+      // Am rechten Rand kappen
+      if (left + bw > window.innerWidth - 12) left = window.innerWidth - bw - 12;
+      if (left < 8) left = 8;
 
-    // Wenn kein Platz unten: oberhalb anzeigen
-    const estimatedHeight = 220;
-    if (top + estimatedHeight > window.innerHeight - 12) {
-      top = rect.top - estimatedHeight - gap;
+      // Wenn kein Platz unten: oberhalb anzeigen
+      const estimatedHeight = 220;
+      if (top + estimatedHeight > window.innerHeight - 12) {
+        top = rect.top - estimatedHeight - gap;
+      }
+
+      bubble.style.left = left + 'px';
+      bubble.style.top  = top  + 'px';
+      bubble.classList.add('open');
+      trigger.setAttribute('aria-expanded', 'true');
+
+      // Schließen-Button einmalig hinzufügen
+      if (!bubble.querySelector('.info-close-btn')) {
+        const cb = document.createElement('button');
+        cb.className = 'info-close-btn';
+        cb.innerHTML = '✕';
+        cb.setAttribute('aria-label', 'Schließen');
+        cb.addEventListener('click', (e) => { e.stopPropagation(); _closeAllInfoBubbles(); });
+        bubble.prepend(cb);
+      }
+
+      // Bei nächstem Klick außerhalb schließen
+      setTimeout(() => document.addEventListener('click', _infoOutsideHandler, { capture: true, once: true }), 0);
     }
-
-    bubble.style.left = left + 'px';
-    bubble.style.top  = top  + 'px';
-    bubble.classList.add('open');
-    trigger.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-
-    // Schließen-Button einmalig hinzufügen
-    if (!bubble.querySelector('.info-close-btn')) {
-      const cb = document.createElement('button');
-      cb.className = 'info-close-btn';
-      cb.innerHTML = '✕';
-      cb.setAttribute('aria-label', 'Schließen');
-      cb.addEventListener('click', (e) => { e.stopPropagation(); _closeAllInfoBubbles(); });
-      bubble.prepend(cb);
-    }
-
-    // Bei nächstem Klick außerhalb schließen
-    setTimeout(() => document.addEventListener('click', _infoOutsideHandler, { capture: true, once: true }), 0);
   }
 }
 
@@ -2125,7 +2130,6 @@ function _closeAllInfoBubbles() {
     const t = document.querySelector(`[data-info="${b.id}"]`);
     if (t) t.setAttribute('aria-expanded', 'false');
   });
-  document.body.style.overflow = '';
 }
 
 function _infoOutsideHandler(e) {
