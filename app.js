@@ -49,6 +49,9 @@ const STATE = {
   hinweis_su: '',          // Separate SuS-Fußzeile (wird beim Laden eines Fertig-Rasters gesetzt)
   ccBy: true,
 
+  // Mixer (Schritt 1 – dritte Option)
+  mixerKriterien: [],      // Temporär gesammelte Kriterien aus dem Mixer
+
   // Vorschau
   previewVersion: 'beide',
 };
@@ -322,6 +325,9 @@ function initBuilderPage() {
     });
   }
 
+  // Mixer-Akkordeon aufbauen
+  initMixerPanel();
+
   // Standard-Kriterien anlegen
   initDefaultKriterien();
 
@@ -381,7 +387,7 @@ function selectStartOption(option) {
   STATE.startOption = option;
 
   // Karten-Status
-  ['fertig', 'neu'].forEach(o => {
+  ['fertig', 'neu', 'mixer'].forEach(o => {
     const el = document.getElementById('opt-' + o);
     if (el) {
       el.classList.toggle('selected', o === option);
@@ -394,9 +400,11 @@ function selectStartOption(option) {
   const sub = document.getElementById('sub-' + option);
   if (sub) sub.classList.add('visible');
 
-  // Für "neu" direkt freigeben; "fertig" erst nach Raster-Auswahl
+  // Freigabe-Logik je Option
   if (option === 'neu') {
     enableStep1Next(true);
+  } else if (option === 'mixer') {
+    enableStep1Next(STATE.mixerKriterien.length >= 1);
   } else {
     enableStep1Next(false);
   }
@@ -498,9 +506,219 @@ function applyStartOption() {
     } else {
       initDefaultKriterien();
     }
+  } else if (STATE.startOption === 'mixer') {
+    applyMixerKriterien();
   } else {
     initDefaultKriterien();
   }
+}
+
+// ============================================================
+// KRITERIEN-MIXER
+// ============================================================
+
+/**
+ * Baut das Raster-Akkordeon für den Mixer aus der Wissensbasis auf.
+ * Wird einmalig bei initBuilderPage() aufgerufen.
+ */
+function initMixerPanel() {
+  const accordion = document.getElementById('mixer-accordion');
+  if (!accordion || !WB) return;
+
+  WB.raster_fertig.forEach(raster => {
+    const item = document.createElement('div');
+    item.className = 'mixer-raster-item';
+    item.setAttribute('role', 'listitem');
+
+    const header = document.createElement('button');
+    header.className = 'mixer-raster-header';
+    header.setAttribute('aria-expanded', 'false');
+    header.setAttribute('aria-controls', 'mixer-raster-body-' + raster.id);
+    header.innerHTML =
+      '<span class="mixer-raster-num">R' + escapeHtml(raster.id) + '</span>' +
+      '<span class="mixer-raster-title">' + escapeHtml(raster.titel) + '</span>' +
+      '<span class="mixer-raster-chevron" aria-hidden="true">\u25be</span>';
+    header.addEventListener('click', function() { toggleMixerRaster(raster.id); });
+
+    const body = document.createElement('div');
+    body.className = 'mixer-raster-body';
+    body.id = 'mixer-raster-body-' + raster.id;
+    body.hidden = true;
+
+    raster.kriterien.forEach(function(kriterium, idx) {
+      const critItem = document.createElement('div');
+      critItem.className = 'mixer-criterion-item';
+      critItem.id = 'mixer-crit-' + raster.id + '-' + idx;
+
+      critItem.innerHTML =
+        '<div class="mixer-criterion-header">' +
+          '<button class="mixer-crit-expand"' +
+            ' onclick="toggleMixerKriterium(\'' + raster.id + '\',' + idx + ')"' +
+            ' aria-expanded="false"' +
+            ' aria-controls="mixer-crit-detail-' + raster.id + '-' + idx + '">' +
+            '<span class="mixer-crit-chevron" aria-hidden="true">\u25b8</span>' +
+            '<span class="mixer-crit-name">' + escapeHtml(kriterium.name) + '</span>' +
+          '</button>' +
+          '<button class="mixer-crit-add"' +
+            ' onclick="addMixerCriterion(\'' + raster.id + '\',' + idx + ')"' +
+            ' id="mixer-add-' + raster.id + '-' + idx + '"' +
+            ' aria-label="' + escapeHtml(kriterium.name) + ' hinzuf\u00fcgen"' +
+            ' title="Hinzuf\u00fcgen">+</button>' +
+        '</div>' +
+        '<div class="mixer-crit-detail" id="mixer-crit-detail-' + raster.id + '-' + idx + '" hidden>' +
+          '<div class="mixer-stage mixer-s1"><strong>S1:</strong> ' + escapeHtml(kriterium.lk.s1) + '</div>' +
+          '<div class="mixer-stage mixer-s2"><strong>S2:</strong> ' + escapeHtml(kriterium.lk.s2) + '</div>' +
+          '<div class="mixer-stage mixer-s3"><strong>S3:</strong> ' + escapeHtml(kriterium.lk.s3) + '</div>' +
+          '<div class="mixer-stage mixer-s4"><strong>S4:</strong> ' + escapeHtml(kriterium.lk.s4) + '</div>' +
+        '</div>';
+
+      body.appendChild(critItem);
+    });
+
+    item.appendChild(header);
+    item.appendChild(body);
+    accordion.appendChild(item);
+  });
+}
+
+/** Öffnet/schließt ein Raster im Akkordeon. */
+function toggleMixerRaster(rasterId) {
+  const body = document.getElementById('mixer-raster-body-' + rasterId);
+  if (!body) return;
+  const header = body.previousElementSibling;
+  const isOpen = !body.hidden;
+  body.hidden = isOpen;
+  if (header) {
+    header.setAttribute('aria-expanded', String(!isOpen));
+    const chevron = header.querySelector('.mixer-raster-chevron');
+    if (chevron) chevron.textContent = isOpen ? '\u25be' : '\u25b4';
+  }
+}
+
+/** Öffnet/schließt die Stufenvorschau eines Kriteriums. */
+function toggleMixerKriterium(rasterId, idx) {
+  const detail = document.getElementById('mixer-crit-detail-' + rasterId + '-' + idx);
+  const btn = document.querySelector('#mixer-crit-' + rasterId + '-' + idx + ' .mixer-crit-expand');
+  if (!detail) return;
+  const isOpen = !detail.hidden;
+  detail.hidden = isOpen;
+  const chevron = btn && btn.querySelector('.mixer-crit-chevron');
+  if (chevron) chevron.textContent = isOpen ? '\u25b8' : '\u25be';
+  if (btn) btn.setAttribute('aria-expanded', String(!isOpen));
+}
+
+/**
+ * Fügt ein Kriterium aus einem fertigen Raster zum Mixer-Korb hinzu.
+ * @param {string} rasterId
+ * @param {number} idx
+ */
+function addMixerCriterion(rasterId, idx) {
+  const uid = rasterId + '-' + idx;
+  if (STATE.mixerKriterien.some(function(k) { return k._uid === uid; })) return;
+
+  const raster = WB.raster_fertig.find(function(r) { return r.id === rasterId; });
+  if (!raster) return;
+  const kriterium = raster.kriterien[idx];
+  if (!kriterium) return;
+
+  STATE.mixerKriterien.push({
+    _uid: uid,
+    id: generateId(),
+    name: kriterium.name,
+    lk: { s1: kriterium.lk.s1, s2: kriterium.lk.s2, s3: kriterium.lk.s3, s4: kriterium.lk.s4, s5: '', s6: '' },
+    su: { s1: kriterium.su.s1, s2: kriterium.su.s2, s3: kriterium.su.s3, s4: kriterium.su.s4, s5: '', s6: '' },
+  });
+  renderMixerBasket();
+}
+
+/** Entfernt ein Kriterium aus dem Mixer-Korb. */
+function removeMixerCriterion(uid) {
+  STATE.mixerKriterien = STATE.mixerKriterien.filter(function(k) { return k._uid !== uid; });
+  renderMixerBasket();
+}
+
+/** Fügt ein eigenes (leeres) Kriterium über das Freitextfeld hinzu. */
+function addCustomMixerCriterion() {
+  const input = document.getElementById('mixer-custom-name');
+  const name = input ? input.value.trim() : '';
+  if (!name) return;
+
+  STATE.mixerKriterien.push({
+    _uid: 'custom-' + generateId(),
+    id: generateId(),
+    name: name,
+    lk: { s1: '', s2: '', s3: '', s4: '', s5: '', s6: '' },
+    su: { s1: '', s2: '', s3: '', s4: '', s5: '', s6: '' },
+  });
+  if (input) input.value = '';
+  renderMixerBasket();
+}
+
+/** Aktualisiert die Korb-Anzeige und den Zustand der + Buttons im Akkordeon. */
+function renderMixerBasket() {
+  const list = document.getElementById('mixer-basket-list');
+  const countEl = document.getElementById('mixer-basket-count');
+  if (!list) return;
+
+  const count = STATE.mixerKriterien.length;
+  if (countEl) countEl.textContent = count + (count === 1 ? ' Kriterium' : ' Kriterien');
+
+  list.innerHTML = '';
+  if (count === 0) {
+    list.innerHTML = '<p class="mixer-empty-state">Noch keine Kriterien ausgew\u00e4hlt.<br><span style="font-size:0.78rem;">\u00ab+\u00bb neben einem Kriterium klicken.</span></p>';
+  } else {
+    STATE.mixerKriterien.forEach(function(k) {
+      const isCustom = k._uid.indexOf('custom-') === 0;
+      const sourceBadge = isCustom ? 'Eigenes' : 'R' + k._uid.split('-')[0];
+      const item = document.createElement('div');
+      item.className = 'mixer-basket-item';
+      item.innerHTML =
+        '<span class="mixer-basket-source' + (isCustom ? ' mixer-source-custom' : '') + '">' +
+          escapeHtml(sourceBadge) +
+        '</span>' +
+        '<span class="mixer-basket-name" title="' + escapeHtml(k.name) + '">' + escapeHtml(k.name) + '</span>' +
+        '<button class="mixer-basket-remove"' +
+          ' onclick="removeMixerCriterion(\'' + k._uid + '\')"' +
+          ' aria-label="' + escapeHtml(k.name) + ' entfernen"' +
+          ' title="Entfernen">\u00d7</button>';
+      list.appendChild(item);
+    });
+  }
+
+  // + Buttons im Akkordeon: Status (hinzugefügt / nicht hinzugefügt) aktualisieren
+  document.querySelectorAll('.mixer-crit-add').forEach(function(btn) {
+    const parts = btn.id.replace('mixer-add-', '').split('-');
+    const uid = parts[0] + '-' + parts[1];
+    const isAdded = STATE.mixerKriterien.some(function(k) { return k._uid === uid; });
+    btn.classList.toggle('added', isAdded);
+    btn.textContent = isAdded ? '\u2713' : '+';
+    btn.disabled = isAdded;
+  });
+
+  enableStep1Next(count >= 1);
+}
+
+/**
+ * Überträgt die im Mixer gesammelten Kriterien in STATE.kriterien
+ * und bereitet Schritt 2 vor.
+ */
+function applyMixerKriterien() {
+  STATE.kriterien = STATE.mixerKriterien.map(function(k) {
+    return {
+      id: k.id,
+      name: k.name,
+      lk: { s1: k.lk.s1, s2: k.lk.s2, s3: k.lk.s3, s4: k.lk.s4, s5: '', s6: '' },
+      su: { s1: k.su.s1, s2: k.su.s2, s3: k.su.s3, s4: k.su.s4, s5: '', s6: '' },
+    };
+  });
+  STATE.hinweis = '';
+  STATE.hinweis_su = '';
+  STATE.titel = '';
+  const hinweisInput = document.getElementById('raster-hinweis');
+  if (hinweisInput) hinweisInput.value = '';
+  const titelInput = document.getElementById('raster-titel');
+  if (titelInput) { titelInput.value = ''; updateCharCount(titelInput); }
+  renderCriteria();
 }
 
 /**

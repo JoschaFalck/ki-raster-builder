@@ -236,6 +236,18 @@ Stelle mir jetzt **genau drei kurze Fragen**, nummeriert mit **1., 2., 3.**</tex
 
             </div>
 
+            <!-- Option C: Kriterien-Mixer (volle Breite) -->
+            <button class="start-option start-option-mixer" id="opt-mixer" onclick="selectStartOption('mixer')" aria-pressed="false">
+              <div class="start-option-mixer-inner">
+                <div class="start-option-icon">🔀</div>
+                <div>
+                  <h3>Kriterien kombinieren</h3>
+                  <p>Einzelne Kriterien aus verschiedenen Rastern zusammenstellen und zu einem neuen Raster mischen.</p>
+                </div>
+              </div>
+              <span class="mixer-new-badge">Neu</span>
+            </button>
+
             <!-- Sub: Fertiges Raster wählen -->
             <div class="start-sub" id="sub-fertig">
               <label for="select-fertig-raster">Fertiges Raster auswählen:</label>
@@ -265,6 +277,30 @@ Stelle mir jetzt **genau drei kurze Fragen**, nummeriert mit **1., 2., 3.**</tex
               <div id="sub-neu-idee" style="display:none;">
                 <p class="text-sm text-muted" style="margin-bottom:0.5rem;">Wählen Sie eine Kategorie als Ausgangspunkt:</p>
                 <div class="pool-grid" id="pool-topics-grid" role="group" aria-label="Themen auswählen"></div>
+              </div>
+            </div>
+
+            <!-- Sub: Kriterien-Mixer -->
+            <div class="start-sub" id="sub-mixer">
+              <div class="mixer-layout">
+                <!-- Akkordeon: 11 Raster mit ihren Kriterien -->
+                <div class="mixer-accordion" id="mixer-accordion" role="list" aria-label="Kriterien nach Raster"></div>
+
+                <!-- Korb: ausgewählte Kriterien -->
+                <div class="mixer-basket">
+                  <div class="mixer-basket-header">
+                    <span class="mixer-basket-title">Mein Raster</span>
+                    <span class="mixer-basket-count" id="mixer-basket-count">0 Kriterien</span>
+                  </div>
+                  <div id="mixer-basket-list" class="mixer-basket-list">
+                    <p class="mixer-empty-state">Noch keine Kriterien ausgewählt.<br><span style="font-size:0.78rem;">«+» neben einem Kriterium klicken.</span></p>
+                  </div>
+                  <div class="mixer-custom-form">
+                    <label for="mixer-custom-name" style="font-size:0.81rem; font-weight:600; margin-bottom:0.35rem; display:block; color:var(--color-text-muted);">Eigenes Kriterium</label>
+                    <input type="text" id="mixer-custom-name" placeholder="Name des Kriteriums …" maxlength="60" autocomplete="off" onkeydown="if(event.key==='Enter'){event.preventDefault();addCustomMixerCriterion();}">
+                    <button class="btn btn-secondary btn-sm" onclick="addCustomMixerCriterion()" style="width:100%; margin-top:0.3rem;">+ Hinzufügen</button>
+                  </div>
+                </div>
               </div>
             </div>
 
