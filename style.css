@@ -1667,17 +1667,6 @@ input[type="range"] {
 }
 .start-option-mixer-inner h3 { margin-bottom: 0.2rem; }
 .start-option-mixer-inner p  { margin-bottom: 0; }
-.mixer-new-badge {
-  background: var(--color-lk);
-  color: #fff;
-  font-size: 0.68rem;
-  font-weight: 700;
-  padding: 0.15rem 0.5rem;
-  border-radius: 20px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  flex-shrink: 0;
-}
 
 /* Mixer-Layout: Akkordeon links, Korb rechts */
 .mixer-layout {
@@ -1715,12 +1704,16 @@ input[type="range"] {
 .mixer-raster-header:hover { background: var(--color-lk-light); }
 .mixer-raster-num {
   font-size: 0.7rem;
-  font-weight: 700;
-  color: #fff;
-  background: var(--color-lk);
-  padding: 0.1rem 0.35rem;
+  font-weight: 600;
+  color: var(--color-lk-title);
+  background: var(--color-lk-light);
+  border: 1px solid #c5d8f0;
+  padding: 0.1rem 0;
+  width: 2.6rem;
+  text-align: center;
   border-radius: var(--radius-sm);
   flex-shrink: 0;
+  display: inline-block;
 }
 .mixer-raster-title { flex: 1; }
 .mixer-raster-chevron { color: var(--color-text-muted); font-size: 0.78rem; transition: transform var(--transition); }
