@@ -2099,6 +2099,7 @@ function toggleInfo(id) {
     bubble.style.top  = top  + 'px';
     bubble.classList.add('open');
     trigger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
 
     // Schließen-Button einmalig hinzufügen
     if (!bubble.querySelector('.info-close-btn')) {
@@ -2124,6 +2125,7 @@ function _closeAllInfoBubbles() {
     const t = document.querySelector(`[data-info="${b.id}"]`);
     if (t) t.setAttribute('aria-expanded', 'false');
   });
+  document.body.style.overflow = '';
 }
 
 function _infoOutsideHandler(e) {
