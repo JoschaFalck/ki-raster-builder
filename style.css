@@ -1519,6 +1519,7 @@ input[type="range"] {
   max-width: calc(100vw - 2rem);
   max-height: min(70vh, 420px);
   overflow-y: auto;
+  overscroll-behavior: contain;
   background: #FFFEF7;
   border: 1.5px solid #F0D060;
   border-left: 3px solid #D4AC0D;
