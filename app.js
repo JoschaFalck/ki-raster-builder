@@ -2084,7 +2084,7 @@ function toggleInfo(id) {
     } else {
       // Popup neben/unter dem Trigger positionieren
       const rect = trigger.getBoundingClientRect();
-      const bw = 300;   // Bubble-Breite
+      const bw = 420;   // Bubble-Breite
       const gap = 8;
 
       let left = rect.left;

@@ -1515,7 +1515,7 @@ input[type="range"] {
   display: none;
   position: fixed;
   z-index: 1050;
-  width: 300px;
+  width: 420px;
   max-width: calc(100vw - 2rem);
   max-height: min(70vh, 420px);
   overflow-y: auto;
