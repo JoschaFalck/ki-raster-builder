@@ -776,18 +776,40 @@ function updateBaButton(raster) {
   }
 
   // Bubble-Inhalt aufbauen
-  const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  let html = '<span class="info-title">📋 Beispielaufgabe – ' + esc(raster.titel) + '</span>';
+  const esc     = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const escAttr = s => String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  let html = '<span class="info-title">📋 Beispielaufgabe</span>';
   html += '<div class="ba-meta">';
   html += '<span class="ba-fach">' + esc(ba.fach) + '</span>';
   html += '<span class="ba-jg">Klasse ' + esc(ba.jahrgangsstufe) + '</span>';
   html += '</div>';
+  html += '<div class="ba-aufgabe-wrap">';
   html += '<blockquote class="ba-aufgabe">' + esc(ba.aufgabe) + '</blockquote>';
+  html += '<button class="ba-copy-btn" data-text="' + escAttr(ba.aufgabe) + '" onclick="baCopyAufgabe(this)">📋 Aufgabe kopieren</button>';
+  html += '</div>';
   html += '<details><summary>Didaktische Begründung</summary>';
   html += '<p>' + esc(ba.begruendung) + '</p></details>';
 
   bubble.innerHTML = html;
   wrap.style.display = '';
+}
+
+function baCopyAufgabe(btn) {
+  const text = btn.dataset.text;
+  const orig = btn.innerHTML;
+  const done = () => { btn.innerHTML = '✓ Kopiert!'; btn.disabled = true;
+    setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; }, 2000); };
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(done).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta); done();
+    });
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta); done();
+  }
 }
 
 /**

@@ -746,7 +746,7 @@ a.blog-card-item:hover { background: #e8f2fc; border-color: #93c5fd; }
     <div id="rp-footer" style="padding:1rem 1.5rem; border-top:1px solid #dee2e6; display:flex; justify-content:flex-end; gap:0.5rem; flex-shrink:0;">
       <button onclick="copyPreviewLink(_rpCurrentId, this)" style="padding:0.5rem 1rem; background:#f8fafc; color:#64748b; border:1.5px solid #e2e8f0; border-radius:6px; cursor:pointer; font-size:0.875rem; font-weight:600;" title="Vorschau-Link in die Zwischenablage kopieren">🔗 Vorschau teilen</button>
       <button onclick="copyBuilderLink(this)" style="padding:0.5rem 1rem; background:#f8fafc; color:#64748b; border:1.5px solid #e2e8f0; border-radius:6px; cursor:pointer; font-size:0.875rem; font-weight:600;" title="Bearbeitungs-Link in die Zwischenablage kopieren">🔗 Bearbeitungs-Link teilen</button>
-      <a id="rp-edit-link" href="#" class="rt-btn rt-edit" style="padding:0.5rem 1rem; font-size:0.85rem; text-decoration:none; border-radius:6px; border:1.5px solid #e2e8f0; background:#f8fafc; color:#64748b;">✏️ Raster anpassen</a>
+      <a id="rp-edit-link" href="#" class="rt-btn rt-edit" style="padding:0.5rem 1rem; font-size:0.85rem; text-decoration:none; border-radius:6px; border:1.5px solid #e2e8f0; background:#f8fafc; color:#64748b;">✏️ Im Builder öffnen</a>
       <button onclick="printRasterPreview()" style="padding:0.5rem 1rem; background:#f8fafc; color:#64748b; border:1.5px solid #e2e8f0; border-radius:6px; cursor:pointer; font-size:0.875rem; font-weight:600;">🖨 Drucken</button>
       <button onclick="closeRasterPreview()" style="padding:0.5rem 1rem; background:#3a6ea8; color:#fff; border:none; border-radius:6px; cursor:pointer; font-size:0.875rem; font-weight:600;">Schließen</button>
     </div>
@@ -951,10 +951,12 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
       html += '<span class="rp-ba-fach">' + escHtml(ba.fach) + '</span>';
       html += '<span class="rp-ba-jg">Klasse ' + escHtml(ba.jahrgangsstufe) + '</span>';
       html += '</div>';
+      html += '<div class="rp-ba-aufgabe-wrap">';
       html += '<blockquote class="rp-ba-aufgabe">' + escHtml(ba.aufgabe) + '</blockquote>';
+      html += '<button class="rp-ba-copy-btn" data-text="' + escAttr(ba.aufgabe) + '" onclick="rpCopyAufgabe(this)">📋 Aufgabe kopieren</button>';
+      html += '</div>';
       html += '<details class="rp-ba-details"><summary>Didaktische Begr\u00fcndung</summary>';
       html += '<p>' + escHtml(ba.begruendung) + '</p></details>';
-      html += '<p class="rp-ba-hint">Diese Aufgabe passt zum Raster <strong>' + escHtml(raw.titel) + '</strong>.</p>';
       html += '</div>';
       document.getElementById('rp-body').innerHTML = html;
       if (editLink && _rpCurrentId) editLink.href = 'builder.html?raster=' + _rpCurrentId + '&perspektive=lk';
@@ -1002,6 +1004,26 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
   function escHtml(str) {
     return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
+  function escAttr(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+  function rpCopyAufgabe(btn) {
+    const text = btn.dataset.text;
+    navigator.clipboard.writeText(text).then(() => {
+      const orig = btn.innerHTML;
+      btn.innerHTML = '✓ Kopiert!';
+      btn.disabled = true;
+      setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; }, 2000);
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      const orig = btn.innerHTML; btn.innerHTML = '✓ Kopiert!';
+      btn.disabled = true;
+      setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; }, 2000);
+    });
+  }
+
 
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeRasterPreview();
