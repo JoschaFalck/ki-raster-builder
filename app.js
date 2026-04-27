@@ -752,6 +752,28 @@ function loadRasterIntoBuilder(rasterId) {
   STATE.hinweis_su = raster.hinweis_su || '';
 
   renderCriteria();
+
+  // Sidebar-Beispielaufgaben-Link anzeigen, wenn ba vorhanden
+  updateSidebarBaLink(rasterId, raster);
+}
+
+/**
+ * Zeigt/versteckt den Sidebar-Link zur Beispielaufgabe.
+ * @param {string} rasterId
+ * @param {object} raster - raster-Objekt aus WB (optional)
+ */
+function updateSidebarBaLink(rasterId, raster) {
+  const linkWrap = document.getElementById('sidebar-ba-link');
+  const anchor   = document.getElementById('sidebar-ba-anchor');
+  if (!linkWrap || !anchor) return;
+
+  const r = raster || (WB && WB.raster_fertig ? WB.raster_fertig.find(x => x.id === rasterId) : null);
+  if (r && r.beispielaufgabe) {
+    anchor.href = 'index.html?preview=' + encodeURIComponent(rasterId) + '&tab=ba';
+    linkWrap.style.display = '';
+  } else {
+    linkWrap.style.display = 'none';
+  }
 }
 
 /**

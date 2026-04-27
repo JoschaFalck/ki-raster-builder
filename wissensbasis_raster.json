@@ -109,7 +109,13 @@
         }
       ],
       "hinweis_lk": "Dieses Raster bewertet die Qualität des Promptens im Rahmen einer KI-gestützten Aufgabe. Es ergänzt fachinhaltliche Bewertungskriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck",
-      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck"
+      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck",
+      "beispielaufgabe": {
+        "aufgabe": "Du hast bereits einen ersten Entwurf für eine Kurzgeschichte zum Thema „Erster Schultag“ geschrieben. Jetzt soll eine KI dir helfen, ihn zu verbessern. Formuliere einen Prompt, mit dem du die KI gezielt um Überarbeitungsvorschläge bittest. Lies die Antwort der KI, passe deinen Prompt danach mindestens einmal gezielt an und erkläre in zwei bis drei Sätzen, was du verändert hast und warum.",
+        "fach": "Deutsch",
+        "jahrgangsstufe": "7",
+        "begruendung": "Die Aufgabe stellt den eigenen Entwurf in den Mittelpunkt – die KI dient der Überarbeitung, nicht der Ideenlieferung. Das verlangt einen kontextreichen, zielgerichteten Prompt, einen bewussten Iterationsschritt und Reflexion – alle vier Kriterien von Raster 01. Schreibdidaktisch bleibt die Eigenleistung das Fundament."
+      }
     },
     {
       "id": "02",
@@ -179,7 +185,13 @@
         }
       ],
       "hinweis_lk": "Dieses Raster bewertet die Qualität der Dokumentation eines KI-gestützten Arbeitsprozesses. Es ergänzt fachinhaltliche Bewertungskriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck",
-      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck"
+      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck",
+      "beispielaufgabe": {
+        "aufgabe": "Ihr bereitet mithilfe einer KI ein Referat über die Ursachen des Ersten Weltkriegs vor. Nutzt die KI für verschiedene Teilaufgaben: Recherche, Gliederung, Formulierungsvorschläge für einzelne Abschnitte. Haltet euren gesamten Arbeitsprozess schriftlich fest: Notiert jeden Prompt, beschreibt kurz die jeweilige KI-Antwort und erklärt, welche Inhalte ihr übernommen, verworfen oder verändert habt. Schreibt am Ende einen kurzen Reflexionsabsatz: Bei welchem Schritt hat die KI gut geholfen – und wo musstet ihr selbst urteilen und entscheiden?",
+        "fach": "Geschichte / GPG",
+        "jahrgangsstufe": "9",
+        "begruendung": "Die Referat-Vorbereitung verlangt mehrere inhaltlich unterschiedliche Prompts für verschiedene Teilaufgaben. Das macht den Dokumentationsprozess reichhaltig und inhaltlich bedeutsam – und aktiviert alle vier Kriterien von Raster 02: Vollständigkeit, Struktur & Nachvollziehbarkeit, Prompt-Dokumentation und Prozessreflexion."
+      }
     },
     {
       "id": "03",
@@ -249,7 +261,13 @@
         }
       ],
       "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, Ergebnisse der KI kritisch zu analysieren, Fehler zu erkennen und Grenzen einzuschätzen. CC-BY 4.0 Joscha Falck",
-      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck"
+      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck",
+      "beispielaufgabe": {
+        "aufgabe": "Die KI hat zum Thema „Fake News in sozialen Medien“ folgenden Informationstext geschrieben. Lest ihn sorgfältig durch. Markiert anschließend drei Stellen, die euch ungenau, fehlerhaft oder zu oberflächlich erscheinen, und erklärt in einem kurzen Text, warum ihr diese Stellen kritisieren würdet.",
+        "fach": "Deutsch",
+        "jahrgangsstufe": "8",
+        "begruendung": "Die Aufgabe erzwingt genaues Lesen eines KI-Outputs, das Erkennen von Grenzen (Fehleridentifikation, Qualitätseinschätzung) und eine begründete Analyse – alle vier Kriterien von Raster 03. Das Thema Fake News erhöht die didaktische Passung: Schüler:innen erleben unmittelbar, dass auch KI-generierte Texte unzuverlässig oder vereinfachend sein können."
+      }
     },
     {
       "id": "04",
@@ -319,7 +337,13 @@
         }
       ],
       "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, Ergebnisse der KI kriteriengestützt zu bewerten und begründete Auswahlentscheidungen zu treffen. CC-BY 4.0 Joscha Falck",
-      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck"
+      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck",
+      "beispielaufgabe": {
+        "aufgabe": "Für eure Projektarbeit zum Thema Fotosynthese braucht ihr einen verständlichen Infotext, der in der Ausstellung eurer Klasse gezeigt werden soll. Eine KI hat dazu drei verschiedene Texte erstellt: einen für Grundschulkinder, einen für eure Altersgruppe und einen für ein Fachpublikum. Lest alle drei und entscheidet: Welcher eignet sich am besten für eure Ausstellung? Bewertet jeden Text anhand von zwei selbst gewählten Kriterien und begründet eure Wahl – und erklärt auch, warum die anderen beiden nicht passen.",
+        "fach": "Biologie",
+        "jahrgangsstufe": "8",
+        "begruendung": "Die konkrete Verwendungssituation (Ausstellung für die eigene Altersgruppe) macht die Auswahlentscheidung begründbar und kontextgebunden. Die drei Texte mit unterschiedlichen Intentionen erzwingen kriteriengeleitetes Bewerten, Auswahlkompetenz, eine begründete Entscheidung und eigenständiges Urteilen – alle vier Kriterien von Raster 04."
+      }
     },
     {
       "id": "05",
@@ -389,7 +413,13 @@
         }
       ],
       "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, Ergebnisse der KI gezielt und qualitätsorientiert zu überarbeiten und den Eigenanteil dabei sichtbar zu machen. CC-BY 4.0 Joscha Falck",
-      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck"
+      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck",
+      "beispielaufgabe": {
+        "aufgabe": "Eine KI hat zum Thema „Social media – useful or harmful?“ einen kurzen Argumentationstext auf Englisch geschrieben. Lest ihn durch und überarbeitet ihn: Verbessert mindestens drei konkrete Stellen (z. B. Formulierungen, Argumente, Aufbau) und fügt mindestens ein eigenes Argument hinzu, das im KI-Text noch fehlt. Notiert zu jeder Änderung einen Satz, warum ihr sie vorgenommen habt.",
+        "fach": "Englisch",
+        "jahrgangsstufe": "9",
+        "begruendung": "Die Aufgabe fordert tiefes Eingreifen in den KI-Text (nicht nur Korrekturen), einen sichtbaren Eigenleistungsanteil durch das neue Argument, eine bewusste Überarbeitungsstrategie und explizite Begründungen – alle vier Kriterien von Raster 05. Der englischsprachige Kontext macht sprachliche Eigenleistung direkt messbar."
+      }
     },
     {
       "id": "06",
@@ -459,7 +489,13 @@
         }
       ],
       "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, KI-gestützte und eigenständige Arbeitsprozesse gezielt zu vergleichen und daraus Schlüsse zu ziehen. CC-BY 4.0 Joscha Falck",
-      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck"
+      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck",
+      "beispielaufgabe": {
+        "aufgabe": "Wählt ein aktuelles Thema, das euch interessiert. Schreibt zunächst eine kurze Stellungnahme (ca. 150 Wörter) vollständig ohne KI. Verfasst danach eine zweite Stellungnahme zum selben Thema – diesmal mit KI-Unterstützung. Vergleicht beide Texte gezielt: Worin unterscheiden sie sich? Was ist besser geworden, was schlechter? Zieht eine Schlussfolgerung: Wann lohnt sich KI-Hilfe bei dieser Art Aufgabe – und wann eher nicht?",
+        "fach": "Fachunabhängig",
+        "jahrgangsstufe": "9–10",
+        "begruendung": "Die Verdoppelung der Aufgabe (ohne/mit KI) erzwingt einen direkten Produktvergleich, Reflexion konkreter Unterschiede, eine begründete Bewertung des KI-Mehrwerts und eine Schlussfolgerung mit Transfercharakter – alle vier Kriterien von Raster 06. Durch die freie Themenwahl entsteht echte Eigenverantwortung."
+      }
     },
     {
       "id": "07",
@@ -529,7 +565,13 @@
         }
       ],
       "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, den eigenen KI-gestützten Lernprozess zu beobachten, zu reflektieren und daraus Konsequenzen zu ziehen. CC-BY 4.0 Joscha Falck",
-      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck"
+      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck",
+      "beispielaufgabe": {
+        "aufgabe": "Du hast in den letzten drei Wochen in verschiedenen Aufgaben mit KI gearbeitet. Schreibe einen kurzen Reflexionstext (ca. 200 Wörter): Was hast du dabei über dein eigenes Arbeiten gelernt? Wo hat KI dir geholfen – und wo hat sie dich eher behindert oder verleitet? Was würdest du beim nächsten Mal anders machen?",
+        "fach": "Fachunabhängig",
+        "jahrgangsstufe": "ab Klasse 7",
+        "begruendung": "Die Aufgabe aktiviert alle vier Kriterien von Raster 07: Selbstwahrnehmung, Prozessreflexion, Lernzuwachs und Transferfähigkeit. Sie funktioniert ohne spezifischen Fachinhalt und eignet sich als Abschlussaufgabe einer Einheit oder als Lerntagebucheintrag."
+      }
     },
     {
       "id": "08",
@@ -599,7 +641,13 @@
         }
       ],
       "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, situations- und aufgabenbezogen zu beurteilen, ob und wie der Einsatz von KI sinnvoll ist. CC-BY 4.0 Joscha Falck",
-      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck"
+      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck",
+      "beispielaufgabe": {
+        "aufgabe": "Euch werden vier Unterrichtssituationen beschrieben: (1) Eine Mathematikaufgabe, bei der der Rechenweg bewertet wird. (2) Ein Kreativauftrag, bei dem ihr ein eigenes Gedicht schreibt. (3) Eine Rechercheaufgabe zu einem aktuellen Ereignis. (4) Die Vorbereitung eines Referats über ein historisches Thema. Entscheidet für jede Situation: Ist KI-Einsatz hier sinnvoll, eingeschränkt sinnvoll oder nicht sinnvoll? Begründet jede Entscheidung mit einem konkreten Argument.",
+        "fach": "Fachunabhängig",
+        "jahrgangsstufe": "9–10",
+        "begruendung": "Die vier verschiedenen Situationen erzwingen differenzierte Situationseinschätzungen, das Erkennen von Stärken und Grenzen je Kontext, begründetes Urteilen und eine Urteilsqualität, die über Ja/Nein hinausgeht – alle vier Kriterien von Raster 08. Die Aufgabe eignet sich besonders zur Diskussion im Plenum."
+      }
     },
     {
       "id": "09",
@@ -669,7 +717,13 @@
         }
       ],
       "hinweis_lk": "Dieses Raster bewertet den verantwortungsvollen Umgang mit KI im Hinblick auf Transparenz, Datenschutz, Urheberrecht und ethische Reflexion. CC-BY 4.0 Joscha Falck",
-      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck"
+      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck",
+      "beispielaufgabe": {
+        "aufgabe": "Lena muss für die Schule ein Bewerbungsschreiben als Übungsaufgabe abgeben. Sie tippt ihren echten Lebenslauf mit Name, Adresse und Telefonnummer in eine KI ein, damit diese ihr einen Entwurf schreibt. Den fertigen Text gibt sie direkt ab, ohne zu erwähnen, dass eine KI daran beteiligt war. Analysiert Lenas Vorgehen: Welche ethischen Regeln hat sie eingehalten – und welche nicht? Begründet jeden Punkt. Schreibt abschließend in zwei bis drei Sätzen, wie Lena hätte vorgehen sollen – und warum.",
+        "fach": "Ethik / WiB",
+        "jahrgangsstufe": "7–8",
+        "begruendung": "Das Fallbeispiel thematisiert direkt Datenschutz (persönliche Daten), Transparenz & Kennzeichnung und Urheberrecht & Eigenleistung. Die abschließende Frage nach dem richtigen Vorgehen aktiviert die Ethische Reflexion als eigenständigen Schritt – alle vier Kriterien von Raster 09. Die konkrete Figur „Lena“ macht das Thema für Klasse 7–8 greifbar, ohne moralisierend zu wirken."
+      }
     },
     {
       "id": "10",
@@ -739,7 +793,13 @@
         }
       ],
       "hinweis_lk": "Dieses Raster bewertet den reflektierten KI-Einsatz über einen längeren Zeitraum im Rahmen eines Portfolios oder Lernprozesses. CC-BY 4.0 Joscha Falck",
-      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck"
+      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck",
+      "beispielaufgabe": {
+        "aufgabe": "Ihr führt über vier Wochen ein KI-Portfolio. Dokumentiert in dieser Zeit mindestens fünf verschiedene Situationen, in denen ihr KI eingesetzt habt – aus verschiedenen Fächern oder Lebensbereichen. Haltet pro Eintrag fest: Was war die Aufgabe, wie habt ihr KI eingesetzt, was hat gut funktioniert und was nicht? Schreibt am Ende einen Abschlussreflexionstext (ca. 250 Wörter): Wie hat sich euer Umgang mit KI in diesen vier Wochen verändert?",
+        "fach": "Fachunabhängig",
+        "jahrgangsstufe": "9–10",
+        "begruendung": "Die Aufgabe verlangt Kontinuität & Vielfalt (5 Einträge, verschiedene Kontexte), zeigt die Kompetenzentwicklung über Zeit, fordert Reflexionstiefe (pro Eintrag + Abschluss) und Eigenverantwortung & Planung durch die selbstständige Führung über Wochen – alle vier Kriterien von Raster 10."
+      }
     },
     {
       "id": "11",
@@ -809,7 +869,13 @@
         }
       ],
       "hinweis_lk": "Dieses Raster bewertet die Fähigkeit, den Einsatz von KI für eine Aufgabe gezielt zu planen, bevor mit der Arbeit begonnen wird. CC-BY 4.0 Joscha Falck",
-      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck"
+      "hinweis_su": "Dieses Raster dient der Selbsteinschätzung in Bezug auf eine KI-integrierende Aufgabenstellung. Es ergänzt fachliche Kriterien, ersetzt diese aber nicht. CC-BY 4.0 Joscha Falck",
+      "beispielaufgabe": {
+        "aufgabe": "Ihr sollt mithilfe einer KI eine kurze Kurzbiografie über eine historische Person eurer Wahl verfassen (z. B. Marie Curie, Otto von Bismarck, Rosa Parks). Bevor ihr die KI startet: Erstellt einen schriftlichen Plan. Beantwortet dabei folgende Fragen: Was genau soll die KI für euch tun? Welches Ziel verfolgt ihr mit dem Text? Wie könnte euer erster Prompt aussehen? Wo könnte die KI euch enttäuschen oder falsch liegen? Erst wenn der Plan fertig ist, dürft ihr die KI tatsächlich nutzen.",
+        "fach": "Fächerübergreifend",
+        "jahrgangsstufe": "6–7",
+        "begruendung": "Die Aufgabe erzwingt Aufgabenanalyse, Zielsetzung, Prompt-Planung und die Antizipation von Grenzen als explizite Planungsschritte – alle vier Kriterien von Raster 11. Die Wahrscheinlichkeit ist hoch, dass die KI Details erfindet oder vereinfacht – was die Antizipation von Grenzen praxisnah macht. Variante: Statt einer historischen Person kann auch eine Bild-KI eingesetzt werden, die das Erscheinungsbild einer Person visualisiert."
+      }
     }
   ],
   "kriterien_pool": {

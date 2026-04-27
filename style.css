@@ -721,6 +721,23 @@ main {
 }
 
 /* Sidebar: KI-Prompt-Box */
+.sidebar-ba-btn {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #3d7a27;
+  text-decoration: none;
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+  background: #edf7e8;
+  border: 1px solid #b8e0a4;
+  text-align: center;
+  transition: background .15s, color .15s;
+}
+.sidebar-ba-btn:hover {
+  background: #d6f0c8;
+  color: #2a5c1a;
+}
 .sidebar-prompt-box {
   border-top: 1px solid var(--color-border);
   margin-top: 0.75rem;
