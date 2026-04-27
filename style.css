@@ -1914,8 +1914,8 @@ input[type="range"] {
   font-size: 0.82rem;
   font-weight: 600;
   color: #fff !important;
-  background: #4a7a32 !important;
-  border: 1.5px solid #3a6222 !important;
+  background: #2D7A68 !important;
+  border: 1.5px solid #1e6555 !important;
   border-radius: 6px !important;
   cursor: pointer;
   font-family: inherit;
@@ -1925,12 +1925,12 @@ input[type="range"] {
   min-width: 0 !important;
   transform: none !important;
 }
-.info-trigger-ba:hover { background: #3a6222 !important; }
-.info-trigger-ba[aria-expanded="true"] { background: #3a6222 !important; border-color: #2a4a18 !important; }
+.info-trigger-ba:hover { background: #1e6555 !important; }
+.info-trigger-ba[aria-expanded="true"] { background: #1e6555 !important; border-color: #155040 !important; }
 
 /* Grüne Info-Bubble für Beispielaufgabe */
 .info-bubble-ba {
-  width: 540px !important;
+  width: 700px !important;
   max-height: min(65vh, 420px) !important;
   background: #f7fbf4 !important;
   border: 1.5px solid #b8e0a4 !important;
