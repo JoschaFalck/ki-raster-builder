@@ -364,6 +364,15 @@ Stelle mir jetzt **genau drei kurze Fragen**, nummeriert mit **1., 2., 3.**</tex
                 <input type="text" id="raster-fach-custom" placeholder="z.B. Ethik, Erdkunde, Sport …"
                   style="display:none; margin-top:0.4rem;"
                   oninput="onConfigChange()" autocomplete="off">
+                <!-- Beispielaufgabe-Button (nur sichtbar wenn ba geladen) -->
+                <div id="ba-btn-wrap" style="display:none; margin-top:auto; padding-top:0.5rem;">
+                  <button class="info-trigger-ba" id="ba-trigger" data-info="info-ba" onclick="toggleInfo('info-ba')" aria-expanded="false" aria-label="Beispielaufgabe zu diesem Raster ansehen">
+                    📋 Beispielaufgabe
+                  </button>
+                  <div id="info-ba" class="info-bubble info-bubble-ba" data-bw="700">
+                    <!-- Inhalt wird per JS befüllt -->
+                  </div>
+                </div>
               </div>
               <div class="form-group">
                 <label for="raster-jahrgang">Jahrgangsstufe</label>
@@ -391,16 +400,6 @@ Stelle mir jetzt **genau drei kurze Fragen**, nummeriert mit **1., 2., 3.**</tex
                   <button class="toggle-option" id="persp-lk" onclick="setPerspektive('lk')" aria-pressed="false">Lehrkraft</button>
                   <button class="toggle-option su" id="persp-su" onclick="setPerspektive('su')" aria-pressed="false">Schüler:in</button>
                 </div>
-              </div>
-            </div>
-
-            <!-- Beispielaufgabe-Button (nur sichtbar wenn ba geladen) -->
-            <div id="ba-btn-wrap" style="display:none; margin-top:0.5rem;">
-              <button class="info-trigger-ba" id="ba-trigger" data-info="info-ba" onclick="toggleInfo('info-ba')" aria-expanded="false" aria-label="Beispielaufgabe zu diesem Raster ansehen">
-                📋 Beispielaufgabe
-              </button>
-              <div id="info-ba" class="info-bubble info-bubble-ba" data-bw="700">
-                <!-- Inhalt wird per JS befüllt -->
               </div>
             </div>
 
