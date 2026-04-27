@@ -492,7 +492,7 @@ a.blog-card-item:hover { background: #e8f2fc; border-color: #93c5fd; }
     <div class="alle-wrap" id="alle-wrap" onclick="toggleAlleRaster()" role="button" tabindex="0" aria-expanded="false">
       <div>
         <h2 class="rf-headline" style="margin-bottom:0.2rem;">🗂️ Sie möchten alle 11 Raster sehen?</h2>
-        <p class="rf-subline" style="margin:0;">Alle fertigen Bewertungsraster auf einen Blick – mit Vorschau und Download.</p>
+        <p class="rf-subline" style="margin:0;">Alle fertigen Bewertungsraster auf einen Blick – mit Vorschau, Beispielaufgabe und Download.</p>
       </div>
       <span class="alle-wrap-arrow" id="alle-toggle-arrow">▼</span>
     </div>
@@ -954,7 +954,7 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
       html += '<blockquote class="rp-ba-aufgabe">' + escHtml(ba.aufgabe) + '</blockquote>';
       html += '<details class="rp-ba-details"><summary>Didaktische Begr\u00fcndung</summary>';
       html += '<p>' + escHtml(ba.begruendung) + '</p></details>';
-      html += '<p class="rp-ba-hint">Diese Aufgabe ist auf das Raster <strong>' + escHtml(raw.titel) + '</strong> abgestimmt\u00a0\u2013 Backwards Design: erst Bewertungsraster, dann Aufgabe.</p>';
+      html += '<p class="rp-ba-hint">Diese Aufgabe passt zum Raster <strong>' + escHtml(raw.titel) + '</strong>.</p>';
       html += '</div>';
       document.getElementById('rp-body').innerHTML = html;
       if (editLink && _rpCurrentId) editLink.href = 'builder.html?raster=' + _rpCurrentId + '&perspektive=lk';
@@ -1178,14 +1178,6 @@ window.RASTER_INDEX = [{"id":"01","slug":"prompt-qualitaet","titel":"Prompt-Qual
       actions.appendChild(zipRow);
     }
 
-    // Badge "💡 Beispielaufgabe" hinzufügen, wenn ba-Daten vorhanden
-    const riEntry = window.RASTER_INDEX && window.RASTER_INDEX.find(r => r.id === id);
-    if (riEntry && riEntry.ba && numEl) {
-      const badge = document.createElement('span');
-      badge.className = 'rt-example-badge';
-      badge.textContent = '💡 Beispiel';
-      numEl.parentNode.insertBefore(badge, numEl.nextSibling);
-    }
   });
 
   /* ─────────────────────────────────────────────────── */

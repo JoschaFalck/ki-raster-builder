@@ -50,13 +50,6 @@
           <span>Vorschau &amp; Export</span>
         </div>
 
-        <!-- Beispielaufgabe-Link (nur sichtbar wenn Raster mit ba geladen) -->
-        <div id="sidebar-ba-link" style="display:none; padding:0.6rem 1rem; border-bottom:1px solid var(--color-border);">
-          <a id="sidebar-ba-anchor" href="index.html" class="sidebar-ba-btn" title="Beispielaufgabe zu diesem Raster ansehen">
-            💡 Beispielaufgabe ansehen
-          </a>
-        </div>
-
         <!-- KI-Prompt-Tipp -->
         <div class="sidebar-prompt-box">
           <button class="sidebar-prompt-toggle" onclick="toggleSidebarPrompt()" aria-expanded="false" id="sidebar-prompt-btn">
@@ -402,6 +395,16 @@ Stelle mir jetzt **genau drei kurze Fragen**, nummeriert mit **1., 2., 3.**</tex
             </div>
 
             <hr class="section-divider">
+
+            <!-- Beispielaufgabe-Button (nur sichtbar wenn ba geladen) -->
+            <div id="ba-btn-wrap" style="display:none; margin-bottom:0.75rem;">
+              <button class="info-trigger info-trigger-ba" id="ba-trigger" data-info="info-ba" onclick="toggleInfo('info-ba')" aria-expanded="false" aria-label="Beispielaufgabe zu diesem Raster ansehen">
+                📋 Beispielaufgabe
+              </button>
+              <div id="info-ba" class="info-bubble info-bubble-ba" data-bw="560">
+                <!-- Inhalt wird per JS befüllt -->
+              </div>
+            </div>
 
             <!-- Bewertungssystem -->
             <details id="bewertung-section">

@@ -501,14 +501,17 @@ function applyStartOption() {
   if (STATE.startOption === 'fertig' && STATE.selectedRasterId) {
     loadRasterIntoBuilder(STATE.selectedRasterId);
   } else if (STATE.startOption === 'neu') {
+    updateBaButton(null); // Button verstecken
     if (STATE.startNeuMode === 'idee' && STATE.selectedPoolTopic) {
       loadPoolTopicIntoBuilder(STATE.selectedPoolTopic);
     } else {
       initDefaultKriterien();
     }
   } else if (STATE.startOption === 'mixer') {
+    updateBaButton(null); // Button verstecken
     applyMixerKriterien();
   } else {
+    updateBaButton(null);
     initDefaultKriterien();
   }
 }
@@ -753,27 +756,38 @@ function loadRasterIntoBuilder(rasterId) {
 
   renderCriteria();
 
-  // Sidebar-Beispielaufgaben-Link anzeigen, wenn ba vorhanden
-  updateSidebarBaLink(rasterId, raster);
+  // Beispielaufgabe-Button in Schritt 2 befüllen und zeigen
+  updateBaButton(raster);
 }
 
 /**
- * Zeigt/versteckt den Sidebar-Link zur Beispielaufgabe.
- * @param {string} rasterId
- * @param {object} raster - raster-Objekt aus WB (optional)
+ * Zeigt/versteckt den Beispielaufgabe-Button und füllt die Bubble.
+ * @param {object} raster - raster-Objekt aus WB
  */
-function updateSidebarBaLink(rasterId, raster) {
-  const linkWrap = document.getElementById('sidebar-ba-link');
-  const anchor   = document.getElementById('sidebar-ba-anchor');
-  if (!linkWrap || !anchor) return;
+function updateBaButton(raster) {
+  const wrap    = document.getElementById('ba-btn-wrap');
+  const bubble  = document.getElementById('info-ba');
+  if (!wrap || !bubble) return;
 
-  const r = raster || (WB && WB.raster_fertig ? WB.raster_fertig.find(x => x.id === rasterId) : null);
-  if (r && r.beispielaufgabe) {
-    anchor.href = 'index.html?preview=' + encodeURIComponent(rasterId) + '&tab=ba';
-    linkWrap.style.display = '';
-  } else {
-    linkWrap.style.display = 'none';
+  const ba = raster && raster.beispielaufgabe;
+  if (!ba) {
+    wrap.style.display = 'none';
+    return;
   }
+
+  // Bubble-Inhalt aufbauen
+  const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  let html = '<span class="info-title">📋 Beispielaufgabe – ' + esc(raster.titel) + '</span>';
+  html += '<div class="ba-meta">';
+  html += '<span class="ba-fach">' + esc(ba.fach) + '</span>';
+  html += '<span class="ba-jg">Klasse ' + esc(ba.jahrgangsstufe) + '</span>';
+  html += '</div>';
+  html += '<blockquote class="ba-aufgabe">' + esc(ba.aufgabe) + '</blockquote>';
+  html += '<details><summary>Didaktische Begründung</summary>';
+  html += '<p>' + esc(ba.begruendung) + '</p></details>';
+
+  bubble.innerHTML = html;
+  wrap.style.display = '';
 }
 
 /**
@@ -2106,7 +2120,7 @@ function toggleInfo(id) {
     } else {
       // Popup neben/unter dem Trigger positionieren
       const rect = trigger.getBoundingClientRect();
-      const bw = 420;   // Bubble-Breite
+      const bw = parseInt(bubble.dataset.bw || '420', 10);   // Bubble-Breite (data-bw überschreibt Default)
       const gap = 8;
 
       let left = rect.left;
