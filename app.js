@@ -2169,7 +2169,7 @@ function _closeAllInfoBubbles() {
 }
 
 function _infoOutsideHandler(e) {
-  if (e.target.closest('.info-bubble') || e.target.closest('.info-trigger')) {
+  if (e.target.closest('.info-bubble') || e.target.closest('.info-trigger') || e.target.closest('.info-trigger-ba')) {
     // Klick war innerhalb – Listener wieder anhängen
     setTimeout(() => document.addEventListener('click', _infoOutsideHandler, { capture: true, once: true }), 0);
   } else {

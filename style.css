@@ -721,61 +721,6 @@ main {
 }
 
 /* Sidebar: KI-Prompt-Box */
-/* Beispielaufgabe-Button (blau, in Schritt 2) */
-.info-trigger-ba {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.35rem 0.85rem;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #fff;
-  background: #3a6ea8;
-  border: 1.5px solid #2d5a8a;
-  border-radius: 6px;
-  cursor: pointer;
-  font-family: inherit;
-  transition: background .15s;
-  width: auto;
-  height: auto;
-  min-width: 0;
-  border-radius: 6px;
-}
-.info-trigger-ba:hover { background: #2d5a8a; }
-.info-trigger-ba[aria-expanded="true"] { background: #2d5a8a; }
-
-/* Blaue Info-Bubble für Beispielaufgabe */
-.info-bubble-ba {
-  width: 560px;
-  max-height: min(65vh, 400px);
-  background: #f0f7ff;
-  border: 1.5px solid #93c5fd;
-  border-left: 3px solid #3a6ea8;
-}
-.info-bubble-ba strong { color: #1e4e8c; }
-.info-bubble-ba .info-title { color: #1e4e8c; }
-.info-bubble-ba .ba-meta { display: flex; gap: 0.4rem; margin-bottom: 0.6rem; flex-wrap: wrap; }
-.info-bubble-ba .ba-fach,
-.info-bubble-ba .ba-jg {
-  font-size: 0.74rem; font-weight: 700; padding: 0.15rem 0.55rem;
-  border-radius: 20px; background: #dbeafe; color: #1e4e8c; border: 1px solid #93c5fd;
-}
-.info-bubble-ba .ba-jg { background: #eff6ff; }
-.info-bubble-ba .ba-aufgabe {
-  margin: 0 0 0.75rem 0; padding: 0.75rem 0.9rem;
-  border-left: 3px solid #3a6ea8; border-radius: 0 6px 6px 0;
-  background: #fff; font-size: 0.83rem; line-height: 1.6; color: #1e293b;
-  white-space: pre-wrap;
-}
-.info-bubble-ba details summary {
-  cursor: pointer; font-size: 0.79rem; font-weight: 700;
-  color: #2d5a8a; padding: 0.3rem 0; user-select: none;
-}
-.info-bubble-ba details p {
-  margin: 0.4rem 0 0 0; font-size: 0.79rem; line-height: 1.55;
-  color: #475569; padding: 0.6rem 0.75rem;
-  background: #eff6ff; border-radius: 5px; border: 1px solid #bfdbfe;
-}
 .sidebar-prompt-box {
   border-top: 1px solid var(--color-border);
   margin-top: 0.75rem;
@@ -1958,4 +1903,97 @@ input[type="range"] {
 @media (max-width: 640px) {
   .mixer-layout { grid-template-columns: 1fr; }
   .start-option-mixer { flex-wrap: wrap; }
+}
+
+/* ─── Beispielaufgabe-Button & Bubble (grün, nach info-trigger/info-bubble) ─── */
+.info-trigger-ba {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.38rem 0.9rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #fff !important;
+  background: #4a7a32 !important;
+  border: 1.5px solid #3a6222 !important;
+  border-radius: 6px !important;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .15s;
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  transform: none !important;
+}
+.info-trigger-ba:hover { background: #3a6222 !important; }
+.info-trigger-ba[aria-expanded="true"] { background: #3a6222 !important; border-color: #2a4a18 !important; }
+
+/* Grüne Info-Bubble für Beispielaufgabe */
+.info-bubble-ba {
+  width: 540px !important;
+  max-height: min(65vh, 420px) !important;
+  background: #f7fbf4 !important;
+  border: 1.5px solid #b8e0a4 !important;
+  border-left: 3px solid #5e9e42 !important;
+  color: #1e293b;
+}
+.info-bubble-ba .info-title {
+  display: block;
+  font-weight: 700;
+  font-size: 0.84rem;
+  color: #3d7a27 !important;
+  margin-bottom: 0.75rem;
+}
+.info-bubble-ba .ba-meta {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.65rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.info-bubble-ba .ba-fach,
+.info-bubble-ba .ba-jg {
+  font-size: 0.73rem;
+  font-weight: 700;
+  padding: 0.15rem 0.55rem;
+  border-radius: 20px;
+  background: #edf7e8;
+  color: #3d7a27;
+  border: 1px solid #b8e0a4;
+  white-space: nowrap;
+}
+.info-bubble-ba .ba-jg { background: #f0f7eb; color: #4a7a32; }
+.info-bubble-ba .ba-aufgabe {
+  display: block;
+  margin: 0 0 0.8rem 0;
+  padding: 0.7rem 0.85rem;
+  border-left: 3px solid #5e9e42;
+  border-radius: 0 6px 6px 0;
+  background: #fff;
+  font-size: 0.81rem;
+  line-height: 1.6;
+  color: #1e293b;
+  white-space: pre-wrap;
+}
+.info-bubble-ba details { margin-top: 0; }
+.info-bubble-ba details summary {
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #4a7a32;
+  padding: 0.3rem 0;
+  user-select: none;
+  list-style: none;
+}
+.info-bubble-ba details summary::before { content: '▶ '; font-size: 0.65rem; }
+.info-bubble-ba details[open] summary::before { content: '▼ '; }
+.info-bubble-ba details p {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: #475569;
+  padding: 0.6rem 0.75rem;
+  background: #edf7e8;
+  border-radius: 5px;
+  border: 1px solid #b8e0a4;
 }

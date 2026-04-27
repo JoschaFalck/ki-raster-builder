@@ -155,7 +155,7 @@
     .rp-tab.active { background: #3a6ea8; color: #fff; border-color: #3a6ea8; }
     .rp-tab-ba.active { background: #5e9e42; border-color: #5e9e42; }
     /* ─── Beispiel-Tab Content ──────────────────────── */
-    .rp-ba-wrap { max-width: 700px; }
+    .rp-ba-wrap { width: 100%; }
     .rp-ba-meta { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
     .rp-ba-fach, .rp-ba-jg {
       display: inline-block; font-size: 0.78rem; font-weight: 700;
@@ -741,7 +741,7 @@ a.blog-card-item:hover { background: #e8f2fc; border-color: #93c5fd; }
       </div>
       <button onclick="closeRasterPreview()" style="background:none; border:none; cursor:pointer; font-size:1.25rem; color:#666; padding:0.25rem 0.5rem; border-radius:6px; line-height:1;">✕</button>
     </div>
-    <div id="rp-desc" style="display:none;"></div>
+    <div id="rp-desc" style="display:none; padding:0.6rem 1.5rem 0; font-size:0.78rem; color:#64748b; line-height:1.5;"></div>
     <div id="rp-body" style="padding:1.5rem; overflow-y:auto; flex:1;"></div>
     <div id="rp-footer" style="padding:1rem 1.5rem; border-top:1px solid #dee2e6; display:flex; justify-content:flex-end; gap:0.5rem; flex-shrink:0;">
       <button onclick="copyPreviewLink(_rpCurrentId, this)" style="padding:0.5rem 1rem; background:#f8fafc; color:#64748b; border:1.5px solid #e2e8f0; border-radius:6px; cursor:pointer; font-size:0.875rem; font-weight:600;" title="Vorschau-Link in die Zwischenablage kopieren">🔗 Vorschau teilen</button>
